@@ -2,7 +2,9 @@
 
 ---
 **Description:** A Claude Code slash command skill that automatically scans GenAI and agentic codebases against the OWASP GenAI Data Security Risks and Mitigations 2026 (v1.0) specification, covering all 21 DSGAI risk controls across the full GenAI data lifecycle.
+
 **Based on:** OWASP GenAI Data Security Risks and Mitigations 2026 (v1.0, March 2026) — https://owasp.org/www-project-top-10-for-large-language-model-applications/
+
 **Privacy:** Your source code never leaves your machine — only package names and versions are sent to public CVE databases during live enrichment. See README for full details.
 
 **Changelog:**
