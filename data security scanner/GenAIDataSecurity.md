@@ -1,13 +1,9 @@
 # /GenAIDataSecurity — OWASP GenAI Data Security Compliance Report
 
 ---
-
-**Author:** Harish Ramachandran
-**Version:** v0.1
-**Date:** April 2026
 **Description:** A Claude Code slash command skill that automatically scans GenAI and agentic codebases against the OWASP GenAI Data Security Risks and Mitigations 2026 (v1.0) specification, covering all 21 DSGAI risk controls across the full GenAI data lifecycle.
 **Based on:** OWASP GenAI Data Security Risks and Mitigations 2026 (v1.0, March 2026) — https://owasp.org/www-project-top-10-for-large-language-model-applications/
-**Contact:** Harish Ramachandran
+**Privacy:** Your source code never leaves your machine — only package names and versions are sent to public CVE databases during live enrichment. See README for full details.
 
 **Changelog:**
 
@@ -70,6 +66,8 @@ Build a table: `Package | Version | Language`. If version is unpinned (e.g., `>=
 ---
 
 ### Sub-step B: Query Live Vulnerability Sources
+
+**Parallel execution:** Fire all CVE source queries simultaneously — send OSV, NVD, and GitHub Advisory requests as parallel tool calls in a single message. Do not wait for one source to complete before starting the next. This reduces CVE enrichment time from sequential minutes to a single round-trip.
 
 Query all five sources below for each package in the inventory. Run all sources and deduplicate results by CVE ID (keep highest-confidence entry, note all sources).
 
@@ -507,9 +505,58 @@ Also identify:
 
 ## Step 2: Scan for DSGAI Issues
 
+**Parallel execution:** Run all 21 DSGAI grep scans simultaneously — send all scan commands as parallel tool calls in a single message batch. Do not wait for one control's scan to finish before starting the next. Split the 21 controls into three batches of 7 if your tool runner has a per-message limit, otherwise fire all at once. This reduces scan time from 20+ sequential minutes to approximately 2–5 minutes.
+
+**Batch A (run in parallel):** DSGAI01, DSGAI02, DSGAI03, DSGAI04, DSGAI05, DSGAI06, DSGAI07
+**Batch B (run in parallel):** DSGAI08, DSGAI09, DSGAI10, DSGAI11, DSGAI12, DSGAI13, DSGAI14
+**Batch C (run in parallel):** DSGAI15, DSGAI16, DSGAI17, DSGAI18, DSGAI19, DSGAI20, DSGAI21
+
 For each DSGAI risk, scan the relevant files. Use the patterns below.
 
-### DSGAI01 Scan — Training Data Privacy
+---
+
+### Evidence Classification — Structural vs Value-Bearing
+
+Every scan below is classified as either **[STRUCTURAL]** or **[VALUE-BEARING ⚠️]**. This classification controls how the matched grep output is handled when you write the evidence block in Step 4.
+
+**[STRUCTURAL]** — The grep match shows a code pattern: a function call, a missing import, a missing decorator, or an architectural gap. The matched line does not contain a runtime secret or personal data. It is safe to reproduce the full matched line in the evidence block.
+
+**[VALUE-BEARING ⚠️]** — The grep pattern specifically targets lines where the matched content IS a credential, API key, secret, connection string, or data that could contain PII in a real codebase. The actual value found — regardless of whether it looks like a demo or test value — must **never** appear in the report evidence block.
+
+For VALUE-BEARING scans, the evidence block must use this format instead:
+```
+<file>:<line> — <pattern description> detected (value redacted — review file directly)
+```
+
+**Classification table:**
+
+| DSGAI Control | Classification | Why |
+|---|---|---|
+| DSGAI01 | STRUCTURAL | Looks for presence/absence of scrubbing library imports and opt-out flags — no values |
+| DSGAI02 | VALUE-BEARING ⚠️ | Matches lines containing actual API key values, database passwords, JWT secrets, and connection strings |
+| DSGAI03 | STRUCTURAL | Matches public API endpoint hostnames in config — not secrets |
+| DSGAI04 | STRUCTURAL | Matches `torch.load()` call patterns and dependency file structure — no secret values |
+| DSGAI05 | STRUCTURAL | Matches function calls missing a filter argument — no sensitive values |
+| DSGAI06 | STRUCTURAL | Matches missing auth middleware and HTTP/HTTPS configuration flags |
+| DSGAI07 | STRUCTURAL | Matches missing TTL parameters and absent delete function names |
+| DSGAI08 | STRUCTURAL | Looks for DPIA/consent keyword presence — document names, not values |
+| DSGAI09 | STRUCTURAL | Matches EXIF stripping and file type validation patterns |
+| DSGAI10 | STRUCTURAL | Matches synthetic data library imports |
+| DSGAI11 | STRUCTURAL | Matches missing tenant filter arguments in function calls |
+| DSGAI12 | STRUCTURAL | Matches direct SQL execution call patterns — LLM-generated SQL is not in source |
+| DSGAI13 | VALUE-BEARING ⚠️ | May match lines where vector store auth tokens are hardcoded as literal values |
+| DSGAI14 | VALUE-BEARING ⚠️ | Matches log statements whose format strings may contain PII field references or — in real codebases — inline test PII values |
+| DSGAI15 | VALUE-BEARING ⚠️ | Matches system prompt construction that may embed credential strings or sensitive config values |
+| DSGAI16 | STRUCTURAL | Matches IDE plugin manifest patterns — no secret values |
+| DSGAI17 | STRUCTURAL | Matches absent retry/circuit-breaker patterns — no values |
+| DSGAI18 | STRUCTURAL | Matches absent guardrail import/decorator patterns |
+| DSGAI19 | STRUCTURAL | Matches data labeling pipeline imports |
+| DSGAI20 | STRUCTURAL | Matches absent rate-limiting decorator patterns |
+| DSGAI21 | STRUCTURAL | Matches knowledge store connection patterns — URLs, not secrets |
+
+---
+
+### DSGAI01 Scan — Training Data Privacy [STRUCTURAL]
 
 ```
 # PII scrubbing before ingestion
@@ -528,7 +575,7 @@ grep -rn "opacus\|tensorflow.privacy\|dp-accounting\|differential.privacy" --inc
 grep -rn "consent\|gdpr\|ccpa\|data_subject" --include="*.py" --include="*.java" --include="*.ts"
 ```
 
-### DSGAI02 Scan — Agentic Credential Management
+### DSGAI02 Scan — Agentic Credential Management [VALUE-BEARING ⚠️]
 
 ```
 # Hardcoded LLM API keys — FAIL
@@ -669,7 +716,7 @@ grep -rn "DROP TABLE\|TRUNCATE\|ALTER TABLE\|DELETE FROM" --include="*.py" --inc
 grep -rn "LIMIT\s*[0-9]\|max_rows\s*=\|fetch_limit\s*=" --include="*.py" --include="*.ts"
 ```
 
-### DSGAI13 Scan — Vector Store Security
+### DSGAI13 Scan — Vector Store Security [VALUE-BEARING ⚠️]
 
 ```
 # Vector store auth configured
@@ -682,7 +729,7 @@ grep -rn "\"https://.*qdrant\|\"https://.*weaviate\|\"https://.*pinecone\|ssl.*T
 grep -rn "host.*0\.0\.0\.0\|ALLOW_RESET.*True\|chroma.*http://localhost\|qdrant.*http://localhost" --include="*.py" --include="*.ts" --include="*.yaml"
 ```
 
-### DSGAI14 Scan — AI Telemetry Security
+### DSGAI14 Scan — AI Telemetry Security [VALUE-BEARING ⚠️]
 
 ```
 # Verbose prompt logging disabled (PASS signal)
@@ -698,7 +745,7 @@ grep -rn "redact_pii\|mask_sensitive\|sanitize_log\|scrub.*log\|log.*redact" --i
 grep -rn "print(response\|print(completion\|console\.log(response\|console\.log(completion\|logger\.debug(.*response\|logger\.info(.*completion" --include="*.py" --include="*.ts" --include="*.java"
 ```
 
-### DSGAI15 Scan — Context Window Security
+### DSGAI15 Scan — Context Window Security [VALUE-BEARING ⚠️]
 
 ```
 # Hardcoded secrets in system prompt — FAIL
@@ -808,7 +855,37 @@ Also flag:
 
 ## Step 4: Generate HTML Report
 
-Generate a self-contained HTML report saved as `DSGAI-report.html` in the repository root. Open after saving:
+### Evidence Redaction Rule
+
+Before writing any evidence block in the report, check the scan classification from the Step 2 table:
+
+**For VALUE-BEARING scans (DSGAI02, DSGAI13, DSGAI14, DSGAI15):**
+Never reproduce the matched grep line. Output only the file path, line number, and a description of what was found:
+
+```
+app/config.py:12 — hardcoded database credential pattern detected (value redacted — review file directly)
+app/config.py:18 — hardcoded secret key pattern detected (value redacted — review file directly)
+app/telemetry/logging.py:28 — prompt logging statement detected (content redacted — review file directly)
+```
+
+This rule applies regardless of whether the matched value looks like a demo credential, a test value, or a placeholder. The report may be shared with stakeholders, auditors, or stored in a repository where the actual credential value must not appear.
+
+**For all STRUCTURAL scans (DSGAI01, DSGAI03–DSGAI12, DSGAI16–DSGAI21):**
+Reproduce the matched grep output as-is. These patterns match code structure (missing decorators, absent imports, function call patterns) that contains no sensitive runtime data.
+
+---
+
+Generate a self-contained HTML report saved as `DSGAI-report.html` in the repository root.
+
+**IMPORTANT — write in 3 sequential parts to avoid context window exhaustion. Do NOT print or narrate any HTML in the response text at any point.**
+
+1. **Write Part 1** using the Write tool: `<!DOCTYPE html>` through the end of the Dashboard + Compliance Bar section. End the file with the exact comment `<!-- FINDINGS_PLACEHOLDER -->`.
+2. **Edit Part 2**: Use the Edit tool to replace `<!-- FINDINGS_PLACEHOLDER -->` with the AI Component Inventory, Scope Legend, Summary Table, all 21 finding cards, Recommendations, and Checklist sections. End the replacement with the exact comment `<!-- CVE_PLACEHOLDER -->`.
+3. **Edit Part 3**: Use the Edit tool to replace `<!-- CVE_PLACEHOLDER -->` with the full CVE Advisory section, footer, `</body>`, and `</html>`.
+
+This three-part approach keeps each tool call well within the context limit regardless of repo size.
+
+Open after saving:
 
 ```
 open DSGAI-report.html   # macOS
@@ -835,7 +912,7 @@ The report is organized into **two main sections** with shared header/footer sca
 
 1. **Header** — Report title "OWASP DSGAI Data Security Compliance Report", service/repo name, date, framework version (OWASP GenAI Data Security Risks and Mitigations v1.0, March 2026)
 2. **Section nav bar** (static, not sticky) — Two labels: `Section 1: DSGAI Compliance` | `Section 2: CVE Advisory` as anchor links
-3. **About This Report** — A dedicated section placed immediately after the nav bar, before the executive summary. Contains three subsections:
+3. **About This Report** — A dedicated section placed immediately after the nav bar, before the executive summary. Contains **four subsections** — each MUST be rendered as a distinct `<h3>` block with its full content. Do NOT compress or merge them into paragraphs:
 
    **Goal** — This report scans a software codebase against the **OWASP GenAI Data Security Risks and Mitigations 2026 (v1.0)** — a framework published by the Open Worldwide Application Security Project in March 2026 that defines 21 data security risks specific to GenAI and agentic systems. The goal is to **automatically detect OWASP GenAI data security risks and make it easier for teams** to act on them — without requiring every developer or reviewer to manually read and interpret the full OWASP specification. Beyond detection, the automation provides several additional benefits:
    - **Shift-left security** — catches risks at development time, not at pen test or production incident time
@@ -848,6 +925,8 @@ The report is organized into **two main sections** with shared header/footer sca
    This report is designed to benefit **security practitioners**, **developers**, **security architects**, and **engineering managers** — see the *Who Benefits* section below for details on how each audience can use it.
 
    **How It Works** — The scan runs in four phases: (1) Repository detection — confirms GenAI/agentic patterns are present; (2) Live CVE enrichment — queries OSV, NVD, and GitHub Advisory Database for the exact package versions in use; (3) Code pattern scan — searches source files for OWASP 21 DSGAI risk indicators across credentials, SQL execution, vector store auth, telemetry logging, MCP transport, RAG access controls, and more; (4) Findings classification — each control is rated FAIL / WARN / PASS / NOT VALIDATED / NOT APPLICABLE with file paths, line numbers, and remediation steps.
+
+   **Privacy & Data Handling** — This scan runs entirely on your local machine. Your source code, configuration files, and secrets are never uploaded, transmitted, or shared with any external service. The only outbound requests made during a scan are package name and version lookups (e.g. `langchain==0.1.0`) sent to public CVE databases — [OSV](https://osv.dev), [NVD](https://nvd.nist.gov), and [GitHub Advisory Database](https://github.com/advisories) — to check for known vulnerabilities in your dependencies. No actual code leaves your machine. Live CVE lookups are optional: if your environment has no internet access, the scan falls back to its embedded CVE database and still produces a complete report.
 
    **Who Benefits** — Render as a table:
    | Audience | How this report helps |
@@ -940,7 +1019,7 @@ The report is organized into **two main sections** with shared header/footer sca
 
 #### Shared scaffolding (bottom)
 
-16. **Footer** — Generation date, framework version (OWASP DSGAI v1.0), CVE sources queried, print-to-PDF instructions (`Ctrl+P → Save as PDF → expands all cards automatically`)
+16. **Footer** — Generation date, framework version (OWASP DSGAI v1.0), CVE sources queried, print-to-PDF instructions (`Ctrl+P → Save as PDF → expands all cards automatically`). Must include attribution on a separate line: "Original work by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org/initiative/data-security/), led by [Emmanuel Guilherme Junior](https://www.linkedin.com/in/emmanuelgjr/) | Skill adaptation by [Harish Ramachandran](https://www.linkedin.com/in/harish-ramachandran-a8026443/)". Both names MUST be hyperlinks — do not render either as plain text.
 
 #### PDF Export
 
@@ -993,3 +1072,13 @@ google-chrome --headless=new --print-to-pdf=DSGAI-report.pdf \
 - **AppSec artifacts:** Check `appsec/`, `security-review/`, or equivalent folder for security architecture review evidence. If absent and this is a production GenAI service, flag DSGAI08 as WARN.
 - **MCP transport:** Any MCP server config pointing to `http://` (non-TLS) in a non-localhost context is a FAIL for DSGAI06.
 - **Telemetry:** LangSmith, Langfuse, Arize, Weights & Biases — if present and `capture_content=True` without PII redaction, that is a WARN/FAIL depending on whether production data flows through.
+
+---
+
+## License
+
+This skill is based on materials licensed under [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/legalcode).
+
+**Original work:** OWASP GenAI Data Security Risks and Mitigations 2026 (v1.0, March 2026) by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org/initiative/data-security/), led by [Emmanuel Guilherme Junior](https://www.linkedin.com/in/emmanuelgjr/).
+
+**This adaptation:** Created by [Harish Ramachandran](https://www.linkedin.com/in/harish-ramachandran-a8026443/). You are free to share and adapt this skill for any purpose, including commercial use, under the same CC BY-SA 4.0 terms.

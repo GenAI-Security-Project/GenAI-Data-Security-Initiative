@@ -13,6 +13,28 @@ When you run `/GenAIDataSecurity` inside a repository, the skill:
 3. **Scans source code** for all 21 DSGAI risk indicators — credentials, SQL injection via LLM output, vector store auth, telemetry logging, RAG access controls, MCP transport security, and more
 4. **Generates `DSGAI-report.html`** — a self-contained, print-ready HTML report with findings, file paths, line numbers, remediation steps, and a live CVE advisory panel
 
+**Performance:** All 21 control scans and all CVE source queries run as parallel tool calls — the skill fires multiple grep scans and API requests simultaneously rather than sequentially. This reduces total scan time.
+
+---
+
+## Privacy & Data Handling
+
+This skill runs **entirely on your local machine**. Your source code is never uploaded, transmitted, or shared with any external service.
+
+**What stays local:**
+
+- All source code files scanned for security patterns
+- Configuration files, secrets, environment variables
+- Dependency manifests and build files
+
+**What is sent to the internet (CVE lookups only):**
+
+- Package names and version numbers (e.g. `langchain==0.1.0`) are sent to public vulnerability databases to check for known CVEs
+- Only these public databases are queried: [OSV](https://osv.dev), [NVD](https://nvd.nist.gov), [GitHub Advisory Database](https://github.com/advisories)
+- No actual code, secrets, file contents, or identifying information leaves your machine
+
+**Live CVE lookups are optional.** If your environment has no internet access or you prefer fully offline operation, the skill falls back to its embedded CVE database automatically — the scan still runs and produces a complete report.
+
 ---
 
 ## Prerequisites
@@ -94,6 +116,60 @@ Each control is rated: **PASS** / **WARN** / **FAIL** / **NOT VALIDATED** / **NO
 
 ---
 
+## Evidence Safety — Structural vs Value-Bearing Patterns
+
+When the skill scans your codebase and finds a match, it needs to include that evidence in the report. However, not all grep matches are equal — some patterns look for *architectural gaps* (safe to show), while others specifically look for *credential and PII-bearing lines* (must never appear in a shareable report).
+
+The skill classifies every scan into one of two categories:
+
+### Structural Patterns [STRUCTURAL]
+
+The grep match shows a code *pattern* — a missing import, an absent decorator, a function call without a required argument. The matched line contains no runtime secret or personal data. It is reproduced in full in the evidence block because it proves the finding without exposing anything sensitive.
+
+**Examples of structural evidence (safe to show):**
+
+```
+# DSGAI04 — torch.load() without weights_only=True
+app/models/loader.py:22 — model = torch.load(model_path)
+
+# DSGAI06 — MCP server binding all interfaces with no auth middleware
+mcp_server/server.py:42 — uvicorn.run(app, host="0.0.0.0", port=8001)
+
+# DSGAI20 — FastAPI endpoint missing rate-limiting decorator
+app/main.py:55 — @app.post("/chat")  # no @limiter.limit decorator
+
+# DSGAI05 — similarity_search() missing access-control filter
+app/rag/retriever.py:41 — results = vectorstore.similarity_search(query, k=5)
+```
+
+None of these lines contain a password, token, or personal data value — they show code structure only.
+
+### Value-Bearing Patterns [VALUE-BEARING ⚠️]
+
+The grep pattern specifically targets lines where the *matched content IS the sensitive value* — a credential assignment, a secret key, a connection string, or a log statement that may contain personal data. Reproducing this line in a shareable report would leak the actual secret or PII.
+
+**Examples of what the grep finds — and what the report must NOT show:**
+
+| What grep matches in the source file | What the report shows instead |
+|---|---|
+| `DATABASE_URL = "postgresql://admin:S3cr3tP@ss@db:5432/prod"` | `app/config.py:12 — hardcoded database credential pattern detected (value redacted — review file directly)` |
+| `OPENAI_API_KEY = "sk-prod-a1b2c3d4e5f6..."` | `app/config.py:8 — hardcoded LLM API key pattern detected (value redacted — review file directly)` |
+| `logger.info(f"User {user.email} asked: {message}")` | `app/telemetry/logging.py:28 — prompt logging statement detected (content redacted — review file directly)` |
+| `SYSTEM_PROMPT = f"... connect to {DATABASE_URL} ..."` | `app/config.py:30 — credential reference in system prompt detected (value redacted — review file directly)` |
+
+The four DSGAI controls whose scans are classified VALUE-BEARING are:
+
+| Control | Why value-bearing |
+|---|---|
+| **DSGAI02** — Agentic Credential Management | Matches lines containing actual API keys, database passwords, JWT secrets, and cloud credentials |
+| **DSGAI13** — Vector Store Security | May match lines where vector store auth tokens are hardcoded as literal values |
+| **DSGAI14** — AI Telemetry Security | Matches log statements whose format strings may reference PII fields or contain inline test data |
+| **DSGAI15** — Context Window Security | Matches system prompt construction that may embed credential strings or sensitive config values |
+
+All 17 remaining controls (DSGAI01, 03–12, 16–21) are **STRUCTURAL** — their matched content is always safe to show.
+
+---
+
 ## Report Output
 
 The generated `DSGAI-report.html` contains:
@@ -107,6 +183,24 @@ The generated `DSGAI-report.html` contains:
 - **CVE Advisory Panel** — live CVEs for your exact dependency versions, grouped by DSGAI risk
 
 The report is fully self-contained (no CDN, no external fonts) and renders correctly when saved as PDF.
+
+---
+
+## Scan Checkpoint File (`DSGAI-scan.json`)
+
+When the skill runs, it writes a local checkpoint file called `DSGAI-scan.json` to the repository root after each major scan phase. This is a **temporary intermediate structure** — not a deliverable, and can be deleted at any time.
+
+### Why it exists
+
+The scan involves three time-consuming phases: repository detection, live CVE enrichment (HTTP calls to OSV and NVD), and 21-control grep scanning. If the session times out or is interrupted before the HTML report is written, everything is lost and the scan restarts from zero. The checkpoint file prevents this — on the next run the skill skips already-completed phases and jumps to the first incomplete step. In the most common failure case (timeout during HTML generation), re-running regenerates the report in seconds.
+
+### What it stores — and what it doesn't
+
+The file contains only **structural scan metadata**: detected framework versions, DSGAI control findings (status, file paths, line numbers), and CVE query results. It does **not** store credential values, API keys, PII, prompt content, or any file contents beyond the specific matched patterns. The same evidence redaction rules that apply to the HTML report apply here — a VALUE-BEARING finding is stored as a description only, never the matched value.
+
+### Lifecycle
+
+Safe to commit (contains no secrets) or add to `.gitignore` to treat as a build artifact. Automatically overwritten on each full scan.
 
 ---
 
@@ -155,3 +249,13 @@ Controls tagged `[BUY]` that are not applicable to a BUILD-only repo are automat
 
 **OWASP GenAI Data Security Risks and Mitigations 2026 (v1.0, March 2026)**
 [https://owasp.org/www-project-top-10-for-large-language-model-applications/](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
+
+---
+
+## License
+
+This skill is based on materials licensed under [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/legalcode).
+
+**Original work:** OWASP GenAI Data Security Risks and Mitigations 2026 (v1.0, March 2026) by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org/initiative/data-security/), led by [Emmanuel Guilherme Junior](https://www.linkedin.com/in/emmanuelgjr/).
+
+**This adaptation:** Created by [Harish Ramachandran](https://www.linkedin.com/in/harish-ramachandran-a8026443/). You are free to share and adapt this skill for any purpose, including commercial use, under the same CC BY-SA 4.0 terms.
