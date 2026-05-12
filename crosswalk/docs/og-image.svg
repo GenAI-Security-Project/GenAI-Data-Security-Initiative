@@ -12,9 +12,8 @@
   </defs>
   <rect width='1200' height='630' fill='url(#bg)'/>
   <rect y='0' width='1200' height='4' fill='url(#accent)'/>
-  <text x='60' y='160' font-family='system-ui,-apple-system,sans-serif' font-size='56' font-weight='800' fill='#f8fafc'>OWASP GenAI Security</text>
-  <text x='60' y='230' font-family='system-ui,-apple-system,sans-serif' font-size='56' font-weight='800' fill='#f8fafc'>Crosswalk</text>
-  <text x='60' y='285' font-family='system-ui,-apple-system,sans-serif' font-size='22' fill='#94a3b8'>The most comprehensive mapping of AI security risks to compliance frameworks</text>
+  <text x='60' y='200' font-family='system-ui,-apple-system,sans-serif' font-size='72' font-weight='800' fill='#f8fafc'>OWASP GenAI Crosswalk</text>
+  <text x='60' y='250' font-family='system-ui,-apple-system,sans-serif' font-size='22' fill='#94a3b8'>The most comprehensive mapping of AI security risks to compliance frameworks</text>
 
   <!-- Stat cards -->
   <rect x='60' y='320' width='170' height='70' rx='10' fill='rgba(37,99,235,0.15)' stroke='rgba(37,99,235,0.3)' stroke-width='1'/>
