@@ -727,6 +727,36 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-046"
+    },
+    {
+      "name": "Google AI Overviews recommends adding glue to pizza — RAG hallucination at search scale",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-056"
+    },
+    {
+      "name": "GitHub Copilot Chat agent executes malicious code from repository context",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-067"
+    },
+    {
+      "name": "Microsoft 365 Copilot XPIA phishing — attacker-shaped email summaries via hidden instructions",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-095"
+    },
+    {
+      "name": "AI recommendation poisoning — hidden prompt injections in 'Summarize with AI' buttons across 31 companies",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-100"
+    },
+    {
+      "name": "PoisonedRAG — 5 malicious texts in millions achieve 90% attack success rate on RAG systems",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-108"
     }
   ],
   "crossrefs": {

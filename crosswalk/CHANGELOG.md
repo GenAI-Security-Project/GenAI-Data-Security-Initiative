@@ -13,6 +13,90 @@ Next: npm publish to npmjs.com, custom domain (crosswalk.owasp.org), vendor inte
 
 ---
 
+## [3.1.0] — 2026-04-10
+
+### Added
+
+#### Registry Expansion (8% → 100% coverage)
+- `scripts/extract-registry.js` — auto-extracts controls from 41 entry JSON files into the registry
+- 11 new framework registry files: OWASP NHI Top 10, PCI DSS v4.0, CWE/CVE, NIST SP 800-82 Rev 3, OWASP AI Testing Guide, NIST SP 800-218A, AIUC-1, FedRAMP, OWASP SAMM v2.0, ENISA Multilayer Framework, STRIDE
+- 12 existing frameworks updated with missing controls
+- Registry: 14 → **25 frameworks**, 505 → **1,514 controls**, 100% ground-truth coverage
+- Classifier P@1 improved from 0.073 to **0.585** (8× improvement)
+
+#### Gap Analysis Visualization (`#/gaps`)
+- Interactive framework multi-select with red/yellow/green heatmap
+- Summary cards: full/partial/no coverage counts + overall score
+- PDF export (landscape print layout) and CSV export
+- URL-persisted framework selection
+
+#### Bi-encoder Fine-tuning Pipeline (`classifier/finetune.py`)
+- Contrastive fine-tuning of BGE-small using MultipleNegativesRankingLoss
+- Trains on 150 calibration pairs with in-batch negatives
+- Evaluation against test split with similarity metrics
+- `--eval-only` mode for baseline measurement
+
+#### Framework Version Diffing (`scripts/framework-diff.js`)
+- `--old`/`--new` comparison showing added/removed/modified controls
+- `--git` mode: diff against last committed version
+- `--apply` mode: updates file in-place and appends changelog entry
+- Prints classifier command to propose mappings for delta controls only
+
+#### Enhanced OSCAL + GRC Export
+- `--format oscal-catalog`: OSCAL 1.1.2 Catalog with controls grouped by function and OWASP coverage annotations
+- `--format grc`: ServiceNow/Archer/Drata-ready JSON with control objectives, risk mappings, evidence requirements, and gap register
+
+### Fixed
+- REPORT_FRAMEWORKS list updated with 3 new frameworks (CWE/CVE, OWASP AI Testing Guide, STRIDE)
+- FW_META entries added for all report frameworks
+- `.gitignore` updated to exclude `classifier/models/`
+- Command injection fix in `framework-diff.js` (`execFileSync` instead of `execSync`)
+- Gap analysis source list mismatch (`Agentic-Top10-2025` → `Agentic-Top10-2026`)
+- Stale meta tags, README badges, and framework counts updated throughout
+
+---
+
+## [3.0.0] — 2026-04-09
+
+### Added
+
+#### Framework Registry (`data/frameworks/`)
+- First-class framework control inventories with `data/framework-schema.json`
+- 14 frameworks seeded: NIST AI RMF 1.0 (84 controls), EU AI Act CoP (54), ISO 27001 (41), SOC 2 (41), MITRE ATLAS (37), ISO 42001 (37), CoSAI (32), ISA/IEC 62443 (32), OWASP ASVS (32), MAESTRO (28), EU AI Act (25), NIST CSF 2.0 (22), DORA (22), CIS Controls (18) — **505 controls total**
+- Ingestion script: `scripts/ingest-framework.mjs` (JSON/CSV input, validation, `--list`)
+- Backlink index: `data/backlinks.json` — 1,097 control-to-entry mappings
+- Control-level pivot views in visualizer: `#/frameworks/NIST AI RMF 1.0/GV-1.7`
+- Control hierarchy navigation (parent/child) on control detail pages
+
+#### Classifier Pipeline (`classifier/`)
+- Pre-registration committed before eval code (`classifier/PREREGISTRATION.md`)
+- BGE-small-en-v1.5 bi-encoder + FAISS IndexFlatIP retrieval (505 controls, ~2s)
+- Cross-encoder reranker (ms-marco-MiniLM-L-6-v2) — +200% P@3, +46% MAP
+- SHA-pinned eval splits: 150 calibration / 3,060 test
+- Eval harness: P@k, R@k, MAP, R-Precision with 95% bootstrap CIs (10,000 resamples)
+- LLM pseudo-labeler module (Claude Sonnet few-shot, ready for API key)
+- Contamination probe: CoSAI held out as clean framework — 1.1pp gap, PASS
+- Full eval report: `classifier/EVAL_REPORT.md`
+
+#### Confidence-Aware Visualizer
+- "Show ML suggestions" toggle in crosswalk graph
+- Solid edges = curated mappings, dashed = model-suggested (571 predictions)
+- Edge opacity/width proportional to classifier confidence
+- Confidence histogram (10-bin) in side panel
+- Top-5 suggested controls with color-coded confidence badges
+
+#### Submit-a-Standard Flow
+- Submit page (`#/submit`): paste framework JSON, client-side validation, opens GitHub Issue
+- GitHub Action (`.github/workflows/classify-submission.yml`): runs classifier on submission, opens PR
+- Review page (`#/review`): pending classifier PRs, local prediction review table, confidence slider, accept/reject controls
+- Issue template: `.github/ISSUE_TEMPLATE/submit-framework.yml`
+
+#### Documentation
+- `RATIONALE.md` — methodology behind all framework mappings
+- Submit and Review pages added to navigation
+
+---
+
 ## [2.0.0] — 2026-03-29
 
 ### Added

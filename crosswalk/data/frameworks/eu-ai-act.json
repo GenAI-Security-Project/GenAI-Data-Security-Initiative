@@ -1,0 +1,796 @@
+{
+  "id": "eu-ai-act",
+  "name": "EU AI Act",
+  "short_name": "EU AI Act",
+  "version": "2024/1689",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689",
+  "license": "Public",
+  "publisher": "European Parliament and Council",
+  "category": "regulation",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "Art. 6",
+      "title": "Classification rules for high-risk AI systems",
+      "description": "Rules for determining which AI systems are classified as high-risk.",
+      "parent": null,
+      "function": "Classification"
+    },
+    {
+      "control_id": "Art. 9",
+      "title": "Risk management system",
+      "description": "Providers of high-risk AI must implement a risk management system covering all reasonably foreseeable risks.",
+      "parent": null,
+      "function": "Risk Management"
+    },
+    {
+      "control_id": "Art. 10",
+      "title": "Data and data governance",
+      "description": "Training, validation and testing data sets shall meet quality criteria including relevance, representativeness, and freedom from errors.",
+      "parent": null,
+      "function": "Data Governance"
+    },
+    {
+      "control_id": "Art. 11",
+      "title": "Technical documentation",
+      "description": "Technical documentation shall be drawn up before placing on the market and kept up-to-date.",
+      "parent": null,
+      "function": "Documentation"
+    },
+    {
+      "control_id": "Art. 12",
+      "title": "Record-keeping",
+      "description": "High-risk AI systems shall allow automatic recording of events (logs).",
+      "parent": null,
+      "function": "Logging"
+    },
+    {
+      "control_id": "Art. 13",
+      "title": "Transparency and provision of information to deployers",
+      "description": "High-risk AI systems shall be designed to ensure sufficient transparency for deployers.",
+      "parent": null,
+      "function": "Transparency"
+    },
+    {
+      "control_id": "Art. 14",
+      "title": "Human oversight",
+      "description": "High-risk AI systems shall be designed to allow effective oversight by natural persons.",
+      "parent": null,
+      "function": "Human Oversight"
+    },
+    {
+      "control_id": "Art. 15",
+      "title": "Accuracy, robustness and cybersecurity",
+      "description": "High-risk AI systems shall achieve appropriate levels of accuracy, robustness and cybersecurity.",
+      "parent": null,
+      "function": "Security"
+    },
+    {
+      "control_id": "Art. 16",
+      "title": "Obligations of providers of high-risk AI systems",
+      "description": "Providers shall ensure compliance with requirements, establish quality management, and maintain documentation.",
+      "parent": null,
+      "function": "Provider Obligations"
+    },
+    {
+      "control_id": "Art. 17",
+      "title": "Quality management system",
+      "description": "Providers shall put a quality management system in place ensuring compliance with the regulation.",
+      "parent": null,
+      "function": "Quality Management"
+    },
+    {
+      "control_id": "Art. 25",
+      "title": "Responsibilities along the AI value chain",
+      "description": "Distributors, importers, deployers, and other third parties have defined responsibilities.",
+      "parent": null,
+      "function": "Value Chain"
+    },
+    {
+      "control_id": "Art. 26",
+      "title": "Obligations of deployers of high-risk AI systems",
+      "description": "Deployers shall use AI systems in accordance with instructions, ensure human oversight, and monitor operation.",
+      "parent": null,
+      "function": "Deployer Obligations"
+    },
+    {
+      "control_id": "Art. 27",
+      "title": "Fundamental rights impact assessments",
+      "description": "Deployers of high-risk AI shall carry out an assessment of impact on fundamental rights before use.",
+      "parent": null,
+      "function": "Impact Assessment"
+    },
+    {
+      "control_id": "Art. 50",
+      "title": "Transparency obligations for certain AI systems",
+      "description": "AI systems that interact with people, generate deepfakes, or produce synthetic content must disclose this.",
+      "parent": null,
+      "function": "Transparency"
+    },
+    {
+      "control_id": "Art. 51",
+      "title": "Classification of GPAI models as systemic risk",
+      "description": "GPAI models with systemic risk are classified based on high-impact capabilities or cumulative compute thresholds.",
+      "parent": null,
+      "function": "GPAI"
+    },
+    {
+      "control_id": "Art. 53",
+      "title": "Obligations for providers of GPAI models",
+      "description": "All GPAI providers must prepare technical documentation, provide information to downstream providers, comply with copyright, and publish training data summaries.",
+      "parent": null,
+      "function": "GPAI"
+    },
+    {
+      "control_id": "Art. 54",
+      "title": "Authorised representatives of GPAI model providers",
+      "description": "GPAI providers outside the EU must appoint an authorised representative.",
+      "parent": null,
+      "function": "GPAI"
+    },
+    {
+      "control_id": "Art. 55",
+      "title": "Obligations of GPAI models with systemic risk",
+      "description": "Providers of GPAI with systemic risk must conduct model evaluations, assess and mitigate systemic risks, track incidents, and ensure adequate cybersecurity.",
+      "parent": null,
+      "function": "GPAI"
+    },
+    {
+      "control_id": "Art. 56",
+      "title": "Codes of practice",
+      "description": "The AI Office shall encourage development of codes of practice for GPAI obligations.",
+      "parent": null,
+      "function": "GPAI"
+    },
+    {
+      "control_id": "Art. 60",
+      "title": "AI regulatory sandboxes",
+      "description": "National authorities may establish regulatory sandboxes for development and testing of innovative AI.",
+      "parent": null,
+      "function": "Innovation"
+    },
+    {
+      "control_id": "Art. 62",
+      "title": "Reporting of serious incidents",
+      "description": "Providers and deployers shall report serious incidents to market surveillance authorities.",
+      "parent": null,
+      "function": "Incident Reporting"
+    },
+    {
+      "control_id": "Art. 71",
+      "title": "Post-market monitoring by providers",
+      "description": "Providers shall establish a post-market monitoring system proportionate to the AI system.",
+      "parent": null,
+      "function": "Post-Market"
+    },
+    {
+      "control_id": "Art. 72",
+      "title": "Reporting of serious incidents",
+      "description": "Detailed requirements for reporting serious incidents involving AI systems.",
+      "parent": null,
+      "function": "Incident Reporting"
+    },
+    {
+      "control_id": "Annex III",
+      "title": "High-risk AI systems",
+      "description": "List of areas where AI systems are classified as high-risk (biometrics, critical infrastructure, education, employment, essential services, law enforcement, migration, justice).",
+      "parent": null,
+      "function": "Classification"
+    },
+    {
+      "control_id": "Annex IV",
+      "title": "Technical documentation",
+      "description": "Detailed requirements for technical documentation of high-risk AI systems.",
+      "parent": null,
+      "function": "Documentation"
+    },
+    {
+      "control_id": "Goal hijack scenarios identified and mitigated in risk management system",
+      "title": "Art. 9 � Risk management",
+      "description": "Agent goal hijack included in Art. 9 risk assessment for every agentic deployment"
+    },
+    {
+      "control_id": "Meaningful human oversight over high-risk AI system outputs",
+      "title": "Art. 14 � Human oversight",
+      "description": "Agents whose goals can be hijacked and execute autonomously are an Art. 14 failure � human confirmation required before goal-changing actions"
+    },
+    {
+      "control_id": "Technical resilience against adversarial input manipulation",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Input filtering, goal-state verification, and injection detection are Art. 15 technical requirements"
+    },
+    {
+      "control_id": "Tool misuse risks identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "All agent tool integrations assessed in Art. 9 risk management � reversibility classification documented"
+    },
+    {
+      "control_id": "Human oversight over high-risk AI actions",
+      "title": "Art. 14 � Human oversight",
+      "description": "Irreversible tool invocations require human confirmation � Art. 14 binding requirement"
+    },
+    {
+      "control_id": "Cybersecurity measures preventing tool misuse",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Per-tool permission manifests and parameter validation are Art. 15 technical requirements"
+    },
+    {
+      "control_id": "Credential exposure risk identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "Agent credential lifecycle in Art. 9 risk management � NHI inventory, scope controls, rotation documented"
+    },
+    {
+      "control_id": "Cybersecurity measures protecting against credential theft",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Short-lived credentials, JIT access, PKI-backed identities are Art. 15 requirements"
+    },
+    {
+      "control_id": "Documented procedures for credential incident response",
+      "title": "Art. 17 � Quality management",
+      "description": "Agent credential incident response in quality management system � rotation, containment, lateral movement assessment"
+    },
+    {
+      "control_id": "Supply chain risks identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "All agent components in Art. 9 risk management � dynamic runtime components explicitly in scope"
+    },
+    {
+      "control_id": "Quality management includes supply chain controls",
+      "title": "Art. 17 � Quality management",
+      "description": "Documented supply chain security procedures � component verification, change management"
+    },
+    {
+      "control_id": "Providers document obligations; deployers verify",
+      "title": "Art. 25 � Value chain responsibilities",
+      "description": "Agent tool and MCP server supply chain obligations distributed along value chain"
+    },
+    {
+      "control_id": "Code execution risks identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "Agent code execution capability documented in Art. 9 risk management � sandbox status, permitted operations"
+    },
+    {
+      "control_id": "Technical robustness against adversarial code execution",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Sandboxing, input filtering, static analysis are Art. 15 requirements for agents with code execution"
+    },
+    {
+      "control_id": "Post-market monitoring covering code execution incidents",
+      "title": "Art. 17 � Quality management",
+      "description": "Code execution anomaly response in quality management system"
+    },
+    {
+      "control_id": "Data governance applies to all data influencing AI behaviour � including agent memory",
+      "title": "Art. 10 � Data and data governance",
+      "description": "Agent memory governance � classification, access controls, integrity validation, retention � is an Art. 10 requirement"
+    },
+    {
+      "control_id": "Technical resilience against adversarial memory manipulation",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Memory integrity monitoring and access controls are Art. 15 requirements"
+    },
+    {
+      "control_id": "Post-market monitoring for memory integrity",
+      "title": "Art. 17 � Quality management",
+      "description": "Memory anomaly detection in post-market monitoring programme"
+    },
+    {
+      "control_id": "A2A communication risks identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "Inter-agent channels in Art. 9 risk assessment � authentication, encryption, schema validation status"
+    },
+    {
+      "control_id": "Cybersecurity measures protecting all system components",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Authenticated, encrypted A2A communication is an Art. 15 requirement for high-risk agentic systems"
+    },
+    {
+      "control_id": "Documentation of A2A security controls",
+      "title": "Art. 17 � Quality management",
+      "description": "A2A authentication and encryption documented in quality management system"
+    },
+    {
+      "control_id": "Cascade risks identified and mitigated � blast radius defined",
+      "title": "Art. 9 � Risk management",
+      "description": "Cascade scenarios in Art. 9 risk management � maximum affected systems, circuit breaker thresholds"
+    },
+    {
+      "control_id": "Human oversight over high-risk AI � ability to pause and stop",
+      "title": "Art. 14 � Human oversight",
+      "description": "Circuit breakers and kill switches are Art. 14 human oversight mechanisms"
+    },
+    {
+      "control_id": "Technical resilience against cascading failures",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Circuit breakers, fail-safe defaults, and cascade containment architecture are Art. 15 requirements"
+    },
+    {
+      "control_id": "Users informed of capabilities, limitations, and AI nature",
+      "title": "Art. 13 � Transparency",
+      "description": "Agents must clearly communicate their AI nature and advisory limitations"
+    },
+    {
+      "control_id": "Effective human oversight over high-risk AI",
+      "title": "Art. 14 � Human oversight",
+      "description": "Humans must be able to override agent recommendations � trust exploitation undermines Art. 14 effectiveness"
+    },
+    {
+      "control_id": "Chatbots and AI-generated content must disclose AI nature",
+      "title": "Art. 50 � Transparency for certain AI systems",
+      "description": "All agent-user interactions require AI disclosure � universal obligation"
+    },
+    {
+      "control_id": "Rogue agent scenarios identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "Rogue agent risk in Art. 9 risk management � detection capability, blast radius, response documented"
+    },
+    {
+      "control_id": "Human oversight mechanisms effective against rogue behaviour",
+      "title": "Art. 14 � Human oversight",
+      "description": "Kill switch and behavioural monitoring are Art. 14 human oversight requirements for agentic systems"
+    },
+    {
+      "control_id": "Technical resilience against rogue agent behaviour",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Behavioural baselines, anomaly detection, and automated suspension are Art. 15 requirements"
+    },
+    {
+      "control_id": "Post-market monitoring covering rogue agent detection",
+      "title": "Art. 17 � Quality management",
+      "description": "Behavioural monitoring in post-market monitoring programme"
+    },
+    {
+      "control_id": "Training data must be relevant, representative, and subject to appropriate privacy measures",
+      "title": "Art. 10 � Data and data governance",
+      "description": "Data governance controls preventing sensitive data ingestion and memorisation are Art. 10 requirements"
+    },
+    {
+      "control_id": "High-risk AI must be resilient and implement cybersecurity measures",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Output scanning, DLP, and access controls on RAG retrieval are Art. 15 technical requirements"
+    },
+    {
+      "control_id": "GPAI providers must maintain technical documentation including training data governance",
+      "title": "Art. 53(1)(a) � GPAI documentation",
+      "description": "Data governance for training data � sources, quality, privacy measures � is a GPAI documentation obligation; Data governance for GPAI training data is a binding documentation obligation from Aug 2025"
+    },
+    {
+      "control_id": "Credential exposure must be identified as a foreseeable risk and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "Agent credential lifecycle included in Art. 9 risk management system"
+    },
+    {
+      "control_id": "Cybersecurity measures protecting against credential theft and misuse",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Short-lived credentials, NHI inventory, and access controls are Art. 15 requirements"
+    },
+    {
+      "control_id": "Documented procedures for credential management and incident response",
+      "title": "Art. 17 � Quality management",
+      "description": "Agent identity governance procedures documented in quality management system"
+    },
+    {
+      "control_id": "Shadow AI usage is a foreseeable risk requiring mitigation in the risk management system",
+      "title": "Art. 9 � Risk management",
+      "description": "Ungoverned AI tool usage mapped and treated in Art. 9 risk assessment"
+    },
+    {
+      "control_id": "Organisations deploying AI are responsible for AI used within their operations",
+      "title": "Art. 25 � Value chain responsibilities",
+      "description": "Shadow AI use by employees does not exempt the deployer from AI Act obligations triggered by that use"
+    },
+    {
+      "control_id": "Deployers must use AI systems as instructed and ensure appropriate oversight",
+      "title": "Art. 29 � Deployer obligations",
+      "description": "Deployers have affirmative obligations to prevent and detect shadow AI usage"
+    },
+    {
+      "control_id": "Training data must be subject to governance practices � relevant, representative, free of errors",
+      "title": "Art. 10 � Data and data governance",
+      "description": "Data quality controls and provenance requirements preventing poisoning are binding Art. 10 obligations"
+    },
+    {
+      "control_id": "High-risk AI must be resilient to attempts to alter performance through data manipulation",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Technical robustness against poisoning is a binding Art. 15 requirement with conformity assessment evidence; Technical robustness against poisoning is a binding Art. 15 requirement"
+    },
+    {
+      "control_id": "Systemic risk GPAI providers must conduct adversarial testing to identify and mitigate systemic risks",
+      "title": "Art. 55(1)(b) � Systemic risk GPAI adversarial testing",
+      "description": "Poisoning detection adversarial testing is a binding obligation for systemic risk models"
+    },
+    {
+      "control_id": "Ingestion integrity risks identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "Data ingestion attack surfaces included in Art. 9 risk management"
+    },
+    {
+      "control_id": "High-risk AI resilient against adversarial input manipulation",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Secure ingestion interfaces and path traversal prevention are Art. 15 requirements"
+    },
+    {
+      "control_id": "Documented procedures for data ingestion and pipeline integrity",
+      "title": "Art. 17 � Quality management",
+      "description": "Ingestion validation procedures and CVE patching documented in quality management"
+    },
+    {
+      "control_id": "Third-party tool data exchange risks identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "All tool integrations assessed in Art. 9 risk management"
+    },
+    {
+      "control_id": "Providers document obligations flowing to deployers; deployers verify",
+      "title": "Art. 25 � Value chain responsibilities",
+      "description": "Tool data exchange obligations explicitly distributed along the value chain"
+    },
+    {
+      "control_id": "GPAI providers document all third-party integrations",
+      "title": "Art. 53(1)(a) � GPAI documentation",
+      "description": "Tool and plugin data exchange documented in GPAI technical documentation"
+    },
+    {
+      "control_id": "High-risk AI training data subject to governance � relevant, representative, privacy-preserving",
+      "title": "Art. 10 � Data and data governance",
+      "description": "Data governance policy covering the full AI data lifecycle is an Art. 10 compliance requirement"
+    },
+    {
+      "control_id": "Documented quality management system including data handling procedures",
+      "title": "Art. 17 � Quality management",
+      "description": "Data lifecycle procedures � classification, retention, deletion � documented in quality management"
+    },
+    {
+      "control_id": "GPAI providers maintain technical documentation including training data governance",
+      "title": "Art. 53(1)(a) � GPAI documentation",
+      "description": "Full data governance documentation for GPAI training data is a binding Art. 53 obligation"
+    },
+    {
+      "control_id": "Mandatory risk management system for high-risk AI",
+      "title": "Art. 9 � Risk management",
+      "description": "Absence of a documented risk management system is an Art. 9 violation"
+    },
+    {
+      "control_id": "Documented quality management system including post-market monitoring",
+      "title": "Art. 17 � Quality management",
+      "description": "Absence of a quality management system is an Art. 17 violation; Post-market monitoring must detect and respond to sensitive disclosure incidents"
+    },
+    {
+      "control_id": "Graduated fines based on violation type",
+      "title": "Art. 72 � Fines",
+      "description": "Understanding fine exposure is the starting point for compliance prioritisation"
+    },
+    {
+      "control_id": "Data governance covers all input modalities � images, audio, video � not only text",
+      "title": "Art. 10 � Data and data governance",
+      "description": "Multimodal input governance is an Art. 10 requirement for high-risk systems processing such inputs"
+    },
+    {
+      "control_id": "Cybersecurity measures covering all data channels including multimodal inputs",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "DLP and access controls on multimodal pipelines are Art. 15 requirements"
+    },
+    {
+      "control_id": "Technical documentation covers all input modalities processed by the model",
+      "title": "Art. 53(1)(a) � GPAI documentation",
+      "description": "Multimodal data governance documented in GPAI technical documentation"
+    },
+    {
+      "control_id": "Training data must be subject to appropriate data governance � privacy measures must be effective",
+      "title": "Art. 10 � Data and data governance",
+      "description": "Anonymisation effectiveness is an Art. 10 data governance requirement, not a self-certification"
+    },
+    {
+      "control_id": "GPAI training data governance documented � privacy measures included",
+      "title": "Art. 53(1)(a) � GPAI documentation",
+      "description": "Synthetic data generation methodology and re-identification risk assessment documented for GPAI"
+    },
+    {
+      "control_id": "Data governance covering multi-tenant deployments � session isolation as a data handling requirement",
+      "title": "Art. 10 � Data and data governance",
+      "description": "Session isolation controls are an Art. 10 data governance obligation for multi-user deployments"
+    },
+    {
+      "control_id": "Cybersecurity measures preventing cross-session data exposure",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Session isolation and tenant separation are Art. 15 technical requirements"
+    },
+    {
+      "control_id": "Post-market monitoring detecting and responding to session bleed incidents",
+      "title": "Art. 17 � Quality management",
+      "description": "Cross-session leakage detection in post-market monitoring programme"
+    },
+    {
+      "control_id": "LLM gateway risks identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "All LLM-to-database interfaces mapped in Art. 9 risk management"
+    },
+    {
+      "control_id": "High-risk AI designed to allow effective human oversight � ability to pause, stop, and override",
+      "title": "Art. 14 � Human oversight",
+      "description": "LLM-generated destructive database queries executing autonomously are an Art. 14 human oversight failure"
+    },
+    {
+      "control_id": "Cybersecurity measures protecting against adversarial misuse",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Least-privilege execution, query allowlisting, and SQL injection prevention are Art. 15 requirements"
+    },
+    {
+      "control_id": "Documented procedures for LLM gateway security",
+      "title": "Art. 17 � Quality management",
+      "description": "Security testing procedures and query log retention documented in quality management"
+    },
+    {
+      "control_id": "Vector store security risks identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "All vector store deployments assessed in Art. 9 risk management"
+    },
+    {
+      "control_id": "High-risk AI infrastructure protected against cybersecurity risks",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "RBAC, encryption, and CVE patching for vector stores are Art. 15 requirements"
+    },
+    {
+      "control_id": "Post-market monitoring covering AI infrastructure components",
+      "title": "Art. 17 � Quality management",
+      "description": "Vector store security monitoring in post-market monitoring programme"
+    },
+    {
+      "control_id": "Data governance applies to all data in AI system scope � including telemetry and monitoring data",
+      "title": "Art. 10 � Data and data governance",
+      "description": "Telemetry data governance � classification, access controls, retention � is an Art. 10 requirement"
+    },
+    {
+      "control_id": "Post-market monitoring required � but the monitoring infrastructure must itself be secured",
+      "title": "Art. 17 � Quality management",
+      "description": "Telemetry security is both an Art. 17 obligation and an Art. 10 data governance requirement"
+    },
+    {
+      "control_id": "Data governance applies to all data in AI system scope � including context window content",
+      "title": "Art. 10 � Data and data governance",
+      "description": "Context window data governance � minimum content, classification tracking � is Art. 10 requirement"
+    },
+    {
+      "control_id": "Cybersecurity against adversarial exploitation of context window content",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Context minimisation and access controls are Art. 15 cybersecurity measures"
+    },
+    {
+      "control_id": "Post-market monitoring covering context window exploitation incidents",
+      "title": "Art. 17 � Quality management",
+      "description": "Context window security in post-market monitoring programme"
+    },
+    {
+      "control_id": "Endpoint AI agent risks identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "Browser and endpoint agent deployments assessed in Art. 9 risk management"
+    },
+    {
+      "control_id": "High-risk AI designed to allow human oversight � users must be able to stop and override",
+      "title": "Art. 14 � Human oversight",
+      "description": "Users must be able to pause and override endpoint AI agents � Art. 14 human oversight requirement"
+    },
+    {
+      "control_id": "Deployers ensure human oversight as instructed by provider",
+      "title": "Art. 29 � Deployer obligations",
+      "description": "Deployers responsible for ensuring endpoint AI agents operate within Art. 14 human oversight scope"
+    },
+    {
+      "control_id": "High-risk AI must remain accurate and available under adverse conditions",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Vector store redundancy, circuit breakers, and staleness detection are Art. 15 requirements"
+    },
+    {
+      "control_id": "Post-market monitoring covering availability and resilience",
+      "title": "Art. 17 � Quality management",
+      "description": "AI pipeline availability monitoring in quality management and post-market monitoring programme"
+    },
+    {
+      "control_id": "Training data privacy measures required � protecting sensitive data used in training",
+      "title": "Art. 10 � Data and data governance",
+      "description": "Differential privacy and inference attack resistance are Art. 10 data governance requirements"
+    },
+    {
+      "control_id": "Cybersecurity measures protecting against attacks including inference attacks",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Output rate limiting, confidence score suppression, and embedding encryption are Art. 15 requirements"
+    },
+    {
+      "control_id": "Training data governance includes human annotation workflows",
+      "title": "Art. 10 � Data and data governance",
+      "description": "Labeller data access controls and data minimisation are Art. 10 requirements for high-risk training data"
+    },
+    {
+      "control_id": "Labelling vendors are part of the AI value chain � obligations distributed accordingly",
+      "title": "Art. 25 � Value chain responsibilities",
+      "description": "Labelling vendor security requirements and contractual controls are Art. 25 value chain obligations"
+    },
+    {
+      "control_id": "Cybersecurity measures protecting AI system integrity",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "API rate limiting, output perturbation, and extraction monitoring are Art. 15 requirements"
+    },
+    {
+      "control_id": "GPAI technical documentation includes model architecture and capability details",
+      "title": "Art. 53(1)(a) � GPAI documentation",
+      "description": "Technical documentation must be protected � model extraction enables circumvention of documentation obligations"
+    },
+    {
+      "control_id": "Post-market monitoring covering security incidents",
+      "title": "Art. 17 � Quality management",
+      "description": "Model extraction detection in post-market monitoring programme"
+    },
+    {
+      "control_id": "Training and retrieval data free from errors � source integrity required",
+      "title": "Art. 10 � Data and data governance",
+      "description": "RAG corpus integrity controls and source verification are Art. 10 requirements"
+    },
+    {
+      "control_id": "High-risk AI accurate and resilient against adversarial data manipulation",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Source trust scoring and ingestion validation are Art. 15 robustness requirements"
+    },
+    {
+      "control_id": "Systemic risk GPAI providers must assess and mitigate risks including disinformation",
+      "title": "Art. 55(1)(a) � Systemic risk GPAI",
+      "description": "Disinformation risk assessment and RAG integrity controls are binding Art. 55 obligations; Misinformation risk assessment and mitigation is a binding obligation for systemic risk models"
+    },
+    {
+      "control_id": "AI-generated content that could be mistaken as human must be disclosed",
+      "title": "Art. 50 � Transparency",
+      "description": "Disinformation risk amplified when users cannot distinguish AI-generated content � Art. 50 applies"
+    },
+    {
+      "control_id": "Providers of high-risk AI must implement a risk management system covering all reasonably foreseeable risks",
+      "title": "Art. 9 � Risk management",
+      "description": "Prompt injection must be identified, analysed, and mitigated in the risk management system"
+    },
+    {
+      "control_id": "High-risk AI systems must be resilient to adversarial inputs and attempts to alter outputs or performance",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Robustness against prompt injection is a technical compliance requirement � not optional"
+    },
+    {
+      "control_id": "Providers of systemic risk GPAI models must conduct adversarial testing to identify and mitigate systemic risks",
+      "title": "Art. 55(1)(b) � Systemic risk GPAI",
+      "description": "Prompt injection adversarial testing is a binding obligation for systemic risk models"
+    },
+    {
+      "control_id": "Training data for high-risk AI must be relevant, representative, free of errors, and complete � must address privacy",
+      "title": "Art. 10 � Data and data governance",
+      "description": "Privacy-preserving training data practices are a compliance requirement for high-risk LLMs"
+    },
+    {
+      "control_id": "Users must receive information about capabilities, limitations, and conditions of use",
+      "title": "Art. 13 � Transparency",
+      "description": "Disclosure of potential data disclosure risks is a transparency obligation"
+    },
+    {
+      "control_id": "Supply chain risks must be identified and mitigated in the risk management system",
+      "title": "Art. 9 � Risk management",
+      "description": "Third-party component risks are in scope for Art. 9 risk management"
+    },
+    {
+      "control_id": "Quality management must cover supply chain controls",
+      "title": "Art. 17 � Quality management",
+      "description": "Documented supply chain security procedures required"
+    },
+    {
+      "control_id": "Responsibilities distributed along the AI value chain between providers and deployers",
+      "title": "Art. 25 � Value chain responsibilities",
+      "description": "Providers must document what deployers inherit � deployers must verify"
+    },
+    {
+      "control_id": "GPAI providers must document training data governance including third-party sources",
+      "title": "Art. 53(1)(a) � GPAI documentation",
+      "description": "Third-party training data provenance is a GPAI documentation obligation"
+    },
+    {
+      "control_id": "Data poisoning must be identified as a foreseeable risk and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "Poisoning attack scenarios required in Art. 9 risk assessment"
+    },
+    {
+      "control_id": "Training data must be subject to appropriate governance practices � relevant, representative, free of errors",
+      "title": "Art. 10 � Data and data governance",
+      "description": "Data quality controls preventing poisoning are a compliance requirement"
+    },
+    {
+      "control_id": "Systemic risk GPAI providers must conduct adversarial testing to identify model-level risks",
+      "title": "Art. 55(1)(b) � Systemic risk GPAI adversarial testing",
+      "description": "Poisoning detection is in scope for Art. 55 adversarial testing"
+    },
+    {
+      "control_id": "Output handling risks identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "Insecure output handling included in risk management system"
+    },
+    {
+      "control_id": "Accurate, robust outputs resilient to misuse",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Output validation and sanitisation are Art. 15 technical requirements"
+    },
+    {
+      "control_id": "Documented procedures covering output quality",
+      "title": "Art. 17 � Quality management",
+      "description": "Post-market monitoring of output handling incidents required"
+    },
+    {
+      "control_id": "Autonomy-related risks identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "Excessive agency scenarios required in risk management system"
+    },
+    {
+      "control_id": "High-risk AI systems designed to allow effective human oversight � ability to pause, stop, and override",
+      "title": "Art. 14 � Human oversight",
+      "description": "Human-in-the-loop requirements are a binding Art. 14 compliance obligation"
+    },
+    {
+      "control_id": "Deployers must ensure human oversight as instructed by provider",
+      "title": "Art. 29 � Deployer obligations",
+      "description": "Deployers cannot waive Art. 14 human oversight requirements"
+    },
+    {
+      "control_id": "Users must receive sufficient information about the AI system � but this does not require disclosing system prompts",
+      "title": "Art. 13 � Transparency",
+      "description": "Transparency obligation must be met without exposing security-sensitive system prompt content"
+    },
+    {
+      "control_id": "Configuration management documented",
+      "title": "Art. 17 � Quality management",
+      "description": "System prompt versions, access controls, and change procedures are quality management artefacts"
+    },
+    {
+      "control_id": "GPAI providers must publish summaries of training data and model capabilities",
+      "title": "Art. 53(1)(b) � GPAI transparency",
+      "description": "Published summaries must not inadvertently expose security-sensitive configuration"
+    },
+    {
+      "control_id": "Embedding and retrieval risks identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "Vector store attack scenarios included in risk management system"
+    },
+    {
+      "control_id": "Data quality controls applied to all data in scope � including RAG corpora",
+      "title": "Art. 10 � Data and data governance",
+      "description": "Quality controls on embedding generation and vector store ingestion required"
+    },
+    {
+      "control_id": "Technical robustness against adversarial manipulation",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Embedding manipulation resistance is an Art. 15 technical requirement"
+    },
+    {
+      "control_id": "High-risk AI system information must include accuracy metrics and known limitations",
+      "title": "Art. 13 � Transparency",
+      "description": "Hallucination rates and accuracy limitations must be disclosed to deployers and users"
+    },
+    {
+      "control_id": "AI-generated content must be marked as such � chatbots must disclose AI nature",
+      "title": "Art. 50 � Transparency for certain AI systems",
+      "description": "Mandatory AI disclosure prevents users from treating hallucinated content as authoritative human output"
+    },
+    {
+      "control_id": "Availability risks identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "Resource exhaustion and DoS scenarios included in risk management system"
+    },
+    {
+      "control_id": "High-risk AI must remain available under adversarial conditions",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Technical resilience against denial-of-service attacks is an Art. 15 requirement"
+    },
+    {
+      "control_id": "Operational continuity procedures documented",
+      "title": "Art. 17 � Quality management",
+      "description": "Post-market monitoring and incident response for availability failures required"
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-04-09",
+      "change": "Initial seed — 25 key articles and annexes from Regulation 2024/1689",
+      "author": "emmanuelgjr"
+    }
+  ]
+}

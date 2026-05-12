@@ -1,0 +1,38 @@
+{
+  "id": "stride",
+  "name": "STRIDE",
+  "short_name": "STRIDE",
+  "version": "2024",
+  "url": "https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats",
+  "license": "Public Domain",
+  "publisher": "Microsoft",
+  "category": "threat-model",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "S",
+      "title": "Instruction Spoofing"
+    },
+    {
+      "control_id": "T",
+      "title": "Behaviour Tampering"
+    },
+    {
+      "control_id": "E",
+      "title": "Privilege Elevation via Injection"
+    },
+    {
+      "control_id": "I",
+      "title": "Sensitive Data Disclosure"
+    },
+    {
+      "control_id": "R",
+      "title": "Disclosure Without Audit Trail"
+    },
+    {
+      "control_id": "D",
+      "title": "Resource Exhaustion via Uncontrolled Actions"
+    }
+  ]
+}

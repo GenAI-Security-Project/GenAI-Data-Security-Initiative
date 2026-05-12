@@ -818,6 +818,60 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2025,
       "incident_id": "INC-048"
+    },
+    {
+      "name": "NYC city chatbot tells businesses to break the law — fabricated legal guidance",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-052"
+    },
+    {
+      "name": "DPD AI chatbot swears at customer and criticises company — prompt injection via customer input",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-053"
+    },
+    {
+      "name": "Character.AI teen suicide — AI companion encouraged self-harm",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-057"
+    },
+    {
+      "name": "LLM-generated malware evades endpoint detection — AI-assisted polymorphic code",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-075"
+    },
+    {
+      "name": "Claude Skills ransomware deployment — MedusaLocker via malicious plugin",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-081"
+    },
+    {
+      "name": "Google Antigravity AI IDE deletes entire D: drive — misinterpreted cache-clearing instruction",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-082"
+    },
+    {
+      "name": "Claude hijacked for state-sponsored cyberattacks — 80-90% autonomous operation against 30 entities",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-083"
+    },
+    {
+      "name": "XBOW — first critical CVE discovered entirely by autonomous AI penetration testing agent",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-096"
+    },
+    {
+      "name": "Anthropic Claude misuse report — ransomware development, North Korean employment fraud, extortion",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-110"
     }
   ],
   "crossrefs": {

@@ -1,0 +1,593 @@
+{
+  "id": "owasp-nhi",
+  "name": "OWASP NHI Top 10",
+  "short_name": "NHI Top 10",
+  "version": "1.0",
+  "url": "https://owasp.org/www-project-non-human-identities-top-10/",
+  "license": "CC BY-SA 4.0",
+  "publisher": "OWASP",
+  "category": "identity",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "Hijacked agent with excess privilege causes larger blast radius",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Scope all agent credentials to minimum required � least privilege enforced"
+    },
+    {
+      "control_id": "Long-lived tokens allow hijack to persist beyond session",
+      "title": "NHI-7 Long-Lived Credentials",
+      "description": "Short-lived credentials � tokens expire at task completion, no long-lived agent tokens"
+    },
+    {
+      "control_id": "Shared credentials allow hijacked agent to impersonate other agents",
+      "title": "NHI-9 NHI Reuse",
+      "description": "Unique identity per agent � no shared service accounts across agent deployments"
+    },
+    {
+      "control_id": "Agent with excess privilege can call tools in destructive ways even within normal use",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Per-tool permission manifests � each tool scoped to minimum required operations"
+    },
+    {
+      "control_id": "Compromised third-party tool identity gets full scope of agent credential",
+      "title": "NHI-3 Vulnerable Third-Party NHI",
+      "description": "Validate all third-party tool identities � reject tokens from unregistered issuers"
+    },
+    {
+      "control_id": "Single shared credential allows tool misuse to affect multiple services",
+      "title": "NHI-9 NHI Reuse",
+      "description": "Unique credential per tool integration � tool-scoped tokens, not agent-wide tokens"
+    },
+    {
+      "control_id": "Agent credentials not revoked on decommission � dormant tokens exploitable",
+      "title": "NHI-1 Improper Offboarding",
+      "description": "Formal agent offboarding � all credentials revoked, tokens invalidated, access removed"
+    },
+    {
+      "control_id": "Agent credentials exposed in memory, logs, tool payloads",
+      "title": "NHI-2 Secret Leakage",
+      "description": "No credentials in agent context, logs, or tool payloads � secret manager only"
+    },
+    {
+      "control_id": "Third-party tool credentials with excessive permissions inherited by agent",
+      "title": "NHI-3 Vulnerable Third-Party NHI",
+      "description": "Validate all third-party NHIs � revoke over-privileged third-party tokens"
+    },
+    {
+      "control_id": "Weak agent-to-system authentication � credential reuse or weak secrets",
+      "title": "NHI-4 Insecure Authentication",
+      "description": "Strong authentication for all agent-to-system connections � mTLS, short-lived tokens"
+    },
+    {
+      "control_id": "Agent holds more permissions than required � lateral movement amplifier",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Least privilege per agent role � scope enforced, reviewed quarterly"
+    },
+    {
+      "control_id": "Agent credentials stored in cleartext � config files, environment variables",
+      "title": "NHI-6 Insecure Credential Storage",
+      "description": "Secret manager for all agent credentials � no cleartext storage anywhere"
+    },
+    {
+      "control_id": "Agent tokens without expiry � compromise persists indefinitely",
+      "title": "NHI-7 Long-Lived Credentials",
+      "description": "Short-lived credentials � task-scoped tokens with automatic expiry"
+    },
+    {
+      "control_id": "Production agent credentials accessible in dev/test environments",
+      "title": "NHI-8 Environment Isolation Failure",
+      "description": "Strict environment isolation � separate credentials per environment, no cross-environment reuse"
+    },
+    {
+      "control_id": "Shared agent credential across multiple instances or deployments",
+      "title": "NHI-9 NHI Reuse",
+      "description": "Unique identity per agent deployment � no credential sharing"
+    },
+    {
+      "control_id": "Humans using agent service accounts � no attribution, no MFA",
+      "title": "NHI-10 Human Use of NHI",
+      "description": "Agent credentials machine-only � human use detected and blocked"
+    },
+    {
+      "control_id": "Compromised MCP server holds or can request excessive permissions",
+      "title": "NHI-3 Vulnerable Third-Party NHI",
+      "description": "Validate all third-party NHIs at connection � revoke tokens from unverified sources"
+    },
+    {
+      "control_id": "Malicious components extract credentials from agent memory or config",
+      "title": "NHI-6 Insecure Credential Storage",
+      "description": "Credential isolation � components cannot access other components' credentials"
+    },
+    {
+      "control_id": "Supply chain compromise introduces credential exfiltration code",
+      "title": "NHI-2 Secret Leakage",
+      "description": "Scan all agent components for credential access patterns before deployment"
+    },
+    {
+      "control_id": "Code executes in context of over-privileged agent credential � amplifies RCE impact",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Sandbox code execution under a separate, minimal credential � not the agent's primary identity"
+    },
+    {
+      "control_id": "Code execution in production context with prod credentials",
+      "title": "NHI-8 Environment Isolation Failure",
+      "description": "Strict environment isolation for code execution � dedicated sandboxed identity"
+    },
+    {
+      "control_id": "Shared credential means RCE in one agent affects all agents sharing the credential",
+      "title": "NHI-9 NHI Reuse",
+      "description": "Unique credential per agent � code execution in one instance cannot leverage other instances' access"
+    },
+    {
+      "control_id": "Memory store credentials leaked � attacker writes poisoned content directly",
+      "title": "NHI-2 Secret Leakage",
+      "description": "Scan all paths where memory store credentials could leak � logs, config, agent context"
+    },
+    {
+      "control_id": "Memory store credentials in cleartext � trivially extracted",
+      "title": "NHI-6 Insecure Credential Storage",
+      "description": "Secret manager for all memory store credentials � no cleartext anywhere"
+    },
+    {
+      "control_id": "Long-lived memory store credentials enable persistent access for attacker",
+      "title": "NHI-7 Long-Lived Credentials",
+      "description": "Short-lived credentials for memory store access � rotate on each agent session"
+    },
+    {
+      "control_id": "Weak or missing authentication on A2A channels � agent spoofing enabled",
+      "title": "NHI-4 Insecure Authentication",
+      "description": "Strong mutual authentication on all A2A channels � mTLS, certificate-based, short-lived"
+    },
+    {
+      "control_id": "Long-lived A2A tokens enable persistent replay attacks",
+      "title": "NHI-7 Long-Lived Credentials",
+      "description": "Short-lived A2A tokens with nonce-based replay protection"
+    },
+    {
+      "control_id": "Shared A2A credentials allow one compromised agent to impersonate others",
+      "title": "NHI-9 NHI Reuse",
+      "description": "Unique identity per agent � A2A authentication bound to specific agent identity"
+    },
+    {
+      "control_id": "Cascading agent failure with over-privileged credentials exposes all accessible systems",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Least privilege per agent � cascade blast radius limited by credential scope"
+    },
+    {
+      "control_id": "Shared credentials mean cascade in one agent affects all agents sharing the credential",
+      "title": "NHI-9 NHI Reuse",
+      "description": "Unique identity per agent � cascade cannot leverage shared credentials for lateral movement"
+    },
+    {
+      "control_id": "Long-lived credentials exposed during cascade remain valid for attacker use post-incident",
+      "title": "NHI-7 Long-Lived Credentials",
+      "description": "Short-lived credentials � cascade event triggers automatic revocation of all affected tokens"
+    },
+    {
+      "control_id": "Humans using agent credentials � or agents using human credentials � destroys attribution",
+      "title": "NHI-10 Human Use of NHI",
+      "description": "Strict separation: agent credentials machine-only, human credentials human-only"
+    },
+    {
+      "control_id": "Over-privileged agent identity makes its recommendations appear more authoritative to users",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Least privilege makes agent capabilities visible and bounded � users understand what the agent can actually do"
+    },
+    {
+      "control_id": "Rogue agent detected but not offboarded � credentials remain valid",
+      "title": "NHI-1 Improper Offboarding",
+      "description": "Formal agent offboarding triggered immediately on rogue detection � all credentials revoked"
+    },
+    {
+      "control_id": "Rogue agent with excess privilege causes larger blast radius before detection",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Least privilege � rogue agent with narrow scope causes less damage before containment"
+    },
+    {
+      "control_id": "Long-lived tokens allow rogue agent to operate indefinitely after detection",
+      "title": "NHI-7 Long-Lived Credentials",
+      "description": "Short-lived credentials � rogue detection triggers token expiry without requiring manual revocation"
+    },
+    {
+      "control_id": "Injection blast radius limited only by credential scope",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Apply least-privilege to all data pipeline credentials"
+    },
+    {
+      "control_id": "Injected actions can use pipeline tokens for extended period",
+      "title": "NHI-7 Long-Lived Credentials",
+      "description": "Short-lived tokens for all data pipeline service accounts"
+    },
+    {
+      "control_id": "Write access to training data stores enables poisoning",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Separate read and write credentials; write requires MFA; Read-only credentials for data consumption; separate write credentials with MFA"
+    },
+    {
+      "control_id": "Training pipeline credentials in plaintext config",
+      "title": "NHI-6 Insecure Credential Storage",
+      "description": "Vault all training pipeline credentials"
+    },
+    {
+      "control_id": "Long-lived write credentials create persistent poisoning window",
+      "title": "NHI-7 Long-Lived Credentials",
+      "description": "Short-lived write tokens; rotate frequently"
+    },
+    {
+      "control_id": "Pipeline service account with access to sensitive data stores",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Scope pipeline credentials to approved data sources only"
+    },
+    {
+      "control_id": "Credentials embedded in config files include sensitive data source access",
+      "title": "NHI-2 Secret Leakage",
+      "description": "Audit config files for embedded credentials"
+    },
+    {
+      "control_id": "Unauthenticated connections between pipeline stages",
+      "title": "NHI-4 Insecure Authentication",
+      "description": "Require mTLS or token auth for all pipeline connections"
+    },
+    {
+      "control_id": "Pipeline service account with access to all stages",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Per-stage credentials with minimum scope"
+    },
+    {
+      "control_id": "Same credential used for multiple pipeline stages",
+      "title": "NHI-9 NHI Reuse",
+      "description": "Separate credentials per stage"
+    },
+    {
+      "control_id": "Service account with guardrail configuration write access",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Minimum scope; no service account has guardrail disable capability"
+    },
+    {
+      "control_id": "Credentials embedded in model outputs or training data surface in responses",
+      "title": "NHI-2 Secret Leakage",
+      "description": "Output scanning for credential patterns"
+    },
+    {
+      "control_id": "Over-broad retrieval credentials return data beyond user entitlement",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Minimum scope for retrieval service accounts"
+    },
+    {
+      "control_id": "GenAI system service account has access to more data than declared function requires",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Audit and reduce credential scope per system component"
+    },
+    {
+      "control_id": "Long-lived credentials maintain excessive access indefinitely",
+      "title": "NHI-7 Long-Lived Credentials",
+      "description": "Rotate or replace with short-lived tokens"
+    },
+    {
+      "control_id": "Same data access credential used across multiple GenAI system functions",
+      "title": "NHI-9 NHI Reuse",
+      "description": "Separate credentials per function"
+    },
+    {
+      "control_id": "Embedding store service account with cross-tenant read access",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Per-tenant credentials or row-level security with minimum scope; Per-tenant credentials or least-privilege scope restrictions"
+    },
+    {
+      "control_id": "Unauthenticated embedding store access",
+      "title": "NHI-4 Insecure Authentication",
+      "description": "Require authentication for all vector database connections"
+    },
+    {
+      "control_id": "Same embedding store credential used for multiple tenants",
+      "title": "NHI-9 NHI Reuse",
+      "description": "Separate credentials per tenant or use row-level security"
+    },
+    {
+      "control_id": "Corpus write access held by service accounts that do not need it",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Separate read and write credentials; write accounts require MFA"
+    },
+    {
+      "control_id": "Corpus write credentials in plaintext config",
+      "title": "NHI-6 Insecure Credential Storage",
+      "description": "Vault all corpus write credentials"
+    },
+    {
+      "control_id": "Long-lived corpus write credentials persist beyond need",
+      "title": "NHI-7 Long-Lived Credentials",
+      "description": "Rotate corpus write credentials; implement short-lived write pattern"
+    },
+    {
+      "control_id": "Data feed service accounts with access to sensitive data that should not enter context",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Scope data feed credentials to approved data only"
+    },
+    {
+      "control_id": "Session store service account with cross-user read/write access",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Per-user session store access controls"
+    },
+    {
+      "control_id": "Session store access credentials in plaintext",
+      "title": "NHI-6 Insecure Credential Storage",
+      "description": "Vault session store credentials"
+    },
+    {
+      "control_id": "API credentials with high quota enabling systematic extraction",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Per-user quotas; minimum default quota"
+    },
+    {
+      "control_id": "Long-lived inference API credentials enable sustained extraction campaigns",
+      "title": "NHI-7 Long-Lived Credentials",
+      "description": "Rotate API credentials; implement per-session tokens"
+    },
+    {
+      "control_id": "Third-party tool credentials with excessive data access",
+      "title": "NHI-3 Vulnerable Third-Party NHI",
+      "description": "Review all third-party tool credentials; reduce to minimum scope"
+    },
+    {
+      "control_id": "Tool integration credentials with broad data access",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Minimum scope per tool integration"
+    },
+    {
+      "control_id": "Same credential used across multiple tool integrations",
+      "title": "NHI-9 NHI Reuse",
+      "description": "Separate credentials per tool"
+    },
+    {
+      "control_id": "Model storage service account with read access from unexpected paths",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Minimum scope: only authorised inference service can read model weights"
+    },
+    {
+      "control_id": "Model storage credentials in plaintext config",
+      "title": "NHI-6 Insecure Credential Storage",
+      "description": "Vault all model storage credentials"
+    },
+    {
+      "control_id": "Inference log service account with broad read access",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Minimum scope: only authorised audit function can read inference logs"
+    },
+    {
+      "control_id": "Service account credentials embedded in inference log entries",
+      "title": "NHI-2 Secret Leakage",
+      "description": "Scan and scrub credentials from inference logs"
+    },
+    {
+      "control_id": "Third-party data source API keys with excessive scope",
+      "title": "NHI-3 Vulnerable Third-Party NHI",
+      "description": "Review all third-party credentials; reduce to minimum"
+    },
+    {
+      "control_id": "Third-party development credentials used in production",
+      "title": "NHI-8 Environment Isolation Failure",
+      "description": "Enforce environment isolation for third-party credentials"
+    },
+    {
+      "control_id": "Third-party credentials embedded in shared config",
+      "title": "NHI-2 Secret Leakage",
+      "description": "Vault all third-party data source credentials"
+    },
+    {
+      "control_id": "Model provider API keys with excessive access to model versions",
+      "title": "NHI-3 Vulnerable Third-Party NHI",
+      "description": "Review and scope all model provider credentials"
+    },
+    {
+      "control_id": "Same model registry token used across dev/staging/production",
+      "title": "NHI-8 Environment Isolation Failure",
+      "description": "Separate credentials per environment"
+    },
+    {
+      "control_id": "Model provider credentials in pipeline config",
+      "title": "NHI-2 Secret Leakage",
+      "description": "Vault all model provider credentials"
+    },
+    {
+      "control_id": "Service account with access to retained data beyond declared function",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Minimum scope for data access credentials"
+    },
+    {
+      "control_id": "Humans using machine credentials for data deletion — no audit trail",
+      "title": "NHI-10 Human Use of NHI",
+      "description": "Enforce human identity for all compliance operations"
+    },
+    {
+      "control_id": "Shared credential across pipeline stages — one failure affects all",
+      "title": "NHI-9 NHI Reuse",
+      "description": "Separate credentials per pipeline stage"
+    },
+    {
+      "control_id": "Single credential covering multiple pipeline stages amplifies cascade",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Per-stage minimum scope credentials"
+    },
+    {
+      "control_id": "Humans using machine credentials — no attribution for compliance evidence",
+      "title": "NHI-10 Human Use of NHI",
+      "description": "Enforce human identity for all regulated data operations"
+    },
+    {
+      "control_id": "Compliance audit credentials leaked — tampering with evidence possible",
+      "title": "NHI-2 Secret Leakage",
+      "description": "Protect audit credential integrity"
+    },
+    {
+      "control_id": "Machine credentials used for ingestion operations — no individual attribution",
+      "title": "NHI-10 Human Use of NHI",
+      "description": "Enforce machine identity per pipeline component; log with component identity"
+    },
+    {
+      "control_id": "Decommissioned pipeline identities remain in lineage records",
+      "title": "NHI-1 Improper Offboarding",
+      "description": "Timely offboarding of pipeline NHIs"
+    },
+    {
+      "control_id": "Lineage system credentials leaked — provenance records can be tampered",
+      "title": "NHI-2 Secret Leakage",
+      "description": "Protect lineage system credentials"
+    },
+    {
+      "control_id": "DSGAI entries most affected",
+      "title": "NHI Risk"
+    },
+    {
+      "control_id": "DSGAI21",
+      "title": "NHI-1 Improper Offboarding"
+    },
+    {
+      "control_id": "DSGAI03, DSGAI06, DSGAI16",
+      "title": "NHI-2 Secret Leakage",
+      "description": "DevSecOps"
+    },
+    {
+      "control_id": "DSGAI13, DSGAI16, DSGAI17",
+      "title": "NHI-3 Third-Party NHI",
+      "description": "Security"
+    },
+    {
+      "control_id": "DSGAI04, DSGAI08",
+      "title": "NHI-4 Insecure Authentication",
+      "description": "Platform"
+    },
+    {
+      "control_id": "DSGAI02, DSGAI07, DSGAI08, DSGAI09",
+      "title": "NHI-5 Over-Privileged NHI"
+    },
+    {
+      "control_id": "DSGAI02, DSGAI09, DSGAI14",
+      "title": "NHI-6 Insecure Storage",
+      "description": "Platform"
+    },
+    {
+      "control_id": "DSGAI02, DSGAI07, DSGAI09, DSGAI12",
+      "title": "NHI-7 Long-Lived"
+    },
+    {
+      "control_id": "DSGAI16, DSGAI17",
+      "title": "NHI-8 Env Isolation",
+      "description": "DevSecOps"
+    },
+    {
+      "control_id": "DSGAI04, DSGAI07, DSGAI08, DSGAI19",
+      "title": "NHI-9 NHI Reuse"
+    },
+    {
+      "control_id": "DSGAI18, DSGAI20, DSGAI21",
+      "title": "NHI-10 Human Use"
+    },
+    {
+      "control_id": "Date",
+      "title": "Version",
+      "description": "Change"
+    },
+    {
+      "control_id": "2026-03-27",
+      "title": "1.0.0",
+      "description": "Initial release — full mapping DSGAI01–DSGAI21 to NHI Top 10"
+    },
+    {
+      "control_id": "Injection blast radius proportional to credential scope",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Apply least-privilege to all LLM application credentials"
+    },
+    {
+      "control_id": "Injected session can use stolen long-lived tokens for extended period",
+      "title": "NHI-7 Long-Lived Credentials",
+      "description": "Rotate all LLM application tokens; implement short-lived token pattern"
+    },
+    {
+      "control_id": "LLM outputs containing API keys, tokens, or credentials",
+      "title": "NHI-2 Secret Leakage",
+      "description": "Output filtering: detect and redact credential patterns in all outputs"
+    },
+    {
+      "control_id": "Credentials in plaintext config files ingested by LLM",
+      "title": "NHI-6 Insecure Credential Storage",
+      "description": "Audit all config and data sources for embedded credentials"
+    },
+    {
+      "control_id": "Third-party plugin tokens with excessive permissions",
+      "title": "NHI-3 Vulnerable Third-Party NHI",
+      "description": "Review all third-party credentials; apply minimum scope"
+    },
+    {
+      "control_id": "Third-party dev/staging credentials used in production",
+      "title": "NHI-8 Environment Isolation Failure",
+      "description": "Enforce environment isolation for all third-party integrations"
+    },
+    {
+      "control_id": "Third-party component credentials exposed in shared config",
+      "title": "NHI-2 Secret Leakage",
+      "description": "Separate credential stores per third-party component"
+    },
+    {
+      "control_id": "Third-party data pipeline credentials with training data write access",
+      "title": "NHI-3 Vulnerable Third-Party NHI",
+      "description": "Apply NHI-3 controls to all data pipeline third-party credentials"
+    },
+    {
+      "control_id": "Credentials appearing in model outputs passed to executors",
+      "title": "NHI-2 Secret Leakage",
+      "description": "Credential detection in output pipeline before execution"
+    },
+    {
+      "control_id": "Downstream service credentials with excessive scope",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Apply least-privilege to all credentials used in downstream processing"
+    },
+    {
+      "control_id": "Tool/API credentials with more scope than task requires",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Minimum credential scope per tool integration"
+    },
+    {
+      "control_id": "Long-lived tool credentials enable extended unauthorised access",
+      "title": "NHI-7 Long-Lived Credentials",
+      "description": "Short-lived JIT credentials per task (see RECIPES.md)"
+    },
+    {
+      "control_id": "Same credential used for multiple tools — compromise of one exposes all",
+      "title": "NHI-9 NHI Reuse",
+      "description": "Separate credentials per tool integration"
+    },
+    {
+      "control_id": "API keys or tokens embedded in system prompt",
+      "title": "NHI-2 Secret Leakage",
+      "description": "Scan system prompts for credential patterns before deployment"
+    },
+    {
+      "control_id": "System prompt stored as plaintext config with embedded credentials",
+      "title": "NHI-6 Insecure Credential Storage",
+      "description": "Externalise credentials to vault; reference by ID in system prompt"
+    },
+    {
+      "control_id": "Audit log service credentials leaked or compromised",
+      "title": "NHI-2 Secret Leakage",
+      "description": "Protect audit log credentials as sensitive NHI"
+    },
+    {
+      "control_id": "Humans using LLM service account credentials — no attribution",
+      "title": "NHI-10 Human Use of NHI",
+      "description": "Enforce separate human and machine credentials"
+    },
+    {
+      "control_id": "Single credential with access to multiple services — one exhaustion affects all",
+      "title": "NHI-5 Over-Privileged NHI",
+      "description": "Separate credentials per service with independent quotas"
+    },
+    {
+      "control_id": "Shared credential used across services — quota exhaustion in one affects all",
+      "title": "NHI-9 NHI Reuse",
+      "description": "Separate credentials per integration"
+    }
+  ]
+}

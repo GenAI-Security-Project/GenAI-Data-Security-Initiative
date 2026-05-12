@@ -1,31 +1,47 @@
-# GenAI Security Crosswalk
- 
-[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
-[![OWASP Lab](https://img.shields.io/badge/OWASP-GenAI%20Data%20Security-blue)](https://genai.owasp.org)
-[![Version](https://img.shields.io/badge/version-2.0.0-green)](CHANGELOG.md)
-[![Source Lists](https://img.shields.io/badge/source%20lists-3-blueviolet)](README.md)
-[![Mapping Files](https://img.shields.io/badge/mapping%20files-67-brightgreen)](README.md)
-[![Frameworks](https://img.shields.io/badge/frameworks-20-orange)](README.md)
-[![npm](https://img.shields.io/npm/v/genai-security-crosswalk?color=red&label=npm)](https://www.npmjs.com/package/genai-security-crosswalk)
- 
-> The most comprehensive publicly available mapping of OWASP GenAI security risks to industry frameworks — covering LLM applications, autonomous agentic AI, and GenAI data security across **20 frameworks** and **3 OWASP source lists**.
+<p align="center">
+  <a href="https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/">
+    <img src="docs/banner.svg" alt="OWASP GenAI Security Crosswalk" width="100%">
+  </a>
+</p>
 
-### [Live Web App](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/) | [Score Your Coverage](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/score) | [Explore Entries](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/explorer) | [View Incidents](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/incidents)
+<p align="center">
+  <a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg" alt="License"></a>
+  <a href="https://genai.owasp.org"><img src="https://img.shields.io/badge/OWASP-GenAI%20Data%20Security-blue" alt="OWASP"></a>
+  <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-3.1.0-green" alt="Version"></a>
+  <a href="README.md"><img src="https://img.shields.io/badge/frameworks-25-orange" alt="Frameworks"></a>
+  <a href="README.md"><img src="https://img.shields.io/badge/controls-1,514-blueviolet" alt="Controls"></a>
+  <a href="README.md"><img src="https://img.shields.io/badge/mapping%20files-67-brightgreen" alt="Mapping Files"></a>
+  <a href="https://www.npmjs.com/package/genai-security-crosswalk"><img src="https://img.shields.io/npm/v/genai-security-crosswalk?color=red&label=npm" alt="npm"></a>
+</p>
 
-Created and led by **[Emmanuel Guilherme Junior](https://github.com/emmanuelgjr)**, who leads the [OWASP GenAI Data Security Initiative](https://genai.owasp.org).
+<p align="center">
+  <strong>The most comprehensive mapping of AI security risks to compliance frameworks.</strong><br>
+  25 frameworks &middot; 1,514 controls &middot; 41 entries &middot; 3,210 mappings &middot; 114 incidents &middot; ML classifier pipeline
+</p>
+
+<p align="center">
+  <a href="https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/"><b>Live Web App</b></a> &middot;
+  <a href="https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/score"><b>Score Coverage</b></a> &middot;
+  <a href="https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/gaps"><b>Gap Analysis</b></a> &middot;
+  <a href="https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/explorer"><b>Explore Entries</b></a> &middot;
+  <a href="https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/incidents"><b>Incidents</b></a>
+</p>
+
+Created and led by **[Emmanuel Guilherme Junior](https://github.com/emmanuelgjr)** — [OWASP GenAI Data Security Initiative](https://genai.owasp.org) Lead.
 
 ---
 
 ## TL;DR — What is this and what do I do?
 
-**The problem:** You're deploying AI (LLMs, agents, RAG pipelines) and need to know which security controls apply — across EU AI Act, NIST, ISO, SOC 2, FedRAMP, DORA, and 14 more frameworks. No single document maps AI risks to all of them.
+**The problem:** You're deploying AI (LLMs, agents, RAG pipelines) and need to know which security controls apply — across EU AI Act, NIST, ISO, SOC 2, FedRAMP, DORA, and 19 more frameworks. No single document maps AI risks to all of them.
 
-**This repo solves that.** Every OWASP GenAI vulnerability (41 total) is mapped to specific controls in 20 industry frameworks. Pick your risk, find your controls.
+**This repo solves that.** Every OWASP GenAI vulnerability (41 total) is mapped to specific controls in 25 industry frameworks. Pick your risk, find your controls.
 
 ### 3 ways to use it (pick one)
 
 **1. Score your coverage in 60 seconds** (no install needed)
 > Go to the **[web app](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/score)**, select the frameworks you implement, see your gaps instantly. Upload tool results to validate.
+> Or try the **[gap analysis heatmap](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/gaps)** — red/yellow/green coverage across your compliance stack, exportable as PDF.
 
 **2. Read the mapping file you need** (browse the repo)
 > Find your framework below, click the file, read the controls. Example: deploying AI in the EU? Start with [LLM_EUAIAct.md](llm-top10/LLM_EUAIAct.md).
@@ -47,9 +63,57 @@ node scripts/incidents-report.js --format stix              # SIEM/SOAR export
 | **CISO / compliance officer** | [Score your coverage](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/score) → export the gap report |
 | **Security engineer** | [Explorer](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/explorer) → search by risk, see all controls |
 | **Red teamer** | [LAAF guide](evals/laaf/README.md) → run S1–S6 attack stages, map results to OWASP |
-| **GRC / auditor** | `compliance-report.js --format oscal` → import into ServiceNow/Archer |
+| **GRC / auditor** | `compliance-report.js --format grc` → import into ServiceNow/Archer/Drata |
 | **Developer** | `npm install genai-security-crosswalk` → query risks + controls programmatically |
-| **Threat intel analyst** | `incidents-report.js --format stix` → ingest 50 AI incidents into Sentinel/Splunk |
+| **Threat intel analyst** | `incidents-report.js --format stix` → ingest 80 AI incidents into Sentinel/Splunk |
+| **Framework author** | [Submit your standard](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/submit) → classifier maps it automatically |
+
+---
+
+## Submit a Standard
+
+Have a framework that should be in the crosswalk? The **Submit-a-Standard** pipeline automates it:
+
+1. **[Paste your JSON](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/submit)** — structured controls with IDs and titles
+2. **Classifier runs** — BGE bi-encoder + cross-encoder reranker proposes mappings to all 41 OWASP entries
+3. **PR opens** — proposed mappings with confidence scores, ready for human review
+4. **[Review & merge](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/review)** — accept, reject, or edit each mapping
+
+No server required — runs entirely via GitHub Actions on the static site.
+
+---
+
+## Framework Registry
+
+The crosswalk maintains a first-class registry of framework control inventories in `data/frameworks/`. Each framework has full metadata (version, URL, license, publisher) and a complete controls array.
+
+```bash
+node scripts/ingest-framework.mjs --list          # list all 25 registered frameworks
+node scripts/ingest-framework.mjs fw.json          # ingest a new framework
+node scripts/ingest-framework.mjs fw.json --validate  # validate only
+```
+
+The registry powers the [control-level pivot views](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/frameworks) — click any framework, then click a control to see all OWASP entries that map to it.
+
+---
+
+## Classifier Pipeline
+
+The `classifier/` directory contains a research-grade retrieval pipeline for automated framework-to-OWASP mapping:
+
+```bash
+cd classifier/
+pip install -r requirements.txt
+python -m classifier.index_builder            # build FAISS index (1,514 controls, ~7s)
+python -m classifier.classify --source LLM01 --top-k 10          # bi-encoder retrieval
+python -m classifier.classify --source LLM01 --top-k 10 --rerank # + cross-encoder reranker
+python -m classifier.eval_harness --rerank    # full eval with bootstrap CIs
+python -m classifier.contamination_probe      # generalization probe
+python -m classifier.finetune                 # domain fine-tune BGE on calibration data
+python -m classifier.finetune --eval-only     # evaluate baseline without training
+```
+
+**Results (P@1 = 0.585):** The classifier correctly identifies the top control for 58.5% of queries across 25 frameworks. See [PREREGISTRATION.md](classifier/PREREGISTRATION.md) for hypotheses and [EVAL_REPORT.md](classifier/EVAL_REPORT.md) for full results with bootstrap confidence intervals.
 
 ---
 
@@ -60,14 +124,17 @@ Every file answers one question: **which controls from framework X address vulne
 | | |
 |---|---|
 | **3** source lists | LLM Top 10 · Agentic Top 10 · DSGAI 2026 |
-| **20** frameworks | Compliance · Governance · Threat modeling · Testing · OT/ICS · Identity · Secure SDLC · Financial |
+| **25** frameworks | Compliance · Governance · Threat modeling · Testing · OT/ICS · Identity · Secure SDLC · Financial |
 | **67** mapping files | Every source list entry × every applicable framework |
 | **21** implementation recipes | Production-ready Python patterns |
 | **70+** open-source tools | Catalogued and organised by function |
 | **25** eval profiles | Runnable Garak (13) + PyRIT (6) + LAAF (6) tests mapped to OWASP entries |
-| **20** compliance reports | Per-framework gap assessments auto-generated from data layer (MD, CSV, JSON, OSCAL) |
+| **23** compliance reports | Per-framework gap assessments auto-generated from data layer (MD, CSV, JSON, OSCAL, GRC) |
 | **50** documented incidents | Real-world + research incidents with MAESTRO layer attribution (MD, CSV, JSON, STIX 2.1) |
 | **LAAF v2.0** | First agentic LPCI red-teaming framework — fully integrated with 6-stage × OWASP crosswalk |
+| **25** framework registries | First-class control inventories (1,514 controls) with backlink index |
+| **Classifier pipeline** | BGE bi-encoder + cross-encoder reranker — auto-maps new frameworks to OWASP entries |
+| **Submit-a-Standard** | Paste framework JSON → classifier proposes mappings → PR opened for review |
 
 All free. All open-source. Built for practitioners.
  
@@ -107,6 +174,9 @@ All free. All open-source. Built for practitioners.
 | [NIST SP 800-218A](https://doi.org/10.6028/NIST.SP.800-218A.ipd) | ✅ | ✅ | ✅ |
 | [FedRAMP](https://www.fedramp.gov/) | ✅ | ✅ | ✅ |
 | [DORA (EU 2022/2554)](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554) | ✅ | ✅ | ✅ |
+| [CWE/CVE](https://cwe.mitre.org/) | ✅ | ✅ | ✅ |
+| [OWASP AI Testing Guide](https://owasp.org/www-project-ai-security-and-privacy-guide/) | ✅ | ✅ | — |
+| [STRIDE](https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats) | ✅ | — | — |
 
 ---
 
@@ -307,21 +377,36 @@ GenAI-Security-Crosswalk/
 │   └── TEMPLATE.md                  ← Canonical template for new mapping files
 │
 ├── data/
+│   ├── frameworks/                  ← 25 framework registries (1,514 controls)
+│   ├── entries/                     ← 41 machine-readable entry JSON files
+│   ├── framework-schema.json        ← JSON Schema for framework registries
 │   ├── schema.json                  ← JSON Schema (Draft 7) for entry files
-│   ├── incidents.json               ← 50 incidents with MAESTRO layer attribution
+│   ├── backlinks.json               ← 1,097 control-to-entry reverse index
+│   ├── incidents.json               ← 114 incidents with MAESTRO layer attribution
 │   ├── incidents-schema.json        ← JSON Schema for incidents
 │   ├── tools-supplement.json        ← Supplemental tools merged at generation time
-│   ├── entries/                     ← 41 machine-readable entry JSON files
 │   └── README.md                    ← Data layer docs, jq query examples
 │
 ├── scripts/
 │   ├── validate.js                  ← Content validator (sections, links, counts)
 │   ├── generate.js                  ← Markdown-to-JSON parser → data/entries/
-│   ├── compliance-report.js         ← Gap assessment generator (MD/CSV/JSON/OSCAL)
+│   ├── compliance-report.js         ← Gap reports (MD/CSV/JSON/OSCAL/OSCAL-catalog/GRC)
 │   ├── incidents-report.js          ← Incident query tool (MD/CSV/JSON/STIX 2.1)
+│   ├── extract-registry.js          ← Auto-extract controls from entries → registry
+│   ├── framework-diff.js            ← Diff-aware versioning (added/removed/modified)
 │   ├── query.js                     ← CLI query interface (replaces jq)
 │   ├── watch.js                     ← External source watcher (OWASP/arXiv/NVD/frameworks)
 │   └── sbom-inventory.js            ← Content-level CycloneDX SBOM generator
+│
+├── classifier/                      ← ML pipeline for automated mapping
+│   ├── classify.py                  ← Main classifier (bi-encoder + reranker)
+│   ├── eval_harness.py              ← Evaluation pipeline (P@k, R@k, MAP, CIs)
+│   ├── index_builder.py             ← FAISS index builder (1,514 controls)
+│   ├── finetune.py                  ← Contrastive fine-tuning for BGE-small
+│   ├── reranker.py                  ← Cross-encoder reranker
+│   ├── contamination_probe.py       ← Generalization probe (CoSAI holdout)
+│   ├── PREREGISTRATION.md           ← Pre-registered hypotheses
+│   └── EVAL_REPORT.md               ← Evaluation results (P@1=0.585)
 │
 ├── evals/
 │   ├── README.md                    ← Setup guide and result interpretation
@@ -353,14 +438,27 @@ GenAI-Security-Crosswalk/
 Generate framework-specific gap assessments from the data layer in seconds:
 
 ```bash
-node scripts/compliance-report.js                          # all 20 frameworks → reports/
+node scripts/compliance-report.js                          # all 23 frameworks → reports/
 node scripts/compliance-report.js --framework "EU AI Act"  # one framework
 node scripts/compliance-report.js --format csv             # Excel-compatible
 node scripts/compliance-report.js --format json            # machine-readable
+node scripts/compliance-report.js --format oscal           # OSCAL 1.1.2 component definition
+node scripts/compliance-report.js --format oscal-catalog   # OSCAL 1.1.2 full control catalog
+node scripts/compliance-report.js --format grc             # ServiceNow/Archer/Drata import
 node scripts/compliance-report.js --list-frameworks        # see all options
 ```
 
 Each report includes: executive summary, coverage matrix (OWASP entries × controls), per-control detail with notes, and a prioritised action plan.
+
+### Framework version diffing
+
+When a framework releases a new version, diff the changes and propose mappings only for the delta:
+
+```bash
+node scripts/framework-diff.js --git data/frameworks/eu-ai-act.json     # diff vs last commit
+node scripts/framework-diff.js --old v1.json --new v2.json              # compare two files
+node scripts/framework-diff.js --old v1.json --new v2.json --apply      # update + add changelog
+```
 
 ## LAAF v2.0 — LPCI red-teaming
 
@@ -388,7 +486,7 @@ See `evals/laaf/README.md` for the full LPCI attack vector → OWASP → MAESTRO
 
 ## Incident tracker
 
-50 real-world and research-demonstrated incidents, each mapped to OWASP entries and MAESTRO architectural layers:
+80 real-world, research-demonstrated, and red-team incidents, each mapped to OWASP entries and MAESTRO architectural layers:
 
 ```bash
 node scripts/incidents-report.js                      # all incidents → reports/incidents.md
@@ -409,10 +507,15 @@ No install required. Works on desktop and mobile.
 
 | Page | What it does |
 |------|-------------|
-| [**Score**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/score) | Select your frameworks, see coverage gaps. Upload Garak/PyRIT/LAAF results to validate. Share your score card on LinkedIn. |
-| [**Explorer**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/explorer) | Search and filter all 41 entries. Click any entry to see controls across all 20 frameworks. |
-| [**Frameworks**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/frameworks) | Interactive 41×23 coverage matrix. Click any cell to see the specific controls mapped. |
-| [**Incidents**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/incidents) | Browse 50 AI security incidents. Filter by severity, year, MAESTRO layer. Full attribution details. |
+| [**Explorer**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/explorer) | Search and filter all 41 entries. Click any entry to see controls across all 25 frameworks. |
+| [**Frameworks**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/frameworks) | Interactive 41×25 coverage matrix. Click any cell to see the specific controls mapped. Drill into any control. |
+| [**Crosswalk**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/crosswalk) | Entry-to-control mapping explorer. Filter by severity, tier, scope. |
+| [**Incidents**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/incidents) | Browse 80 AI security incidents. Filter by severity, year, MAESTRO layer. Full attribution details. |
+| [**Score**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/score) | Select your frameworks, see coverage score. Upload Garak/PyRIT/LAAF results to validate. Export badge. |
+| [**Gap Analysis**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/gaps) | Select frameworks you implement, see red/yellow/green heatmap of OWASP risk coverage. Export PDF or CSV. |
+| [**Submit**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/submit) | Paste any framework's controls JSON and the ML classifier proposes mappings to all 41 OWASP entries. |
+| [**Tools**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/tools) | 70+ open-source security tools, searchable and organised by function. |
+| [**Recipes**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/recipes) | 21 production-ready security patterns with working Python. |
 
 **Evidence-based scoring** — three validation tiers:
 - **Self-Assessed** — checkbox only (unvalidated)
@@ -422,11 +525,17 @@ No install required. Works on desktop and mobile.
 ### Enterprise export formats
 
 ```bash
-# STIX 2.1 bundle — ingest into Splunk ES, Microsoft Sentinel, TAXII feeds
-node scripts/incidents-report.js --format stix
-
 # OSCAL 1.1.2 Component Definition — ingest into ServiceNow, Archer, XACTA
 node scripts/compliance-report.js --framework "EU AI Act" --format oscal
+
+# OSCAL 1.1.2 Catalog — full control inventory with OWASP coverage annotations
+node scripts/compliance-report.js --framework "NIST AI RMF 1.0" --format oscal-catalog
+
+# GRC platform import — ServiceNow, Archer, Drata-ready JSON
+node scripts/compliance-report.js --framework "SOC 2" --format grc
+
+# STIX 2.1 bundle — ingest into Splunk ES, Microsoft Sentinel, TAXII feeds
+node scripts/incidents-report.js --format stix
 ```
 
 ### Automated source monitoring
@@ -549,10 +658,10 @@ Find your entry point in under 60 seconds.
 → [LLM_FedRAMP.md](llm-top10/LLM_FedRAMP.md) · [Agentic_FedRAMP.md](agentic-top10/Agentic_FedRAMP.md) · [DSGAI_FedRAMP.md](dsgai-2026/DSGAI_FedRAMP.md)
 
 **EU financial sector (DORA compliance)**
-——— [LLM_DORA.md](llm-top10/LLM_DORA.md) · [Agentic_DORA.md](agentic-top10/Agentic_DORA.md) · [DSGAI_DORA.md](dsgai-2026/DSGAI_DORA.md)
+→ [LLM_DORA.md](llm-top10/LLM_DORA.md) · [Agentic_DORA.md](agentic-top10/Agentic_DORA.md) · [DSGAI_DORA.md](dsgai-2026/DSGAI_DORA.md)
 
 **Secure AI development lifecycle (SSDF extension)**
-→ [LLM_SP800218A.md](llm-top10/LLM_SP800218A.md) —— [Agentic_SP800218A.md](agentic-top10/Agentic_SP800218A.md) · [DSGAI_SP800218A.md](dsgai-2026/DSGAI_SP800218A.md)
+→ [LLM_SP800218A.md](llm-top10/LLM_SP800218A.md) · [Agentic_SP800218A.md](agentic-top10/Agentic_SP800218A.md) · [DSGAI_SP800218A.md](dsgai-2026/DSGAI_SP800218A.md)
 
 **All risks across all three source lists**
 → [CROSSREF.md](CROSSREF.md) — master cross-reference

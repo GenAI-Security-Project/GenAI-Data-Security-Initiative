@@ -763,6 +763,24 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2025,
       "incident_id": "INC-041"
+    },
+    {
+      "name": "Agent-in-the-Middle — A2A protocol spoofing via fake agent cards",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-090"
+    },
+    {
+      "name": "Microsoft Copilot Studio agents public by default — unauthorized data exfiltration",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-105"
+    },
+    {
+      "name": "WhatsApp MCP tool poisoning — hidden instructions exfiltrate entire message history",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-111"
     }
   ],
   "crossrefs": {

@@ -1,0 +1,49 @@
+{
+  "id": "enisa-multilayer",
+  "name": "ENISA Multilayer Framework",
+  "short_name": "ENISA",
+  "version": "2023",
+  "url": "https://www.enisa.europa.eu/publications/multilayer-framework-for-good-cybersecurity-practices-for-ai",
+  "license": "Public Domain",
+  "publisher": "ENISA",
+  "category": "ai-governance",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "L2",
+      "title": "AI System Integrity (ASI)",
+      "description": "Agent applications tested against goal hijack before deployment — direct and indirect injection across all input channels validated as part of AI system integrity verification; Goal hijack documented in AI risk register — risk owner, treatment controls, review cadence; Tool permissions defined per agent role — scope enforced at the framework layer; irreversibility controls prevent unrecoverable actions"
+    },
+    {
+      "control_id": "MON",
+      "title": "Monitoring and Detection",
+      "description": "Runtime monitoring for goal-hijack indicators across all agent input channels — AI-specific anomaly detection for instruction-override patterns; All agent tool invocations logged — data volumes, destination, and parameter patterns monitored for anomalies; All agent credential operations logged — anomaly detection for scope expansion or after-session access"
+    },
+    {
+      "control_id": "L1",
+      "title": "General ICT — Secure Development",
+      "description": "Input validation and context separation as secure development requirements for all agent integrations; Agent tool credentials issued with least-privilege — no unnecessary tool permissions granted; Short-lived tokens for all agent interactions — credential TTL enforced at the IAM layer"
+    },
+    {
+      "control_id": "SCS",
+      "title": "Supply Chain Security",
+      "description": "All tool integrations assessed as supply chain components — integrity verification, vendor security review before integration; Agentic component vendors assessed — agent frameworks, tool registries, MCP servers, model providers all subject to SCS practices; All external training datasets treated as untrusted supply chain components — provenance, quality review, and integrity verification before use"
+    },
+    {
+      "control_id": "IRS",
+      "title": "Incident Response",
+      "description": "AI incident response plan covers cascading agent failures — circuit breaker activation, agent isolation, service recovery procedures; AI incident response plan includes regulatory notification procedures — NIS2 Article 23 significant incident reporting, GDPR breach notification; AI incident response plan covers availability failures — model rollback procedure, RAG corpus recovery, embedding store restoration"
+    },
+    {
+      "control_id": "GOV",
+      "title": "Governance and Risk",
+      "description": "All applicable regulations identified and mapped to AI controls — EU AI Act, GDPR, NIS2, sector-specific obligations tracked in AI governance programme"
+    },
+    {
+      "control_id": "L3",
+      "title": "L3 — Sector-specific",
+      "description": "For NIS2 essential entities and EU AI Act Annex III deployments — disinformation risk treated as a significant incident category"
+    }
+  ]
+}

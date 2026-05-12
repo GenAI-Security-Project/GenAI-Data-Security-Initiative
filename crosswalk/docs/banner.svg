@@ -1,0 +1,97 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='400' viewBox='0 0 1200 400'>
+  <defs>
+    <linearGradient id='bg' x1='0%' y1='0%' x2='100%' y2='100%'>
+      <stop offset='0%' style='stop-color:#0f172a'/>
+      <stop offset='40%' style='stop-color:#1e293b'/>
+      <stop offset='100%' style='stop-color:#0f172a'/>
+    </linearGradient>
+    <linearGradient id='accent' x1='0%' y1='0%' x2='100%' y2='0%'>
+      <stop offset='0%' style='stop-color:#2563eb'/>
+      <stop offset='50%' style='stop-color:#7c3aed'/>
+      <stop offset='100%' style='stop-color:#2563eb'/>
+    </linearGradient>
+    <!-- Grid pattern for tech feel -->
+    <pattern id='grid' width='40' height='40' patternUnits='userSpaceOnUse'>
+      <path d='M 40 0 L 0 0 0 40' fill='none' stroke='rgba(148,163,184,0.04)' stroke-width='1'/>
+    </pattern>
+  </defs>
+  <rect width='1200' height='400' fill='url(#bg)'/>
+  <rect width='1200' height='400' fill='url(#grid)'/>
+  <rect y='0' width='1200' height='3' fill='url(#accent)'/>
+
+  <!-- Shield icon -->
+  <g transform='translate(60,55)'>
+    <path d='M24 4l-12-4-12 4v12c0 11 12 20 12 20s12-9 12-20V4z' fill='none' stroke='#2563eb' stroke-width='2.5' transform='scale(1.8)'/>
+    <path d='M12 18l4-4-1.4-1.4L12 15.2 9.4 12.6 8 14l4 4z' fill='#2563eb' transform='scale(1.8)'/>
+  </g>
+
+  <text x='115' y='85' font-family='system-ui,-apple-system,sans-serif' font-size='38' font-weight='800' fill='#f8fafc'>OWASP GenAI Security Crosswalk</text>
+  <text x='115' y='115' font-family='system-ui,-apple-system,sans-serif' font-size='18' fill='#94a3b8'>Map every AI risk to every compliance control. Score your coverage. Close the gaps.</text>
+
+  <!-- Source lists → Crosswalk → Outputs flow -->
+  <!-- Source lists box -->
+  <rect x='60' y='150' width='240' height='105' rx='10' fill='rgba(37,99,235,0.08)' stroke='rgba(37,99,235,0.25)' stroke-width='1'/>
+  <text x='180' y='177' font-family='system-ui,sans-serif' font-size='11' fill='#60a5fa' text-anchor='middle' font-weight='700' letter-spacing='1.5'>OWASP SOURCE LISTS</text>
+  <text x='180' y='200' font-family='monospace' font-size='12' fill='#cbd5e1' text-anchor='middle'>LLM01-10   Prompt Injection...</text>
+  <text x='180' y='218' font-family='monospace' font-size='12' fill='#cbd5e1' text-anchor='middle'>ASI01-10   Agent Goal Hijack...</text>
+  <text x='180' y='236' font-family='monospace' font-size='12' fill='#cbd5e1' text-anchor='middle'>DSGAI01-21 Data Leakage...</text>
+
+  <!-- Arrow 1 -->
+  <line x1='310' y1='202' x2='370' y2='202' stroke='#475569' stroke-width='2' stroke-dasharray='4,3'/>
+  <polygon points='370,197 380,202 370,207' fill='#475569'/>
+
+  <!-- Crosswalk engine box -->
+  <rect x='385' y='150' width='250' height='105' rx='10' fill='rgba(124,58,237,0.08)' stroke='rgba(124,58,237,0.25)' stroke-width='1'/>
+  <text x='510' y='177' font-family='system-ui,sans-serif' font-size='11' fill='#a78bfa' text-anchor='middle' font-weight='700' letter-spacing='1.5'>CROSSWALK ENGINE</text>
+  <text x='510' y='200' font-family='monospace' font-size='12' fill='#cbd5e1' text-anchor='middle'>67 mapping files</text>
+  <text x='510' y='218' font-family='monospace' font-size='12' fill='#cbd5e1' text-anchor='middle'>BGE + cross-encoder classifier</text>
+  <text x='510' y='236' font-family='monospace' font-size='12' fill='#cbd5e1' text-anchor='middle'>25 framework registries</text>
+
+  <!-- Arrow 2 -->
+  <line x1='645' y1='202' x2='705' y2='202' stroke='#475569' stroke-width='2' stroke-dasharray='4,3'/>
+  <polygon points='705,197 715,202 705,207' fill='#475569'/>
+
+  <!-- Output box -->
+  <rect x='720' y='150' width='240' height='105' rx='10' fill='rgba(16,185,129,0.08)' stroke='rgba(16,185,129,0.25)' stroke-width='1'/>
+  <text x='840' y='177' font-family='system-ui,sans-serif' font-size='11' fill='#34d399' text-anchor='middle' font-weight='700' letter-spacing='1.5'>OUTPUT</text>
+  <text x='840' y='200' font-family='monospace' font-size='12' fill='#cbd5e1' text-anchor='middle'>Gap reports  (MD/CSV/JSON)</text>
+  <text x='840' y='218' font-family='monospace' font-size='12' fill='#cbd5e1' text-anchor='middle'>OSCAL 1.1.2  (catalog + CD)</text>
+  <text x='840' y='236' font-family='monospace' font-size='12' fill='#cbd5e1' text-anchor='middle'>GRC import   (SN/Archer/Drata)</text>
+
+  <!-- Web app box -->
+  <rect x='990' y='155' width='160' height='95' rx='10' fill='rgba(245,158,11,0.08)' stroke='rgba(245,158,11,0.25)' stroke-width='1'/>
+  <text x='1070' y='182' font-family='system-ui,sans-serif' font-size='11' fill='#fbbf24' text-anchor='middle' font-weight='700' letter-spacing='1.5'>WEB APP</text>
+  <text x='1070' y='203' font-family='monospace' font-size='12' fill='#cbd5e1' text-anchor='middle'>Explorer</text>
+  <text x='1070' y='220' font-family='monospace' font-size='12' fill='#cbd5e1' text-anchor='middle'>Gap Heatmap</text>
+  <text x='1070' y='237' font-family='monospace' font-size='12' fill='#cbd5e1' text-anchor='middle'>Score + Badge</text>
+
+  <!-- Stat cards row -->
+  <rect x='60' y='285' width='145' height='55' rx='8' fill='rgba(255,255,255,0.04)' stroke='rgba(255,255,255,0.08)' stroke-width='1'/>
+  <text x='132' y='312' font-family='system-ui,sans-serif' font-size='24' font-weight='800' fill='#60a5fa' text-anchor='middle'>25</text>
+  <text x='132' y='330' font-family='system-ui,sans-serif' font-size='10' fill='#64748b' text-anchor='middle' letter-spacing='1'>FRAMEWORKS</text>
+
+  <rect x='220' y='285' width='145' height='55' rx='8' fill='rgba(255,255,255,0.04)' stroke='rgba(255,255,255,0.08)' stroke-width='1'/>
+  <text x='292' y='312' font-family='system-ui,sans-serif' font-size='24' font-weight='800' fill='#a78bfa' text-anchor='middle'>1,514</text>
+  <text x='292' y='330' font-family='system-ui,sans-serif' font-size='10' fill='#64748b' text-anchor='middle' letter-spacing='1'>CONTROLS</text>
+
+  <rect x='380' y='285' width='145' height='55' rx='8' fill='rgba(255,255,255,0.04)' stroke='rgba(255,255,255,0.08)' stroke-width='1'/>
+  <text x='452' y='312' font-family='system-ui,sans-serif' font-size='24' font-weight='800' fill='#34d399' text-anchor='middle'>41</text>
+  <text x='452' y='330' font-family='system-ui,sans-serif' font-size='10' fill='#64748b' text-anchor='middle' letter-spacing='1'>ENTRIES</text>
+
+  <rect x='540' y='285' width='145' height='55' rx='8' fill='rgba(255,255,255,0.04)' stroke='rgba(255,255,255,0.08)' stroke-width='1'/>
+  <text x='612' y='312' font-family='system-ui,sans-serif' font-size='24' font-weight='800' fill='#fbbf24' text-anchor='middle'>3,210</text>
+  <text x='612' y='330' font-family='system-ui,sans-serif' font-size='10' fill='#64748b' text-anchor='middle' letter-spacing='1'>MAPPINGS</text>
+
+  <rect x='700' y='285' width='145' height='55' rx='8' fill='rgba(255,255,255,0.04)' stroke='rgba(255,255,255,0.08)' stroke-width='1'/>
+  <text x='772' y='312' font-family='system-ui,sans-serif' font-size='24' font-weight='800' fill='#f87171' text-anchor='middle'>114</text>
+  <text x='772' y='330' font-family='system-ui,sans-serif' font-size='10' fill='#64748b' text-anchor='middle' letter-spacing='1'>INCIDENTS</text>
+
+  <rect x='860' y='285' width='145' height='55' rx='8' fill='rgba(255,255,255,0.04)' stroke='rgba(255,255,255,0.08)' stroke-width='1'/>
+  <text x='932' y='312' font-family='system-ui,sans-serif' font-size='24' font-weight='800' fill='#38bdf8' text-anchor='middle'>67</text>
+  <text x='932' y='330' font-family='system-ui,sans-serif' font-size='10' fill='#64748b' text-anchor='middle' letter-spacing='1'>MAPPING FILES</text>
+
+  <!-- Footer -->
+  <rect y='365' width='1200' height='35' fill='rgba(255,255,255,0.02)'/>
+  <text x='60' y='388' font-family='system-ui,sans-serif' font-size='13' fill='#475569'>CC BY-SA 4.0  ·  emmanuelgjr.github.io/GenAI-Security-Crosswalk</text>
+  <text x='1140' y='388' font-family='system-ui,sans-serif' font-size='13' fill='#475569' text-anchor='end'>Created by Emmanuel Guilherme Junior  ·  OWASP GenAI Data Security Initiative</text>
+</svg>

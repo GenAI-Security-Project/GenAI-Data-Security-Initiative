@@ -1,0 +1,285 @@
+{
+  "id": "nist-csf",
+  "name": "NIST CSF 2.0",
+  "short_name": "CSF 2.0",
+  "version": "2.0",
+  "url": "https://www.nist.gov/cyberframework",
+  "license": "Public Domain",
+  "publisher": "NIST",
+  "category": "infosec",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "GV.OC",
+      "title": "Organizational Context",
+      "description": "Circumstances surrounding cybersecurity risk management decisions are understood.",
+      "parent": null,
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV.RM",
+      "title": "Risk Management Strategy",
+      "description": "The organization's priorities, constraints, risk tolerance, and appetite are established, communicated, and adjusted.",
+      "parent": null,
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV.RR",
+      "title": "Roles, Responsibilities, and Authorities",
+      "description": "Cybersecurity roles, responsibilities, and authorities are established and communicated.",
+      "parent": null,
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV.PO",
+      "title": "Policy",
+      "description": "Organizational cybersecurity policy is established, communicated, and enforced.",
+      "parent": null,
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV.OV",
+      "title": "Oversight",
+      "description": "Results of organization-wide cybersecurity risk management activities are used to inform, improve, and adjust the risk management strategy.",
+      "parent": null,
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV.SC",
+      "title": "Cybersecurity Supply Chain Risk Management",
+      "description": "Cyber supply chain risk management processes are identified, established, managed, monitored, and improved.",
+      "parent": null,
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "ID.AM",
+      "title": "Asset Management",
+      "description": "Assets (data, hardware, software, systems, facilities, services, people) are identified and managed.",
+      "parent": null,
+      "function": "IDENTIFY"
+    },
+    {
+      "control_id": "ID.RA",
+      "title": "Risk Assessment",
+      "description": "The cybersecurity risk to the organization, assets, and individuals is understood.",
+      "parent": null,
+      "function": "IDENTIFY"
+    },
+    {
+      "control_id": "ID.IM",
+      "title": "Improvement",
+      "description": "Improvements to cybersecurity risk management processes, procedures, and activities are identified across all CSF Functions.",
+      "parent": null,
+      "function": "IDENTIFY"
+    },
+    {
+      "control_id": "PR.AA",
+      "title": "Identity Management, Authentication, and Access Control",
+      "description": "Access to assets is limited to authorized users, services, and hardware.",
+      "parent": null,
+      "function": "PROTECT"
+    },
+    {
+      "control_id": "PR.AT",
+      "title": "Awareness and Training",
+      "description": "The organization's personnel are provided cybersecurity awareness and training.",
+      "parent": null,
+      "function": "PROTECT"
+    },
+    {
+      "control_id": "PR.DS",
+      "title": "Data Security",
+      "description": "Data are managed consistent with the organization's risk strategy to protect confidentiality, integrity, and availability.",
+      "parent": null,
+      "function": "PROTECT"
+    },
+    {
+      "control_id": "PR.PS",
+      "title": "Platform Security",
+      "description": "The hardware, software, and services of physical and virtual platforms are managed consistent with the risk strategy.",
+      "parent": null,
+      "function": "PROTECT"
+    },
+    {
+      "control_id": "PR.IR",
+      "title": "Technology Infrastructure Resilience",
+      "description": "Security architectures are managed with the goal of protecting asset confidentiality, integrity, and availability.",
+      "parent": null,
+      "function": "PROTECT"
+    },
+    {
+      "control_id": "DE.CM",
+      "title": "Continuous Monitoring",
+      "description": "Assets are monitored to find anomalies, indicators of compromise, and other potentially adverse events.",
+      "parent": null,
+      "function": "DETECT"
+    },
+    {
+      "control_id": "DE.AE",
+      "title": "Adverse Event Analysis",
+      "description": "Anomalies, indicators of compromise, and other potentially adverse events are analysed.",
+      "parent": null,
+      "function": "DETECT"
+    },
+    {
+      "control_id": "RS.MA",
+      "title": "Incident Management",
+      "description": "Responses to detected cybersecurity incidents are managed.",
+      "parent": null,
+      "function": "RESPOND"
+    },
+    {
+      "control_id": "RS.AN",
+      "title": "Incident Analysis",
+      "description": "Investigations are conducted to ensure effective response and support forensics and recovery activities.",
+      "parent": null,
+      "function": "RESPOND"
+    },
+    {
+      "control_id": "RS.CO",
+      "title": "Incident Response Reporting and Communication",
+      "description": "Response activities are coordinated with internal and external stakeholders.",
+      "parent": null,
+      "function": "RESPOND"
+    },
+    {
+      "control_id": "RS.MI",
+      "title": "Incident Mitigation",
+      "description": "Activities are performed to prevent expansion of an event and mitigate its effects.",
+      "parent": null,
+      "function": "RESPOND"
+    },
+    {
+      "control_id": "RC.RP",
+      "title": "Incident Recovery Plan Execution",
+      "description": "Restoration activities are performed to ensure operational availability of systems and services.",
+      "parent": null,
+      "function": "RECOVER"
+    },
+    {
+      "control_id": "RC.CO",
+      "title": "Incident Recovery Communication",
+      "description": "Restoration activities and progress are communicated to designated internal and external stakeholders.",
+      "parent": null,
+      "function": "RECOVER"
+    },
+    {
+      "control_id": "GV.OC-01",
+      "title": "Organisational Context",
+      "description": "Policy defines permissible agent autonomy � agents cannot change stated goals without human confirmation; Policy defines permissible tool invocations � which tools require human confirmation; Policy requires AI disclosure and advisory labelling � agent transparency as a governance requirement"
+    },
+    {
+      "control_id": "PR.PS-04",
+      "title": "Platform Security",
+      "description": "Secure software development � input validation and goal-state verification as platform security controls; Secure software development � static analysis, sandbox, allowlist as code execution platform security controls; Secure software development � multi-stage validation, path traversal prevention in ingestion code"
+    },
+    {
+      "control_id": "DE.CM-01",
+      "title": "Continuous Monitoring",
+      "description": "Networks and assets monitored � injection indicators detected across all agent input channels; All tool invocations logged and monitored � anomalous parameters, unusual sequences, high frequency detected; Credential usage monitored � anomalous access patterns detected"
+    },
+    {
+      "control_id": "RS.MI-01",
+      "title": "Incident Mitigation",
+      "description": "Incidents contained � agent suspended, actions reversed, kill switch activated; Code execution incidents contained � sandbox isolated, forensic capture initiated; Incidents contained � kill switch activated, process control fallback initiated"
+    },
+    {
+      "control_id": "PR.AA-05",
+      "title": "Identity Management, Authentication & Access Control",
+      "description": "Access permissions managed � per-tool permission manifests, least privilege per tool, irreversibility classification; Access permissions managed � agent credential scope enforced, least privilege per agent role; Access permissions managed � rogue agent cannot exceed its permission envelope regardless of internal goal state"
+    },
+    {
+      "control_id": "RS.AN-03",
+      "title": "Incident Analysis",
+      "description": "Root cause analysis � which tool was misused, what downstream impact occurred, what parameters were used; Memory poisoning incidents analysed � affected sessions identified, operational decisions influenced reviewed; Root cause analysis � what caused rogue behaviour, which sessions were affected, what was the blast radius"
+    },
+    {
+      "control_id": "PR.AA-01",
+      "title": "Identity Management, Authentication & Access Control",
+      "description": "Identities and credentials managed � NHI inventory, lifecycle management, unique identity per agent; Agent identities managed � each agent has a unique, verifiable identity for A2A authentication; Identities and credentials managed � NHI inventory, lifecycle, short-lived JIT issuance"
+    },
+    {
+      "control_id": "PR.DS-01",
+      "title": "Data Security",
+      "description": "Sensitive data protected at rest � agent credentials encrypted, not stored in cleartext; Agent memory stores protected at rest � access controls, encryption, integrity verification; Sensitive data at rest protected � training data, embeddings, RAG stores, prompt caches encrypted"
+    },
+    {
+      "control_id": "GV.SC-01",
+      "title": "Supply Chain Risk Management",
+      "description": "Cybersecurity supply chain risk management programme � all agent component vendors in scope; Inter-agent communication infrastructure treated as internal supply chain � authentication requirements documented; All approved AI tools managed as suppliers � TPSP assessment, contractual obligations"
+    },
+    {
+      "control_id": "GV.SC-06",
+      "title": "Supply Chain Risk Management",
+      "description": "Cybersecurity requirements in supplier contracts � integrity guarantees, vulnerability disclosure SLA; Cybersecurity requirements included in contracts with suppliers � LLM model and data vendors"
+    },
+    {
+      "control_id": "ID.AM-08",
+      "title": "Asset Management",
+      "description": "Agent components inventoried � ML SBOM for all tools, MCP servers, model weights, libraries; Agent memory stores inventoried as data assets � content classification, access controls, TTL documented; All tool integrations inventoried � data received, retained, training use, security assessment status"
+    },
+    {
+      "control_id": "PR.PS-02",
+      "title": "Platform Security",
+      "description": "Software managed to reduce risk � component integrity verification, change management; Software managed to reduce risk � vector database CVEs patched promptly; Software managed to reduce risk � browser AI extensions version-controlled, patched, approved before deployment"
+    },
+    {
+      "control_id": "PR.IR-01",
+      "title": "Infrastructure Resilience",
+      "description": "Networks and environments protected � sandbox isolated from production infrastructure; Networks and environments protected for resilience � circuit breakers, blast radius limits, fail-safe defaults; Networks and environments protected for resilience � circuit breakers, freshness monitoring, redundancy"
+    },
+    {
+      "control_id": "DE.CM-09",
+      "title": "Continuous Monitoring",
+      "description": "Monitoring for anomalous data � memory content integrity checks, unusual write patterns detected; Monitoring for aggregate over-trust patterns � systematic operator acceptance without verification detected; Monitoring for anomalous data and software use � behavioural baseline deviation detected"
+    },
+    {
+      "control_id": "PR.DS-02",
+      "title": "Data Security",
+      "description": "Data in transit protected � all A2A communication encrypted, integrity verified; Sensitive data in transit protected � all GenAI API calls and RAG retrieval paths encrypted; Extracted sensitive content encrypted in transit � multimodal extraction pipelines covered"
+    },
+    {
+      "control_id": "RC.RP-01",
+      "title": "Incident Recovery",
+      "description": "Recovery plan includes agent cluster failures � BCP covers AI system availability, RTO/RPO defined; Recovery plan includes GenAI pipeline failures � BCP covers AI availability, RTO/RPO defined"
+    },
+    {
+      "control_id": "PR.AT-01",
+      "title": "Awareness and Training",
+      "description": "Users trained on AI limitations � operators understand agent advisory status and verification requirements; Users trained on shadow AI risk � policy awareness, prohibited tool use, reporting obligations; Labelling staff trained on data handling � classification, prohibited use, incident reporting"
+    },
+    {
+      "control_id": "RS.CO-03",
+      "title": "Communication",
+      "description": "Information shared following incidents � trust exploitation incidents reported to affected users; Regulatory incident communication � breach notification, regulatory reporting, authority contact procedures"
+    },
+    {
+      "control_id": "DE.AE-02",
+      "title": "Adverse Event Analysis",
+      "description": "Detected events analysed to understand attack targets � rogue agent patterns correlated across sessions"
+    },
+    {
+      "control_id": "GV.RM-06",
+      "title": "Risk Management Strategy",
+      "description": "Risk tolerance established � acceptable sensitive data disclosure risk defined per GenAI use case; Agent credential exposure in risk register � blast radius per deployment documented; Risk tolerance defined for re-identification risk in synthetic datasets � legal standard, not technical checkbox"
+    },
+    {
+      "control_id": "ID.RA-01",
+      "title": "Risk Assessment",
+      "description": "Ingestion interface vulnerabilities documented in risk assessment � CVE-2024-3584 class; Compliance risks identified per GenAI deployment � applicable regulations, triggered obligations, controls gaps; Re-identification risk assessed for all synthetic datasets before use or distribution"
+    },
+    {
+      "control_id": "GV.RM-01",
+      "title": "Risk Management Strategy",
+      "description": "Risk management strategy includes regulatory compliance risk � GenAI-specific obligations in risk programme; Risk management strategy established � LLM availability requirements and acceptable consumption risk defined"
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-04-09",
+      "change": "Initial seed — 22 CSF 2.0 categories across GOVERN/IDENTIFY/PROTECT/DETECT/RESPOND/RECOVER",
+      "author": "emmanuelgjr"
+    }
+  ]
+}

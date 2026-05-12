@@ -1,0 +1,244 @@
+{
+  "id": "cosai",
+  "name": "CoSAI",
+  "short_name": "CoSAI",
+  "version": "2025",
+  "url": "https://www.coalitionforsecureai.org/",
+  "license": "CC BY 4.0",
+  "publisher": "OASIS / Coalition for Secure AI",
+  "category": "ai-governance",
+  "last_synced": "2026-04-09",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "WS1-SSC-1",
+      "title": "AI software supply chain risk assessment",
+      "description": "Identify and assess risks specific to AI software supply chains, including model provenance, training data lineage, and framework dependencies.",
+      "parent": null,
+      "function": "Software Supply Chain Security"
+    },
+    {
+      "control_id": "WS1-SSC-2",
+      "title": "ML artifact signing and verification",
+      "description": "Implement cryptographic signing for ML models, weights, and artifacts to ensure integrity and provenance verification throughout the supply chain.",
+      "parent": null,
+      "function": "Software Supply Chain Security"
+    },
+    {
+      "control_id": "WS1-SSC-3",
+      "title": "Model provenance tracking",
+      "description": "Maintain verifiable records of model origin, training data sources, fine-tuning history, and deployment lineage.",
+      "parent": null,
+      "function": "Software Supply Chain Security"
+    },
+    {
+      "control_id": "WS1-SSC-4",
+      "title": "Training data supply chain integrity",
+      "description": "Verify integrity and provenance of training data sources, including checks for data poisoning, unauthorized modifications, and license compliance.",
+      "parent": null,
+      "function": "Software Supply Chain Security"
+    },
+    {
+      "control_id": "WS1-SSC-5",
+      "title": "AI dependency management",
+      "description": "Track and manage dependencies in AI/ML frameworks, libraries, and tools with SBOM generation and vulnerability monitoring.",
+      "parent": null,
+      "function": "Software Supply Chain Security"
+    },
+    {
+      "control_id": "WS1-SSC-6",
+      "title": "Secure model distribution",
+      "description": "Establish secure channels and verification mechanisms for distributing models, weights, and adapters across environments.",
+      "parent": null,
+      "function": "Software Supply Chain Security"
+    },
+
+    {
+      "control_id": "WS2-DEF-1",
+      "title": "AI-enhanced threat detection",
+      "description": "Leverage AI capabilities to improve threat detection while understanding limitations and adversarial risks to AI-powered security tools.",
+      "parent": null,
+      "function": "Preparing Defenders"
+    },
+    {
+      "control_id": "WS2-DEF-2",
+      "title": "AI attack surface mapping",
+      "description": "Map and maintain visibility of AI-specific attack surfaces including model endpoints, training pipelines, inference APIs, and agent tool interfaces.",
+      "parent": null,
+      "function": "Preparing Defenders"
+    },
+    {
+      "control_id": "WS2-DEF-3",
+      "title": "AI incident response procedures",
+      "description": "Develop and maintain AI-specific incident response procedures covering model compromise, data poisoning, prompt injection, and agent hijacking scenarios.",
+      "parent": null,
+      "function": "Preparing Defenders"
+    },
+    {
+      "control_id": "WS2-DEF-4",
+      "title": "Defender AI literacy and training",
+      "description": "Ensure security teams have training and skills to defend AI systems, including understanding of ML pipelines, LLM architectures, and agentic systems.",
+      "parent": null,
+      "function": "Preparing Defenders"
+    },
+    {
+      "control_id": "WS2-DEF-5",
+      "title": "AI security monitoring and telemetry",
+      "description": "Implement monitoring specific to AI systems: inference anomalies, prompt injection attempts, model drift, and agent behavioral deviations.",
+      "parent": null,
+      "function": "Preparing Defenders"
+    },
+    {
+      "control_id": "WS2-DEF-6",
+      "title": "AI red teaming and adversarial testing",
+      "description": "Conduct regular adversarial testing of AI systems including prompt injection, jailbreak, data extraction, and agent manipulation exercises.",
+      "parent": null,
+      "function": "Preparing Defenders"
+    },
+
+    {
+      "control_id": "WS3-GOV-1",
+      "title": "AI security risk taxonomy",
+      "description": "Establish and maintain a security-focused risk taxonomy specific to AI systems covering model, data, infrastructure, and application layers.",
+      "parent": null,
+      "function": "AI Security Risk Governance"
+    },
+    {
+      "control_id": "WS3-GOV-2",
+      "title": "AI risk assessment methodology",
+      "description": "Define and apply a structured methodology for assessing AI security risks, including likelihood and impact scoring calibrated for AI-specific threats.",
+      "parent": null,
+      "function": "AI Security Risk Governance"
+    },
+    {
+      "control_id": "WS3-GOV-3",
+      "title": "AI security scorecard",
+      "description": "Implement a scorecard mechanism to evaluate and communicate the security posture of AI systems across development, deployment, and operations.",
+      "parent": null,
+      "function": "AI Security Risk Governance"
+    },
+    {
+      "control_id": "WS3-GOV-4",
+      "title": "AI security controls checklist",
+      "description": "Maintain a comprehensive checklist of security controls applicable to AI systems, mapped to organizational risk tolerance and deployment context.",
+      "parent": null,
+      "function": "AI Security Risk Governance"
+    },
+    {
+      "control_id": "WS3-GOV-5",
+      "title": "Third-party AI risk management",
+      "description": "Establish governance processes for evaluating and managing security risks from third-party AI models, APIs, and services.",
+      "parent": null,
+      "function": "AI Security Risk Governance"
+    },
+    {
+      "control_id": "WS3-GOV-6",
+      "title": "AI regulatory compliance mapping",
+      "description": "Map AI security requirements to applicable regulations and standards, maintaining compliance traceability across jurisdictions.",
+      "parent": null,
+      "function": "AI Security Risk Governance"
+    },
+
+    {
+      "control_id": "WS4-AGT-1",
+      "title": "Human-governed and accountable agents",
+      "description": "Ensure agentic AI systems maintain meaningful human control with clear accountability, risk-based oversight, and defined authority boundaries.",
+      "parent": null,
+      "function": "Agentic Security Principles"
+    },
+    {
+      "control_id": "WS4-AGT-1.1",
+      "title": "Risk-based human oversight",
+      "description": "Implement graduated human oversight proportional to the risk level and impact scope of agent actions, from full autonomy for low-risk to human-in-the-loop for high-risk.",
+      "parent": "WS4-AGT-1",
+      "function": "Agentic Security Principles"
+    },
+    {
+      "control_id": "WS4-AGT-1.2",
+      "title": "Authority boundary definition",
+      "description": "Define and enforce clear boundaries for what actions agents can take autonomously versus what requires human approval.",
+      "parent": "WS4-AGT-1",
+      "function": "Agentic Security Principles"
+    },
+    {
+      "control_id": "WS4-AGT-1.3",
+      "title": "Agent accountability chain",
+      "description": "Maintain a clear chain of accountability from agent actions to responsible humans, including audit trails and decision provenance.",
+      "parent": "WS4-AGT-1",
+      "function": "Agentic Security Principles"
+    },
+    {
+      "control_id": "WS4-AGT-2",
+      "title": "Bounded and resilient agents",
+      "description": "Ensure agents operate with purpose-specific entitlements, foundational cybersecurity controls, and continuous validation of behavior.",
+      "parent": null,
+      "function": "Agentic Security Principles"
+    },
+    {
+      "control_id": "WS4-AGT-2.1",
+      "title": "Purpose-specific entitlements",
+      "description": "Grant agents minimum necessary permissions scoped to their specific task, with just-in-time elevation and automatic revocation.",
+      "parent": "WS4-AGT-2",
+      "function": "Agentic Security Principles"
+    },
+    {
+      "control_id": "WS4-AGT-2.2",
+      "title": "Agent cybersecurity baseline",
+      "description": "Apply foundational cybersecurity controls to agent infrastructure: authentication, encryption, input validation, secure communication channels.",
+      "parent": "WS4-AGT-2",
+      "function": "Agentic Security Principles"
+    },
+    {
+      "control_id": "WS4-AGT-2.3",
+      "title": "Continuous behavior validation",
+      "description": "Continuously monitor and validate agent behavior against expected patterns, with automated circuit-breakers for anomalous actions.",
+      "parent": "WS4-AGT-2",
+      "function": "Agentic Security Principles"
+    },
+    {
+      "control_id": "WS4-AGT-2.4",
+      "title": "Agent blast radius containment",
+      "description": "Implement isolation, sandboxing, and rollback mechanisms to limit the impact of compromised or malfunctioning agents.",
+      "parent": "WS4-AGT-2",
+      "function": "Agentic Security Principles"
+    },
+    {
+      "control_id": "WS4-AGT-3",
+      "title": "Transparent and verifiable agents",
+      "description": "Ensure AI agent operations are transparent through secure supply chain controls, comprehensive telemetry, and real-time monitoring.",
+      "parent": null,
+      "function": "Agentic Security Principles"
+    },
+    {
+      "control_id": "WS4-AGT-3.1",
+      "title": "Agent supply chain security",
+      "description": "Verify integrity of all agent components: tools, MCP servers, plugins, prompt templates, and model weights loaded at runtime.",
+      "parent": "WS4-AGT-3",
+      "function": "Agentic Security Principles"
+    },
+    {
+      "control_id": "WS4-AGT-3.2",
+      "title": "Agent telemetry and observability",
+      "description": "Implement comprehensive logging and telemetry for agent decisions, tool calls, memory access, and inter-agent communication.",
+      "parent": "WS4-AGT-3",
+      "function": "Agentic Security Principles"
+    },
+    {
+      "control_id": "WS4-AGT-3.3",
+      "title": "Real-time agent monitoring",
+      "description": "Deploy real-time monitoring dashboards and alerting for agent operations, including anomaly detection on action patterns and resource usage.",
+      "parent": "WS4-AGT-3",
+      "function": "Agentic Security Principles"
+    },
+    {
+      "control_id": "WS4-AGT-3.4",
+      "title": "Agent action auditability",
+      "description": "Maintain immutable audit logs of all agent actions with sufficient detail to reconstruct decision chains and attribute outcomes.",
+      "parent": "WS4-AGT-3",
+      "function": "Agentic Security Principles"
+    }
+  ],
+  "changelog": [
+    { "date": "2026-04-09", "change": "Initial seed — 4 workstreams + agentic security principles", "author": "emmanuelgjr" }
+  ]
+}

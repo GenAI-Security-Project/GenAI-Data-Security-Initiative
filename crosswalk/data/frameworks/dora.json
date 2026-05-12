@@ -1,0 +1,200 @@
+{
+  "id": "dora",
+  "name": "DORA",
+  "short_name": "DORA",
+  "version": "EU 2022/2554",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32022R2554",
+  "license": "Public",
+  "publisher": "European Parliament and Council",
+  "category": "financial",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "Art. 5",
+      "title": "Governance and organisation",
+      "description": "Financial entities shall have an internal governance and control framework ensuring effective and prudent management of ICT risk.",
+      "parent": null,
+      "function": "Governance"
+    },
+    {
+      "control_id": "Art. 6",
+      "title": "ICT risk management framework",
+      "description": "Financial entities shall have a sound, comprehensive and well-documented ICT risk management framework.",
+      "parent": null,
+      "function": "Risk Management"
+    },
+    {
+      "control_id": "Art. 7",
+      "title": "ICT systems, protocols and tools",
+      "description": "Financial entities shall use and maintain updated ICT systems, protocols, and tools that are appropriate, reliable, and have sufficient capacity.",
+      "parent": null,
+      "function": "Risk Management"
+    },
+    {
+      "control_id": "Art. 8",
+      "title": "Identification",
+      "description": "Financial entities shall identify, classify and adequately document all ICT-supported business functions, roles, information assets, and ICT assets.",
+      "parent": null,
+      "function": "Risk Management"
+    },
+    {
+      "control_id": "Art. 9",
+      "title": "Protection and prevention",
+      "description": "Financial entities shall continuously monitor and control the security and functioning of ICT systems.",
+      "parent": null,
+      "function": "Risk Management"
+    },
+    {
+      "control_id": "Art. 10",
+      "title": "Detection",
+      "description": "Financial entities shall have mechanisms to promptly detect anomalous activities, network performance issues, and ICT-related incidents.",
+      "parent": null,
+      "function": "Risk Management"
+    },
+    {
+      "control_id": "Art. 11",
+      "title": "Response and recovery",
+      "description": "Financial entities shall put in place a comprehensive ICT business continuity policy.",
+      "parent": null,
+      "function": "Risk Management"
+    },
+    {
+      "control_id": "Art. 12",
+      "title": "Backup policies and recovery methods",
+      "description": "Maintain backup policies specifying scope, frequency, and recovery time objectives.",
+      "parent": null,
+      "function": "Risk Management"
+    },
+    {
+      "control_id": "Art. 13",
+      "title": "Learning and evolving",
+      "description": "Financial entities shall gather information on vulnerabilities and cyber threats, ICT-related incidents, and shall conduct post-incident reviews.",
+      "parent": null,
+      "function": "Risk Management"
+    },
+    {
+      "control_id": "Art. 14",
+      "title": "Communication",
+      "description": "Financial entities shall have crisis communication plans for responsible disclosure of ICT-related incidents.",
+      "parent": null,
+      "function": "Risk Management"
+    },
+    {
+      "control_id": "Art. 15",
+      "title": "Simplified ICT risk management framework",
+      "description": "Simplified requirements for entities that are microenterprises or subject to simplified obligations.",
+      "parent": null,
+      "function": "Risk Management"
+    },
+    {
+      "control_id": "Art. 17",
+      "title": "ICT-related incident management process",
+      "description": "Financial entities shall define, establish and implement an ICT-related incident management process.",
+      "parent": null,
+      "function": "Incident Management"
+    },
+    {
+      "control_id": "Art. 18",
+      "title": "Classification of ICT-related incidents",
+      "description": "Financial entities shall classify ICT-related incidents based on specified criteria.",
+      "parent": null,
+      "function": "Incident Management"
+    },
+    {
+      "control_id": "Art. 19",
+      "title": "Reporting of major ICT-related incidents",
+      "description": "Financial entities shall report major ICT-related incidents to the relevant competent authority.",
+      "parent": null,
+      "function": "Incident Management"
+    },
+    {
+      "control_id": "Art. 20",
+      "title": "Harmonisation of reporting content and templates",
+      "description": "ESAs shall develop common reporting templates for incident reports.",
+      "parent": null,
+      "function": "Incident Management"
+    },
+    {
+      "control_id": "Art. 24",
+      "title": "General requirements for digital operational resilience testing",
+      "description": "Financial entities shall establish and maintain a comprehensive digital operational resilience testing programme.",
+      "parent": null,
+      "function": "Resilience Testing"
+    },
+    {
+      "control_id": "Art. 25",
+      "title": "Testing of ICT tools and systems",
+      "description": "Testing programme shall include a range of assessments, tests, methodologies, practices and tools.",
+      "parent": null,
+      "function": "Resilience Testing"
+    },
+    {
+      "control_id": "Art. 26",
+      "title": "Advanced testing by means of TLPT",
+      "description": "Threat-led penetration testing at least every 3 years for entities identified for advanced testing.",
+      "parent": null,
+      "function": "Resilience Testing"
+    },
+    {
+      "control_id": "Art. 28",
+      "title": "General principles for ICT third-party risk management",
+      "description": "Financial entities shall manage ICT third-party risk as an integral component of ICT risk.",
+      "parent": null,
+      "function": "Third-Party Risk"
+    },
+    {
+      "control_id": "Art. 29",
+      "title": "Preliminary assessment of ICT concentration risk",
+      "description": "Assess ICT concentration risks before entering into contractual arrangements.",
+      "parent": null,
+      "function": "Third-Party Risk"
+    },
+    {
+      "control_id": "Art. 30",
+      "title": "Key contractual provisions",
+      "description": "Contractual arrangements for ICT services shall include specified provisions.",
+      "parent": null,
+      "function": "Third-Party Risk"
+    },
+    {
+      "control_id": "Art. 31",
+      "title": "Designation of critical ICT third-party service providers",
+      "description": "ESAs shall designate critical ICT third-party service providers.",
+      "parent": null,
+      "function": "Third-Party Risk"
+    },
+    {
+      "control_id": "Art. 24–27",
+      "title": "Resilience Testing — agent hijacking scenarios",
+      "description": "Include agent goal hijacking in threat-led penetration testing; cover injection through user prompts, tool outputs, memory stores, and inter-agent messages; Include agent access control bypass in resilience testing; verify that agents cannot exceed defined permission boundaries under adversarial conditions; Include agent privilege escalation scenarios in threat-led penetration testing; test for escalation through tool chaining and inter-agent trust"
+    },
+    {
+      "control_id": "Art. 45",
+      "title": "Information Sharing — agent attack intelligence",
+      "description": "Share agent goal hijacking threat intelligence with sector peers through DORA information sharing arrangements; Participate in information sharing arrangements for third-party AI data risks; share threat intelligence on data provider compromises; Share prompt injection threat intelligence with sector peers through DORA information sharing arrangements"
+    },
+    {
+      "control_id": "Art. 5–7",
+      "title": "ICT Risk Management — agent permission governance",
+      "description": "Include agent access control policies in ICT risk management framework; define acceptable permission scopes per agent role and financial function; Include agent supply chain risk in the ICT risk management framework; define policies for agent component sourcing, vetting, and lifecycle management; Include tool chaining risk in ICT risk management framework; define policies for permitted tool combinations and escalation requirements for novel tool chains"
+    },
+    {
+      "control_id": "Art. 17–23",
+      "title": "ICT Incident Management — escalation incident reporting",
+      "description": "Classify agent privilege escalation as an ICT-related incident; assess impact on financial systems and report per DORA incident classification criteria; Classify uncontrolled code execution events as ICT-related incidents; assess impact on financial systems and report per DORA criteria; Classify material AI data access violations as ICT-related incidents; report to competent authorities per DORA incident classification and reporting requirements"
+    },
+    {
+      "control_id": "Art. 28–44",
+      "title": "Third-Party Risk — agent component vendor oversight",
+      "description": "Include agent tool vendors, plugin providers, MCP server maintainers, and model providers in third-party ICT risk oversight with due diligence and contractual controls; Include all agent external dependencies — model APIs, tool endpoints, data sources — in third-party ICT risk management with availability and integrity requirements; Include AI tools and services in third-party ICT risk management; conduct due diligence before approval; monitor ongoing compliance with financial sector requirements"
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-04-09",
+      "change": "Initial seed — 22 key articles from Digital Operational Resilience Act",
+      "author": "emmanuelgjr"
+    }
+  ]
+}

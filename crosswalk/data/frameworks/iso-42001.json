@@ -1,0 +1,530 @@
+{
+  "id": "iso-42001",
+  "name": "ISO/IEC 42001:2023",
+  "short_name": "ISO 42001",
+  "version": "2023",
+  "url": "https://www.iso.org/standard/81230.html",
+  "license": "Proprietary (ISO)",
+  "publisher": "ISO/IEC",
+  "category": "ai-governance",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "4.1",
+      "title": "Understanding the organization and its context",
+      "description": "Determine external and internal issues relevant to AI management system.",
+      "parent": null,
+      "function": "Context"
+    },
+    {
+      "control_id": "4.2",
+      "title": "Understanding the needs and expectations of interested parties",
+      "description": "Determine interested parties and their requirements relevant to the AIMS.",
+      "parent": null,
+      "function": "Context"
+    },
+    {
+      "control_id": "4.3",
+      "title": "Determining the scope of the AIMS",
+      "description": "Determine boundaries and applicability of the AI management system.",
+      "parent": null,
+      "function": "Context"
+    },
+    {
+      "control_id": "4.4",
+      "title": "AI management system",
+      "description": "Establish, implement, maintain and continually improve the AIMS.",
+      "parent": null,
+      "function": "Context"
+    },
+    {
+      "control_id": "5.1",
+      "title": "Leadership and commitment",
+      "description": "Top management shall demonstrate leadership and commitment.",
+      "parent": null,
+      "function": "Leadership"
+    },
+    {
+      "control_id": "5.2",
+      "title": "AI policy",
+      "description": "Top management shall establish an AI policy appropriate to the organization.",
+      "parent": null,
+      "function": "Leadership"
+    },
+    {
+      "control_id": "5.3",
+      "title": "Roles, responsibilities and authorities",
+      "description": "Top management shall ensure responsibilities and authorities are assigned and communicated.",
+      "parent": null,
+      "function": "Leadership"
+    },
+    {
+      "control_id": "6.1",
+      "title": "Actions to address risks and opportunities",
+      "description": "Plan actions to address risks and opportunities for the AIMS.",
+      "parent": null,
+      "function": "Planning"
+    },
+    {
+      "control_id": "6.1.2",
+      "title": "AI risk assessment",
+      "description": "Define and apply an AI risk assessment process.",
+      "parent": "6.1",
+      "function": "Planning"
+    },
+    {
+      "control_id": "6.1.3",
+      "title": "AI risk treatment",
+      "description": "Define and apply an AI risk treatment process.",
+      "parent": "6.1",
+      "function": "Planning"
+    },
+    {
+      "control_id": "6.1.4",
+      "title": "AI system impact assessment",
+      "description": "Conduct impact assessments for AI systems considering individuals, groups, and societies.",
+      "parent": "6.1",
+      "function": "Planning"
+    },
+    {
+      "control_id": "6.2",
+      "title": "AI objectives and planning to achieve them",
+      "description": "Establish AI objectives at relevant functions, levels, and processes.",
+      "parent": null,
+      "function": "Planning"
+    },
+    {
+      "control_id": "7.1",
+      "title": "Resources",
+      "description": "Determine and provide resources needed for the AIMS.",
+      "parent": null,
+      "function": "Support"
+    },
+    {
+      "control_id": "7.2",
+      "title": "Competence",
+      "description": "Determine competence of persons doing work that affects AI performance.",
+      "parent": null,
+      "function": "Support"
+    },
+    {
+      "control_id": "7.3",
+      "title": "Awareness",
+      "description": "Persons doing work shall be aware of the AI policy and their contribution.",
+      "parent": null,
+      "function": "Support"
+    },
+    {
+      "control_id": "7.5",
+      "title": "Documented information",
+      "description": "The AIMS shall include documented information required by the standard.",
+      "parent": null,
+      "function": "Support"
+    },
+    {
+      "control_id": "8.1",
+      "title": "Operational planning and control",
+      "description": "Plan, implement and control processes needed to meet requirements.",
+      "parent": null,
+      "function": "Operation"
+    },
+    {
+      "control_id": "8.2",
+      "title": "AI risk assessment (operational)",
+      "description": "Perform AI risk assessments at planned intervals or when significant changes occur.",
+      "parent": null,
+      "function": "Operation"
+    },
+    {
+      "control_id": "8.3",
+      "title": "AI risk treatment (operational)",
+      "description": "Implement the AI risk treatment plan.",
+      "parent": null,
+      "function": "Operation"
+    },
+    {
+      "control_id": "8.4",
+      "title": "AI system impact assessment (operational)",
+      "description": "Perform AI system impact assessments at planned intervals.",
+      "parent": null,
+      "function": "Operation"
+    },
+    {
+      "control_id": "9.1",
+      "title": "Monitoring, measurement, analysis and evaluation",
+      "description": "Determine what needs to be monitored and measured.",
+      "parent": null,
+      "function": "Performance Evaluation"
+    },
+    {
+      "control_id": "9.2",
+      "title": "Internal audit",
+      "description": "Conduct internal audits at planned intervals.",
+      "parent": null,
+      "function": "Performance Evaluation"
+    },
+    {
+      "control_id": "9.3",
+      "title": "Management review",
+      "description": "Top management shall review the AIMS at planned intervals.",
+      "parent": null,
+      "function": "Performance Evaluation"
+    },
+    {
+      "control_id": "10.1",
+      "title": "Continual improvement",
+      "description": "Continually improve the suitability, adequacy and effectiveness of the AIMS.",
+      "parent": null,
+      "function": "Improvement"
+    },
+    {
+      "control_id": "10.2",
+      "title": "Nonconformity and corrective action",
+      "description": "React to nonconformities and take corrective action.",
+      "parent": null,
+      "function": "Improvement"
+    },
+    {
+      "control_id": "A.2",
+      "title": "Policies related to AI",
+      "description": "AI policies shall address responsible development and use.",
+      "parent": null,
+      "function": "Annex A"
+    },
+    {
+      "control_id": "A.3",
+      "title": "Internal organization",
+      "description": "AI roles and responsibilities shall be defined within the organization.",
+      "parent": null,
+      "function": "Annex A"
+    },
+    {
+      "control_id": "A.4",
+      "title": "Resources for AI systems",
+      "description": "Resources including data, tools, and infrastructure for AI systems.",
+      "parent": null,
+      "function": "Annex A"
+    },
+    {
+      "control_id": "A.5",
+      "title": "Assessing impacts of AI systems",
+      "description": "Impacts of AI systems on individuals, groups, and societies shall be assessed.",
+      "parent": null,
+      "function": "Annex A"
+    },
+    {
+      "control_id": "A.6",
+      "title": "AI system life cycle",
+      "description": "Controls for development, testing, deployment, operation, and decommissioning.",
+      "parent": null,
+      "function": "Annex A"
+    },
+    {
+      "control_id": "A.7",
+      "title": "Data for AI systems",
+      "description": "Data acquisition, quality, provenance, and governance for AI systems.",
+      "parent": null,
+      "function": "Annex A"
+    },
+    {
+      "control_id": "A.8",
+      "title": "Information for interested parties of AI systems",
+      "description": "Transparency and communication about AI systems to interested parties.",
+      "parent": null,
+      "function": "Annex A"
+    },
+    {
+      "control_id": "A.9",
+      "title": "Use of AI systems",
+      "description": "Appropriate use of AI systems and processes for responsible deployment.",
+      "parent": null,
+      "function": "Annex A"
+    },
+    {
+      "control_id": "A.10",
+      "title": "Third-party and customer relationships",
+      "description": "Managing AI-related risks from third parties and in customer relationships.",
+      "parent": null,
+      "function": "Annex A"
+    },
+    {
+      "control_id": "B.2",
+      "title": "Societal norms and values",
+      "description": "Consider societal norms and values in AI development and deployment.",
+      "parent": null,
+      "function": "Annex B"
+    },
+    {
+      "control_id": "B.3",
+      "title": "Human oversight of AI systems",
+      "description": "Human oversight mechanisms for AI system decisions and actions.",
+      "parent": null,
+      "function": "Annex B"
+    },
+    {
+      "control_id": "B.4",
+      "title": "Explainability and interpretability",
+      "description": "AI system decisions should be explainable and interpretable as appropriate.",
+      "parent": null,
+      "function": "Annex B"
+    },
+    {
+      "control_id": "A.6.2.3",
+      "title": "AI system security",
+      "description": "Goal-state verification and input validation as AIMS security design requirements � structural controls enforced at orchestration layer; Per-tool permission manifests and parameter validation as AIMS security controls; Credential security as AIMS design requirement � short-lived JIT credentials, no cleartext storage, least privilege"
+    },
+    {
+      "control_id": "A.6.2.6",
+      "title": "Testing of AI systems",
+      "description": "Goal hijack scenarios in AIMS testing � direct, indirect, multi-turn injection tested before each production release; Sandbox escape and code injection scenarios in AIMS testing � adversarial testing before each deployment; A2A security scenarios in AIMS testing � spoofing, replay, schema violations before deployment"
+    },
+    {
+      "control_id": "A.5.2",
+      "title": "Impact assessment",
+      "description": "Impact assessment covers goal hijack risk � what autonomous actions are possible if goal is redirected, who is affected; Tool misuse impact assessed � what harm is possible if each tool is misused autonomously; Impact of code execution capability formally assessed � RCE impact on persons and systems documented"
+    },
+    {
+      "control_id": "Cl.6.1",
+      "title": "Risk assessment",
+      "description": "Goal hijack in AI risk register � blast radius per deployment, owner, treatment, review cadence; Code execution risk in AI risk register � blast radius, sandbox status, permitted operations documented; Cascade blast radius in AI risk register � maximum affected systems formally documented and accepted"
+    },
+    {
+      "control_id": "A.6.1.2",
+      "title": "Responsible AI system management",
+      "description": "Tool access managed responsibly throughout agent lifecycle � permission review, irreversibility classification, human oversight requirements; Comprehensive audit logging and rogue agent containment as responsible lifecycle management obligation; LLM components managed responsibly through lifecycle � acquisition, testing, deployment, decommission"
+    },
+    {
+      "control_id": "A.10.1",
+      "title": "Third-party AI system acquisition",
+      "description": "Tool and MCP server providers assessed as third-party AI components � security obligations in contracts; Third-party services accessed via agent credentials assessed � security obligations in access arrangements; All agent tool and MCP server providers assessed � security obligations, integrity guarantees, disclosure SLA in contracts"
+    },
+    {
+      "control_id": "A.7.3",
+      "title": "Data provenance and characteristics",
+      "description": "Agent credentials tracked as AI system data � issuance, scope, expiry, rotation documented; Memory provenance tracked � source, write access controls, TTL, modification history in AIMS; Data provenance documented � source, classification, handling requirements tracked from ingestion through all derived forms"
+    },
+    {
+      "control_id": "Cl.7",
+      "title": "Support",
+      "description": "Resources for AI systems include NHIs � agent identities inventoried and managed as AIMS resources; Documented information controls � system prompts managed as AIMS documented information with appropriate access controls"
+    },
+    {
+      "control_id": "A.10.2",
+      "title": "Customer relationships",
+      "description": "Obligations to downstream consumers of agentic systems � what supply chain security is guaranteed; LLM deployment obligations to downstream customers � what security properties are guaranteed"
+    },
+    {
+      "control_id": "A.7.2",
+      "title": "Data quality",
+      "description": "Training data from third-party sources assessed � same data quality criteria as internal data; Agent memory content quality requirements � access controls, integrity verification, TTL as data quality controls; Training data and RAG content quality requirements � sensitivity, completeness, appropriateness assessed before use"
+    },
+    {
+      "control_id": "A.6.2.8",
+      "title": "Monitoring of AI systems",
+      "description": "Memory integrity monitored in operation � anomalous write patterns, content integrity checks as AIMS monitoring; Cascade indicators monitored in operation � correlated failure patterns detected as AIMS monitoring; Behavioural monitoring as AIMS operational control � baseline deviation detection is the primary rogue agent control"
+    },
+    {
+      "control_id": "Cl.8",
+      "title": "Operation",
+      "description": "A2A communication documented as AIMS operational control � authentication requirements, encryption standards; Operational controls for LLM deployment � output handling requirements documented as AIMS operational procedures"
+    },
+    {
+      "control_id": "Cl.9",
+      "title": "Performance evaluation",
+      "description": "Cascade incidents in AIMS performance evaluation � circuit breaker effectiveness, recovery times in management review; Rogue agent detection rates and containment times in AIMS management review; Resource consumption metrics in AIMS performance evaluation � consumption trends in management review"
+    },
+    {
+      "control_id": "A.8.1",
+      "title": "Information for interested parties",
+      "description": "AI system transparency obligations � users informed of AI nature, advisory status, limitations, EU AI Act Art. 50 alignment; Transparency obligations balanced with operational security � what must be disclosed vs what may be kept confidential; Transparency about AI system limitations � users informed of advisory status, accuracy limitations, verification requirements"
+    },
+    {
+      "control_id": "A.9.1",
+      "title": "Use of AI systems",
+      "description": "Guidance on appropriate use � domains requiring human verification, how to distinguish AI advisory from authoritative content; Guidance on AI system use � downstream consumers informed that LLM output must be validated before use; Guidance on appropriate AI system use � domains requiring human verification documented as AIMS use guidance"
+    },
+    {
+      "control_id": "Cl.5",
+      "title": "Policy",
+      "description": "Leadership commitment to AI transparency � AI disclosure and advisory labelling requirements in AI policy; Leadership commitment to human oversight � autonomous action scope defined in AI policy, signed off at executive level"
+    },
+    {
+      "control_id": "Data for AI — acquisition",
+      "title": "A.7.2",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "Data for AI — preparation",
+      "title": "A.7.3",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "Lifecycle — operational",
+      "title": "A.6.2.3",
+      "description": "Foundational; Hardening"
+    },
+    {
+      "control_id": "Impact assessment",
+      "title": "A.5.2",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "Lifecycle — design",
+      "title": "A.6.1.2",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "Internal organisation — roles",
+      "title": "A.3.3",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "Leadership",
+      "title": "Cl.5",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "Policies — acceptable use",
+      "title": "A.2.2",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "Use of AI systems",
+      "title": "A.9.1",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "Third-party relationships",
+      "title": "A.10.1",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "Context",
+      "title": "Cl.4",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "Data — acquisition",
+      "title": "A.7.2",
+      "description": "Hardening; Foundational"
+    },
+    {
+      "control_id": "Data — preparation",
+      "title": "A.7.3",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "Lifecycle — testing",
+      "title": "A.6.2.6",
+      "description": "Hardening; Advanced"
+    },
+    {
+      "control_id": "Operation",
+      "title": "Cl.8",
+      "description": "Foundational; Hardening"
+    },
+    {
+      "control_id": "Third-party — AI supply chain",
+      "title": "A.10.1",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "Third-party — customer data",
+      "title": "A.10.2",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "Policies",
+      "title": "A.2.2",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "Planning — risk",
+      "title": "Cl.6.1",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "Information for interested parties",
+      "title": "A.8.1",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "Context — interested parties",
+      "title": "Cl.4.2",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "Data — access control",
+      "title": "A.7.2",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "Third-party",
+      "title": "A.10.1",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "Data — governance",
+      "title": "A.7.2",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "Performance evaluation",
+      "title": "Cl.9",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "Data — minimisation",
+      "title": "A.7.2",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "Lifecycle — decommissioning",
+      "title": "A.6.2.8",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "Improvement",
+      "title": "Cl.10",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "Data — privacy-preserving",
+      "title": "A.7.2",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "Support",
+      "title": "Cl.7",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "Data — model artefacts",
+      "title": "A.7.3",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "Data — provenance",
+      "title": "A.7.2",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "Data — quality",
+      "title": "A.7.3",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "Transparency",
+      "title": "A.8.1",
+      "description": "Hardening"
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-04-09",
+      "change": "Initial seed — 37 controls from clauses 4-10 and Annexes A/B",
+      "author": "emmanuelgjr"
+    }
+  ]
+}

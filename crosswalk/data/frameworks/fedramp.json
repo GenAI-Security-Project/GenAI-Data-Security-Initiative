@@ -1,0 +1,129 @@
+{
+  "id": "fedramp",
+  "name": "FedRAMP",
+  "short_name": "FedRAMP",
+  "version": "Rev 5",
+  "url": "https://www.fedramp.gov/",
+  "license": "Public Domain",
+  "publisher": "GSA / FedRAMP PMO",
+  "category": "certification",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "SI-3",
+      "title": "Malicious Code Protection — adversarial agent inputs",
+      "description": "Extend malicious code protection to detect and block adversarial inputs targeting agent goal manipulation including injection through tool outputs and context stores; Scan agent-generated code for malicious patterns before execution; detect and block code that attempts filesystem access, network communication, or privilege escalation; Extend malicious content detection to agent memory stores; detect poisoned memories, manipulated context, and adversarial state modifications"
+    },
+    {
+      "control_id": "SI-10",
+      "title": "Information Input Validation — agent context validation",
+      "description": "Validate all inputs to agent systems including user prompts, tool outputs, memory retrievals, and inter-agent messages; enforce structural separation of instructions and data; Validate quality, completeness, and accuracy of data entering AI pipelines; reject data failing quality thresholds; Validate all inputs to LLM inference endpoints; enforce structural separation between instruction and data contexts; reject known injection patterns"
+    },
+    {
+      "control_id": "CA-8",
+      "title": "Penetration Testing — agent hijacking testing",
+      "description": "Include agent goal hijacking in penetration testing scope; cover injection through all input channels — user prompts, tool outputs, memory stores, and inter-agent communication; Include agent code execution sandbox escape in penetration testing scope; test boundary integrity under adversarial conditions; Include prompt injection scenarios in penetration testing engagements; cover direct, indirect, and multimodal injection paths"
+    },
+    {
+      "control_id": "AU-2",
+      "title": "Event Logging — agent action audit trail",
+      "description": "Log all agent actions, goal interpretations, tool invocations, and decision points with sufficient detail to detect goal hijacking in post-incident analysis; Log all agent access decisions — permitted and denied — with sufficient detail for access control review and incident investigation; Log all agent memory operations — reads, writes, deletions — with sufficient detail to detect poisoning and support forensic investigation"
+    },
+    {
+      "control_id": "AC-3",
+      "title": "Access Enforcement — agent resource access",
+      "description": "Enforce role-based access control on all agent resources — tools, data stores, APIs, and inter-agent communication channels; deny by default; Enforce access control at every tool invocation boundary; validate agent identity and authorisation for each requested action regardless of calling context; Enforce access control at each tool invocation independently; re-evaluate authorisation at every step in a tool chain regardless of prior approvals"
+    },
+    {
+      "control_id": "AC-6",
+      "title": "Least Privilege — agent permissions",
+      "description": "Enforce least privilege for all agent permissions; restrict tool access, data store access, and API scope to minimum necessary per agent role; Enforce least privilege with explicit privilege ceilings per agent; prevent accumulation of permissions through tool chaining or inter-agent delegation; Enforce least privilege across tool chains; prevent agents from combining tool invocations that individually are safe but together achieve harmful outcomes"
+    },
+    {
+      "control_id": "CM-7",
+      "title": "Least Functionality — agent capability restrictions",
+      "description": "Restrict agents to minimum necessary capabilities; disable unused tools, APIs, and action types; enforce capability restrictions in agent configuration; Restrict agent code execution to minimum necessary scope; enforce sandbox boundaries, disable unnecessary language features, and limit filesystem and network access; Restrict permitted tool combinations; define allowed tool chains in configuration and deny undefined sequences"
+    },
+    {
+      "control_id": "IA-2",
+      "title": "Identification and Authentication — agent NHI",
+      "description": "Assign unique non-human identities to each AI agent; authenticate agent identity at each tool invocation and inter-agent communication boundary"
+    },
+    {
+      "control_id": "IR-4",
+      "title": "Incident Handling — escalation incident response",
+      "description": "Define incident handling procedures for agent privilege escalation events; include automated containment, privilege revocation, and forensic investigation; Define incident handling procedures for cascading agent failures; include automated circuit breakers, agent isolation, and multi-agent system shutdown procedures; Define incident handling procedures for agent dependency failures; include automated fallback activation, graceful degradation, and service restoration"
+    },
+    {
+      "control_id": "SR-2",
+      "title": "Supply Chain Risk Management Plan — agent components",
+      "description": "Include all agent components — tools, plugins, MCP servers, model weights, and agent frameworks — in the supply chain risk management plan; Include all agent external dependencies — model APIs, tool endpoints, data sources — in supply chain risk management with availability and integrity requirements; Include AI training data, model weights, and pipeline artefacts in supply chain risk management with provenance documentation"
+    },
+    {
+      "control_id": "SR-3",
+      "title": "Supply Chain Controls — agent component provenance",
+      "description": "Verify integrity and provenance of all agent supply chain components using cryptographic signatures, checksums, and attestation before deployment; Verify integrity and provenance of all AI artefacts using cryptographic signatures and checksums before use in any pipeline; Implement provenance tracking for all AI training data; document source, collection method, processing history, and licensing for each dataset"
+    },
+    {
+      "control_id": "SA-9",
+      "title": "External Information System Services — third-party agent services",
+      "description": "Require third-party agent tool and plugin providers to meet FedRAMP requirements; establish SLAs for security, availability, and incident notification; Require SLAs from agent dependency providers covering availability, performance, security, and incident notification; establish fallback procedures; Require FedRAMP authorisation or equivalent for all third-party AI services; block data transfer to unauthorised AI tools"
+    },
+    {
+      "control_id": "SA-3",
+      "title": "System Development Life Cycle — agent SDLC",
+      "description": "Integrate agent-specific security activities into the SDLC — tool integration review, privilege analysis, and adversarial testing at each lifecycle phase; Integrate AI-specific security activities into the SDLC — model security review, adversarial testing, supply chain verification at each lifecycle phase"
+    },
+    {
+      "control_id": "SC-7",
+      "title": "Boundary Protection — execution sandbox",
+      "description": "Enforce strict boundary protection on agent code execution environments; isolate from production systems, restrict network access, and enforce resource limits; Enforce boundary protection between agents in multi-agent systems; prevent uncontrolled propagation of failures or attacks across agent boundaries; Enforce boundary protection on data flows between systems; prevent uncontrolled data aggregation across security boundaries"
+    },
+    {
+      "control_id": "SC-28",
+      "title": "Protection of Information at Rest — memory store protection",
+      "description": "Encrypt agent memory stores and context databases at rest; enforce access controls and integrity verification on all memory read and write operations; Encrypt all training data, model weights, and pipeline artefacts at rest; enforce key management per FedRAMP requirements; Encrypt all AI data at rest — training data, model weights, inference logs, embedding stores — using FIPS 140-validated modules"
+    },
+    {
+      "control_id": "RA-5",
+      "title": "Vulnerability Scanning — memory infrastructure",
+      "description": "Include agent memory stores, context databases, and shared state infrastructure in vulnerability scanning and security assessment; Include emerging agentic attack surfaces in vulnerability scanning; assess novel architectures for security implications before production deployment; Include synthetic data re-identification and pattern leakage in vulnerability assessment"
+    },
+    {
+      "control_id": "SI-4",
+      "title": "System Monitoring — cascade detection",
+      "description": "Monitor multi-agent systems for cascade indicators — error propagation, resource exhaustion spreading, and anomalous inter-agent communication patterns; Monitor agent systems for unexpected behaviour — novel tool use patterns, unanticipated goal decomposition, and emergent inter-agent coordination; Monitor agent dependency health in real time — API availability, response latency, error rates; alert on degradation and trigger fallback procedures"
+    },
+    {
+      "control_id": "PM-9",
+      "title": "Risk Management Strategy — automation risk",
+      "description": "Include cascading automation risk in the organisational risk management strategy; define acceptable multi-agent coupling thresholds and circuit breaker requirements; Include data visibility and transparency requirements in AI risk management strategy; define what data flows must be documented and monitored; Include data lineage completeness in AI risk management strategy; define minimum lineage requirements per data sensitivity level"
+    },
+    {
+      "control_id": "CA-7",
+      "title": "Continuous Monitoring — novel pattern detection",
+      "description": "Include monitoring for novel agentic behaviour patterns in FedRAMP continuous monitoring; track for unexpected capabilities, emergent behaviours, and architectural drift; Include synthetic data quality metrics in continuous monitoring; track for privacy degradation and bias drift; Include bias and fairness metrics in continuous monitoring; track output equity over time"
+    },
+    {
+      "control_id": "AU-6",
+      "title": "Audit Review — agent decision review",
+      "description": "Conduct regular audit review of agent decision logs; identify patterns indicative of unexpected capabilities or emergent behaviours requiring security assessment; Regularly review AI inference logs and output samples for hallucination patterns, factual errors, and misleading content; escalate findings through security channels"
+    },
+    {
+      "control_id": "AU-12",
+      "title": "Audit Generation — inference audit trail",
+      "description": "Generate audit records for all model inference requests with sufficient detail for compliance and incident investigation; Generate audit records for all access to AI intellectual property; enable detection of unauthorised access and exfiltration"
+    },
+    {
+      "control_id": "CM-3",
+      "title": "Configuration Change Control — data pipeline documentation",
+      "description": "Document and control changes to AI data pipeline configurations; maintain current data flow diagrams and processing documentation; Require formal change control for all data source additions, modifications, and removals; maintain audit trail; Maintain comprehensive data lineage documentation for all AI pipelines; update on every transformation, combination, or processing change"
+    },
+    {
+      "control_id": "RA-3",
+      "title": "Risk Assessment — governance completeness",
+      "description": "Assess AI governance completeness; identify gaps in roles, policies, oversight, and accountability; Conduct regulatory compliance gap analysis for AI systems; identify areas of non-compliance and define remediation plans"
+    }
+  ]
+}

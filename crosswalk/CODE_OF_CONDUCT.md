@@ -22,7 +22,7 @@ welcoming, diverse, inclusive, and healthy community.
 - Gracefully accepting constructive criticism
 - Focusing on what is best for the community and the open-source mission
 - Showing empathy towards other community members
-- Giving credit where credit is due — cite your sources, acknowledge prior work
+- Giving credit where credit is due â€” cite your sources, acknowledge prior work
 
 **Examples of unacceptable behaviour:**
 
@@ -56,7 +56,7 @@ inappropriate, threatening, offensive, or harmful.
 
 ## Scope
 
-This Code of Conduct applies within all project spaces — GitHub repository,
+This Code of Conduct applies within all project spaces â€” GitHub repository,
 issues, pull requests, discussions, and any other official project channels.
 It also applies when an individual is representing the project in public
 spaces, such as conference talks, social media posts, or community events.
@@ -138,5 +138,5 @@ https://www.contributor-covenant.org/faq
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk) —
+*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk) â€”
 maintained by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org)*

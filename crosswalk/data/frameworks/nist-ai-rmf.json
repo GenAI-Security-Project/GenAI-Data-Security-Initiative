@@ -1,0 +1,614 @@
+{
+  "id": "nist-ai-rmf",
+  "name": "NIST AI RMF 1.0",
+  "short_name": "AI RMF",
+  "version": "1.0",
+  "url": "https://www.nist.gov/artificial-intelligence/executive-order-safe-secure-and-trustworthy-artificial-intelligence",
+  "license": "Public Domain",
+  "publisher": "NIST",
+  "category": "ai-governance",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "GV-1",
+      "title": "Policies and governance",
+      "description": "Policies, processes, procedures, and practices across the organization related to the mapping, measuring, and managing of AI risks are in place, transparent, and implemented effectively.",
+      "parent": null,
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-1.1",
+      "title": "Legal and regulatory requirements",
+      "description": "Legal and regulatory requirements involving AI are understood, managed, and documented.",
+      "parent": "GV-1",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-1.2",
+      "title": "Trustworthy AI characteristics",
+      "description": "Trustworthy AI characteristics are integrated into organizational policies, procedures, and processes.",
+      "parent": "GV-1",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-1.3",
+      "title": "Processes and procedures alignment",
+      "description": "Processes, procedures, and practices are in place to determine the needed level of risk management activities based on the organization's risk tolerance.",
+      "parent": "GV-1",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-1.4",
+      "title": "Risk management process integration",
+      "description": "The risk management process and its outcomes are established through transparent policies, procedures, and other controls based on organizational risk priorities.",
+      "parent": "GV-1",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-1.5",
+      "title": "Ongoing monitoring",
+      "description": "Ongoing monitoring and periodic review of the risk management process and its outcomes are planned, organizationally aligned, and documented.",
+      "parent": "GV-1",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-1.6",
+      "title": "Mechanisms for inventory",
+      "description": "Mechanisms are in place to inventory AI systems and are resourced per organizational risk priorities.",
+      "parent": "GV-1",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-1.7",
+      "title": "Processes for termination",
+      "description": "Processes and procedures are in place for decommissioning and phasing out AI systems safely and in a manner that does not increase risks or harms.",
+      "parent": "GV-1",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-2",
+      "title": "Accountability structures",
+      "description": "Accountability structures are in place so that the appropriate teams and individuals are empowered, responsible, and trained for mapping, measuring, and managing AI risks.",
+      "parent": null,
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-2.1",
+      "title": "Roles and responsibilities",
+      "description": "Roles and responsibilities and lines of communication related to mapping, measuring, and managing AI risks are documented and are clear to individuals and teams throughout the organization.",
+      "parent": "GV-2",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-2.2",
+      "title": "Organizational commitment",
+      "description": "The organization's personnel and partners receive AI risk management training to enable them to perform their duties and responsibilities consistent with related policies, procedures, and agreements.",
+      "parent": "GV-2",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-2.3",
+      "title": "Executive responsibility",
+      "description": "Executive leadership of the organization takes responsibility for decisions about risks associated with AI system development and deployment.",
+      "parent": "GV-2",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-3",
+      "title": "Workforce diversity",
+      "description": "Workforce diversity, equity, inclusion, and accessibility processes are prioritized in the mapping, measuring, and managing of AI risks throughout the lifecycle.",
+      "parent": null,
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-3.1",
+      "title": "Decision-making diversity",
+      "description": "Decision-making related to mapping, measuring, and managing AI risks throughout the lifecycle is informed by a diverse team.",
+      "parent": "GV-3",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-3.2",
+      "title": "Demographic diversity and domain expertise",
+      "description": "Policies and procedures are in place to define and differentiate roles and responsibilities for human-AI configurations and oversight of AI systems.",
+      "parent": "GV-3",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-4",
+      "title": "Organizational commitments",
+      "description": "Organizational teams are committed to a culture that considers and communicates AI risk.",
+      "parent": null,
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-4.1",
+      "title": "Organizational practices and norms",
+      "description": "Organizational practices and norms that enable managing AI risk are integrated into risk management and align with established enterprise governance.",
+      "parent": "GV-4",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-4.2",
+      "title": "Organizational teams commitment",
+      "description": "Organizational teams document the risks and potential impacts of the AI technology they design, develop, deploy, evaluate, and use, and they communicate about the impacts more broadly.",
+      "parent": "GV-4",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-4.3",
+      "title": "Risk treatment approaches",
+      "description": "Organizational practices are in place to enable AI testing, identification of incidents, and information sharing.",
+      "parent": "GV-4",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-5",
+      "title": "Stakeholder engagement",
+      "description": "Processes are in place for robust engagement with relevant AI actors.",
+      "parent": null,
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-5.1",
+      "title": "Engagement with external stakeholders",
+      "description": "Organizational policies and practices are in place to engage with and foster collaboration between relevant AI actors.",
+      "parent": "GV-5",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-5.2",
+      "title": "Mechanisms for feedback",
+      "description": "Mechanisms are established to enable AI actors to regularly incorporate adjudicated feedback from relevant AI actors into the design and implementation of AI systems.",
+      "parent": "GV-5",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-6",
+      "title": "Policies for third-party entities",
+      "description": "Policies and procedures are in place that address AI risks associated with third-party entities, including risks of infringement of a third party's intellectual property or other rights.",
+      "parent": null,
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-6.1",
+      "title": "Third-party risk management",
+      "description": "Policies and procedures are in place that address AI risks and benefits arising from third-party software and data and other supply chain issues.",
+      "parent": "GV-6",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "GV-6.2",
+      "title": "Contingency processes",
+      "description": "Contingency processes are in place for third-party AI systems or AI-enabled services.",
+      "parent": "GV-6",
+      "function": "GOVERN"
+    },
+    {
+      "control_id": "MP-1",
+      "title": "Context and intended purpose",
+      "description": "Context is established and understood.",
+      "parent": null,
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-1.1",
+      "title": "Intended purpose and setting",
+      "description": "Intended purpose, potentially beneficial uses, context of use, and the design, development, and deployment setting are understood.",
+      "parent": "MP-1",
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-1.2",
+      "title": "Interdisciplinary expertise",
+      "description": "Interdisciplinary AI actors, competencies, skills, and capacities for establishing context reflect the state of AI risks and are periodically reviewed.",
+      "parent": "MP-1",
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-1.3",
+      "title": "Broad set of perspectives",
+      "description": "The business value or context of business use has been clearly defined or—in the case of assessing existing AI systems—re-evaluated.",
+      "parent": "MP-1",
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-1.4",
+      "title": "Assessment of positive and negative impacts",
+      "description": "The organization's or system's mission and relevant goals for AI technology are documented.",
+      "parent": "MP-1",
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-1.5",
+      "title": "Use case risk assessment",
+      "description": "Organizational risk tolerances are determined and documented.",
+      "parent": "MP-1",
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-1.6",
+      "title": "System requirements",
+      "description": "System requirements (e.g., human-AI configuration, governance, legal compliance, privacy, safety, security, sustainability) are elicited from and understood by relevant AI actors.",
+      "parent": "MP-1",
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-2",
+      "title": "Categorize AI system",
+      "description": "Categorization of the AI system is performed.",
+      "parent": null,
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-2.1",
+      "title": "Intended use and known misuse",
+      "description": "The specific task, use case, or decision the AI system will be used for, and the expected benefit of the AI system is documented.",
+      "parent": "MP-2",
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-2.2",
+      "title": "Technology-specific risk",
+      "description": "Information about the AI system's knowledge limits and how system output may be utilized and overseen by humans is documented; this includes considerations of how output could be misused.",
+      "parent": "MP-2",
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-2.3",
+      "title": "Scientific integrity",
+      "description": "Scientific integrity and TEVV considerations are identified and documented, including those related to experimental design, data collection and selection, and construct validity.",
+      "parent": "MP-2",
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-3",
+      "title": "Identify benefits and costs",
+      "description": "AI system benefits and costs are identified and managed to achieve trustworthy AI.",
+      "parent": null,
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-3.1",
+      "title": "Benefits and costs of AI",
+      "description": "Benefits of intended functionality are examined against the risks, and consideration of deployment is given against its benefits and compared to deployment of AI systems of lower risk.",
+      "parent": "MP-3",
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-3.2",
+      "title": "Potential costs",
+      "description": "Potential costs, including non-monetary costs, are examined and documented.",
+      "parent": "MP-3",
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-4",
+      "title": "Risk indicators",
+      "description": "Risks and benefits are mapped for all components of the AI system, including third-party software and data.",
+      "parent": null,
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-4.1",
+      "title": "Risk mapping",
+      "description": "Approaches for mapping AI technology and legal risks of its components — including the use of third-party data or software — are in place, followed, and documented, as are risks of infringement of a third party's intellectual property or other rights.",
+      "parent": "MP-4",
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-4.2",
+      "title": "Internal risk controls",
+      "description": "Internal risk controls for components of the AI system, including third-party AI technologies, are identified and documented.",
+      "parent": "MP-4",
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-5",
+      "title": "Impacts to individuals, groups, communities",
+      "description": "Likelihood and severity of each identified impact based on expected use, past uses, and system behavior is assessed and documented.",
+      "parent": null,
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-5.1",
+      "title": "Likelihood and severity",
+      "description": "Likelihood and severity of each identified impact based on expected use, past uses of AI systems in similar contexts, and AI system trustworthiness characteristics are assessed and documented.",
+      "parent": "MP-5",
+      "function": "MAP"
+    },
+    {
+      "control_id": "MP-5.2",
+      "title": "Impact assessment and documentation",
+      "description": "Practices and personnel for supporting regular engagement with relevant AI actors and integrating feedback about positive, negative, and unanticipated impacts are in place and documented.",
+      "parent": "MP-5",
+      "function": "MAP"
+    },
+    {
+      "control_id": "MS-1",
+      "title": "Appropriate methods and metrics",
+      "description": "Appropriate methods and metrics are identified and applied.",
+      "parent": null,
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-1.1",
+      "title": "Measurement approaches",
+      "description": "Approaches and metrics for measurement of AI risks enumerated during the MAP function are selected for implementation starting with the most significant AI risks.",
+      "parent": "MS-1",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-1.2",
+      "title": "Appropriateness of metrics",
+      "description": "Appropriateness of AI metrics and effectiveness of existing measures are regularly assessed and updated, including reports of errors and potential impacts on affected communities.",
+      "parent": "MS-1",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-1.3",
+      "title": "Internal and external expert feedback",
+      "description": "Internal experts who did not serve as combating designers, developers, or deployers of the AI system and/or independent assessors are involved in regular assessments and updates.",
+      "parent": "MS-1",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-2",
+      "title": "AI systems evaluated",
+      "description": "AI systems are evaluated for trustworthy characteristics.",
+      "parent": null,
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-2.1",
+      "title": "Test sets and metrics",
+      "description": "Test sets, metrics, and details about the tools used during test, evaluation, validation, and verification (TEVV) are documented.",
+      "parent": "MS-2",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-2.2",
+      "title": "Evaluations for bias, security, privacy",
+      "description": "Evaluations involving AI actors and affected communities for validity, trustworthiness, and fitness for purpose of the AI system, model, or data are documented.",
+      "parent": "MS-2",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-2.3",
+      "title": "AI system performance",
+      "description": "AI system performance or assurance criteria are measured qualitatively or quantitatively and demonstrated for conditions similar to deployment setting(s).",
+      "parent": "MS-2",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-2.4",
+      "title": "Values and comparisons",
+      "description": "The functionality and behavior of the AI system and its components — as identified in the MAP function — are monitored when in production.",
+      "parent": "MS-2",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-2.5",
+      "title": "Adversarial testing",
+      "description": "AI system is evaluated regularly for safety risks — as identified in the MAP function. The AI system to be deployed is demonstrated to be valid and reliable. Limitations of the generalizability beyond the conditions under which the technology was developed are documented.",
+      "parent": "MS-2",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-2.6",
+      "title": "AI system evaluation frequency",
+      "description": "The AI system is evaluated regularly for safety risks — as identified in the MAP function. The AI system to be deployed is demonstrated to be valid and reliable.",
+      "parent": "MS-2",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-2.7",
+      "title": "AI system security and resilience",
+      "description": "AI system security and resilience — as identified in the MAP function — are evaluated and documented.",
+      "parent": "MS-2",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-2.8",
+      "title": "Bias and fairness",
+      "description": "Risks associated with transparency and accountability — as identified in the MAP function — are examined and documented.",
+      "parent": "MS-2",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-2.9",
+      "title": "Environmental impact",
+      "description": "The AI model is explained, validated, and documented, and AI system output is interpreted within its context — as identified in the MAP function.",
+      "parent": "MS-2",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-2.10",
+      "title": "Privacy risk",
+      "description": "Privacy risk of the AI system — as identified in the MAP function — is examined and documented.",
+      "parent": "MS-2",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-2.11",
+      "title": "Fairness assessment",
+      "description": "Fairness and bias — Loss, validity, reliability, and robustness — as identified in the MAP function — are evaluated, and results are documented.",
+      "parent": "MS-2",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-3",
+      "title": "Mechanisms for tracking risks",
+      "description": "Mechanisms for tracking identified AI risks over time are in place.",
+      "parent": null,
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-3.1",
+      "title": "Risk tracking and response",
+      "description": "Approaches, personnel, and documentation are in place to regularly identify and track existing, unanticipated, and emergent AI risks based on factors such as intended and actual performance in deployed contexts.",
+      "parent": "MS-3",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-3.2",
+      "title": "Tracking risk over time",
+      "description": "Risk tracking approaches are considered for settings where AI risks are difficult to assess using currently available measurement techniques or metrics.",
+      "parent": "MS-3",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-3.3",
+      "title": "Feedback mechanisms",
+      "description": "Feedback processes for end users and impacted communities to report problems and appeal system outcomes are established and integrated into AI system evaluation metrics.",
+      "parent": "MS-3",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-4",
+      "title": "Measurement results",
+      "description": "Measurement results regarding AI system trustworthiness in deployment context(s) and across the AI lifecycle are informed by input from domain experts and relevant AI actors to validate whether the system is performing consistently as intended.",
+      "parent": null,
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-4.1",
+      "title": "Measurement results communication",
+      "description": "Measurement results regarding AI system trustworthiness in deployment context(s) and across the AI lifecycle are informed by input from domain experts and relevant AI actors to validate whether the system is performing consistently as intended.",
+      "parent": "MS-4",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MS-4.2",
+      "title": "Measurement results documentation",
+      "description": "Measurement results are documented and used to make decisions and inform actions related to AI system development and deployment.",
+      "parent": "MS-4",
+      "function": "MEASURE"
+    },
+    {
+      "control_id": "MG-1",
+      "title": "Risk treatment plan",
+      "description": "AI risks based on assessments and other analytical output from the MAP and MEASURE functions are prioritized, responded to, and managed.",
+      "parent": null,
+      "function": "MANAGE"
+    },
+    {
+      "control_id": "MG-1.1",
+      "title": "Risk treatment prioritization",
+      "description": "A determination is made as to whether the AI system achieves its intended purpose and stated objectives and whether its development or deployment should proceed.",
+      "parent": "MG-1",
+      "function": "MANAGE"
+    },
+    {
+      "control_id": "MG-1.2",
+      "title": "Ongoing risk treatment",
+      "description": "Treatment of documented AI risks is prioritized based on impact, likelihood, and available resources or methods.",
+      "parent": "MG-1",
+      "function": "MANAGE"
+    },
+    {
+      "control_id": "MG-1.3",
+      "title": "Responses proportional to risk",
+      "description": "Responses to the AI risks deemed high priority, as identified by the MAP function, are developed, planned, and documented. Risk response options can include mitigating, transferring, avoiding, or accepting.",
+      "parent": "MG-1",
+      "function": "MANAGE"
+    },
+    {
+      "control_id": "MG-1.4",
+      "title": "Risk treatment resources",
+      "description": "Negative residual risks (defined as the sum of all unmitigated risks) to both downstream acquirers of AI systems and end users are documented.",
+      "parent": "MG-1",
+      "function": "MANAGE"
+    },
+    {
+      "control_id": "MG-2",
+      "title": "Risk response and recovery",
+      "description": "Strategies to maximize AI benefits and minimize negative impacts are planned, prepared, implemented, documented, and informed by input from relevant AI actors.",
+      "parent": null,
+      "function": "MANAGE"
+    },
+    {
+      "control_id": "MG-2.1",
+      "title": "Risk response — planned",
+      "description": "Resources required to manage AI risks are taken into account — along with viable non-AI alternative systems, approaches, or methods — to reduce the magnitude or likelihood of potential impacts.",
+      "parent": "MG-2",
+      "function": "MANAGE"
+    },
+    {
+      "control_id": "MG-2.2",
+      "title": "Risk response — incident",
+      "description": "Mechanisms are in place and applied to sustain the value of deployed AI systems.",
+      "parent": "MG-2",
+      "function": "MANAGE"
+    },
+    {
+      "control_id": "MG-2.3",
+      "title": "Risk response — recovery",
+      "description": "Procedures are followed to respond to and recover from a previously unknown risk when it is identified.",
+      "parent": "MG-2",
+      "function": "MANAGE"
+    },
+    {
+      "control_id": "MG-2.4",
+      "title": "Risk response — change management",
+      "description": "Mechanisms are in place and applied, and responsibilities are assigned and understood, to supersede, disengage, or deactivate AI systems that demonstrate performance or outcomes inconsistent with intended use.",
+      "parent": "MG-2",
+      "function": "MANAGE"
+    },
+    {
+      "control_id": "MG-3",
+      "title": "Communication and documentation",
+      "description": "AI risks and benefits from third-party resources are managed.",
+      "parent": null,
+      "function": "MANAGE"
+    },
+    {
+      "control_id": "MG-3.1",
+      "title": "Pre-deployment assessment",
+      "description": "AI risks and benefits from third-party entities are managed, and processes and procedures for third-party risk management are in place.",
+      "parent": "MG-3",
+      "function": "MANAGE"
+    },
+    {
+      "control_id": "MG-3.2",
+      "title": "Communication of incidents",
+      "description": "Pre-trained models which are used for development are monitored as part of AI system regular monitoring and maintenance.",
+      "parent": "MG-3",
+      "function": "MANAGE"
+    },
+    {
+      "control_id": "MG-4",
+      "title": "Post-deployment monitoring",
+      "description": "Risk treatments, including response and recovery, and communication plans for the identified and measured AI risks are documented and monitored regularly.",
+      "parent": null,
+      "function": "MANAGE"
+    },
+    {
+      "control_id": "MG-4.1",
+      "title": "Post-deployment risk treatment",
+      "description": "Post-deployment AI system monitoring plans are implemented, including mechanisms for capturing and evaluating input from users and other relevant AI actors, appeal and override, decommissioning, incident response, recovery, and change management.",
+      "parent": "MG-4",
+      "function": "MANAGE"
+    },
+    {
+      "control_id": "MG-4.2",
+      "title": "Post-deployment monitoring results",
+      "description": "Measurable activities for continual improvements are integrated into AI system updates and include regular engagement with interested parties, including relevant AI actors.",
+      "parent": "MG-4",
+      "function": "MANAGE"
+    },
+    {
+      "control_id": "MP-3.5",
+      "title": "AI system impact",
+      "description": "Impact assessment of shadow AI on organisational data security posture � ungoverned data flows quantified; Impact assessment of endpoint AI agents � data access scope, exfiltration paths, user risk"
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-04-09",
+      "change": "Initial seed — all GOVERN, MAP, MEASURE, MANAGE subcategories",
+      "author": "emmanuelgjr"
+    }
+  ]
+}

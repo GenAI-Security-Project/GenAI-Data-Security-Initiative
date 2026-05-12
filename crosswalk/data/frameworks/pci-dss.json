@@ -1,0 +1,374 @@
+{
+  "id": "pci-dss",
+  "name": "PCI DSS v4.0",
+  "short_name": "PCI DSS",
+  "version": "4.0",
+  "url": "https://www.pcisecuritystandards.org/document_library/",
+  "license": "Proprietary",
+  "publisher": "PCI Security Standards Council",
+  "category": "infosec",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "Bespoke agent code reviewed for injection resistance — all agent integration code includes prompt injection as a vulnerability category",
+      "title": "Req 6.2",
+      "description": "Secure code review records, findings, remediation"
+    },
+    {
+      "control_id": "Penetration testing covers goal hijack — agentic AI systems tested for prompt injection before production and annually",
+      "title": "Req 11.3",
+      "description": "Pen test report with goal hijack test cases"
+    },
+    {
+      "control_id": "Agent actions logged — all goal-relevant agent actions logged with user identity, session ID, and action detail",
+      "title": "Req 10.2",
+      "description": "Audit log configuration, sample log entries"
+    },
+    {
+      "control_id": "Targeted risk analysis documents goal hijack — likelihood, impact on CHD, treatment controls specified",
+      "title": "Req 12.3",
+      "description": "Risk analysis for agentic AI in PCI scope"
+    },
+    {
+      "control_id": "Agent tool permissions follow least-privilege — agent can only access CHD systems required for defined function",
+      "title": "Req 7.2",
+      "description": "Access control matrix for agent tools, privilege review records"
+    },
+    {
+      "control_id": "Agent tool permissions reviewed periodically — unused tool permissions removed; review schedule documented",
+      "title": "Req 7.3",
+      "description": "Periodic access review records"
+    },
+    {
+      "control_id": "All tool invocations on CHD systems logged — tool name, parameters, data accessed, user/session identity",
+      "title": "Req 10.2",
+      "description": "Tool invocation audit log"
+    },
+    {
+      "control_id": "Tool parameter validation in agent code — LLM-generated tool parameters validated before execution",
+      "title": "Req 6.2",
+      "description": "Code review records covering parameter validation"
+    },
+    {
+      "control_id": "Agent accounts are system/application accounts — unique agent identity per deployment, no shared credentials",
+      "title": "Req 8.2",
+      "description": "Account inventory, unique account evidence"
+    },
+    {
+      "control_id": "Agent credential management — unique credentials, strong authentication where interactive, credential rotation schedule",
+      "title": "Req 8.3",
+      "description": "Credential management policy, rotation records"
+    },
+    {
+      "control_id": "Agent access to CHD follows need-to-know — access to cardholder data restricted to what agent function requires",
+      "title": "Req 7.2",
+      "description": "Access control matrix, need-to-know justification"
+    },
+    {
+      "control_id": "Agent credential usage logged — all authentication events for agent accounts in CHD scope logged",
+      "title": "Req 10.2",
+      "description": "Authentication audit log"
+    },
+    {
+      "control_id": "Agentic component vendors with CHD access managed as TPSPs — written agreements, annual confirmation of PCI compliance",
+      "title": "Req 12.8",
+      "description": "TPSP list, written agreements, compliance confirmations"
+    },
+    {
+      "control_id": "Agentic component CVEs in vulnerability management — ML libraries, agent frameworks, inference runtime dependencies scanned",
+      "title": "Req 6.3",
+      "description": "Vulnerability scan results, patch records"
+    },
+    {
+      "control_id": "Malicious software protection for agent components — integrity verification for model weights and plugin descriptors",
+      "title": "Req 5.2",
+      "description": "Integrity check configuration, verification records"
+    },
+    {
+      "control_id": "Secure baseline configuration for agentic infrastructure — hardening standards applied to agent deployment platforms",
+      "title": "Req 2.2",
+      "description": "Hardening baseline documentation"
+    },
+    {
+      "control_id": "Code generation and execution controls in secure development — agent cannot execute generated code without validation",
+      "title": "Req 6.2",
+      "description": "Secure development policy covering code generation"
+    },
+    {
+      "control_id": "Agent execution environments protected — WAF or equivalent for agent endpoints with code execution capability",
+      "title": "Req 6.4",
+      "description": "WAF configuration, protection evidence"
+    },
+    {
+      "control_id": "Code execution paths in penetration testing — test whether crafted inputs cause execution of out-of-scope code",
+      "title": "Req 11.3",
+      "description": "Pen test report with code execution test cases"
+    },
+    {
+      "control_id": "Code execution events logged — all agent-initiated execution with session identity and code summary",
+      "title": "Req 10.2",
+      "description": "Code execution audit log"
+    },
+    {
+      "control_id": "PAN in agent memory protected — primary account numbers truncated or masked if stored in agent context or memory stores",
+      "title": "Req 3.4",
+      "description": "Memory store review, PAN protection evidence"
+    },
+    {
+      "control_id": "Agent memory encryption — CHD in persistent memory stores encrypted using strong cryptography",
+      "title": "Req 3.5",
+      "description": "Encryption configuration, key management records"
+    },
+    {
+      "control_id": "Model and memory changes managed — updates to agent memory stores treated as system changes requiring security review",
+      "title": "Req 6.5",
+      "description": "Change management records"
+    },
+    {
+      "control_id": "Memory poisoning in penetration test scope — test whether adversarial content in memory affects agent behaviour",
+      "title": "Req 11.3",
+      "description": "Pen test report"
+    },
+    {
+      "control_id": "CHD encrypted in transit between agents — all inter-agent communication carrying CHD uses TLS 1.2+",
+      "title": "Req 4.2",
+      "description": "TLS configuration, protocol verification"
+    },
+    {
+      "control_id": "Inter-agent authentication — agents authenticate to each other before exchanging CHD",
+      "title": "Req 8.2",
+      "description": "Certificate configuration, authentication evidence"
+    },
+    {
+      "control_id": "Inter-agent CHD exchanges logged — source, destination, data classification, timestamp",
+      "title": "Req 10.2",
+      "description": "Inter-agent communication audit log"
+    },
+    {
+      "control_id": "Secure development requirements for inter-agent APIs — authentication and encryption requirements in design specifications",
+      "title": "Req 6.2",
+      "description": "Design documentation, code review records"
+    },
+    {
+      "control_id": "Critical agent control failures detected promptly — monitoring for cascade precursors with alert thresholds",
+      "title": "Req 10.7",
+      "description": "Monitoring configuration, alert records, detection evidence"
+    },
+    {
+      "control_id": "Cascade failure risk analysis — targeted risk analysis documents cascade failure likelihood, impact, treatment",
+      "title": "Req 12.3",
+      "description": "Risk analysis documentation"
+    },
+    {
+      "control_id": "Network controls prevent cascade propagation — agent network segments isolated to contain blast radius",
+      "title": "Req 1.3",
+      "description": "Network diagram, segmentation evidence"
+    },
+    {
+      "control_id": "Baseline availability configuration for agent infrastructure — capacity and resilience requirements in hardening baseline",
+      "title": "Req 2.2",
+      "description": "Hardening baseline documentation"
+    },
+    {
+      "control_id": "Security awareness covers AI deception — staff trained to recognise AI impersonation and social engineering",
+      "title": "Req 12.6",
+      "description": "Training curriculum, completion records"
+    },
+    {
+      "control_id": "Honest design requirements for agent interactions — AI disclosure requirements in secure development policy",
+      "title": "Req 6.2",
+      "description": "Secure development policy, design review records"
+    },
+    {
+      "control_id": "Agent-human interaction events logged — session records for agent interactions involving CHD decisions",
+      "title": "Req 10.2",
+      "description": "Interaction audit log"
+    },
+    {
+      "control_id": "Trust exploitation risk analysis — targeted risk analysis documents scenarios and treatment",
+      "title": "Req 12.3",
+      "description": "Risk analysis documentation"
+    },
+    {
+      "control_id": "Agent access to CHD follows documented scope — technical controls prevent access outside defined role",
+      "title": "Req 7.2",
+      "description": "Access control matrix, technical enforcement evidence"
+    },
+    {
+      "control_id": "Rogue agent behaviour logged — actions outside defined scope generate audit log entries and alerts",
+      "title": "Req 10.2",
+      "description": "Action audit log, out-of-scope alert records"
+    },
+    {
+      "control_id": "Rogue agent scenarios in penetration test scope — test whether agents can operate outside authorised scope",
+      "title": "Req 11.3",
+      "description": "Pen test report with rogue agent test cases"
+    },
+    {
+      "control_id": "Rogue agent risk analysis — targeted risk analysis documents scenarios, CHD impact, treatment",
+      "title": "Req 12.3",
+      "description": "Risk analysis documentation"
+    },
+    {
+      "control_id": "Req 3.4.1",
+      "title": "PAN rendering unreadable",
+      "description": "PANs in GenAI outputs masked � only first six/last four digits in any response; PANs extracted from multimodal content masked in all outputs � OCR-extracted PANs are CHD requiring Req 3 treatment; Synthetic PANs that pass Luhn check treated as CHD � format-preserving synthetic PANs are in PCI scope"
+    },
+    {
+      "control_id": "Req 3.5.1",
+      "title": "Protect stored account data",
+      "description": "All CHD in GenAI scope encrypted � training data, RAG stores, embeddings, prompt caches; All CHD extracted from multimodal inputs encrypted at rest � OCR output of a payment document is CHD; Per-user session CHD encrypted � KV cache isolation prevents cross-session PAN exposure"
+    },
+    {
+      "control_id": "Req 4.2.1",
+      "title": "Encryption in transit",
+      "description": "All GenAI data flows carrying CHD encrypted � TLS 1.2 minimum; Multimodal extraction pipelines encrypted in transit where CHD is in scope; All LLM API calls and RAG retrieval paths carrying CHD encrypted in transit � TLS 1.2 minimum"
+    },
+    {
+      "control_id": "Req 7.2.1",
+      "title": "Restrict access",
+      "description": "RAG retrieval access controls � users retrieve only CHD they are authorised to access; Agent credentials scoped to minimum CDE access � least privilege, quarterly review; Context minimisation � tools receive minimum CHD-containing context required"
+    },
+    {
+      "control_id": "Req 8.2.1",
+      "title": "Unique IDs for access",
+      "description": "Each agent has a unique service identity � no shared credentials across CDE-facing agents"
+    },
+    {
+      "control_id": "Req 10.2.1",
+      "title": "Logging of all access",
+      "description": "All agent credential operations in CDE logged � issuance, use, anomalous patterns; All tool call payloads containing CHD logged � Req 10 audit trail requirement; All PAN access through multimodal pipelines logged"
+    },
+    {
+      "control_id": "Req 12.3.2",
+      "title": "Targeted risk analysis",
+      "description": "Targeted risk analysis for agent credential scope in CDE � blast radius if credentials compromised; Targeted risk analysis for ungoverned GenAI-derived assets � scope, protection, lifecycle documented; Re-identification risk in synthetic payment datasets documented in targeted risk analysis"
+    },
+    {
+      "control_id": "Req 12.8.1",
+      "title": "Third-party service providers",
+      "description": "Shadow AI tools processing CHD are unapproved TPSPs � not in TPSP list, no written agreements; All tool and plugin providers receiving CHD in TPSP list � even if access is indirect through agent context; Browser AI extension providers with CDE access are TPSPs � add to TPSP list, initiate compliance process"
+    },
+    {
+      "control_id": "Req 12.5.2",
+      "title": "TPSP oversight",
+      "description": "Shadow AI discovery as part of TPSP monitoring � identify unapproved vendors receiving CHD"
+    },
+    {
+      "control_id": "Req 1.3.2",
+      "title": "Network security",
+      "description": "Network controls prevent CHD flows to unapproved AI endpoints � block at network layer; Rate limiting protecting availability of CDE-facing LLM endpoints � DoS prevention; Network controls restrict inbound traffic to CDE � rate limiting at network layer for LLM applications"
+    },
+    {
+      "control_id": "Req 12.6.1",
+      "title": "Security awareness",
+      "description": "PCI security awareness programme covers shadow AI risk � staff trained on prohibition; Security awareness covers PCI obligations in GenAI context � staff understand scope implications; PCI staff trained on LLM output limitations � advisory status of AI recommendations communicated"
+    },
+    {
+      "control_id": "Req 6.5.6",
+      "title": "Secure system changes",
+      "description": "All model promotions tested for unexpected functionality � poisoning detection as Req 6.5 testing requirement; RAG corpus updates tested for unexpected content � integrity verification before production indexing; All model promotions tested for unexpected functionality before CDE deployment � poisoning as unexpected functionality"
+    },
+    {
+      "control_id": "Req 10.6.1",
+      "title": "Audit log review",
+      "description": "Automated monitoring of GenAI outputs in CDE � systematic anomalies indicating poisoning detected; Automated monitoring for GenAI pipeline health in CDE � freshness and availability metrics reviewed; Automated monitoring for extraction patterns � unusual query diversity alerted"
+    },
+    {
+      "control_id": "Req 11.3.1",
+      "title": "Penetration testing",
+      "description": "Poisoning detection in CDE penetration testing programme; Path traversal and ingestion injection in CDE penetration testing scope; Multi-tenant isolation tested in CDE penetration testing � cross-session CHD access attempted"
+    },
+    {
+      "control_id": "Req 12.8",
+      "title": "TPSP programme",
+      "description": "Training data providers as TPSPs � data quality and integrity requirements in vendor agreements; RAG data source providers as TPSPs � content quality and integrity requirements in agreements"
+    },
+    {
+      "control_id": "Req 6.2.4",
+      "title": "Bespoke software � injection",
+      "description": "All injection vulnerability classes addressed in GenAI ingestion code � schema bypass and path traversal; LLM-to-SQL interfaces address injection as a known vulnerability class � query allowlisting, parameterised execution; All injection vulnerabilities addressed in LLM integration code � prompt injection as a known injection class"
+    },
+    {
+      "control_id": "Req 6.3.3",
+      "title": "Vulnerability management",
+      "description": "All GenAI software components patched � CVE-2024-3584 class treated as urgent for CDE scope; Vector database CVEs patched � CVE-2024-3584 class treated as urgent for CDE-scope stores; Browser AI extensions patched and version-controlled � vulnerable extensions are Req 6.3 findings in CDE"
+    },
+    {
+      "control_id": "Req 6.5",
+      "title": "Secure system changes",
+      "description": "Changes to GenAI ingestion pipelines tested � schema validation changes require security review"
+    },
+    {
+      "control_id": "Req 12.8.3",
+      "title": "TPSP agreements",
+      "description": "Written agreements with tool providers acknowledging CHD security responsibility; Written agreements with labelling vendors acknowledging CHD security responsibility; Written agreements with LLM vendors � acknowledge responsibility for CHD security"
+    },
+    {
+      "control_id": "Req 3.1.1",
+      "title": "Account data inventory",
+      "description": "All CHD locations documented � derived GenAI assets (embeddings, caches) included in data inventory; Synthetic payment datasets that may be re-identifiable included in CHD inventory"
+    },
+    {
+      "control_id": "Req 3.2.1",
+      "title": "Data flow documentation",
+      "description": "Data flow diagrams include all GenAI pipeline paths � source through embedding, retrieval, generation, logging"
+    },
+    {
+      "control_id": "Req 9.4.6",
+      "title": "Media disposal",
+      "description": "Derived GenAI assets containing CHD disposed of securely � deletion verified per Req 9.4 requirements"
+    },
+    {
+      "control_id": "Req 12.1.1",
+      "title": "Security policy",
+      "description": "PCI security policy covers GenAI processing of CHD � updated to reflect AI system deployments"
+    },
+    {
+      "control_id": "Req 12.3.1",
+      "title": "Annual assessment",
+      "description": "Annual targeted risk analysis covers all GenAI systems that may process CHD"
+    },
+    {
+      "control_id": "Req 12.4.1",
+      "title": "Programme oversight",
+      "description": "Executive accountability for GenAI PCI compliance � CISO or equivalent with oversight documented"
+    },
+    {
+      "control_id": "Req 3.3.1",
+      "title": "SAD prohibition",
+      "description": "Synthetic data generated from SAD retains SAD classification � generation does not remove the prohibition; SAD must never appear in labelling tasks � labels cannot expose CVV or full magnetic stripe data; SAD (CVV, PIN) must never be in LLM training data or RAG � stored after authorisation is prohibited"
+    },
+    {
+      "control_id": "Req 6.4.1",
+      "title": "Public-facing application protection",
+      "description": "LLM-powered query interfaces in CDE scope protected � WAF or equivalent, input validation; Model extraction pattern detection as application protection � systematic API abuse detected; LLM-powered customer-facing applications protected against prompt injection � WAF or equivalent, security testing"
+    },
+    {
+      "control_id": "Req 12.10.1",
+      "title": "Incident response",
+      "description": "Incident response procedure covers GenAI pipeline failures affecting payment processing"
+    },
+    {
+      "control_id": "Req 12.8.4",
+      "title": "TPSP PCI DSS compliance",
+      "description": "Monitor TPSP PCI DSS compliance status � LLM component vendors with CHD access have compliant status verified"
+    },
+    {
+      "control_id": "Req 6.5.1",
+      "title": "Secure system changes",
+      "description": "Model component updates follow change management � security testing before production"
+    },
+    {
+      "control_id": "Req 7.3.1",
+      "title": "Access control system",
+      "description": "Access control system enforces LLM tool scope � agent cannot exceed defined CDE access without explicit authorisation"
+    },
+    {
+      "control_id": "Req 6.2",
+      "title": "Bespoke software security",
+      "description": "LLM integration code specifies accuracy requirements � high-stakes payment outputs require verification before action"
+    }
+  ]
+}

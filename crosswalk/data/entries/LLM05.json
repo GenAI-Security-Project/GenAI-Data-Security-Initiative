@@ -734,6 +734,18 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2025,
       "incident_id": "INC-038"
+    },
+    {
+      "name": "Apple Intelligence notification hallucinations — fabricated BBC news headlines",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-060"
+    },
+    {
+      "name": "LLM-generated malware evades endpoint detection — AI-assisted polymorphic code",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-075"
     }
   ],
   "crossrefs": {

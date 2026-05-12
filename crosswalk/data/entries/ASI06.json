@@ -790,6 +790,36 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-046"
+    },
+    {
+      "name": "EchoLeak — zero-click Microsoft Copilot data exfiltration via email prompt injection",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-089"
+    },
+    {
+      "name": "Agent-in-the-Middle — A2A protocol spoofing via fake agent cards",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-090"
+    },
+    {
+      "name": "Microsoft 365 Copilot XPIA phishing — attacker-shaped email summaries via hidden instructions",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-095"
+    },
+    {
+      "name": "AI recommendation poisoning — hidden prompt injections in 'Summarize with AI' buttons across 31 companies",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-100"
+    },
+    {
+      "name": "PoisonedRAG — 5 malicious texts in millions achieve 90% attack success rate on RAG systems",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-108"
     }
   ],
   "crossrefs": {

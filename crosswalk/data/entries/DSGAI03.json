@@ -642,6 +642,30 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2023,
       "incident_id": "INC-001"
+    },
+    {
+      "name": "Perplexity AI plagiarism — verbatim content reproduction without attribution",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-059"
+    },
+    {
+      "name": "Amazon Q developer leaks internal AWS data in enterprise environment",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-064"
+    },
+    {
+      "name": "Meta Llama model weights stolen and leaked — open-source model security incident",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2023,
+      "incident_id": "INC-078"
+    },
+    {
+      "name": "Lasso Security — 1,500+ HuggingFace API tokens exposed in code repositories",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2023,
+      "incident_id": "INC-079"
     }
   ],
   "crossrefs": {

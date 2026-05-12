@@ -1,0 +1,59 @@
+cff-version: 1.2.0
+title: "OWASP GenAI Security Crosswalk"
+message: "If you use this dataset, please cite it using these metadata."
+type: dataset
+authors:
+  - given-names: Emmanuel
+    family-names: Guilherme Junior
+    orcid: ""
+    affiliation: "OWASP GenAI Data Security Initiative"
+repository-code: "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk"
+url: "https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/"
+abstract: >-
+  The most comprehensive publicly available mapping of AI security risks
+  to industry compliance frameworks. Maps 41 OWASP GenAI vulnerability
+  entries (LLM Top 10, Agentic Top 10, DSGAI 2026) to 1,514 controls
+  across 25 frameworks including EU AI Act, NIST AI RMF, ISO 42001,
+  SOC 2, FedRAMP, DORA, PCI DSS, and MITRE ATLAS. Includes 114
+  documented AI security incidents, a semantic classifier pipeline
+  (BGE + cross-encoder), OSCAL 1.1.2 export, and GRC platform
+  integration. Free and open-source under CC BY-SA 4.0.
+keywords:
+  - ai-security
+  - llm-security
+  - owasp
+  - compliance
+  - framework-mapping
+  - eu-ai-act
+  - nist-ai-rmf
+  - genai
+  - agentic-ai
+  - threat-modeling
+  - oscal
+  - grc
+license: CC-BY-SA-4.0
+version: "3.1.0"
+date-released: "2026-04-10"
+identifiers:
+  - type: url
+    value: "https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/"
+    description: "Live web application"
+  - type: url
+    value: "https://www.npmjs.com/package/genai-security-crosswalk"
+    description: "npm package"
+references:
+  - type: standard
+    title: "OWASP Top 10 for LLM Applications 2025"
+    url: "https://genai.owasp.org/llm-top-10/"
+    authors:
+      - name: "OWASP Foundation"
+  - type: standard
+    title: "OWASP Top 10 for Agentic Applications 2026"
+    url: "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/"
+    authors:
+      - name: "OWASP Foundation"
+  - type: standard
+    title: "OWASP GenAI Data Security Risks & Mitigations 2026"
+    url: "https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/"
+    authors:
+      - name: "OWASP Foundation"

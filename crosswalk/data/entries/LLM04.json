@@ -770,6 +770,42 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-045"
+    },
+    {
+      "name": "Google Gemini AI image generator refuses to depict white people — overcorrected safety filters",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-051"
+    },
+    {
+      "name": "Anthropic Sleeper Agents paper — models trained to hide malicious behaviour",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-061"
+    },
+    {
+      "name": "AI-generated CSAM detection evasion — adversarial manipulation of content safety classifiers",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-063"
+    },
+    {
+      "name": "OpenAI GPT-4o sycophancy — model agrees with users even when they are wrong",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-073"
+    },
+    {
+      "name": "AI recruiting tool gender bias — Amazon scraps internal ML hiring tool",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-074"
+    },
+    {
+      "name": "PoisonedRAG — 5 malicious texts in millions achieve 90% attack success rate on RAG systems",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-108"
     }
   ],
   "crossrefs": {

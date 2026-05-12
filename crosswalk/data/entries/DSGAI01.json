@@ -752,6 +752,120 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2025,
       "incident_id": "INC-034"
+    },
+    {
+      "name": "NYC city chatbot tells businesses to break the law — fabricated legal guidance",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-052"
+    },
+    {
+      "name": "Rabbit R1 hardcoded API keys — all user data accessible to anyone with firmware",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-054"
+    },
+    {
+      "name": "Microsoft Recall screenshots everything — OS-level data retention without consent",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-055"
+    },
+    {
+      "name": "Amazon Q developer leaks internal AWS data in enterprise environment",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-064"
+    },
+    {
+      "name": "OpenAI GPT-4 system prompt extraction toolkit — systematic prompt leakage",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-065"
+    },
+    {
+      "name": "Snowflake customer data breach via stolen credentials — 165+ organisations affected",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-070"
+    },
+    {
+      "name": "DeepSeek R1 data exfiltration — Chinese AI model sends data to China-linked servers",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-072"
+    },
+    {
+      "name": "ForcedLeak — Salesforce Agentforce indirect prompt injection exfiltrates CRM data",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-088"
+    },
+    {
+      "name": "EchoLeak — zero-click Microsoft Copilot data exfiltration via email prompt injection",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-089"
+    },
+    {
+      "name": "Meta Rogue AI Agent Sev-1 — autonomous agent posts incorrect advice, exposing proprietary data",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-091"
+    },
+    {
+      "name": "Claude AI jailbreak — Mexican government breach, 150GB data theft across 10 agencies",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-092"
+    },
+    {
+      "name": "Moltbook — vibe-coded social network exposes 1.5M API tokens and 35K emails",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-099"
+    },
+    {
+      "name": "GeminiJack — zero-click Gemini Enterprise data exfiltration via shared Google Docs",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-101"
+    },
+    {
+      "name": "ServiceNow BodySnatcher — hardcoded secret key enables full AI agent hijacking (CVE-2025-12420)",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-104"
+    },
+    {
+      "name": "Microsoft Copilot Studio agents public by default — unauthorized data exfiltration",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-105"
+    },
+    {
+      "name": "ShadowLeak — ChatGPT Deep Research zero-click data exfiltration from connected services",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-107"
+    },
+    {
+      "name": "Salesloft Drift OAuth breach — Chinese actor UNC6395 accesses 700+ Salesforce CRM environments",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-109"
+    },
+    {
+      "name": "WhatsApp MCP tool poisoning — hidden instructions exfiltrate entire message history",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-111"
+    },
+    {
+      "name": "Chat & Ask AI app — 300 million messages from 25 million users exposed via misconfigured Firebase",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-112"
     }
   ],
   "crossrefs": {

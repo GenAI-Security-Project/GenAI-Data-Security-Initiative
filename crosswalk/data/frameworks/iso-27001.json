@@ -1,0 +1,373 @@
+{
+  "id": "iso-27001",
+  "name": "ISO/IEC 27001:2022",
+  "short_name": "ISO 27001",
+  "version": "2022",
+  "url": "https://www.iso.org/standard/82875.html",
+  "license": "Proprietary (ISO)",
+  "publisher": "ISO/IEC",
+  "category": "infosec",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "A.5.1",
+      "title": "Policies for information security",
+      "description": "Information security policy and topic-specific policies shall be defined, approved, published, communicated, and reviewed.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.2",
+      "title": "Information security roles and responsibilities",
+      "description": "Information security roles and responsibilities shall be defined and allocated.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.3",
+      "title": "Segregation of duties",
+      "description": "Conflicting duties and areas of responsibility shall be segregated.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.7",
+      "title": "Threat intelligence",
+      "description": "Information relating to information security threats shall be collected and analysed.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.8",
+      "title": "Information security in project management",
+      "description": "Information security shall be integrated into project management.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.9",
+      "title": "Inventory of information and other associated assets",
+      "description": "An inventory of information and other associated assets shall be developed and maintained.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.10",
+      "title": "Acceptable use of information and other associated assets",
+      "description": "Rules for acceptable use shall be identified, documented and implemented.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.12",
+      "title": "Classification of information",
+      "description": "Information shall be classified according to information security needs.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.13",
+      "title": "Labelling of information",
+      "description": "An appropriate set of procedures for labelling shall be developed and implemented.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.14",
+      "title": "Information transfer",
+      "description": "Information transfer rules, procedures, or agreements shall be in place.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.19",
+      "title": "Information security in supplier relationships",
+      "description": "Processes and procedures for managing information security risks associated with ICT supply chain.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.23",
+      "title": "Information security for use of cloud services",
+      "description": "Processes for acquisition, use, management and exit from cloud services shall be established.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.24",
+      "title": "Information security incident management planning and preparation",
+      "description": "Planning and preparation for managing information security incidents.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.25",
+      "title": "Assessment and decision on information security events",
+      "description": "Events shall be assessed and decided whether to classify as incidents.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.26",
+      "title": "Response to information security incidents",
+      "description": "Information security incidents shall be responded to in accordance with documented procedures.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.28",
+      "title": "Collection of evidence",
+      "description": "Procedures for collection, acquisition, and preservation of evidence.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.29",
+      "title": "Information security during disruption",
+      "description": "Plans for maintaining information security during disruption.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.30",
+      "title": "ICT readiness for business continuity",
+      "description": "ICT readiness shall be planned, implemented, maintained and tested.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.34",
+      "title": "Privacy and protection of PII",
+      "description": "Privacy and protection of PII shall be ensured as required.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.5.36",
+      "title": "Compliance with policies, rules and standards",
+      "description": "Compliance with the organization's policies and standards shall be regularly reviewed.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "A.6.1",
+      "title": "Screening",
+      "description": "Background verification checks on candidates shall be carried out.",
+      "parent": null,
+      "function": "People"
+    },
+    {
+      "control_id": "A.6.3",
+      "title": "Information security awareness, education and training",
+      "description": "Personnel and relevant interested parties shall receive appropriate awareness, education and training.",
+      "parent": null,
+      "function": "People"
+    },
+    {
+      "control_id": "A.7.1",
+      "title": "Physical security perimeters",
+      "description": "Security perimeters shall be defined and used to protect areas.",
+      "parent": null,
+      "function": "Physical"
+    },
+    {
+      "control_id": "A.7.4",
+      "title": "Physical security monitoring",
+      "description": "Premises shall be continuously monitored for unauthorized physical access.",
+      "parent": null,
+      "function": "Physical"
+    },
+    {
+      "control_id": "A.8.1",
+      "title": "User endpoint devices",
+      "description": "Information stored on, processed by or accessible via user endpoint devices shall be protected.",
+      "parent": null,
+      "function": "Technological"
+    },
+    {
+      "control_id": "A.8.2",
+      "title": "Privileged access rights",
+      "description": "The allocation and use of privileged access rights shall be restricted and managed.",
+      "parent": null,
+      "function": "Technological"
+    },
+    {
+      "control_id": "A.8.3",
+      "title": "Information access restriction",
+      "description": "Access to information and other associated assets shall be restricted.",
+      "parent": null,
+      "function": "Technological"
+    },
+    {
+      "control_id": "A.8.4",
+      "title": "Access to source code",
+      "description": "Read and write access to source code, development tools and software libraries shall be managed.",
+      "parent": null,
+      "function": "Technological"
+    },
+    {
+      "control_id": "A.8.5",
+      "title": "Secure authentication",
+      "description": "Secure authentication technologies and procedures shall be established.",
+      "parent": null,
+      "function": "Technological"
+    },
+    {
+      "control_id": "A.8.7",
+      "title": "Protection against malware",
+      "description": "Protection against malware shall be implemented.",
+      "parent": null,
+      "function": "Technological"
+    },
+    {
+      "control_id": "A.8.8",
+      "title": "Management of technical vulnerabilities",
+      "description": "Information about technical vulnerabilities shall be obtained and appropriate measures taken.",
+      "parent": null,
+      "function": "Technological"
+    },
+    {
+      "control_id": "A.8.9",
+      "title": "Configuration management",
+      "description": "Configurations, including security configurations, shall be established, documented, implemented, monitored and reviewed.",
+      "parent": null,
+      "function": "Technological"
+    },
+    {
+      "control_id": "A.8.11",
+      "title": "Data masking",
+      "description": "Data masking shall be used in accordance with the organization's topic-specific policy.",
+      "parent": null,
+      "function": "Technological"
+    },
+    {
+      "control_id": "A.8.12",
+      "title": "Data leakage prevention",
+      "description": "Data leakage prevention measures shall be applied to systems, networks and other devices.",
+      "parent": null,
+      "function": "Technological"
+    },
+    {
+      "control_id": "A.8.15",
+      "title": "Logging",
+      "description": "Logs that record activities, exceptions, faults and other relevant events shall be produced, stored, protected and analysed.",
+      "parent": null,
+      "function": "Technological"
+    },
+    {
+      "control_id": "A.8.16",
+      "title": "Monitoring activities",
+      "description": "Networks, systems and applications shall be monitored for anomalous behaviour.",
+      "parent": null,
+      "function": "Technological"
+    },
+    {
+      "control_id": "A.8.20",
+      "title": "Networks security",
+      "description": "Networks and network devices shall be secured, managed and controlled.",
+      "parent": null,
+      "function": "Technological"
+    },
+    {
+      "control_id": "A.8.23",
+      "title": "Web filtering",
+      "description": "Access to external websites shall be managed to reduce exposure to malicious content.",
+      "parent": null,
+      "function": "Technological"
+    },
+    {
+      "control_id": "A.8.24",
+      "title": "Use of cryptography",
+      "description": "Rules for effective use of cryptography shall be defined and implemented.",
+      "parent": null,
+      "function": "Technological"
+    },
+    {
+      "control_id": "A.8.25",
+      "title": "Secure development life cycle",
+      "description": "Rules for the secure development of software and systems shall be established.",
+      "parent": null,
+      "function": "Technological"
+    },
+    {
+      "control_id": "A.8.28",
+      "title": "Secure coding",
+      "description": "Secure coding principles shall be applied to software development.",
+      "parent": null,
+      "function": "Technological"
+    },
+    {
+      "control_id": "A.8.29",
+      "title": "Security testing",
+      "description": "Adversarial testing programme covering goal hijack � direct, indirect, multi-turn injection before each release; Sandbox escape and code injection scenarios in security testing � adversarial testing before each deployment; Adversarial testing of model outputs for poisoning indicators before deployment"
+    },
+    {
+      "control_id": "A.5.15",
+      "title": "Identity management",
+      "description": "Agent tool access governed through identity management � tool permissions scoped per agent identity; LLM tool access governed through identity management � tool permissions scoped per deployment"
+    },
+    {
+      "control_id": "A.5.16",
+      "title": "Identity management",
+      "description": "NHI lifecycle management � all agent identities inventoried, provisioned, reviewed, and deprovisioned through formal process; All agent identities inventoried and lifecycle-managed as non-human identities"
+    },
+    {
+      "control_id": "A.5.20",
+      "title": "Supplier agreements",
+      "description": "Contractual security requirements for all agent component suppliers � integrity guarantees, vulnerability notification SLA; Contractual requirements covering data minimisation, retention, and training use for tool providers; Contractual data handling requirements for labelling vendors and HITL service providers"
+    },
+    {
+      "control_id": "A.5.21",
+      "title": "Supply chain security",
+      "description": "Managing ICT supply chain risks � agent tool and MCP server ecosystem explicitly in scope; Managing ICT supply chain risks � LLM model and library supply chain explicitly in scope"
+    },
+    {
+      "control_id": "A.8.26",
+      "title": "Application security requirements",
+      "description": "Security requirements for agent code execution capability specified before development � sandbox spec, permitted operations; Input validation requirements specified for all GenAI data ingestion interfaces; Security requirements for LLM-to-SQL interfaces � read-only by default, parameterisation mandatory"
+    },
+    {
+      "control_id": "A.8.13",
+      "title": "Backup",
+      "description": "Agent state and configuration backed up � recovery to known-good state after cascade incident; Backup and recovery for all AI data assets � vector stores, embedding indexes, RAG corpora; Backup and recovery for LLM service infrastructure � failover capability tested"
+    },
+    {
+      "control_id": "A.5.17",
+      "title": "Authentication information",
+      "description": "Secure management of agent credentials � no hardcoding, rotation enforced"
+    },
+    {
+      "control_id": "A.8.27",
+      "title": "Secure system architecture",
+      "description": "Training pipeline designed with integrity controls and supply chain verification; RAG pipeline designed with source trust verification and integrity controls; Training pipeline designed with integrity controls � data validation, source allowlisting, lineage tracking"
+    },
+    {
+      "control_id": "A.8.10",
+      "title": "Information deletion",
+      "description": "Deletion and erasure obligations enforced across all derived assets � embeddings, caches, backups"
+    },
+    {
+      "control_id": "A.5.31",
+      "title": "Compliance with legal requirements",
+      "description": "Identifying and complying with all legal, regulatory, and contractual requirements applicable to GenAI"
+    },
+    {
+      "control_id": "A.8.33",
+      "title": "Test information",
+      "description": "Appropriate protection of test and synthetic data used in AI development"
+    },
+    {
+      "control_id": "A.8.14",
+      "title": "Redundancy",
+      "description": "Redundancy and failover for production RAG and vector store infrastructure"
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-04-09",
+      "change": "Initial seed — 41 Annex A controls most relevant to GenAI security",
+      "author": "emmanuelgjr"
+    }
+  ]
+}

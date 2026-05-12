@@ -610,6 +610,48 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-044"
+    },
+    {
+      "name": "AI-generated Biden robocalls — deepfake voice used to suppress voter turnout",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-058"
+    },
+    {
+      "name": "Snowflake customer data breach via stolen credentials — 165+ organisations affected",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-070"
+    },
+    {
+      "name": "DeepSeek R1 data exfiltration — Chinese AI model sends data to China-linked servers",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-072"
+    },
+    {
+      "name": "ForcedLeak — Salesforce Agentforce indirect prompt injection exfiltrates CRM data",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-088"
+    },
+    {
+      "name": "GeminiJack — zero-click Gemini Enterprise data exfiltration via shared Google Docs",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-101"
+    },
+    {
+      "name": "ShadowLeak — ChatGPT Deep Research zero-click data exfiltration from connected services",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-107"
+    },
+    {
+      "name": "Salesloft Drift OAuth breach — Chinese actor UNC6395 accesses 700+ Salesforce CRM environments",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-109"
     }
   ],
   "crossrefs": {

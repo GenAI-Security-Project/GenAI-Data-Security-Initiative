@@ -48,10 +48,10 @@ const NVD_KEYWORDS = [
 ];
 
 const FRAMEWORK_CHECKS = [
-  { name: 'NIST AI RMF',    url: 'https://airc.nist.gov/Docs/1',                                                              label: 'NIST AI RMF 1.0'   },
+  { name: 'NIST AI RMF',    url: 'https://airc.nist.gov/airmf-resources/airmf/',                                              label: 'NIST AI RMF 1.0'   },
   { name: 'NIST SP 800-218A', url: 'https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-218A.pdf',              label: 'NIST SP 800-218A'  },
   { name: 'CIS Controls',   url: 'https://www.cisecurity.org/controls/cis-controls-list',                                     label: 'CIS Controls v8.1' },
-  { name: 'MITRE ATLAS',    url: 'https://atlas.mitre.org/matrices/ATLAS/',                                                   label: 'MITRE ATLAS'       },
+  { name: 'MITRE ATLAS',    url: 'https://atlas.mitre.org/',                                                                  label: 'MITRE ATLAS'       },
 ];
 
 // ─── CLI Argument Parsing ─────────────────────────────────────────────────────
@@ -402,14 +402,17 @@ async function watchNvd(state, sinceOverride) {
       ? new Date(state.last_run).toISOString()
       : new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
 
-  // NVD requires dates without milliseconds, formatted as yyyy-MM-ddTHH:mm:ss.SSS
+  // NVD requires dates without milliseconds, formatted as yyyy-MM-ddTHH:mm:ss.SSS,
+  // and pubStartDate must be paired with pubEndDate (range ≤ 120 days).
   const pubStartDate = lastRunDate.replace(/\.\d{3}Z$/, '.000');
+  const pubEndDate   = new Date().toISOString().replace(/\.\d{3}Z$/, '.000');
 
   for (const keyword of NVD_KEYWORDS) {
     const url =
       `https://services.nvd.nist.gov/rest/json/cves/2.0` +
       `?keywordSearch=${encodeURIComponent(keyword)}` +
       `&pubStartDate=${encodeURIComponent(pubStartDate)}` +
+      `&pubEndDate=${encodeURIComponent(pubEndDate)}` +
       `&resultsPerPage=20`;
 
     let data;

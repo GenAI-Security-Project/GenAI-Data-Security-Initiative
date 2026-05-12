@@ -674,6 +674,36 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-050"
+    },
+    {
+      "name": "Microsoft Recall screenshots everything — OS-level data retention without consent",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-055"
+    },
+    {
+      "name": "Waymo autonomous vehicle data retention — 75 petabytes of driving footage with faces",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-066"
+    },
+    {
+      "name": "EU GDPR enforcement: ChatGPT cannot correct factually wrong personal data",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-068"
+    },
+    {
+      "name": "EU AI Act first enforcement actions — prohibited AI practices take effect",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-071"
+    },
+    {
+      "name": "DeepSeek R1 data exfiltration — Chinese AI model sends data to China-linked servers",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-072"
     }
   ],
   "crossrefs": {

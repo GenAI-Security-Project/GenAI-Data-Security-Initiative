@@ -1,0 +1,309 @@
+{
+  "id": "nist-sp-800-82",
+  "name": "NIST SP 800-82 Rev 3",
+  "short_name": "SP 800-82",
+  "version": "Rev 3",
+  "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
+  "license": "Public Domain",
+  "publisher": "NIST",
+  "category": "ot-ics",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "Vulnerabilities common to IT/OT",
+      "title": "§5.3",
+      "description": "Injection via historian and SCADA data feeds"
+    },
+    {
+      "control_id": "Risk assessment",
+      "title": "§6.2",
+      "description": "Assess injection risk at every agent data ingestion point; Assess agent permission scope as part of OT risk register; Assess agent memory stores as OT data integrity risk"
+    },
+    {
+      "control_id": "Security controls for ICS",
+      "title": "§7.2",
+      "description": "Input validation mandatory at OT data boundary"
+    },
+    {
+      "control_id": "Common ICS vulnerabilities",
+      "title": "§5.3",
+      "description": "Excessive privilege is specifically listed as OT vulnerability class; Injection via OT data feeds is a documented attack vector"
+    },
+    {
+      "control_id": "Secure architecture",
+      "title": "§7.1",
+      "description": "Least privilege must be enforced at zone boundary for all automated systems; Mandatory: safety function must be independent of AI decision layer; GenAI guardrails must be independent of model inference layer"
+    },
+    {
+      "control_id": "ICS vulnerabilities",
+      "title": "§5.3",
+      "description": "Memory corruption and state manipulation; Lateral movement between control systems; Safety system bypass is the highest severity OT threat"
+    },
+    {
+      "control_id": "Security controls",
+      "title": "§7.2",
+      "description": "Authenticate all automated system-to-system communications; Circuit breakers between OT automation layers; Input validation mandatory at OT data boundary"
+    },
+    {
+      "control_id": "Supply chain risks",
+      "title": "§5.5",
+      "description": "Third-party tool components in OT; Expanded to include agentic AI components; Third-party OT tool data leakage"
+    },
+    {
+      "control_id": "Supply chain risk management",
+      "title": "§6.3",
+      "description": "Tool integration approval process; SBOM and vendor assessment for agentic stack; Tool data scope in OT security assessment"
+    },
+    {
+      "control_id": "Third-party management",
+      "title": "§8.4",
+      "description": "Vendor assessment for OT tool providers; Formal vendor programme for OT agent components; Vendor programme for OT data suppliers"
+    },
+    {
+      "control_id": "Data confidentiality risks in OT",
+      "title": "§5.4",
+      "description": "OT data exfiltration via compromised automation"
+    },
+    {
+      "control_id": "Network monitoring",
+      "title": "§7.3",
+      "description": "Monitor all outbound data from OT zone; Monitor for unexpected exfiltration of OT training data; Monitor outputs for OT data disclosure patterns"
+    },
+    {
+      "control_id": "OT security programme",
+      "title": "§8.2",
+      "description": "Governance policy for autonomous OT systems; Compliance programme for OT GenAI deployments; Data lineage as OT governance requirement"
+    },
+    {
+      "control_id": "Availability risks",
+      "title": "§5.6",
+      "description": "Cascading failure across OT components; OT GenAI pipeline failure as availability risk"
+    },
+    {
+      "control_id": "Data confidentiality",
+      "title": "§5.4",
+      "description": "OT data confidentiality requirements apply to training data; OT data in retrieval corpora requires access control; OT knowledge encoded in models requires protection"
+    },
+    {
+      "control_id": "OT data confidentiality",
+      "title": "§5.4",
+      "description": "OT data must not be disclosed without authorisation; Inference inputs are OT data and require protection"
+    },
+    {
+      "control_id": "ICS vulnerabilities — data integrity",
+      "title": "§5.3",
+      "description": "Corpus manipulation directly threatens OT operational integrity"
+    },
+    {
+      "control_id": "Malicious code and logic attacks via IT/OT convergence",
+      "title": "Section 5.3 � Threats",
+      "description": "Prompt injection as a new logic attack vector through LLM at the IT/OT boundary"
+    },
+    {
+      "control_id": "Identify threats, vulnerabilities, and impacts for all OT systems",
+      "title": "Section 6.2 � Risk assessment",
+      "description": "Prompt injection documented in OT risk assessment for each LLM integration"
+    },
+    {
+      "control_id": "Defense-in-depth network architecture with validated data flows",
+      "title": "Section 7.2 � Network segmentation",
+      "description": "Input validation layer at the DMZ/control zone boundary � prompt injection filtered before reaching LLM"
+    },
+    {
+      "control_id": "Title",
+      "title": "Control",
+      "description": "Application"
+    },
+    {
+      "control_id": "Information Input Validation",
+      "title": "SI-10",
+      "description": "Validate all inputs to LLMs connected to OT systems � reject inputs containing injection indicators; Training data validation � adversarial content detected and rejected before training; LLM outputs validated before passing to OT systems � schema validation, allowlist enforcement"
+    },
+    {
+      "control_id": "Malicious Code Protection",
+      "title": "SI-3",
+      "description": "Treat prompt injection as a malicious code analog � detection and response controls required; LLM output scanning for malicious content before OT system ingestion; Analogy: LLM misinformation detection controls as an integrity assurance layer on advisory outputs"
+    },
+    {
+      "control_id": "Access Enforcement",
+      "title": "AC-3",
+      "description": "LLM access to OT systems enforced by policy � injection cannot escalate LLM access beyond defined scope; LLM access to OT data enforced by classification � sensitive process and network data requires elevated access tier; LLM access to OT systems enforced by policy � scope cannot be exceeded regardless of model instruction"
+    },
+    {
+      "control_id": "Information disclosure and OT espionage",
+      "title": "Section 5.4 � Threats",
+      "description": "LLMs with historian access as a new vector for automated OT intelligence gathering"
+    },
+    {
+      "control_id": "Assess confidentiality of OT data",
+      "title": "Section 6.2 � Risk assessment",
+      "description": "OT data classification applied to all data accessible by LLMs"
+    },
+    {
+      "control_id": "Protecting OT data at rest and in transit",
+      "title": "Section 7.3 � Data protection",
+      "description": "Encryption and access controls on all OT data paths feeding LLM context"
+    },
+    {
+      "control_id": "Protection of Information at Rest",
+      "title": "SC-28",
+      "description": "OT data used in LLM context encrypted at rest � historian exports, embedding stores, prompt caches; System prompts encrypted at rest � not stored in cleartext configuration files; OT vector store content encrypted at rest"
+    },
+    {
+      "control_id": "Protection of Audit Information",
+      "title": "AU-9",
+      "description": "LLM access logs to OT data protected � audit trail of all OT data accessed by LLM; System prompt access logs protected � unauthorised access attempts detectable"
+    },
+    {
+      "control_id": "Third-party software compromise as OT attack vector",
+      "title": "Section 5.5 � Supply chain threats",
+      "description": "LLM model weights and plugins as supply chain risk components"
+    },
+    {
+      "control_id": "Supply chain risk treatment",
+      "title": "Section 6.3 � Risk response",
+      "description": "ML SBOM and component integrity verification as supply chain controls"
+    },
+    {
+      "control_id": "OT supply chain risk management programme",
+      "title": "Section 8.4 � Supply chain programme",
+      "description": "LLM vendors subject to same supply chain security requirements as OT software vendors"
+    },
+    {
+      "control_id": "Supply Chain Protection",
+      "title": "SA-12",
+      "description": "Security requirements applied to all LLM component vendors � provenance, integrity, vulnerability disclosure"
+    },
+    {
+      "control_id": "Supply Chain Controls and Plans",
+      "title": "SR-3",
+      "description": "Documented supply chain security plan covering LLM components in OT deployment"
+    },
+    {
+      "control_id": "Supplier Assessments and Reviews",
+      "title": "SR-6",
+      "description": "Periodic security assessment of LLM vendors with OT-deployed components"
+    },
+    {
+      "control_id": "Attacks targeting OT data and system integrity",
+      "title": "Section 5.3 � Integrity threats",
+      "description": "Model poisoning as an integrity attack on the LLM advisory system"
+    },
+    {
+      "control_id": "Assess integrity risks for all OT-connected systems",
+      "title": "Section 6.2 � Risk assessment",
+      "description": "Model poisoning scenarios included in OT risk assessment for each LLM; Vector store integrity included in OT LLM risk assessment"
+    },
+    {
+      "control_id": "Layered controls to maintain system integrity",
+      "title": "Section 7.2 � Defense-in-depth",
+      "description": "Independent validation of LLM outputs against rule-based reference systems"
+    },
+    {
+      "control_id": "Software, Firmware, and Information Integrity",
+      "title": "SI-7",
+      "description": "Model integrity verification before each OT deployment � hash-based integrity check; Vector store integrity monitoring � alert on anomalous content or unexpected modifications"
+    },
+    {
+      "control_id": "Audit Record Generation",
+      "title": "AU-12",
+      "description": "Full audit trail of LLM outputs � poisoning indicators detectable through output analysis; All LLM actions in OT context logged � full accountability for every OT data access and any recommended action; LLM resource consumption logged � patterns indicating exhaustion attacks detectable"
+    },
+    {
+      "control_id": "Code injection and execution via data paths",
+      "title": "Section 5.3 � Threats",
+      "description": "LLM output injection as a new instantiation of this threat at the IT/OT boundary"
+    },
+    {
+      "control_id": "Validated data flows across zone boundaries",
+      "title": "Section 7.2 � Network segmentation",
+      "description": "LLM output validated at DMZ boundary before entering control zone display or data systems"
+    },
+    {
+      "control_id": "Least Functionality",
+      "title": "CM-7",
+      "description": "OT interfaces that consume LLM output configured to accept only defined, safe input formats"
+    },
+    {
+      "control_id": "Unauthorised command execution via IT/OT interfaces",
+      "title": "Section 5.3 � Threats",
+      "description": "LLM autonomous actions as a new path for unauthorised command execution"
+    },
+    {
+      "control_id": "Assess impact of unauthorised access and control",
+      "title": "Section 6.2 � Risk assessment",
+      "description": "LLM excessive agency assessed as an unauthorised access risk for each OT interface"
+    },
+    {
+      "control_id": "Minimal necessary connectivity at IT/OT boundary",
+      "title": "Section 7.1 � Architecture",
+      "description": "LLM access to OT systems restricted to minimum required � read-only by default"
+    },
+    {
+      "control_id": "Least Privilege",
+      "title": "AC-6",
+      "description": "LLM granted minimum necessary OT access � read-only to historian, no write access without documented justification"
+    },
+    {
+      "control_id": "OT configuration and topology data as espionage target",
+      "title": "Section 5.4 � Information disclosure",
+      "description": "System prompts containing OT specifics treated as sensitive configuration data"
+    },
+    {
+      "control_id": "Protecting sensitive OT data",
+      "title": "Section 7.3 � Data protection",
+      "description": "System prompt encryption and access controls as data protection measures"
+    },
+    {
+      "control_id": "Attacks targeting the integrity of OT decision-support data",
+      "title": "Section 5.3 � Integrity threats",
+      "description": "Vector store poisoning as an integrity attack on LLM knowledge sources"
+    },
+    {
+      "control_id": "Attacks degrading the reliability of OT decision-support",
+      "title": "Section 5.3 � Integrity threats",
+      "description": "LLM misinformation as an integrity attack on operator decision-making"
+    },
+    {
+      "control_id": "Assess reliability of OT advisory systems",
+      "title": "Section 6.2 � Risk assessment",
+      "description": "LLM accuracy limitations assessed in OT risk assessment per use case"
+    },
+    {
+      "control_id": "OT security awareness and training",
+      "title": "Section 8.2 � Training",
+      "description": "Operator training on LLM limitations and verification requirements"
+    },
+    {
+      "control_id": "Role-Based Training",
+      "title": "AT-3",
+      "description": "Operator training on LLM advisory limitations � mandatory for all operators using LLM decision-support tools"
+    },
+    {
+      "control_id": "Denial of service attacks targeting OT availability",
+      "title": "Section 5.6 � DoS threats",
+      "description": "LLM-induced resource exhaustion as a DoS vector affecting shared OT network infrastructure"
+    },
+    {
+      "control_id": "Assess availability risks for OT systems",
+      "title": "Section 6.2 � Risk assessment",
+      "description": "LLM resource consumption impact assessed on shared OT network and compute infrastructure"
+    },
+    {
+      "control_id": "Network architecture preventing DoS propagation",
+      "title": "Section 7.2 � Network segmentation",
+      "description": "LLM infrastructure isolated from OT control network � bandwidth caps at DMZ boundary"
+    },
+    {
+      "control_id": "Denial of Service Protection",
+      "title": "SC-5",
+      "description": "LLM infrastructure protected against resource exhaustion attacks affecting OT availability"
+    },
+    {
+      "control_id": "Fail-Safe Procedures",
+      "title": "SI-17",
+      "description": "LLM service degradation has defined fail-safe behaviour � process control continues without LLM"
+    }
+  ]
+}

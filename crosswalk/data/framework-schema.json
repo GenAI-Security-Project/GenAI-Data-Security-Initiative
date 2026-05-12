@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GenAI Security Crosswalk — Framework Registry Entry",
+  "description": "Schema for first-class framework definitions with full control inventories",
+  "type": "object",
+  "required": ["id", "name", "version", "url", "controls"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Kebab-case identifier e.g. nist-ai-rmf, cosai, eu-ai-act",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name e.g. NIST AI RMF 1.0"
+    },
+    "short_name": {
+      "type": "string",
+      "description": "Short label for UI chips e.g. AI RMF"
+    },
+    "version": {
+      "type": "string",
+      "description": "Framework version e.g. 1.0, v4.0, 2024/1689"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Canonical URL for the framework"
+    },
+    "license": {
+      "type": "string",
+      "description": "License or access terms e.g. Public Domain, CC BY 4.0, Proprietary"
+    },
+    "publisher": {
+      "type": "string",
+      "description": "Publishing body e.g. NIST, ISO, OASIS/CoSAI"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "ai-governance",
+        "regulation",
+        "infosec",
+        "appsec",
+        "threat-model",
+        "ot-ics",
+        "identity",
+        "architecture",
+        "testing",
+        "financial",
+        "certification"
+      ],
+      "description": "Primary category for grouping"
+    },
+    "last_synced": {
+      "type": "string",
+      "format": "date",
+      "description": "Date this registry file was last verified against the source"
+    },
+    "source_sha": {
+      "type": ["string", "null"],
+      "description": "Git SHA or document hash of the source used for this version"
+    },
+    "controls": {
+      "type": "array",
+      "description": "Complete inventory of controls/clauses/requirements",
+      "items": {
+        "type": "object",
+        "required": ["control_id", "title"],
+        "properties": {
+          "control_id": {
+            "type": "string",
+            "description": "Canonical control identifier e.g. GV-1.1, Art. 9, SR 3.3"
+          },
+          "title": {
+            "type": "string",
+            "description": "Human-readable control title"
+          },
+          "description": {
+            "type": "string",
+            "description": "Brief description of what the control requires"
+          },
+          "parent": {
+            "type": ["string", "null"],
+            "description": "Parent control_id for hierarchical frameworks"
+          },
+          "function": {
+            "type": ["string", "null"],
+            "description": "Top-level function/domain e.g. GOVERN, MAP, MEASURE, MANAGE"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Direct link to this control"
+          }
+        }
+      }
+    },
+    "changelog": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": { "type": "string", "format": "date" },
+          "change": { "type": "string" },
+          "author": { "type": "string" }
+        }
+      }
+    }
+  }
+}

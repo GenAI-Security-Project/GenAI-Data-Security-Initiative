@@ -1,0 +1,396 @@
+{
+  "clean_framework": "CoSAI",
+  "mode": "biencoder",
+  "n_entries": 41,
+  "elapsed_seconds": 0.7,
+  "score_distribution": {
+    "clean_mean": 0.6734,
+    "clean_std": 0.0342,
+    "clean_n": 257,
+    "contaminated_mean": 0.6624,
+    "contaminated_std": 0.0393,
+    "contaminated_n": 1758,
+    "score_gap": -0.0109,
+    "score_gap_ci": [
+      -0.0154,
+      -0.0064
+    ]
+  },
+  "rank_penetration": {
+    "mean_first_clean_rank": 14.9,
+    "median_first_clean_rank": 14.0,
+    "mean_clean_in_top10": 1.1,
+    "mean_clean_in_top20": 2.66
+  },
+  "per_entry": [
+    {
+      "entry_id": "ASI01",
+      "entry_name": "Agent Goal Hijack",
+      "clean_mean_score": 0.6804298701740447,
+      "contam_mean_score": 0.6788491532206535,
+      "first_clean_rank": 3,
+      "clean_in_top10": 3,
+      "clean_in_top20": 11
+    },
+    {
+      "entry_id": "ASI02",
+      "entry_name": "Tool Misuse and Exploitation",
+      "clean_mean_score": 0.7035804867744446,
+      "contam_mean_score": 0.7007047494252523,
+      "first_clean_rank": 4,
+      "clean_in_top10": 1,
+      "clean_in_top20": 2
+    },
+    {
+      "entry_id": "ASI03",
+      "entry_name": "Identity and Privilege Abuse",
+      "clean_mean_score": 0.6537591814994812,
+      "contam_mean_score": 0.6653076224029064,
+      "first_clean_rank": 27,
+      "clean_in_top10": 0,
+      "clean_in_top20": 0
+    },
+    {
+      "entry_id": "ASI04",
+      "entry_name": "Agentic Supply Chain",
+      "clean_mean_score": 0.6793325394392014,
+      "contam_mean_score": 0.6653072275221348,
+      "first_clean_rank": 1,
+      "clean_in_top10": 5,
+      "clean_in_top20": 10
+    },
+    {
+      "entry_id": "ASI05",
+      "entry_name": "Unexpected Code Execution",
+      "clean_mean_score": 0.5896666496992111,
+      "contam_mean_score": 0.5984801709651947,
+      "first_clean_rank": 16,
+      "clean_in_top10": 0,
+      "clean_in_top20": 1
+    },
+    {
+      "entry_id": "ASI06",
+      "entry_name": "Memory and Context Poisoning",
+      "clean_mean_score": 0.6399881343046824,
+      "contam_mean_score": 0.6461247354745865,
+      "first_clean_rank": 16,
+      "clean_in_top10": 0,
+      "clean_in_top20": 1
+    },
+    {
+      "entry_id": "ASI07",
+      "entry_name": "Insecure Inter-Agent Communications",
+      "clean_mean_score": 0.7083418965339661,
+      "contam_mean_score": 0.7041277920498568,
+      "first_clean_rank": 3,
+      "clean_in_top10": 4,
+      "clean_in_top20": 10
+    },
+    {
+      "entry_id": "ASI08",
+      "entry_name": "Cascading Agent Failures",
+      "clean_mean_score": 0.7044446889091941,
+      "contam_mean_score": 0.6917273077097806,
+      "first_clean_rank": 2,
+      "clean_in_top10": 5,
+      "clean_in_top20": 12
+    },
+    {
+      "entry_id": "ASI09",
+      "entry_name": "Human-Agent Trust Exploitation",
+      "clean_mean_score": 0.6986828558146954,
+      "contam_mean_score": 0.7072578317978803,
+      "first_clean_rank": 6,
+      "clean_in_top10": 1,
+      "clean_in_top20": 5
+    },
+    {
+      "entry_id": "ASI10",
+      "entry_name": "Rogue Agents",
+      "clean_mean_score": 0.6636973303907058,
+      "contam_mean_score": 0.6585272135156574,
+      "first_clean_rank": 3,
+      "clean_in_top10": 5,
+      "clean_in_top20": 10
+    },
+    {
+      "entry_id": "DSGAI01",
+      "entry_name": "Sensitive Data Leakage",
+      "clean_mean_score": 0.6621201634407043,
+      "contam_mean_score": 0.6750650765995184,
+      "first_clean_rank": 26,
+      "clean_in_top10": 0,
+      "clean_in_top20": 0
+    },
+    {
+      "entry_id": "DSGAI02",
+      "entry_name": "Agent Identity and Credential Exposure",
+      "clean_mean_score": 0.6832340260346731,
+      "contam_mean_score": 0.6874808324010748,
+      "first_clean_rank": 7,
+      "clean_in_top10": 2,
+      "clean_in_top20": 5
+    },
+    {
+      "entry_id": "DSGAI03",
+      "entry_name": "Shadow AI and Unsanctioned Data Flows",
+      "clean_mean_score": 0.6903743999344962,
+      "contam_mean_score": 0.6899949922118076,
+      "first_clean_rank": 4,
+      "clean_in_top10": 1,
+      "clean_in_top20": 3
+    },
+    {
+      "entry_id": "DSGAI04",
+      "entry_name": "Data Model and Artifact Poisoning",
+      "clean_mean_score": 0.702520489692688,
+      "contam_mean_score": 0.6863235746111188,
+      "first_clean_rank": 10,
+      "clean_in_top10": 1,
+      "clean_in_top20": 1
+    },
+    {
+      "entry_id": "DSGAI05",
+      "entry_name": "Data Integrity and Validation Failures",
+      "clean_mean_score": 0.6894509941339493,
+      "contam_mean_score": 0.6943847822106403,
+      "first_clean_rank": 16,
+      "clean_in_top10": 0,
+      "clean_in_top20": 2
+    },
+    {
+      "entry_id": "DSGAI06",
+      "entry_name": "Tool Plugin and Agent Data Exchange",
+      "clean_mean_score": 0.699503074089686,
+      "contam_mean_score": 0.6987055900849795,
+      "first_clean_rank": 4,
+      "clean_in_top10": 4,
+      "clean_in_top20": 5
+    },
+    {
+      "entry_id": "DSGAI07",
+      "entry_name": "Data Governance and Lifecycle",
+      "clean_mean_score": 0.6928388050624302,
+      "contam_mean_score": 0.6927139578863631,
+      "first_clean_rank": 5,
+      "clean_in_top10": 2,
+      "clean_in_top20": 4
+    },
+    {
+      "entry_id": "DSGAI08",
+      "entry_name": "Non-Compliance and Regulatory Violations",
+      "clean_mean_score": 0.625648558139801,
+      "contam_mean_score": 0.6351029416348072,
+      "first_clean_rank": 20,
+      "clean_in_top10": 0,
+      "clean_in_top20": 1
+    },
+    {
+      "entry_id": "DSGAI09",
+      "entry_name": "Multimodal Cross-Channel Leakage",
+      "clean_mean_score": 0.6348869715418134,
+      "contam_mean_score": 0.648647029732549,
+      "first_clean_rank": 21,
+      "clean_in_top10": 0,
+      "clean_in_top20": 0
+    },
+    {
+      "entry_id": "DSGAI10",
+      "entry_name": "Synthetic Data and Anonymization Pitfalls",
+      "clean_mean_score": 0.6557974964380264,
+      "contam_mean_score": 0.6754816472530365,
+      "first_clean_rank": 27,
+      "clean_in_top10": 0,
+      "clean_in_top20": 0
+    },
+    {
+      "entry_id": "DSGAI11",
+      "entry_name": "Cross-Context Conversation Bleed",
+      "clean_mean_score": 0.6134972721338272,
+      "contam_mean_score": 0.6164876028247501,
+      "first_clean_rank": 15,
+      "clean_in_top10": 0,
+      "clean_in_top20": 2
+    },
+    {
+      "entry_id": "DSGAI12",
+      "entry_name": "Unsafe Natural Language Data Gateways",
+      "clean_mean_score": 0.6592507561047872,
+      "contam_mean_score": 0.6804941651668954,
+      "first_clean_rank": 28,
+      "clean_in_top10": 0,
+      "clean_in_top20": 0
+    },
+    {
+      "entry_id": "DSGAI13",
+      "entry_name": "Vector Store Platform Security",
+      "clean_mean_score": 0.6660783191521963,
+      "contam_mean_score": 0.6779371039433912,
+      "first_clean_rank": 7,
+      "clean_in_top10": 1,
+      "clean_in_top20": 2
+    },
+    {
+      "entry_id": "DSGAI14",
+      "entry_name": "Excessive Telemetry and Monitoring Leakage",
+      "clean_mean_score": 0.6604639530181885,
+      "contam_mean_score": 0.6552852339214749,
+      "first_clean_rank": 6,
+      "clean_in_top10": 2,
+      "clean_in_top20": 2
+    },
+    {
+      "entry_id": "DSGAI15",
+      "entry_name": "Over-Broad Context Windows",
+      "clean_mean_score": 0.6509183645248413,
+      "contam_mean_score": 0.6418191976845264,
+      "first_clean_rank": 8,
+      "clean_in_top10": 1,
+      "clean_in_top20": 2
+    },
+    {
+      "entry_id": "DSGAI16",
+      "entry_name": "Endpoint and Browser Overreach",
+      "clean_mean_score": 0.5881454263414655,
+      "contam_mean_score": 0.5931102259214535,
+      "first_clean_rank": 9,
+      "clean_in_top10": 1,
+      "clean_in_top20": 1
+    },
+    {
+      "entry_id": "DSGAI17",
+      "entry_name": "Data Availability and Resilience Failures",
+      "clean_mean_score": 0.6884606361389161,
+      "contam_mean_score": 0.6883414202266269,
+      "first_clean_rank": 2,
+      "clean_in_top10": 1,
+      "clean_in_top20": 1
+    },
+    {
+      "entry_id": "DSGAI18",
+      "entry_name": "Inference and Data Reconstruction",
+      "clean_mean_score": 0.6616526007652282,
+      "contam_mean_score": 0.6734988172849019,
+      "first_clean_rank": 21,
+      "clean_in_top10": 0,
+      "clean_in_top20": 0
+    },
+    {
+      "entry_id": "DSGAI19",
+      "entry_name": "Human-in-Loop and Labeler Overexposure",
+      "clean_mean_score": 0.6471460262934366,
+      "contam_mean_score": 0.6550900720535441,
+      "first_clean_rank": 15,
+      "clean_in_top10": 0,
+      "clean_in_top20": 1
+    },
+    {
+      "entry_id": "DSGAI20",
+      "entry_name": "Model Exfiltration and IP Replication",
+      "clean_mean_score": 0.6713129613134596,
+      "contam_mean_score": 0.6801681402252941,
+      "first_clean_rank": 14,
+      "clean_in_top10": 0,
+      "clean_in_top20": 4
+    },
+    {
+      "entry_id": "DSGAI21",
+      "entry_name": "Disinformation via Data Poisoning",
+      "clean_mean_score": 0.6527654627958933,
+      "contam_mean_score": 0.677805171771483,
+      "first_clean_rank": 23,
+      "clean_in_top10": 0,
+      "clean_in_top20": 0
+    },
+    {
+      "entry_id": "LLM01",
+      "entry_name": "Prompt Injection",
+      "clean_mean_score": 0.6052623987197876,
+      "contam_mean_score": 0.6222429164620333,
+      "first_clean_rank": 27,
+      "clean_in_top10": 0,
+      "clean_in_top20": 0
+    },
+    {
+      "entry_id": "LLM02",
+      "entry_name": "Sensitive Information Disclosure",
+      "clean_mean_score": 0.6452789902687073,
+      "contam_mean_score": 0.6603882983326912,
+      "first_clean_rank": 43,
+      "clean_in_top10": 0,
+      "clean_in_top20": 0
+    },
+    {
+      "entry_id": "LLM03",
+      "entry_name": "Supply Chain Vulnerabilities",
+      "clean_mean_score": 0.7130053809710911,
+      "contam_mean_score": 0.6824978312780691,
+      "first_clean_rank": 2,
+      "clean_in_top10": 5,
+      "clean_in_top20": 7
+    },
+    {
+      "entry_id": "LLM04",
+      "entry_name": "Data and Model Poisoning",
+      "clean_mean_score": 0.6900006234645844,
+      "contam_mean_score": 0.7036675318427708,
+      "first_clean_rank": 19,
+      "clean_in_top10": 0,
+      "clean_in_top20": 1
+    },
+    {
+      "entry_id": "LLM05",
+      "entry_name": "Insecure Output Handling",
+      "clean_mean_score": 0.6785716414451599,
+      "contam_mean_score": 0.6631860696539587,
+      "first_clean_rank": 14,
+      "clean_in_top10": 0,
+      "clean_in_top20": 1
+    },
+    {
+      "entry_id": "LLM06",
+      "entry_name": "Excessive Agency",
+      "clean_mean_score": 0.6150061885515848,
+      "contam_mean_score": 0.6158786227063435,
+      "first_clean_rank": 12,
+      "clean_in_top10": 0,
+      "clean_in_top20": 1
+    },
+    {
+      "entry_id": "LLM07",
+      "entry_name": "System Prompt Leakage",
+      "clean_mean_score": 0.595703125,
+      "contam_mean_score": 0.6146896481513977,
+      "first_clean_rank": 35,
+      "clean_in_top10": 0,
+      "clean_in_top20": 0
+    },
+    {
+      "entry_id": "LLM08",
+      "entry_name": "Vector and Embedding Weaknesses",
+      "clean_mean_score": 0.6615302364031473,
+      "contam_mean_score": 0.6749942163203625,
+      "first_clean_rank": 22,
+      "clean_in_top10": 0,
+      "clean_in_top20": 0
+    },
+    {
+      "entry_id": "LLM09",
+      "entry_name": "Misinformation",
+      "clean_mean_score": null,
+      "contam_mean_score": 0.6210908364681971,
+      "first_clean_rank": null,
+      "clean_in_top10": 0,
+      "clean_in_top20": 0
+    },
+    {
+      "entry_id": "LLM10",
+      "entry_name": "Unbounded Consumption",
+      "clean_mean_score": 0.6014857292175293,
+      "contam_mean_score": 0.5981635475645259,
+      "first_clean_rank": 17,
+      "clean_in_top10": 0,
+      "clean_in_top20": 1
+    }
+  ]
+}

@@ -626,6 +626,36 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2025,
       "incident_id": "INC-040"
+    },
+    {
+      "name": "Microsoft Recall screenshots everything — OS-level data retention without consent",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-055"
+    },
+    {
+      "name": "Character.AI teen suicide — AI companion encouraged self-harm",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-057"
+    },
+    {
+      "name": "Waymo autonomous vehicle data retention — 75 petabytes of driving footage with faces",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-066"
+    },
+    {
+      "name": "Perplexity Comet agentic browser — unauthorized Amazon customer account access",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-086"
+    },
+    {
+      "name": "Chat & Ask AI app — 300 million messages from 25 million users exposed via misconfigured Firebase",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-112"
     }
   ],
   "crossrefs": {

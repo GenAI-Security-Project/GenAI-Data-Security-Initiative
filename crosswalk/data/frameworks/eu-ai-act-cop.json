@@ -1,0 +1,397 @@
+{
+  "id": "eu-ai-act-cop",
+  "name": "EU AI Act Code of Practice",
+  "short_name": "GPAI CoP",
+  "version": "Final (2025-07-10)",
+  "url": "https://code-of-practice.ai/",
+  "license": "Public",
+  "publisher": "European Commission / AI Office",
+  "category": "regulation",
+  "last_synced": "2026-04-09",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "CoP-I",
+      "title": "Chapter I — Transparency",
+      "description": "Transparency obligations for all GPAI model providers under Article 53 of the AI Act.",
+      "parent": null,
+      "function": "Transparency"
+    },
+    {
+      "control_id": "CoP-I-C1",
+      "title": "Commitment 1 — Model documentation and information",
+      "description": "Draw up and keep up-to-date technical documentation and provide relevant information to downstream providers and the AI Office.",
+      "parent": "CoP-I",
+      "function": "Transparency"
+    },
+    {
+      "control_id": "CoP-I-C1-M1.1",
+      "title": "Drawing up and maintaining model documentation",
+      "description": "Draw up and keep up-to-date model documentation per the Model Documentation Form, covering architecture, training data, evaluation, and known limitations.",
+      "parent": "CoP-I-C1",
+      "function": "Transparency"
+    },
+    {
+      "control_id": "CoP-I-C1-M1.2",
+      "title": "Providing information to downstream providers and AI Office",
+      "description": "Provide relevant information and documentation to downstream providers and the AI Office within 14 days of request.",
+      "parent": "CoP-I-C1",
+      "function": "Transparency"
+    },
+    {
+      "control_id": "CoP-I-C1-M1.3",
+      "title": "Quality, integrity, and security of information",
+      "description": "Ensure that documentation and information provided is accurate, complete, up-to-date, and protected against unauthorized modification.",
+      "parent": "CoP-I-C1",
+      "function": "Transparency"
+    },
+
+    {
+      "control_id": "CoP-II",
+      "title": "Chapter II — Copyright",
+      "description": "Copyright compliance obligations for all GPAI model providers under Article 53(1)(c) of the AI Act.",
+      "parent": null,
+      "function": "Copyright"
+    },
+    {
+      "control_id": "CoP-II-C1",
+      "title": "Commitment 1 — Copyright policy and compliance",
+      "description": "Implement copyright compliance measures covering policy, lawful access, rights reservations, output safeguards, and rightholder engagement.",
+      "parent": "CoP-II",
+      "function": "Copyright"
+    },
+    {
+      "control_id": "CoP-II-C1-M1.1",
+      "title": "Copyright policy",
+      "description": "Draw up, keep up-to-date, and implement a copyright policy addressing the use of copyrighted content in training data.",
+      "parent": "CoP-II-C1",
+      "function": "Copyright"
+    },
+    {
+      "control_id": "CoP-II-C1-M1.2",
+      "title": "Lawful access to copyright-protected content",
+      "description": "Reproduce and extract only lawfully accessible copyright-protected content for training purposes.",
+      "parent": "CoP-II-C1",
+      "function": "Copyright"
+    },
+    {
+      "control_id": "CoP-II-C1-M1.3",
+      "title": "Rights reservations compliance",
+      "description": "Identify and comply with rights reservations expressed through robots.txt, machine-readable protocols, and other mechanisms.",
+      "parent": "CoP-II-C1",
+      "function": "Copyright"
+    },
+    {
+      "control_id": "CoP-II-C1-M1.4",
+      "title": "Copyright-infringing output mitigation",
+      "description": "Implement technical safeguards to mitigate generation of copyright-infringing outputs.",
+      "parent": "CoP-II-C1",
+      "function": "Copyright"
+    },
+    {
+      "control_id": "CoP-II-C1-M1.5",
+      "title": "Rightholder point of contact",
+      "description": "Designate a point of contact and enable complaints from rightholders regarding copyright concerns.",
+      "parent": "CoP-II-C1",
+      "function": "Copyright"
+    },
+
+    {
+      "control_id": "CoP-III",
+      "title": "Chapter III — Safety and Security",
+      "description": "Safety and security obligations for providers of GPAI models with systemic risk under Article 55 of the AI Act.",
+      "parent": null,
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C1",
+      "title": "Commitment 1 — Safety and security framework",
+      "description": "Establish, implement, and maintain a safety and security framework for identifying, assessing, and mitigating systemic risks.",
+      "parent": "CoP-III",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C1-M1.1",
+      "title": "Creating the safety and security framework",
+      "description": "Create a documented safety and security framework covering risk identification, analysis, mitigation, and governance for GPAI models with systemic risk.",
+      "parent": "CoP-III-C1",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C1-M1.2",
+      "title": "Implementing the framework",
+      "description": "Implement the safety and security framework across the model lifecycle including development, deployment, and post-market phases.",
+      "parent": "CoP-III-C1",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C1-M1.3",
+      "title": "Updating the framework",
+      "description": "Review and update the safety and security framework at least every 12 months and upon material changes to the risk landscape.",
+      "parent": "CoP-III-C1",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C1-M1.4",
+      "title": "Framework notifications to AI Office",
+      "description": "Notify the AI Office of the safety and security framework and material updates.",
+      "parent": "CoP-III-C1",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C2",
+      "title": "Commitment 2 — Systemic risk identification",
+      "description": "Identify systemic risks that may arise from the development, deployment, or use of GPAI models.",
+      "parent": "CoP-III",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C2-M2.1",
+      "title": "Systemic risk identification process",
+      "description": "Establish and execute a structured process for identifying systemic risks across specified categories (CBRN, CSAM, NCII, disinformation) and additional risk domains.",
+      "parent": "CoP-III-C2",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C2-M2.2",
+      "title": "Systemic risk scenarios",
+      "description": "Develop concrete systemic risk scenarios describing plausible pathways from model capabilities to societal-level harms.",
+      "parent": "CoP-III-C2",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C3",
+      "title": "Commitment 3 — Systemic risk analysis",
+      "description": "Analyse identified systemic risks using state-of-the-art methods including model evaluations, red-teaming, and simulation.",
+      "parent": "CoP-III",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C3-M3.1",
+      "title": "Model-independent information gathering",
+      "description": "Gather model-independent information relevant to systemic risk analysis including threat landscape, misuse patterns, and deployment context.",
+      "parent": "CoP-III-C3",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C3-M3.2",
+      "title": "Model evaluations",
+      "description": "Conduct model evaluations using benchmarks, task-based tests, red-teaming, human uplift evaluations, and simulation-based approaches.",
+      "parent": "CoP-III-C3",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C3-M3.3",
+      "title": "Systemic risk modelling",
+      "description": "Model systemic risks considering probability, severity, reversibility, scale, and cascading effects.",
+      "parent": "CoP-III-C3",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C3-M3.4",
+      "title": "Systemic risk estimation",
+      "description": "Estimate probability and severity of identified systemic risks using quantitative and qualitative methods.",
+      "parent": "CoP-III-C3",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C3-M3.5",
+      "title": "Post-market monitoring and external evaluation",
+      "description": "Implement continuous post-market monitoring and provide access to independent external evaluators for systemic risk assessment.",
+      "parent": "CoP-III-C3",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C4",
+      "title": "Commitment 4 — Systemic risk acceptance determination",
+      "description": "Determine whether identified systemic risks are acceptable based on defined criteria and tiers.",
+      "parent": "CoP-III",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C4-M4.1",
+      "title": "Risk acceptance criteria and tiers",
+      "description": "Define systemic risk acceptance criteria and establish risk tiers (acceptable, conditionally acceptable, unacceptable) with clear thresholds.",
+      "parent": "CoP-III-C4",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C4-M4.2",
+      "title": "Market placement decisions",
+      "description": "Make market placement, restriction, withdrawal, or recall decisions based on systemic risk acceptability assessment.",
+      "parent": "CoP-III-C4",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C5",
+      "title": "Commitment 5 — Safety mitigations",
+      "description": "Implement appropriate and adversarially robust safety mitigations for identified systemic risks.",
+      "parent": "CoP-III",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C5-M5.1",
+      "title": "Safety mitigation implementation",
+      "description": "Implement appropriate safety mitigations including training data filtering, input/output safeguards, fine-tuning, access staging, and tooling controls proportionate to identified risks.",
+      "parent": "CoP-III-C5",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C6",
+      "title": "Commitment 6 — Security mitigations",
+      "description": "Implement appropriate cybersecurity protections for GPAI models with systemic risk.",
+      "parent": "CoP-III",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C6-M6.1",
+      "title": "Security goal and threat actor definition",
+      "description": "Define security goals and identify relevant threat actors including nation-states, cybercriminals, insiders, and automated adversaries.",
+      "parent": "CoP-III-C6",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C6-M6.2",
+      "title": "Security mitigation implementation",
+      "description": "Implement security mitigations including access controls, model weight protection, infrastructure hardening, incident response, and supply chain security.",
+      "parent": "CoP-III-C6",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C7",
+      "title": "Commitment 7 — Safety and security model reports",
+      "description": "Document and report on systemic risk identification, analysis, mitigation, and ongoing monitoring.",
+      "parent": "CoP-III",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C7-M7.1",
+      "title": "Model description and behaviour documentation",
+      "description": "Document model description, capabilities, limitations, and observed behaviour relevant to systemic risk.",
+      "parent": "CoP-III-C7",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C7-M7.2",
+      "title": "Risk justification for market placement",
+      "description": "Document reasons for proceeding with market placement despite identified systemic risks, including risk-benefit analysis.",
+      "parent": "CoP-III-C7",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C7-M7.3",
+      "title": "Systemic risk documentation",
+      "description": "Document systemic risk identification, analysis results, mitigation measures applied, and residual risk assessment.",
+      "parent": "CoP-III-C7",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C7-M7.4",
+      "title": "External evaluator reports",
+      "description": "Incorporate and document findings from independent external evaluators in model reports.",
+      "parent": "CoP-III-C7",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C7-M7.5",
+      "title": "Material changes to risk landscape",
+      "description": "Document and assess material changes to the systemic risk landscape that may affect previously published risk assessments.",
+      "parent": "CoP-III-C7",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C7-M7.6",
+      "title": "Model report updates",
+      "description": "Keep model reports current by updating upon material changes, new risk discoveries, or at minimum every 12 months.",
+      "parent": "CoP-III-C7",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C7-M7.7",
+      "title": "Model report notifications",
+      "description": "Notify the AI Office of model report publications and material updates.",
+      "parent": "CoP-III-C7",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C8",
+      "title": "Commitment 8 — Responsibility allocation",
+      "description": "Allocate clear responsibilities, resources, and promote healthy organizational risk culture for systemic risk management.",
+      "parent": "CoP-III",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C8-M8.1",
+      "title": "Clear responsibility definition",
+      "description": "Define clear roles and responsibilities for systemic risk management across the organization.",
+      "parent": "CoP-III-C8",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C8-M8.2",
+      "title": "Resource allocation",
+      "description": "Allocate appropriate human, technical, and financial resources to systemic risk management activities.",
+      "parent": "CoP-III-C8",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C8-M8.3",
+      "title": "Organizational risk culture",
+      "description": "Promote a healthy organizational risk culture that encourages identification and escalation of systemic risk concerns.",
+      "parent": "CoP-III-C8",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C9",
+      "title": "Commitment 9 — Serious incident reporting",
+      "description": "Track, document, and report serious incidents to the AI Office and national competent authorities.",
+      "parent": "CoP-III",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C9-M9.1",
+      "title": "Incident tracking and documentation",
+      "description": "Establish processes to track and document serious incidents involving GPAI models with systemic risk.",
+      "parent": "CoP-III-C9",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C9-M9.2",
+      "title": "Incident reporting to authorities",
+      "description": "Report serious incidents to the AI Office and relevant national competent authorities with graduated response based on severity.",
+      "parent": "CoP-III-C9",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C9-M9.3",
+      "title": "Corrective actions",
+      "description": "Implement and document corrective actions in response to serious incidents, including model modifications, deployment restrictions, or recalls.",
+      "parent": "CoP-III-C9",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C10",
+      "title": "Commitment 10 — Additional documentation and transparency",
+      "description": "Maintain comprehensive documentation of Safety and Security Chapter implementation and meet public transparency requirements.",
+      "parent": "CoP-III",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C10-M10.1",
+      "title": "Implementation documentation",
+      "description": "Document implementation of all Safety and Security Chapter commitments and measures, including evidence of compliance.",
+      "parent": "CoP-III-C10",
+      "function": "Safety & Security"
+    },
+    {
+      "control_id": "CoP-III-C10-M10.2",
+      "title": "Public transparency",
+      "description": "Publish safety-relevant information proportionate to the model's risk profile, supporting public accountability and downstream provider decision-making.",
+      "parent": "CoP-III-C10",
+      "function": "Safety & Security"
+    }
+  ],
+  "changelog": [
+    { "date": "2026-04-09", "change": "Initial seed — 3 chapters, 12 commitments, 55 measures from final CoP (July 2025)", "author": "emmanuelgjr" }
+  ]
+}

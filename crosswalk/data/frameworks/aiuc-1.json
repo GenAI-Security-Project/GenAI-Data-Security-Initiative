@@ -1,0 +1,122 @@
+{
+  "id": "aiuc-1",
+  "name": "AIUC-1",
+  "short_name": "AIUC-1",
+  "version": "1.0",
+  "url": "https://www.ai-safety-institute.org/",
+  "license": "Open Government Licence v3.0",
+  "publisher": "UK AI Safety Institute",
+  "category": "ai-governance",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "B001",
+      "title": "Third-party testing of adversarial robustness",
+      "description": "Foundational; Hardening"
+    },
+    {
+      "control_id": "B002",
+      "title": "Detect adversarial input",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "B005",
+      "title": "Implement real-time input filtering",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "B006",
+      "title": "Prevent unauthorized AI agent actions",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "B004",
+      "title": "Prevent AI endpoint scraping"
+    },
+    {
+      "control_id": "B007",
+      "title": "Enforce user access privileges to AI systems",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "A",
+      "title": "Data & Privacy (full domain)",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "B008",
+      "title": "Protect model deployment environment",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "E",
+      "title": "Accountability (full domain)",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "B003",
+      "title": "Manage public release of technical details",
+      "description": "Hardening"
+    },
+    {
+      "control_id": "B009",
+      "title": "Limit output over-exposure",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "D",
+      "title": "Reliability (full domain)",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "C",
+      "title": "Safety (full domain)",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "F",
+      "title": "Society (full domain)",
+      "description": "Foundational"
+    },
+    {
+      "control_id": "Primary DSGAI entries",
+      "title": "AIUC-1 Domain",
+      "description": "Status"
+    },
+    {
+      "control_id": "DSGAI02, DSGAI03, DSGAI06, DSGAI07, DSGAI08, DSGAI09, DSGAI14, DSGAI15, DSGAI18, DSGAI21",
+      "title": "A — Data & Privacy"
+    },
+    {
+      "control_id": "DSGAI01, DSGAI04, DSGAI05, DSGAI10, DSGAI12, DSGAI16, DSGAI17",
+      "title": "B — Security"
+    },
+    {
+      "control_id": "DSGAI05, DSGAI20",
+      "title": "C — Safety"
+    },
+    {
+      "control_id": "DSGAI12, DSGAI19",
+      "title": "D — Reliability"
+    },
+    {
+      "control_id": "DSGAI02, DSGAI06, DSGAI09, DSGAI13, DSGAI18, DSGAI20, DSGAI21",
+      "title": "E — Accountability"
+    },
+    {
+      "control_id": "DSGAI20",
+      "title": "F — Society"
+    },
+    {
+      "control_id": "Date",
+      "title": "Version",
+      "description": "Change"
+    },
+    {
+      "control_id": "2026-03-27",
+      "title": "1.0.0",
+      "description": "Initial release — full mapping DSGAI01–DSGAI21 to AIUC-1"
+    }
+  ]
+}

@@ -794,6 +794,66 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-047"
+    },
+    {
+      "name": "Anthropic Sleeper Agents paper — models trained to hide malicious behaviour",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-061"
+    },
+    {
+      "name": "Claude hijacked for state-sponsored cyberattacks — 80-90% autonomous operation against 30 entities",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-083"
+    },
+    {
+      "name": "Agent-in-the-Middle — A2A protocol spoofing via fake agent cards",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-090"
+    },
+    {
+      "name": "Meta Rogue AI Agent Sev-1 — autonomous agent posts incorrect advice, exposing proprietary data",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-091"
+    },
+    {
+      "name": "Claude AI jailbreak — Mexican government breach, 150GB data theft across 10 agencies",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-092"
+    },
+    {
+      "name": "XBOW — first critical CVE discovered entirely by autonomous AI penetration testing agent",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-096"
+    },
+    {
+      "name": "Clinejection — CI/CD pipeline compromise via Cline's issue triage bot, 4,000 machines infected",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-098"
+    },
+    {
+      "name": "OpenClaw AI agent security crisis — 138 CVEs in 63 days, 341 malicious marketplace skills",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-102"
+    },
+    {
+      "name": "Replit vibe coding meltdown — agent hallucinated data, deleted production database, hid mistakes",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-106"
+    },
+    {
+      "name": "Anthropic Claude misuse report — ransomware development, North Korean employment fraud, extortion",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-110"
     }
   ],
   "crossrefs": {

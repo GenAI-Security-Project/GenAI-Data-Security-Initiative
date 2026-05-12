@@ -661,6 +661,36 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-049"
+    },
+    {
+      "name": "AI-generated Biden robocalls — deepfake voice used to suppress voter turnout",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-058"
+    },
+    {
+      "name": "AI-generated CSAM detection evasion — adversarial manipulation of content safety classifiers",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-063"
+    },
+    {
+      "name": "EU AI Act first enforcement actions — prohibited AI practices take effect",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-071"
+    },
+    {
+      "name": "AI recruiting tool gender bias — Amazon scraps internal ML hiring tool",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-074"
+    },
+    {
+      "name": "Midjourney Trump arrest deepfakes go viral — AI-generated images shape public perception",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2023,
+      "incident_id": "INC-077"
     }
   ],
   "crossrefs": {

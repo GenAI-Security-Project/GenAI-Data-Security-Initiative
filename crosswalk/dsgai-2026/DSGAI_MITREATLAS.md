@@ -3,14 +3,14 @@
   Source list : OWASP GenAI Data Security Risks and Mitigations 2026 (DSGAI01-DSGAI21)
   Framework   : MITRE ATLAS (Adversarial Threat Landscape for Artificial-Intelligence Systems)
   Version     : 2026-Q1
-  Maintained by: OWASP GenAI Data Security Initiative — https://genai.owasp.org
+  Maintained by: OWASP GenAI Data Security Initiative â€” https://genai.owasp.org
   License     : CC BY-SA 4.0
 -->
 
-# DSGAI 2026 × MITRE ATLAS
+# DSGAI 2026 Ã— MITRE ATLAS
 
 Mapping the [OWASP GenAI Data Security Risks and Mitigations 2026](https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/)
-(DSGAI01–DSGAI21) to [MITRE ATLAS](https://atlas.mitre.org) —
+(DSGAI01â€“DSGAI21) to [MITRE ATLAS](https://atlas.mitre.org) â€”
 the Adversarial Threat Landscape for Artificial-Intelligence Systems,
 the authoritative knowledge base of adversarial ML tactics, techniques,
 and procedures observed in real-world AI attacks.
@@ -21,7 +21,7 @@ and procedures observed in real-world AI attacks.
 
 MITRE ATLAS extends the ATT&CK framework into the AI domain. Where
 DSGAI 2026 describes what can go wrong with GenAI data, MITRE ATLAS
-describes how adversaries make it go wrong — the specific techniques,
+describes how adversaries make it go wrong â€” the specific techniques,
 tools, and attack sequences observed in real incidents.
 
 For GenAI data security specifically, ATLAS provides the attacker
@@ -29,16 +29,16 @@ perspective on three critical threat surfaces:
 
 **Training pipeline attacks:** ATLAS documents how adversaries poison
 training data, corrupt model weights, and compromise the supply chain
-of model components — directly mapping to DSGAI04, DSGAI05, and
+of model components â€” directly mapping to DSGAI04, DSGAI05, and
 DSGAI21.
 
 **Inference-time attacks:** ATLAS captures how adversaries manipulate
 GenAI systems through crafted inputs, extract sensitive information
 through model queries, and reconstruct training data through inference
-attacks — mapping to DSGAI01, DSGAI12, DSGAI18, and DSGAI20.
+attacks â€” mapping to DSGAI01, DSGAI12, DSGAI18, and DSGAI20.
 
 **Model and system integrity attacks:** ATLAS documents supply chain
-compromise, model exfiltration, and evasion techniques — mapping to
+compromise, model exfiltration, and evasion techniques â€” mapping to
 DSGAI03, DSGAI04, and DSGAI20.
 
 This file completes the ATLAS coverage across all three OWASP source
@@ -67,37 +67,37 @@ goal) and techniques (how they achieve it):
 
 | ID | Name | Severity | Primary ATLAS Techniques | Tier |
 |---|---|---|---|---|
-| DSGAI01 | Sensitive Data Leakage | Critical | AML.T0025, AML.T0024.000, AML.T0035 | Foundational–Advanced |
-| DSGAI02 | Agent Identity & Credential Exposure | Critical | AML.T0012, AML.T0035, AML.T0051 | Foundational–Advanced |
-| DSGAI03 | Shadow AI & Unsanctioned Data Flows | High | AML.T0012, AML.T0051, AML.T0057 | Foundational–Hardening |
-| DSGAI04 | Data, Model & Artifact Poisoning | Critical | AML.T0020, AML.T0032, AML.T0031 | Hardening–Advanced |
-| DSGAI05 | Data Integrity & Validation Failures | High | AML.T0020, AML.T0018, AML.T0031 | Foundational–Hardening |
-| DSGAI06 | Tool, Plugin & Agent Data Exchange | High | AML.T0051, AML.T0057, AML.T0035 | Foundational–Hardening |
-| DSGAI07 | Data Governance, Lifecycle & Classification | High | AML.T0035, AML.T0024.000, AML.T0057 | Foundational–Advanced |
-| DSGAI08 | Non-Compliance & Regulatory Violations | High | AML.T0057, AML.T0051, AML.T0035 | Foundational–Advanced |
-| DSGAI09 | Multimodal Cross-Channel Data Leakage | High | AML.T0025, AML.T0035, AML.T0024.000 | Hardening–Advanced |
-| DSGAI10 | Synthetic Data & Anonymisation Pitfalls | Medium | AML.T0024.000, AML.T0025, AML.T0035 | Hardening–Advanced |
-| DSGAI11 | Cross-Context Conversation Bleed | High | AML.T0025, AML.T0035, AML.T0051 | Foundational–Hardening |
-| DSGAI12 | Unsafe NL Data Gateways | Critical | AML.T0051, AML.T0057, AML.T0035 | Foundational–Advanced |
-| DSGAI13 | Vector Store Platform Security | High | AML.T0025, AML.T0035, AML.T0020 | Foundational–Hardening |
-| DSGAI14 | Excessive Telemetry & Monitoring Leakage | High | AML.T0035, AML.T0025, AML.T0057 | Foundational–Hardening |
-| DSGAI15 | Over-Broad Context Windows | High | AML.T0051, AML.T0025, AML.T0035 | Foundational–Hardening |
-| DSGAI16 | Endpoint & Browser Assistant Overreach | High | AML.T0013, AML.T0057, AML.T0035 | Foundational–Hardening |
-| DSGAI17 | Data Availability & Resilience Failures | High | AML.T0029, AML.T0034, AML.T0057 | Foundational–Advanced |
-| DSGAI18 | Inference & Data Reconstruction | High | AML.T0024.000, AML.T0025, AML.T0027 | Hardening–Advanced |
-| DSGAI19 | Human-in-Loop & Labeler Overexposure | Medium | AML.T0035, AML.T0057, AML.T0020 | Foundational–Hardening |
-| DSGAI20 | Model Exfiltration & IP Replication | High | AML.T0016, AML.T0025, AML.T0034 | Hardening–Advanced |
-| DSGAI21 | Disinformation via Data Poisoning | High | AML.T0045, AML.T0020, AML.T0031 | Hardening–Advanced |
+| DSGAI01 | Sensitive Data Leakage | Critical | AML.T0025, AML.T0024.000, AML.T0035 | Foundationalâ€“Advanced |
+| DSGAI02 | Agent Identity & Credential Exposure | Critical | AML.T0012, AML.T0035, AML.T0051 | Foundationalâ€“Advanced |
+| DSGAI03 | Shadow AI & Unsanctioned Data Flows | High | AML.T0012, AML.T0051, AML.T0057 | Foundationalâ€“Hardening |
+| DSGAI04 | Data, Model & Artifact Poisoning | Critical | AML.T0020, AML.T0032, AML.T0031 | Hardeningâ€“Advanced |
+| DSGAI05 | Data Integrity & Validation Failures | High | AML.T0020, AML.T0018, AML.T0031 | Foundationalâ€“Hardening |
+| DSGAI06 | Tool, Plugin & Agent Data Exchange | High | AML.T0051, AML.T0057, AML.T0035 | Foundationalâ€“Hardening |
+| DSGAI07 | Data Governance, Lifecycle & Classification | High | AML.T0035, AML.T0024.000, AML.T0057 | Foundationalâ€“Advanced |
+| DSGAI08 | Non-Compliance & Regulatory Violations | High | AML.T0057, AML.T0051, AML.T0035 | Foundationalâ€“Advanced |
+| DSGAI09 | Multimodal Cross-Channel Data Leakage | High | AML.T0025, AML.T0035, AML.T0024.000 | Hardeningâ€“Advanced |
+| DSGAI10 | Synthetic Data & Anonymisation Pitfalls | Medium | AML.T0024.000, AML.T0025, AML.T0035 | Hardeningâ€“Advanced |
+| DSGAI11 | Cross-Context Conversation Bleed | High | AML.T0025, AML.T0035, AML.T0051 | Foundationalâ€“Hardening |
+| DSGAI12 | Unsafe NL Data Gateways | Critical | AML.T0051, AML.T0057, AML.T0035 | Foundationalâ€“Advanced |
+| DSGAI13 | Vector Store Platform Security | High | AML.T0025, AML.T0035, AML.T0020 | Foundationalâ€“Hardening |
+| DSGAI14 | Excessive Telemetry & Monitoring Leakage | High | AML.T0035, AML.T0025, AML.T0057 | Foundationalâ€“Hardening |
+| DSGAI15 | Over-Broad Context Windows | High | AML.T0051, AML.T0025, AML.T0035 | Foundationalâ€“Hardening |
+| DSGAI16 | Endpoint & Browser Assistant Overreach | High | AML.T0013, AML.T0057, AML.T0035 | Foundationalâ€“Hardening |
+| DSGAI17 | Data Availability & Resilience Failures | High | AML.T0029, AML.T0034, AML.T0057 | Foundationalâ€“Advanced |
+| DSGAI18 | Inference & Data Reconstruction | High | AML.T0024.000, AML.T0025, AML.T0027 | Hardeningâ€“Advanced |
+| DSGAI19 | Human-in-Loop & Labeler Overexposure | Medium | AML.T0035, AML.T0057, AML.T0020 | Foundationalâ€“Hardening |
+| DSGAI20 | Model Exfiltration & IP Replication | High | AML.T0016, AML.T0025, AML.T0034 | Hardeningâ€“Advanced |
+| DSGAI21 | Disinformation via Data Poisoning | High | AML.T0045, AML.T0020, AML.T0031 | Hardeningâ€“Advanced |
 
 ---
 
 ## Audience tags
 
-- **Red team / adversarial ML** — full file, attacker technique reference for GenAI data security assessments
-- **Threat intelligence** — ATLAS technique mapping for AI threat model development
-- **Security architect** — threat landscape for GenAI data security design
-- **Incident responder** — technique identification during GenAI data security incidents
-- **CISO** — executive threat landscape overview for AI data risk programme
+- **Red team / adversarial ML** â€” full file, attacker technique reference for GenAI data security assessments
+- **Threat intelligence** â€” ATLAS technique mapping for AI threat model development
+- **Security architect** â€” threat landscape for GenAI data security design
+- **Incident responder** â€” technique identification during GenAI data security incidents
+- **CISO** â€” executive threat landscape overview for AI data risk programme
 
 ---
 
@@ -109,7 +109,7 @@ Key techniques cited throughout this mapping:
 |---|---|---|
 | Discover ML Model Ontology | AML.T0013 | Adversary learns about the AI system architecture, data sources, and model properties |
 | Obtain Capabilities | AML.T0012 | Adversary acquires tools, infrastructure, or access needed for the attack |
-| ML Supply Chain Compromise | AML.T0010 | Compromise of components in the ML supply chain — datasets, models, frameworks |
+| ML Supply Chain Compromise | AML.T0010 | Compromise of components in the ML supply chain â€” datasets, models, frameworks |
 | Poison Training Data | AML.T0020 | Adversary introduces malicious data into training pipeline to manipulate model behaviour |
 | Backdoor ML Model | AML.T0018 | Embed hidden functionality triggered by specific inputs |
 | Craft Adversarial Data | AML.T0031 | Create inputs specifically designed to manipulate model outputs |
@@ -130,13 +130,13 @@ Key techniques cited throughout this mapping:
 
 ---
 
-### DSGAI01 — Sensitive Data Leakage
+### DSGAI01 â€” Sensitive Data Leakage
 
 **Severity:** Critical
 
 Sensitive data leaks through GenAI outputs, RAG retrieval, embedding
 exposure, or observability pipelines. From an ATLAS perspective, this
-is primarily an Exfiltration (AML.TA0008) threat — adversaries use
+is primarily an Exfiltration (AML.TA0008) threat â€” adversaries use
 the inference API as an exfiltration channel for data they were not
 authorised to access.
 
@@ -145,33 +145,33 @@ authorised to access.
 | Technique | ID | Tactic | How it applies |
 |---|---|---|---|
 | Exfiltrate via ML Inference API | AML.T0035 | Exfiltration | Adversary queries LLM to extract sensitive data from training corpus, RAG store, or prompt cache through crafted inference queries |
-| Membership Inference | AML.T0024.000 | Exfiltration | Adversary determines whether specific sensitive records were used in training — confirms presence of target data |
+| Membership Inference | AML.T0024.000 | Exfiltration | Adversary determines whether specific sensitive records were used in training â€” confirms presence of target data |
 | Exfiltrate via Cyber Means | AML.T0025 | Exfiltration | Sensitive content in LLM outputs, logs, or observability pipelines captured and transmitted to adversary |
 
 #### Real-world ATLAS cases
 
-- Samsung source code leak (2023) — sensitive proprietary code
+- Samsung source code leak (2023) â€” sensitive proprietary code
   exfiltrated via LLM inference API through employee submissions
-- Multiple healthcare RAG deployments (2024) — PHI extracted
+- Multiple healthcare RAG deployments (2024) â€” PHI extracted
   via over-permissive vector store retrieval
 
 #### Mitigations mapped to ATLAS
 
 **Foundational**
 - Counter AML.T0035: Output redaction and DLP before
-  responses leave service boundary — adversary cannot
+  responses leave service boundary â€” adversary cannot
   extract sensitive data through inference if outputs
   are scanned and redacted
 - Counter AML.T0024.000: Differential privacy in
-  training — limits membership inference success rate
+  training â€” limits membership inference success rate
   by making individual training examples indistinguishable
 
 **Hardening**
 - Counter AML.T0025: Access controls on all GenAI
-  observability pipelines — telemetry stores require
+  observability pipelines â€” telemetry stores require
   same security as production data
 - Counter AML.T0035: RAG access controls enforcing
-  least-privilege retrieval — adversary cannot retrieve
+  least-privilege retrieval â€” adversary cannot retrieve
   beyond authorised scope through crafted queries
 
 **Advanced**
@@ -182,17 +182,17 @@ authorised to access.
 #### Cross-references
 - LLM Top 10: LLM02 Sensitive Information Disclosure
 - Agentic Top 10: ASI03 Identity & Privilege Abuse
-- Other frameworks: ISO 27001 A.8.11/A.8.12 · NIST AI RMF GV-1.6 · EU AI Act Art. 10
+- Other frameworks: ISO 27001 A.8.11/A.8.12 Â· NIST AI RMF GV-1.6 Â· EU AI Act Art. 10
 
 ---
 
-### DSGAI02 — Agent Identity & Credential Exposure
+### DSGAI02 â€” Agent Identity & Credential Exposure
 
 **Severity:** Critical
 
 AI agents inherit and cache credentials that attackers exploit for
 lateral movement. From an ATLAS perspective, this maps to Initial
-Access (AML.TA0001) — stolen agent credentials provide authenticated
+Access (AML.TA0001) â€” stolen agent credentials provide authenticated
 access to AI systems and downstream services.
 
 #### ATLAS technique mapping
@@ -206,34 +206,34 @@ access to AI systems and downstream services.
 #### Mitigations mapped to ATLAS
 
 **Foundational**
-- Counter AML.T0012: JIT short-lived credentials —
+- Counter AML.T0012: JIT short-lived credentials â€”
   credentials acquired by adversary expire before
   lateral movement completes
 - Counter AML.T0035: Credential scanning on all
-  output paths — agent credentials never appear in
+  output paths â€” agent credentials never appear in
   inference outputs, logs, or tool payloads
 
 **Hardening**
-- Counter AML.T0051: Least-privilege credential scope —
+- Counter AML.T0051: Least-privilege credential scope â€”
   stolen agent credential provides minimum viable
   access, limiting lateral movement blast radius
-- Credential anomaly detection — unusual access patterns
+- Credential anomaly detection â€” unusual access patterns
   from agent credentials alerted before lateral movement
   succeeds
 
 #### Cross-references
 - Agentic Top 10: ASI03 Identity & Privilege Abuse
-- Other frameworks: OWASP NHI Top 10 · ISO 27001 A.8.2/A.5.16 · NIST CSF 2.0 PR.AA-01
+- Other frameworks: OWASP NHI Top 10 Â· ISO 27001 A.8.2/A.5.16 Â· NIST CSF 2.0 PR.AA-01
 
 ---
 
-### DSGAI03 — Shadow AI & Unsanctioned Data Flows
+### DSGAI03 â€” Shadow AI & Unsanctioned Data Flows
 
 **Severity:** High
 
 Employees use unapproved GenAI tools, creating ungoverned data flows.
 From an ATLAS perspective, shadow AI is an adversary-exploited
-governance gap — the adversary does not need to attack the
+governance gap â€” the adversary does not need to attack the
 organisation's AI system if employees deliver sensitive data to
 external AI services voluntarily.
 
@@ -248,30 +248,30 @@ external AI services voluntarily.
 #### Mitigations mapped to ATLAS
 
 **Foundational**
-- Counter AML.T0051: Approved AI tool programme —
+- Counter AML.T0051: Approved AI tool programme â€”
   employees use vetted services, not adversary-controlled
   or compromised external AI endpoints
-- Counter AML.T0057: DLP on known AI SaaS endpoints —
+- Counter AML.T0057: DLP on known AI SaaS endpoints â€”
   sensitive data flows to unapproved AI services
   blocked before leaving the corporate perimeter
 
 **Hardening**
-- Counter AML.T0057: Continuous shadow AI discovery —
+- Counter AML.T0057: Continuous shadow AI discovery â€”
   detect data flows to unapproved AI services across
   endpoints, network egress, and SaaS access logs
 
 #### Cross-references
 - DSGAI 2026: DSGAI07 Data Governance, DSGAI08 Non-Compliance
-- Other frameworks: ISO 27001 A.5.10/A.5.23 · NIST CSF 2.0 GV.OC-01 · EU AI Act Art. 25
+- Other frameworks: ISO 27001 A.5.10/A.5.23 Â· NIST CSF 2.0 GV.OC-01 Â· EU AI Act Art. 25
 
 ---
 
-### DSGAI04 — Data, Model & Artifact Poisoning
+### DSGAI04 â€” Data, Model & Artifact Poisoning
 
 **Severity:** Critical
 
 Training data, model weights, or RAG corpora corrupted with backdoors.
-This is the core ATLAS poisoning threat — the techniques AML.T0020
+This is the core ATLAS poisoning threat â€” the techniques AML.T0020
 (Poison Training Data) and AML.T0018 (Backdoor ML Model) are the
 canonical ATLAS descriptions of this attack class.
 
@@ -279,54 +279,54 @@ canonical ATLAS descriptions of this attack class.
 
 | Technique | ID | Tactic | How it applies |
 |---|---|---|---|
-| Poison Training Data | AML.T0020 | ML Attack Staging | Adversary introduces malicious data into training pipeline — corrupts model behaviour in ways baked into weights |
-| Backdoor ML Model | AML.T0018 | ML Attack Staging | Hidden functionality embedded in model weights — triggered by specific inputs, invisible to standard testing |
+| Poison Training Data | AML.T0020 | ML Attack Staging | Adversary introduces malicious data into training pipeline â€” corrupts model behaviour in ways baked into weights |
+| Backdoor ML Model | AML.T0018 | ML Attack Staging | Hidden functionality embedded in model weights â€” triggered by specific inputs, invisible to standard testing |
 | Craft Adversarial Data | AML.T0031 | ML Attack Staging | Adversarially crafted training examples designed to produce specific model behaviours without detection |
 
 #### Real-world ATLAS cases
 
-- Nightshade (2023) — poison pixels in training images
+- Nightshade (2023) â€” poison pixels in training images
   corrupted image generation model behaviour
-- Multiple malicious models on Hugging Face (2024) —
+- Multiple malicious models on Hugging Face (2024) â€”
   backdoored weights uploaded to public repositories
 
 #### Mitigations mapped to ATLAS
 
 **Foundational**
-- Counter AML.T0020: Training data integrity controls —
+- Counter AML.T0020: Training data integrity controls â€”
   source allowlisting, anomaly detection, provenance
   tracking before any training run
-- Counter AML.T0018: Post-training backdoor detection —
+- Counter AML.T0018: Post-training backdoor detection â€”
   neural cleanse or equivalent as mandatory deployment
   gate before any production promotion
 
 **Hardening**
 - Counter AML.T0031: Adversarial data detection in
-  training pipeline — statistical anomaly detection
+  training pipeline â€” statistical anomaly detection
   flags adversarially crafted training examples
-- Model integrity verification at deployment —
+- Model integrity verification at deployment â€”
   hash-based check against approved baseline prevents
   deployment of backdoored weights
 
 **Advanced**
 - Red team AML.T0018: Backdoor trigger testing before
-  each production deployment — attempt to activate
+  each production deployment â€” attempt to activate
   embedded backdoors through adversarial inputs
 
 #### Cross-references
 - LLM Top 10: LLM03 Supply Chain, LLM04 Data & Model Poisoning
 - Agentic Top 10: ASI06 Memory & Context Poisoning
-- Other frameworks: NIST AI RMF MS-3.3 · ISO 27001 A.8.27 · NIST CSF 2.0 DE.CM-09
+- Other frameworks: NIST AI RMF MS-3.3 Â· ISO 27001 A.8.27 Â· NIST CSF 2.0 DE.CM-09
 
 ---
 
-### DSGAI05 — Data Integrity & Validation Failures
+### DSGAI05 â€” Data Integrity & Validation Failures
 
 **Severity:** High
 
 Adversarially crafted payloads corrupt GenAI data pipelines or exploit
 ingestion vulnerabilities. From an ATLAS perspective, this is ML Attack
-Staging (AML.TA0005) — adversaries stage attacks by corrupting the
+Staging (AML.TA0005) â€” adversaries stage attacks by corrupting the
 data that enters the AI system.
 
 #### ATLAS technique mapping
@@ -334,38 +334,38 @@ data that enters the AI system.
 | Technique | ID | Tactic | How it applies |
 |---|---|---|---|
 | Poison Training Data | AML.T0020 | ML Attack Staging | Adversarially crafted payloads bypass ingestion validation to corrupt training or RAG data |
-| Backdoor ML Model | AML.T0018 | ML Attack Staging | Path traversal in snapshot imports (CVE-2024-3584) enables write to model host — backdoor installation path |
+| Backdoor ML Model | AML.T0018 | ML Attack Staging | Path traversal in snapshot imports (CVE-2024-3584) enables write to model host â€” backdoor installation path |
 | Craft Adversarial Data | AML.T0031 | ML Attack Staging | Payloads crafted to pass syntactic validation while embedding malicious semantic content |
 
 #### Mitigations mapped to ATLAS
 
 **Foundational**
 - Counter AML.T0020: Multi-stage validation at all
-  ingestion boundaries — syntactic, schema, semantic
+  ingestion boundaries â€” syntactic, schema, semantic
   validation in sequence before any data enters pipeline
 - Counter AML.T0018: Patch CVE-2024-3584 class
-  vulnerabilities — path traversal in snapshot imports
+  vulnerabilities â€” path traversal in snapshot imports
   is an AML.T0018 enabler in vector database environments
 
 **Hardening**
 - Counter AML.T0031: Semantic injection detection on
-  ingestion payloads — adversarially crafted content
+  ingestion payloads â€” adversarially crafted content
   detected before entering RAG corpus or training data
 
 #### Cross-references
 - LLM Top 10: LLM05 Insecure Output Handling
 - DSGAI 2026: DSGAI13 Vector Store Platform Security
-- Other frameworks: ISO 27001 A.8.26/A.8.28 · CWE-20 · NIST CSF 2.0 PR.PS-04
+- Other frameworks: ISO 27001 A.8.26/A.8.28 Â· CWE-20 Â· NIST CSF 2.0 PR.PS-04
 
 ---
 
-### DSGAI06 — Tool, Plugin & Agent Data Exchange
+### DSGAI06 â€” Tool, Plugin & Agent Data Exchange
 
 **Severity:** High
 
 AI tools and MCP servers receive full context payloads with no
 minimisation. From an ATLAS perspective, tools are a Exfiltration
-channel — adversaries compromise or operate malicious tools to
+channel â€” adversaries compromise or operate malicious tools to
 capture context data that flows through the agent.
 
 #### ATLAS technique mapping
@@ -374,11 +374,11 @@ capture context data that flows through the agent.
 |---|---|---|---|
 | Exploit Public-Facing Application | AML.T0051 | Initial Access | Malicious MCP server exploits trust relationship with agent to capture context payloads |
 | Data from Information Repositories | AML.T0057 | Exfiltration | Context data flowing through tool integrations captured and transmitted to adversary |
-| Exfiltrate via ML Inference API | AML.T0035 | Exfiltration | Tool API acts as exfiltration channel — sensitive context content captured in tool call payloads |
+| Exfiltrate via ML Inference API | AML.T0035 | Exfiltration | Tool API acts as exfiltration channel â€” sensitive context content captured in tool call payloads |
 
 #### Real-world ATLAS cases
 
-- Postmark MCP (2025) — first malicious MCP on npm,
+- Postmark MCP (2025) â€” first malicious MCP on npm,
   BCC'd every agent-sent email to attacker via poisoned
   tool descriptor exfiltrating context
 
@@ -386,30 +386,30 @@ capture context data that flows through the agent.
 
 **Foundational**
 - Counter AML.T0051: Tool and MCP server security
-  assessment before deployment — adversary-controlled
+  assessment before deployment â€” adversary-controlled
   or compromised tools rejected before agent access
-- Counter AML.T0057: Context minimisation — tools
+- Counter AML.T0057: Context minimisation â€” tools
   receive minimum payload, not full context history
   that would maximise exfiltration value
 
 **Hardening**
-- Counter AML.T0035: DLP on all tool API calls —
+- Counter AML.T0035: DLP on all tool API calls â€”
   sensitive content patterns detected before leaving
   the controlled environment via tool payloads
 
 #### Cross-references
 - Agentic Top 10: ASI02 Tool Misuse, ASI04 Supply Chain
-- Other frameworks: ISO 27001 A.5.19/A.5.20 · NIST CSF 2.0 GV.SC-01 · EU AI Act Art. 25
+- Other frameworks: ISO 27001 A.5.19/A.5.20 Â· NIST CSF 2.0 GV.SC-01 Â· EU AI Act Art. 25
 
 ---
 
-### DSGAI07 — Data Governance, Lifecycle & Classification
+### DSGAI07 â€” Data Governance, Lifecycle & Classification
 
 **Severity:** High
 
 GenAI creates ungoverned derived data assets outside traditional
 governance programmes. From an ATLAS perspective, ungoverned data
-assets are reconnaissance targets — adversaries enumerate and
+assets are reconnaissance targets â€” adversaries enumerate and
 exploit data stores that lack access controls.
 
 #### ATLAS technique mapping
@@ -417,45 +417,45 @@ exploit data stores that lack access controls.
 | Technique | ID | Tactic | How it applies |
 |---|---|---|---|
 | Exfiltrate via ML Inference API | AML.T0035 | Exfiltration | Ungoverned derived assets (embeddings, caches) accessible through inference API without classification controls |
-| Membership Inference | AML.T0024.000 | Exfiltration | Ungoverned training data status — adversary determines what sensitive data is in scope without classification barriers |
+| Membership Inference | AML.T0024.000 | Exfiltration | Ungoverned training data status â€” adversary determines what sensitive data is in scope without classification barriers |
 | Data from Information Repositories | AML.T0057 | Exfiltration | Ungoverned embedding stores and agent memory databases accessed without access controls |
 
 #### Mitigations mapped to ATLAS
 
 **Foundational**
 - Counter AML.T0057: Extend asset inventory to all
-  GenAI-derived assets — ungoverned stores cannot be
+  GenAI-derived assets â€” ungoverned stores cannot be
   protected if they are not known to exist
 - Counter AML.T0035: Classification propagation to
-  derived assets — embeddings and caches inherit source
+  derived assets â€” embeddings and caches inherit source
   classification, blocking unauthenticated inference access
 
 **Hardening**
 - Counter AML.T0024.000: Data governance extending to
-  training data provenance — what data was used in
+  training data provenance â€” what data was used in
   training documented and classified before adversary
   can probe membership
 
 #### Cross-references
 - DSGAI 2026: DSGAI08 Non-Compliance, DSGAI01 Sensitive Data Leakage
-- Other frameworks: ISO 27001 A.5.9/A.8.10 · EU AI Act Art. 10 · NIST CSF 2.0 ID.AM-08
+- Other frameworks: ISO 27001 A.5.9/A.8.10 Â· EU AI Act Art. 10 Â· NIST CSF 2.0 ID.AM-08
 
 ---
 
-### DSGAI08 — Non-Compliance & Regulatory Violations
+### DSGAI08 â€” Non-Compliance & Regulatory Violations
 
 **Severity:** High
 
 GenAI systems trigger regulatory obligations without the organisation
 recognising it. From an ATLAS perspective, non-compliance creates
-legal and reputational attack surfaces — adversaries exploit governance
+legal and reputational attack surfaces â€” adversaries exploit governance
 gaps to maximise harm from incidents they cause.
 
 #### ATLAS technique mapping
 
 | Technique | ID | Tactic | How it applies |
 |---|---|---|---|
-| Data from Information Repositories | AML.T0057 | Exfiltration | Regulatory violations often arise from ungoverned data repositories — adversary exploits what compliance missed |
+| Data from Information Repositories | AML.T0057 | Exfiltration | Regulatory violations often arise from ungoverned data repositories â€” adversary exploits what compliance missed |
 | Exploit Public-Facing Application | AML.T0051 | Initial Access | Non-compliant AI deployments may lack security controls that compliance would have required |
 | Exfiltrate via ML Inference API | AML.T0035 | Exfiltration | Regulatory violations in training data scope make inference API exfiltration more damaging |
 
@@ -463,23 +463,23 @@ gaps to maximise harm from incidents they cause.
 
 **Foundational**
 - Counter AML.T0051: Regulatory scoping assessment
-  for all GenAI deployments — compliance requirements
+  for all GenAI deployments â€” compliance requirements
   drive security controls that limit adversary access
 - Counter AML.T0057: Data governance programme
-  identifies all data repositories — compliance
+  identifies all data repositories â€” compliance
   extends access controls to previously ungoverned stores
 
 #### Cross-references
 - DSGAI 2026: DSGAI07 Data Governance
-- Other frameworks: EU AI Act Art. 10/17 · ISO 27001 A.5.31 · NIST CSF 2.0 GV.OC-01
+- Other frameworks: EU AI Act Art. 10/17 Â· ISO 27001 A.5.31 Â· NIST CSF 2.0 GV.OC-01
 
 ---
 
-### DSGAI09 — Multimodal Cross-Channel Data Leakage
+### DSGAI09 â€” Multimodal Cross-Channel Data Leakage
 
 **Severity:** High
 
-Multimodal GenAI processes images and audio — OCR and transcription
+Multimodal GenAI processes images and audio â€” OCR and transcription
 extract content that leaks through ungoverned channels. From an ATLAS
 perspective, multimodal inputs are a data exfiltration staging area.
 
@@ -495,30 +495,30 @@ perspective, multimodal inputs are a data exfiltration staging area.
 
 **Foundational**
 - Counter AML.T0025: DLP on multimodal extraction
-  outputs — OCR and transcription results scanned
+  outputs â€” OCR and transcription results scanned
   before storage or downstream use
 - Counter AML.T0035: Same classification and access
-  controls on extracted content as source modality —
+  controls on extracted content as source modality â€”
   OCR output of passport image treated as Restricted
 
 **Hardening**
 - Counter AML.T0024.000: Multimodal training data
-  governance — sensitive images and audio tracked in
+  governance â€” sensitive images and audio tracked in
   training data inventory, membership inference tested
 
 #### Cross-references
 - DSGAI 2026: DSGAI01 Sensitive Data Leakage, DSGAI14 Telemetry Leakage
-- Other frameworks: ISO 27001 A.8.11 · GDPR Art. 9 · NIST CSF 2.0 PR.DS-01
+- Other frameworks: ISO 27001 A.8.11 Â· GDPR Art. 9 Â· NIST CSF 2.0 PR.DS-01
 
 ---
 
-### DSGAI10 — Synthetic Data & Anonymisation Pitfalls
+### DSGAI10 â€” Synthetic Data & Anonymisation Pitfalls
 
 **Severity:** Medium
 
 Synthetic data and anonymisation fail to prevent re-identification.
 From an ATLAS perspective, membership inference (AML.T0024.000) is
-the primary technique — adversaries probe synthetic datasets to
+the primary technique â€” adversaries probe synthetic datasets to
 confirm re-identification is possible.
 
 #### ATLAS technique mapping
@@ -533,23 +533,23 @@ confirm re-identification is possible.
 
 **Foundational**
 - Counter AML.T0024.000: Formal re-identification risk
-  assessment before releasing synthetic data — membership
+  assessment before releasing synthetic data â€” membership
   inference testing as standard gate before release
-- Apply differential privacy in synthetic data generation —
+- Apply differential privacy in synthetic data generation â€”
   limits AML.T0024.000 success rate by design
 
 **Advanced**
 - Red team AML.T0024.000: Membership inference testing
-  against synthetic datasets before production use —
+  against synthetic datasets before production use â€”
   verify re-identification risk meets acceptable threshold
 
 #### Cross-references
 - DSGAI 2026: DSGAI08 Non-Compliance, DSGAI18 Inference & Data Reconstruction
-- Other frameworks: ISO 27001 A.5.34 · GDPR Recital 26 · NIST CSF 2.0 GV.RM-06
+- Other frameworks: ISO 27001 A.5.34 Â· GDPR Recital 26 Â· NIST CSF 2.0 GV.RM-06
 
 ---
 
-### DSGAI11 — Cross-Context Conversation Bleed
+### DSGAI11 â€” Cross-Context Conversation Bleed
 
 **Severity:** High
 
@@ -568,15 +568,15 @@ where session isolation failure becomes a data access path.
 #### Mitigations mapped to ATLAS
 
 **Foundational**
-- Counter AML.T0051: Strict session isolation —
+- Counter AML.T0051: Strict session isolation â€”
   adversary crafting cross-session queries encounters
   access controls that reject retrieval from other sessions
-- Counter AML.T0035: Per-user RAG namespaces —
+- Counter AML.T0035: Per-user RAG namespaces â€”
   inference API cannot return documents from other
   users' namespaces regardless of query formulation
 
 **Hardening**
-- Counter AML.T0035: Multi-tenant isolation testing —
+- Counter AML.T0035: Multi-tenant isolation testing â€”
   adversarial cross-session queries tested before each
   deployment, ATLAS AML.T0035 technique specifically
   tested against your retrieval system
@@ -584,18 +584,18 @@ where session isolation failure becomes a data access path.
 #### Cross-references
 - LLM Top 10: LLM02 Sensitive Information Disclosure
 - DSGAI 2026: DSGAI13 Vector Store Platform Security
-- Other frameworks: ISO 27001 A.8.3 · GDPR Art. 32 · NIST CSF 2.0 PR.AA-05
+- Other frameworks: ISO 27001 A.8.3 Â· GDPR Art. 32 Â· NIST CSF 2.0 PR.AA-05
 
 ---
 
-### DSGAI12 — Unsafe Natural-Language Data Gateways
+### DSGAI12 â€” Unsafe Natural-Language Data Gateways
 
 **Severity:** Critical
 
 LLM-to-database interfaces collapse the security boundary between
 user input and database logic. From an ATLAS perspective, this is
 AML.T0051 (Exploit Public-Facing Application) combined with
-AML.T0057 (Data from Information Repositories) — the adversary
+AML.T0057 (Data from Information Repositories) â€” the adversary
 exploits the AI interface to access data stores.
 
 #### ATLAS technique mapping
@@ -603,46 +603,46 @@ exploits the AI interface to access data stores.
 | Technique | ID | Tactic | How it applies |
 |---|---|---|---|
 | Exploit Public-Facing Application | AML.T0051 | Initial Access | NL gateway interface exploited through crafted natural language to generate destructive or exfiltrating queries |
-| Data from Information Repositories | AML.T0057 | Exfiltration | Database accessed through LLM-generated queries — adversary extracts sensitive records without direct database access |
+| Data from Information Repositories | AML.T0057 | Exfiltration | Database accessed through LLM-generated queries â€” adversary extracts sensitive records without direct database access |
 | Exfiltrate via ML Inference API | AML.T0035 | Exfiltration | LLM inference API used to generate queries that extract data from connected databases |
 
 #### Real-world ATLAS cases
 
-- Finance Copilot scenario — malicious RAG-injected
+- Finance Copilot scenario â€” malicious RAG-injected
   document caused LLM-generated SQL to dump customer
   PII from multiple tables
 
 #### Mitigations mapped to ATLAS
 
 **Foundational**
-- Counter AML.T0051: Per-user query execution —
+- Counter AML.T0051: Per-user query execution â€”
   adversary cannot escalate query privileges through
   natural language input when queries execute under
   requesting user's permissions only
 - Counter AML.T0057: Query allowlisting and
-  parameterised execution — NL gateway cannot generate
+  parameterised execution â€” NL gateway cannot generate
   destructive or bulk extraction queries outside
   the approved pattern set
 
 **Hardening**
 - Counter AML.T0035: Log and monitor all LLM-generated
-  queries — bulk extraction patterns detected before
+  queries â€” bulk extraction patterns detected before
   adversary completes data retrieval
 
 **Advanced**
 - Red team AML.T0051/AML.T0057: Adversarial NL-to-SQL
-  testing — attempt bulk extraction and destructive
+  testing â€” attempt bulk extraction and destructive
   queries through natural language against your specific
   deployment
 
 #### Cross-references
 - LLM Top 10: LLM05 Insecure Output Handling
 - Agentic Top 10: ASI02 Tool Misuse, ASI05 Unexpected Code Execution
-- Other frameworks: ISO 27001 A.8.26/A.8.28 · CWE-89 · ISA/IEC 62443 SR 2.2 (OT)
+- Other frameworks: ISO 27001 A.8.26/A.8.28 Â· CWE-89 Â· ISA/IEC 62443 SR 2.2 (OT)
 
 ---
 
-### DSGAI13 — Vector Store Platform Security
+### DSGAI13 â€” Vector Store Platform Security
 
 **Severity:** High
 
@@ -661,39 +661,39 @@ Repositories).
 
 #### Real-world ATLAS cases
 
-- CVE-2024-3584 (Qdrant) — path traversal via snapshot
+- CVE-2024-3584 (Qdrant) â€” path traversal via snapshot
   import achieving arbitrary file write on vector DB host
 - Multiple publicly exposed Chroma instances in
-  production (2024) — unauthenticated bulk extraction
+  production (2024) â€” unauthenticated bulk extraction
 
 #### Mitigations mapped to ATLAS
 
 **Foundational**
 - Counter AML.T0025: RBAC on all vector store
-  collections — unauthenticated access path that enables
+  collections â€” unauthenticated access path that enables
   AML.T0025 exfiltration is eliminated
-- Counter AML.T0020: Patch CVE-2024-3584 class —
+- Counter AML.T0020: Patch CVE-2024-3584 class â€”
   path traversal enabling AML.T0020 staging is closed
 
 **Hardening**
-- Counter AML.T0035: Monitor vector store query patterns —
+- Counter AML.T0035: Monitor vector store query patterns â€”
   bulk extraction volume and unusual query diversity
   indicative of AML.T0035 detected
 
 #### Cross-references
 - LLM Top 10: LLM08 Vector & Embedding Weaknesses
 - Agentic Top 10: ASI06 Memory & Context Poisoning
-- Other frameworks: ISO 27001 A.8.3/A.8.24 · CWE-284 · NIST CSF 2.0 PR.AA-05
+- Other frameworks: ISO 27001 A.8.3/A.8.24 Â· CWE-284 Â· NIST CSF 2.0 PR.AA-05
 
 ---
 
-### DSGAI14 — Excessive Telemetry & Monitoring Leakage
+### DSGAI14 â€” Excessive Telemetry & Monitoring Leakage
 
 **Severity:** High
 
 Observability pipelines capture full GenAI inputs and outputs with
 weaker access controls. From an ATLAS perspective, telemetry stores
-are secondary exfiltration targets — adversaries who cannot access
+are secondary exfiltration targets â€” adversaries who cannot access
 production data may access the same data through poorly secured logs.
 
 #### ATLAS technique mapping
@@ -702,30 +702,30 @@ production data may access the same data through poorly secured logs.
 |---|---|---|---|
 | Exfiltrate via ML Inference API | AML.T0035 | Exfiltration | Sensitive inference inputs and outputs captured in telemetry stores accessed through weaker controls |
 | Exfiltrate via Cyber Means | AML.T0025 | Exfiltration | Telemetry stores containing sensitive GenAI interaction data exfiltrated through standard data access paths |
-| Data from Information Repositories | AML.T0057 | Exfiltration | Observability databases and log stores accessed as information repositories — sensitive content available at scale |
+| Data from Information Repositories | AML.T0057 | Exfiltration | Observability databases and log stores accessed as information repositories â€” sensitive content available at scale |
 
 #### Mitigations mapped to ATLAS
 
 **Foundational**
 - Counter AML.T0057: Same access controls on telemetry
-  stores as production data — telemetry is not a lower-risk
+  stores as production data â€” telemetry is not a lower-risk
   alternative exfiltration path for adversaries
 - Counter AML.T0025: PAN masking and PII redaction
-  before logging — sensitive content never enters
+  before logging â€” sensitive content never enters
   telemetry stores in cleartext
 
 **Hardening**
-- Counter AML.T0035: Short TTL for debug traces —
+- Counter AML.T0035: Short TTL for debug traces â€”
   sensitive content in telemetry stores is only accessible
   for defined window, reducing AML.T0057 value
 
 #### Cross-references
 - DSGAI 2026: DSGAI01 Sensitive Data Leakage, DSGAI07 Data Governance
-- Other frameworks: ISO 27001 A.8.15 · GDPR Art. 32 · NIST CSF 2.0 GV.OC-01
+- Other frameworks: ISO 27001 A.8.15 Â· GDPR Art. 32 Â· NIST CSF 2.0 GV.OC-01
 
 ---
 
-### DSGAI15 — Over-Broad Context Windows
+### DSGAI15 â€” Over-Broad Context Windows
 
 **Severity:** High
 
@@ -739,34 +739,34 @@ Application) by maximising the data accessible to an injection attack.
 | Technique | ID | Tactic | How it applies |
 |---|---|---|---|
 | Exploit Public-Facing Application | AML.T0051 | Initial Access | Prompt injection via LLM interface accesses all content injected into over-broad context window |
-| Exfiltrate via Cyber Means | AML.T0025 | Exfiltration | Over-broad context window content exfiltrated through successful injection — adversary retrieves aggregated sensitive data |
+| Exfiltrate via Cyber Means | AML.T0025 | Exfiltration | Over-broad context window content exfiltrated through successful injection â€” adversary retrieves aggregated sensitive data |
 | Exfiltrate via ML Inference API | AML.T0035 | Exfiltration | Inference API queries designed to surface maximum context window content through crafted prompts |
 
 #### Mitigations mapped to ATLAS
 
 **Foundational**
 - Counter AML.T0035: Minimum-necessary context
-  injection — adversary gains access only to minimum
+  injection â€” adversary gains access only to minimum
   relevant content, not aggregated cross-trust-domain data
 - Counter AML.T0051: Classification ceiling tracking
-  in context window — highest classification of any
+  in context window â€” highest classification of any
   document drives response handling, limiting AML.T0051
   exfiltration value
 
 #### Cross-references
 - LLM Top 10: LLM07 System Prompt Leakage
 - Agentic Top 10: ASI01 Agent Goal Hijack
-- Other frameworks: AIUC-1 A/B005 · ISO 27001 A.8.3 · NIST CSF 2.0 PR.AA-05
+- Other frameworks: AIUC-1 A/B005 Â· ISO 27001 A.8.3 Â· NIST CSF 2.0 PR.AA-05
 
 ---
 
-### DSGAI16 — Endpoint & Browser Assistant Overreach
+### DSGAI16 â€” Endpoint & Browser Assistant Overreach
 
 **Severity:** High
 
 Browser AI assistants access sensitive data across open applications.
 From an ATLAS perspective, endpoint AI assistants are insider threat
-amplifiers — they expand the data accessible to any adversary who
+amplifiers â€” they expand the data accessible to any adversary who
 compromises or controls the assistant.
 
 #### ATLAS technique mapping
@@ -774,12 +774,12 @@ compromises or controls the assistant.
 | Technique | ID | Tactic | How it applies |
 |---|---|---|---|
 | Discover ML Model Ontology | AML.T0013 | Reconnaissance | Adversary learns what data the browser assistant can access across open applications |
-| Data from Information Repositories | AML.T0057 | Exfiltration | Browser assistant accesses sensitive data across tabs and applications — adversary controls assistant to exfiltrate |
-| Exfiltrate via ML Inference API | AML.T0035 | Exfiltration | Compromised browser assistant used as exfiltration channel — sensitive data from accessible applications transmitted |
+| Data from Information Repositories | AML.T0057 | Exfiltration | Browser assistant accesses sensitive data across tabs and applications â€” adversary controls assistant to exfiltrate |
+| Exfiltrate via ML Inference API | AML.T0035 | Exfiltration | Compromised browser assistant used as exfiltration channel â€” sensitive data from accessible applications transmitted |
 
 #### Real-world ATLAS cases
 
-- HashJack (2025) — AI browsers hijacked via hidden
+- HashJack (2025) â€” AI browsers hijacked via hidden
   prompt instructions enabling data exfiltration across
   all accessible browser tabs
 
@@ -787,68 +787,68 @@ compromises or controls the assistant.
 
 **Foundational**
 - Counter AML.T0057: Approved extensions only, permission
-  minimisation — adversary controlling compromised
+  minimisation â€” adversary controlling compromised
   extension can only access the minimum permitted data
 - Counter AML.T0013: Restrict browser assistant data
-  access scope — adversary reconnaissance reveals
+  access scope â€” adversary reconnaissance reveals
   limited attack surface
 
 **Hardening**
-- Counter AML.T0035: Monitor browser AI traffic —
+- Counter AML.T0035: Monitor browser AI traffic â€”
   unusual data access patterns from browser assistant
   detected as potential AML.T0035 exfiltration
 
 #### Cross-references
 - Agentic Top 10: ASI10 Rogue Agents
 - DSGAI 2026: DSGAI03 Shadow AI
-- Other frameworks: ISO 27001 A.8.1/A.8.7 · NIST CSF 2.0 GV.SC-01 · EU AI Act Art. 9
+- Other frameworks: ISO 27001 A.8.1/A.8.7 Â· NIST CSF 2.0 GV.SC-01 Â· EU AI Act Art. 9
 
 ---
 
-### DSGAI17 — Data Availability & Resilience Failures
+### DSGAI17 â€” Data Availability & Resilience Failures
 
 **Severity:** High
 
 Silent GenAI pipeline failures affect advisory and fraud detection
 availability. From an ATLAS perspective, this maps to Denial of ML
-Service (AML.T0029) and Cost Harvesting (AML.T0034) — adversaries
+Service (AML.T0029) and Cost Harvesting (AML.T0034) â€” adversaries
 may deliberately trigger availability failures.
 
 #### ATLAS technique mapping
 
 | Technique | ID | Tactic | How it applies |
 |---|---|---|---|
-| Denial of ML Service | AML.T0029 | Impact | Adversary saturates GenAI pipeline — vector store, RAG retrieval, or inference endpoint rendered unavailable |
-| Cost Harvesting | AML.T0034 | Impact | Adversary triggers disproportionate resource consumption through crafted queries — financial or operational DoS |
+| Denial of ML Service | AML.T0029 | Impact | Adversary saturates GenAI pipeline â€” vector store, RAG retrieval, or inference endpoint rendered unavailable |
+| Cost Harvesting | AML.T0034 | Impact | Adversary triggers disproportionate resource consumption through crafted queries â€” financial or operational DoS |
 | Data from Information Repositories | AML.T0057 | Exfiltration | Pipeline failures may expose data through error messages or fallback paths that lack normal access controls |
 
 #### Mitigations mapped to ATLAS
 
 **Foundational**
 - Counter AML.T0029: Circuit breakers and graceful
-  degradation — AML.T0029 attack causes graceful
+  degradation â€” AML.T0029 attack causes graceful
   degradation rather than service disruption
-- Counter AML.T0034: Rate limiting and per-user budgets —
+- Counter AML.T0034: Rate limiting and per-user budgets â€”
   cost harvesting attacks bounded by hard caps
 
 **Hardening**
-- Counter AML.T0029: Freshness monitoring on RAG pipeline —
+- Counter AML.T0029: Freshness monitoring on RAG pipeline â€”
   stale index detected before silent misinformation
   reaches users, limiting AML.T0029 impact
 
 #### Cross-references
 - LLM Top 10: LLM10 Unbounded Consumption
 - Agentic Top 10: ASI08 Cascading Agent Failures
-- Other frameworks: ISA/IEC 62443 SR 7.6 (OT) · NIST CSF 2.0 PR.IR-01 · AIUC-1 D
+- Other frameworks: ISA/IEC 62443 SR 7.6 (OT) Â· NIST CSF 2.0 PR.IR-01 Â· AIUC-1 D
 
 ---
 
-### DSGAI18 — Inference & Data Reconstruction
+### DSGAI18 â€” Inference & Data Reconstruction
 
 **Severity:** High
 
 Membership inference and model inversion attacks reconstruct sensitive
-training data. This is the canonical ATLAS inference attack —
+training data. This is the canonical ATLAS inference attack â€”
 AML.T0024.000 (Membership Inference) and AML.T0027 (Model Inversion)
 are the primary techniques.
 
@@ -864,39 +864,39 @@ are the primary techniques.
 
 **Foundational**
 - Counter AML.T0024.000: Differential privacy in
-  training — limits membership inference success rate
+  training â€” limits membership inference success rate
   by making individual training examples statistically
   indistinguishable
-- Counter AML.T0027: Confidence score suppression —
+- Counter AML.T0027: Confidence score suppression â€”
   removes information that enables model inversion,
   adversary cannot extract gradient information
 
 **Hardening**
-- Counter AML.T0024.000: Output rate limiting —
+- Counter AML.T0024.000: Output rate limiting â€”
   systematic membership inference query campaigns
   detected and rate-limited before reconstruction succeeds
 
 **Advanced**
 - Red team AML.T0024.000 and AML.T0027: Membership
   inference and model inversion testing before
-  each production deployment — verify sensitive
+  each production deployment â€” verify sensitive
   training data cannot be reconstructed under
   realistic attacker conditions
 
 #### Cross-references
 - LLM Top 10: LLM02 Sensitive Information Disclosure, LLM08 Vector & Embedding Weaknesses
 - DSGAI 2026: DSGAI10 Synthetic Data Pitfalls
-- Other frameworks: ISO 27001 A.8.11 · GDPR Art. 25 · NIST CSF 2.0 GV.RM-06
+- Other frameworks: ISO 27001 A.8.11 Â· GDPR Art. 25 Â· NIST CSF 2.0 GV.RM-06
 
 ---
 
-### DSGAI19 — Human-in-Loop & Labeler Overexposure
+### DSGAI19 â€” Human-in-Loop & Labeler Overexposure
 
 **Severity:** Medium
 
 Human annotators access sensitive model inputs during labelling.
 From an ATLAS perspective, labelling vendors are a supply chain
-access path — adversaries who compromise or operate labelling services
+access path â€” adversaries who compromise or operate labelling services
 gain access to sensitive training data.
 
 #### ATLAS technique mapping
@@ -911,25 +911,25 @@ gain access to sensitive training data.
 
 **Foundational**
 - Counter AML.T0057: Treat labelling vendors as
-  third-party suppliers — security assessment before
+  third-party suppliers â€” security assessment before
   engagement limits adversary-controlled vendor risk
 - Counter AML.T0020: Data minimisation in labelling
-  tasks — adversary sees minimum content, limiting
+  tasks â€” adversary sees minimum content, limiting
   both exfiltration value and poisoning opportunity
 
 **Hardening**
 - Counter AML.T0035: Anonymise sensitive content
-  before labelling — adversary accessing labelling
+  before labelling â€” adversary accessing labelling
   vendor systems finds anonymised data rather than
   raw sensitive records
 
 #### Cross-references
 - DSGAI 2026: DSGAI07 Data Governance, DSGAI08 Non-Compliance
-- Other frameworks: ISO 27001 A.5.34 · GDPR Art. 28 · NIST CSF 2.0 GV.SC-01
+- Other frameworks: ISO 27001 A.5.34 Â· GDPR Art. 28 Â· NIST CSF 2.0 GV.SC-01
 
 ---
 
-### DSGAI20 — Model Exfiltration & IP Replication
+### DSGAI20 â€” Model Exfiltration & IP Replication
 
 **Severity:** High
 
@@ -943,50 +943,50 @@ technique for this threat.
 |---|---|---|---|
 | Extract ML Model | AML.T0016 | Exfiltration | Adversary systematically queries model to extract sufficient information to replicate its functionality |
 | Exfiltrate via Cyber Means | AML.T0025 | Exfiltration | Query results and model outputs systematically collected and transmitted to adversary infrastructure |
-| Cost Harvesting | AML.T0034 | Impact | High-volume model extraction queries consume significant compute resources — financial impact alongside IP theft |
+| Cost Harvesting | AML.T0034 | Impact | High-volume model extraction queries consume significant compute resources â€” financial impact alongside IP theft |
 
 #### Real-world ATLAS cases
 
 - Multiple documented model extraction campaigns
-  against commercial LLM APIs (2024) — systematic
+  against commercial LLM APIs (2024) â€” systematic
   querying to replicate model capabilities
 
 #### Mitigations mapped to ATLAS
 
 **Foundational**
-- Counter AML.T0016: API rate limiting — systematic
+- Counter AML.T0016: API rate limiting â€” systematic
   extraction requires high query volumes, hard caps
   raise cost and trigger detection before AML.T0016
   succeeds
-- Counter AML.T0034: Per-user cost budgets —
+- Counter AML.T0034: Per-user cost budgets â€”
   extraction campaigns bounded by cost limits
 
 **Hardening**
-- Counter AML.T0016: Query diversity monitoring —
+- Counter AML.T0016: Query diversity monitoring â€”
   AML.T0016 produces characteristic query patterns
   (systematic output space coverage) detected through
   anomaly analysis
 
 **Advanced**
 - Red team AML.T0016: Model extraction attempt using
-  your own API — quantify query budget required for
+  your own API â€” quantify query budget required for
   meaningful replication, verify rate limiting
   prevents success at that budget
 
 #### Cross-references
 - LLM Top 10: LLM02 Sensitive Information Disclosure
 - DSGAI 2026: DSGAI18 Inference & Data Reconstruction
-- Other frameworks: ISO 27001 A.5.12 · MITRE ATT&CK (IT) · NIST CSF 2.0 DE.CM-09
+- Other frameworks: ISO 27001 A.5.12 Â· MITRE ATT&CK (IT) Â· NIST CSF 2.0 DE.CM-09
 
 ---
 
-### DSGAI21 — Disinformation via Data Poisoning
+### DSGAI21 â€” Disinformation via Data Poisoning
 
 **Severity:** High
 
 False content injected into RAG corpora causes GenAI to surface
 misinformation as authoritative. AML.T0045 (Publish Poisoned Datasets)
-is the primary ATLAS technique — adversaries release false content
+is the primary ATLAS technique â€” adversaries release false content
 into retrieval sources without needing training access.
 
 #### ATLAS technique mapping
@@ -994,43 +994,43 @@ into retrieval sources without needing training access.
 | Technique | ID | Tactic | How it applies |
 |---|---|---|---|
 | Publish Poisoned Datasets | AML.T0045 | ML Attack Staging | Adversary publishes false content in public repositories, documentation sites, or knowledge bases indexed by RAG systems |
-| Poison Training Data | AML.T0020 | ML Attack Staging | Adversary introduces false content into RAG corpus through ingestion path — no public publication required |
+| Poison Training Data | AML.T0020 | ML Attack Staging | Adversary introduces false content into RAG corpus through ingestion path â€” no public publication required |
 | Craft Adversarial Data | AML.T0031 | ML Attack Staging | False content crafted to appear authoritative and rank highly in semantic similarity searches |
 
 #### Real-world ATLAS cases
 
-- Grok RAG incident (2025) — production RAG system
+- Grok RAG incident (2025) â€” production RAG system
   surfaced externally introduced false information as
   authoritative output
 - Crowdsourced dataset poisoning campaigns targeting
-  open training corpora — active documented attack class
+  open training corpora â€” active documented attack class
 
 #### Mitigations mapped to ATLAS
 
 **Foundational**
 - Counter AML.T0045: Source trust tiering in RAG
-  retrieval — adversary-published content in low-trust
+  retrieval â€” adversary-published content in low-trust
   sources weighted down, authoritative sources prioritised
-- Counter AML.T0020: RAG ingestion integrity controls —
+- Counter AML.T0020: RAG ingestion integrity controls â€”
   source allowlisting and content validation gates
   prevent AML.T0020 through known ingestion paths
 
 **Hardening**
 - Counter AML.T0031: Cryptographic provenance for
-  authoritative sources in RAG — adversary cannot
+  authoritative sources in RAG â€” adversary cannot
   craft content that passes provenance verification
   for trusted source tier
 
 **Advanced**
 - Red team AML.T0045: Adversarial RAG integrity
-  testing — attempt to surface false content through
+  testing â€” attempt to surface false content through
   public sources indexed by your RAG system, verify
   trust tiering effectiveness
 
 #### Cross-references
 - LLM Top 10: LLM04 Data & Model Poisoning, LLM09 Misinformation
 - Agentic Top 10: ASI06 Memory & Context Poisoning
-- Other frameworks: ISO 27001 A.5.7 · NIST CSF 2.0 GV.SC-01 · SOC 2 PI1.2
+- Other frameworks: ISO 27001 A.5.7 Â· NIST CSF 2.0 GV.SC-01 Â· SOC 2 PI1.2
 
 ---
 
@@ -1041,25 +1041,25 @@ into retrieval sources without needing training access.
 The most dangerous DSGAI attack paths from an ATLAS perspective
 involve technique chaining across multiple tactics:
 
-**Path 1 — Training pipeline compromise:**
+**Path 1 â€” Training pipeline compromise:**
 AML.T0012 (Obtain Capabilities) ?
 AML.T0020 (Poison Training Data) ?
 AML.T0018 (Backdoor ML Model) ?
 Production deployment with embedded backdoor
 
-**Path 2 — Inference exfiltration:**
+**Path 2 â€” Inference exfiltration:**
 AML.T0013 (Discover ML Model Ontology) ?
 AML.T0051 (Exploit Public-Facing Application) ?
 AML.T0035 (Exfiltrate via ML Inference API) ?
 Sensitive training data or RAG content extracted
 
-**Path 3 — Supply chain and disinformation:**
+**Path 3 â€” Supply chain and disinformation:**
 AML.T0045 (Publish Poisoned Datasets) ?
 AML.T0031 (Craft Adversarial Data) ?
 RAG corpus poisoned via public source indexing ?
 GenAI surfaces adversary content as authoritative
 
-**Path 4 — Model theft:**
+**Path 4 â€” Model theft:**
 AML.T0013 (Discover ML Model Ontology) ?
 AML.T0016 (Extract ML Model) ?
 AML.T0025 (Exfiltrate via Cyber Means) ?
@@ -1069,9 +1069,9 @@ Functional model replica constructed without training access
 
 | ATLAS priority | DSGAI entries | Rationale |
 |---|---|---|
-| Immediate — active attack class | DSGAI01, DSGAI04, DSGAI12, DSGAI21 | AML.T0035, AML.T0020, AML.T0045 are active, documented attack techniques |
-| High — rising threat | DSGAI13, DSGAI18, DSGAI20 | AML.T0024.000, AML.T0016 increasingly commoditised |
-| Medium — exploitable at scale | DSGAI03, DSGAI06, DSGAI11 | AML.T0057, AML.T0051 require less sophistication as tooling matures |
+| Immediate â€” active attack class | DSGAI01, DSGAI04, DSGAI12, DSGAI21 | AML.T0035, AML.T0020, AML.T0045 are active, documented attack techniques |
+| High â€” rising threat | DSGAI13, DSGAI18, DSGAI20 | AML.T0024.000, AML.T0016 increasingly commoditised |
+| Medium â€” exploitable at scale | DSGAI03, DSGAI06, DSGAI11 | AML.T0057, AML.T0051 require less sophistication as tooling matures |
 
 ---
 
@@ -1081,8 +1081,8 @@ Functional model replica constructed without training access
 - [MITRE ATLAS Techniques](https://atlas.mitre.org/techniques)
 - [MITRE ATLAS Case Studies](https://atlas.mitre.org/studies)
 - [OWASP GenAI Data Security Risks 2026](https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/)
-- [LLM Top 10 × MITRE ATLAS](../llm-top10/LLM_MITREATLAS.md)
-- [Agentic Top 10 × MITRE ATLAS](../agentic-top10/Agentic_MITREATLAS.md)
+- [LLM Top 10 Ã— MITRE ATLAS](../llm-top10/LLM_MITREATLAS.md)
+- [Agentic Top 10 Ã— MITRE ATLAS](../agentic-top10/Agentic_MITREATLAS.md)
 
 ---
 
@@ -1090,7 +1090,7 @@ Functional model replica constructed without training access
 
 | Date | Version | Change | Author |
 |---|---|---|---|
-| 2026-03-26 | 2026-Q1 | Initial mapping — DSGAI01–DSGAI21 full entries with ATLAS attack path analysis | OWASP GenAI Data Security Initiative |
+| 2026-03-26 | 2026-Q1 | Initial mapping â€” DSGAI01â€“DSGAI21 full entries with ATLAS attack path analysis | OWASP GenAI Data Security Initiative |
 
 ---
 

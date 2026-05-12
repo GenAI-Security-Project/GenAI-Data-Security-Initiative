@@ -9,6 +9,8 @@
  *   --format csv            CSV      — open in Excel / Google Sheets
  *   --format json           JSON     — programmatic consumption / dashboards
  *   --format oscal          OSCAL    — OSCAL 1.1.2 Component Definition JSON
+ *   --format oscal-catalog  OSCAL    — OSCAL 1.1.2 Catalog (full control inventory)
+ *   --format grc            GRC      — ServiceNow/Archer/Drata-ready import JSON
  *
  * Usage:
  *   node scripts/compliance-report.js
@@ -21,7 +23,7 @@
  * Flags:
  *   --framework <name>   Report for one framework only (partial match, case-insensitive)
  *   --severity <level>   Filter entries: Critical | High | Medium | Low
- *   --format <fmt>       md | csv | json | oscal  (default: md)
+ *   --format <fmt>       md | csv | json | oscal | oscal-catalog | grc  (default: md)
  *   --out <dir>          Output directory  (default: reports/)
  *   --stdout             Print to stdout instead of writing files
  *   --list-frameworks    List all available framework names and exit
@@ -61,6 +63,9 @@ const REPORT_FRAMEWORKS = [
   'NIST SP 800-218A',
   'FedRAMP',
   'DORA',
+  'CWE/CVE',
+  'OWASP AI Testing Guide',
+  'STRIDE',
 ];
 
 const SEVERITY_ORDER = { Critical: 0, High: 1, Medium: 2, Low: 3 };
@@ -187,6 +192,24 @@ const FW_META = {
     audience: 'Financial sector CISOs, third-party risk managers, EU financial regulators',
     note: 'Digital Operational Resilience Act — ICT risk, incident reporting, resilience testing for financial AI.',
   },
+  'CWE/CVE': {
+    short: 'CWE/CVE',
+    deadline: 'Ongoing — community-maintained',
+    audience: 'AppSec engineers, vulnerability researchers',
+    note: 'Common Weakness Enumeration and Common Vulnerabilities — mapped to AI-specific weaknesses.',
+  },
+  'OWASP AI Testing Guide': {
+    short: 'AI Testing',
+    deadline: 'Ongoing',
+    audience: 'AI pen testers, red teamers, QA engineers',
+    note: 'Structured testing methodology for AI system security — input handling, model behaviour, access control.',
+  },
+  'STRIDE': {
+    short: 'STRIDE',
+    deadline: 'Reference — threat modelling',
+    audience: 'Threat modellers, security architects',
+    note: 'Spoofing, Tampering, Repudiation, Info Disclosure, DoS, Elevation — applied to AI/agentic systems.',
+  },
 };
 
 // ── Argument parsing ─────────────────────────────────────────────────────────
@@ -218,8 +241,8 @@ function parseArgs() {
     }
   }
 
-  if (!['md', 'csv', 'json', 'oscal'].includes(opts.format)) {
-    console.error(`Unknown format: ${opts.format}. Use md, csv, json, or oscal.`);
+  if (!['md', 'csv', 'json', 'oscal', 'oscal-catalog', 'grc'].includes(opts.format)) {
+    console.error(`Unknown format: ${opts.format}. Use md, csv, json, oscal, oscal-catalog, or grc.`);
     process.exit(1);
   }
 
@@ -756,6 +779,161 @@ function renderOSCAL(fw, allEntries) {
   return JSON.stringify(componentDef, null, 2);
 }
 
+// ── OSCAL 1.1.2 Catalog renderer ────────────────────────────────────────────
+
+function renderOSCALCatalog(fw, allEntries) {
+  // Load the framework registry for full control inventory
+  const fwDir = path.join(REPO_ROOT, 'data', 'frameworks');
+  const registryFiles = fs.readdirSync(fwDir).filter(f => f.endsWith('.json'));
+  let registryFw = null;
+  for (const f of registryFiles) {
+    const reg = JSON.parse(fs.readFileSync(path.join(fwDir, f), 'utf8'));
+    if (reg.name === fw) { registryFw = reg; break; }
+  }
+
+  const r   = buildFrameworkReport(fw, allEntries);
+  const now = new Date().toISOString();
+
+  // Group controls by function/domain for OSCAL groups
+  const groups = new Map();
+  const controls = registryFw ? registryFw.controls : [...r.controls.values()];
+
+  for (const ctrl of controls) {
+    const fn = (registryFw ? ctrl.function : null) || 'General';
+    if (!groups.has(fn)) groups.set(fn, []);
+    groups.get(fn).push(ctrl);
+  }
+
+  const catalog = {
+    catalog: {
+      uuid: crypto.randomUUID(),
+      metadata: {
+        title: `${fw} — Control Catalog`,
+        'last-modified': now,
+        version: registryFw ? registryFw.version : '1.0',
+        'oscal-version': '1.1.2',
+        roles: [{ id: 'publisher', title: 'Framework Publisher' }],
+        parties: [{
+          uuid: crypto.randomUUID(),
+          type: 'organization',
+          name: registryFw ? registryFw.publisher : 'Unknown',
+        }],
+        links: registryFw ? [{ href: registryFw.url, rel: 'canonical' }] : [],
+      },
+      groups: [...groups.entries()].map(([groupName, ctrls]) => ({
+        id: groupName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        title: groupName,
+        controls: ctrls.map(ctrl => {
+          const cid = registryFw ? ctrl.control_id : ctrl.control_id;
+          const mappedData = r.controls.get(cid);
+          return {
+            id: cid,
+            title: registryFw ? ctrl.title : (ctrl.control_name || ctrl.title),
+            props: [
+              ...(ctrl.description ? [{ name: 'description', value: ctrl.description }] : []),
+              ...(mappedData ? [
+                { name: 'owasp-coverage', value: mappedData.entries.map(e => e.id).join(','), ns: 'https://github.com/emmanuelgjr/GenAI-Security-Crosswalk' },
+                { name: 'coverage-count', value: String(mappedData.entries.length), ns: 'https://github.com/emmanuelgjr/GenAI-Security-Crosswalk' },
+              ] : [
+                { name: 'owasp-coverage', value: 'none', ns: 'https://github.com/emmanuelgjr/GenAI-Security-Crosswalk' },
+              ]),
+            ],
+            links: mappedData ? mappedData.entries.map(e => ({
+              href: `https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/entries/${e.id}.json`,
+              rel: 'related',
+              text: `${e.id}: ${e.name}`,
+            })) : [],
+          };
+        }),
+      })),
+      'back-matter': {
+        resources: [{
+          uuid: crypto.randomUUID(),
+          title: 'GenAI Security Crosswalk',
+          description: 'OWASP GenAI Security Crosswalk — comprehensive mapping of AI security risks to compliance frameworks',
+          rlinks: [{ href: 'https://github.com/emmanuelgjr/GenAI-Security-Crosswalk' }],
+        }],
+      },
+    },
+  };
+
+  return JSON.stringify(catalog, null, 2);
+}
+
+// ── GRC platform export renderer ────────────────────────────────────────────
+
+function renderGRC(fw, allEntries) {
+  const r   = buildFrameworkReport(fw, allEntries);
+  const now = new Date().toISOString();
+
+  // Build GRC-import-friendly format compatible with ServiceNow, Archer, Drata
+  const grcExport = {
+    _meta: {
+      format: 'genai-crosswalk-grc-v1',
+      generated: now,
+      framework: fw,
+      source: 'https://github.com/emmanuelgjr/GenAI-Security-Crosswalk',
+      coverage_rate: Math.round(r.coverageRate * 100) + '%',
+      total_entries: allEntries.length,
+      covered_entries: r.entries.length,
+      gap_entries: r.uncovered.length,
+    },
+    // Control objectives — each maps to a GRC "control" record
+    controls: [...r.controls.values()].map(ctrl => ({
+      control_id: ctrl.control_id,
+      control_name: ctrl.control_name,
+      tier: ctrl.tier,
+      implementation_status: 'planned',
+      // Risk mappings — connect to risk register entries
+      risk_mappings: ctrl.entries.map(entry => ({
+        risk_id: entry.id,
+        risk_name: entry.name,
+        source_list: entry.source_list,
+        severity: entry.severity,
+        risk_rating: ({ Critical: 4, High: 3, Medium: 2, Low: 1 })[entry.severity] || 0,
+      })),
+      // Evidence requirements
+      evidence_requirements: ctrl.entries.map(entry =>
+        `Demonstrate ${ctrl.control_name} addresses ${entry.id}: ${entry.name}`
+      ),
+      notes: ctrl.notes.join('; '),
+      // ServiceNow-compatible fields
+      sn_control_objective: ctrl.control_name,
+      sn_risk_statement: `Failure to implement ${ctrl.control_id} (${ctrl.control_name}) leaves the following AI risks unmitigated: ${ctrl.entries.map(e => e.id).join(', ')}`,
+      sn_test_plan: `Verify implementation of ${ctrl.control_id} through evidence review, configuration audit, and testing per OWASP GenAI Security Crosswalk.`,
+    })),
+    // Gaps — entries with no framework coverage (for risk register)
+    gaps: r.uncovered.map(entry => ({
+      risk_id: entry.id,
+      risk_name: entry.name,
+      severity: entry.severity,
+      source_list: entry.source_list,
+      risk_rating: ({ Critical: 4, High: 3, Medium: 2, Low: 1 })[entry.severity] || 0,
+      gap_status: 'open',
+      remediation: `No ${fw} controls currently mapped to ${entry.id}: ${entry.name}. Requires gap assessment and control implementation.`,
+      sn_risk_statement: `${entry.id} (${entry.name}) has no ${fw} controls mapped. Severity: ${entry.severity}.`,
+    })),
+    // Cross-reference matrix for Archer/Drata
+    cross_reference_matrix: allEntries.map(entry => {
+      const fwMappings = entry.mappings.filter(m => m.framework === fw);
+      return {
+        entry_id: entry.id,
+        entry_name: entry.name,
+        severity: entry.severity,
+        source_list: entry.source_list,
+        is_covered: fwMappings.length > 0,
+        control_count: fwMappings.length,
+        control_ids: fwMappings.map(m => {
+          const norm = normalise(m.control_id) || normalise(m.control_name);
+          return norm;
+        }),
+      };
+    }),
+  };
+
+  return JSON.stringify(grcExport, null, 2);
+}
+
 // ── File output ───────────────────────────────────────────────────────────────
 
 function slugify(name) {
@@ -770,7 +948,8 @@ function writeOutput(content, fw, format, outDir, toStdout) {
 
   if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
 
-  const ext  = format === 'md' ? '.md' : format === 'csv' ? '.csv' : format === 'oscal' ? '.oscal.json' : '.json';
+  const extMap = { md: '.md', csv: '.csv', oscal: '.oscal.json', 'oscal-catalog': '.catalog.oscal.json', grc: '.grc.json', json: '.json' };
+  const ext  = extMap[format] || '.json';
   const slug = fw === '__summary__' ? 'compliance-summary' : `${slugify(fw)}-gap-assessment`;
   const file = path.join(outDir, slug + ext);
 
@@ -822,6 +1001,10 @@ function main() {
       content = renderCSV(fw, entries);
     } else if (opts.format === 'oscal') {
       content = renderOSCAL(fw, entries);
+    } else if (opts.format === 'oscal-catalog') {
+      content = renderOSCALCatalog(fw, entries);
+    } else if (opts.format === 'grc') {
+      content = renderGRC(fw, entries);
     } else {
       content = renderJSON(fw, entries);
     }

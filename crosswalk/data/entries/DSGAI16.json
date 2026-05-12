@@ -683,6 +683,12 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-050"
+    },
+    {
+      "name": "EU GDPR enforcement: ChatGPT cannot correct factually wrong personal data",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-068"
     }
   ],
   "crossrefs": {

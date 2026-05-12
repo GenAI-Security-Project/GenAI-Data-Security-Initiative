@@ -3,21 +3,21 @@
   Source list : OWASP GenAI Data Security Risks and Mitigations 2026 (DSGAI01-DSGAI21)
   Framework   : NIST Cybersecurity Framework 2.0 (CSF 2.0)
   Version     : 2026-Q1
-  Maintained by: OWASP GenAI Data Security Initiative — https://genai.owasp.org
+  Maintained by: OWASP GenAI Data Security Initiative â€” https://genai.owasp.org
   License     : CC BY-SA 4.0
 -->
 
-# DSGAI 2026 × NIST CSF 2.0
+# DSGAI 2026 Ã— NIST CSF 2.0
 
 Mapping the [OWASP GenAI Data Security Risks and Mitigations 2026](https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/)
-(DSGAI01–DSGAI21) to the [NIST Cybersecurity Framework 2.0](https://www.nist.gov/cyberframework).
+(DSGAI01â€“DSGAI21) to the [NIST Cybersecurity Framework 2.0](https://www.nist.gov/cyberframework).
 
 The DSGAI taxonomy follows sensitive data through the full GenAI
 system lifecycle. CSF 2.0 provides the organisational control
 structure to govern, identify, protect, detect, respond to, and
 recover from data security failures across that lifecycle. The
 new GOVERN function in CSF 2.0 is the critical addition for GenAI
-data security — data governance policy, supply chain oversight,
+data security â€” data governance policy, supply chain oversight,
 and acceptable use requirements are GOVERN responsibilities.
 
 ---
@@ -26,37 +26,37 @@ and acceptable use requirements are GOVERN responsibilities.
 
 | ID | Name | Severity | Primary CSF 2.0 Categories | Tier |
 |---|---|---|---|---|
-| DSGAI01 | Sensitive Data Leakage | Critical | PR.DS-01, PR.DS-02, DE.CM-01, GV.RM-06 | Foundational–Advanced |
-| DSGAI02 | Agent Identity & Credential Exposure | Critical | PR.AA-01, PR.AA-05, DE.CM-01, GV.RM-06 | Foundational–Advanced |
-| DSGAI03 | Shadow AI & Unsanctioned Data Flows | High | GV.OC-01, PR.AT-01, DE.CM-09, GV.SC-01 | Foundational–Hardening |
-| DSGAI04 | Data, Model & Artifact Poisoning | Critical | PR.DS-01, DE.CM-09, RS.AN-03, GV.SC-01 | Hardening–Advanced |
-| DSGAI05 | Data Integrity & Validation Failures | High | PR.PS-04, PR.DS-01, DE.CM-09, ID.RA-01 | Foundational–Hardening |
-| DSGAI06 | Tool, Plugin & Agent Data Exchange | High | GV.SC-01, PR.AA-05, DE.CM-01, ID.AM-08 | Foundational–Hardening |
-| DSGAI07 | Data Governance, Lifecycle & Classification | High | GV.OC-01, ID.AM-08, PR.DS-01, DE.CM-09 | Foundational–Advanced |
-| DSGAI08 | Non-Compliance & Regulatory Violations | High | GV.OC-01, GV.RM-01, ID.RA-01, RS.CO-03 | Foundational–Advanced |
-| DSGAI09 | Multimodal Cross-Channel Data Leakage | High | PR.DS-01, PR.DS-02, DE.CM-01, ID.AM-08 | Hardening–Advanced |
-| DSGAI10 | Synthetic Data & Anonymisation Pitfalls | Medium | GV.RM-06, ID.RA-01, PR.DS-01, DE.CM-09 | Hardening–Advanced |
-| DSGAI11 | Cross-Context Conversation Bleed | High | PR.AA-05, PR.DS-01, DE.CM-01, ID.RA-01 | Foundational–Hardening |
-| DSGAI12 | Unsafe NL Data Gateways | Critical | PR.AA-05, PR.PS-04, DE.CM-01, ID.RA-01 | Foundational–Advanced |
-| DSGAI13 | Vector Store Platform Security | High | PR.DS-01, PR.AA-05, PR.PS-02, DE.CM-09 | Foundational–Hardening |
-| DSGAI14 | Excessive Telemetry & Monitoring Leakage | High | GV.OC-01, PR.DS-01, PR.AA-05, DE.CM-09 | Foundational–Hardening |
-| DSGAI15 | Over-Broad Context Windows | High | PR.AA-05, PR.DS-01, DE.CM-01, ID.RA-01 | Foundational–Hardening |
-| DSGAI16 | Endpoint & Browser Assistant Overreach | High | GV.SC-01, PR.PS-02, DE.CM-01, ID.AM-08 | Foundational–Hardening |
-| DSGAI17 | Data Availability & Resilience Failures | High | PR.IR-01, DE.CM-01, RS.MI-01, RC.RP-01 | Foundational–Advanced |
-| DSGAI18 | Inference & Data Reconstruction | High | PR.DS-01, DE.CM-09, ID.RA-01, GV.RM-06 | Hardening–Advanced |
-| DSGAI19 | Human-in-Loop & Labeler Overexposure | Medium | GV.SC-01, PR.AA-05, GV.OC-01, PR.AT-01 | Foundational–Hardening |
-| DSGAI20 | Model Exfiltration & IP Replication | High | PR.AA-05, DE.CM-01, DE.CM-09, ID.RA-01 | Hardening–Advanced |
-| DSGAI21 | Disinformation via Data Poisoning | High | GV.SC-01, DE.CM-09, RS.AN-03, PR.DS-01 | Hardening–Advanced |
+| DSGAI01 | Sensitive Data Leakage | Critical | PR.DS-01, PR.DS-02, DE.CM-01, GV.RM-06 | Foundationalâ€“Advanced |
+| DSGAI02 | Agent Identity & Credential Exposure | Critical | PR.AA-01, PR.AA-05, DE.CM-01, GV.RM-06 | Foundationalâ€“Advanced |
+| DSGAI03 | Shadow AI & Unsanctioned Data Flows | High | GV.OC-01, PR.AT-01, DE.CM-09, GV.SC-01 | Foundationalâ€“Hardening |
+| DSGAI04 | Data, Model & Artifact Poisoning | Critical | PR.DS-01, DE.CM-09, RS.AN-03, GV.SC-01 | Hardeningâ€“Advanced |
+| DSGAI05 | Data Integrity & Validation Failures | High | PR.PS-04, PR.DS-01, DE.CM-09, ID.RA-01 | Foundationalâ€“Hardening |
+| DSGAI06 | Tool, Plugin & Agent Data Exchange | High | GV.SC-01, PR.AA-05, DE.CM-01, ID.AM-08 | Foundationalâ€“Hardening |
+| DSGAI07 | Data Governance, Lifecycle & Classification | High | GV.OC-01, ID.AM-08, PR.DS-01, DE.CM-09 | Foundationalâ€“Advanced |
+| DSGAI08 | Non-Compliance & Regulatory Violations | High | GV.OC-01, GV.RM-01, ID.RA-01, RS.CO-03 | Foundationalâ€“Advanced |
+| DSGAI09 | Multimodal Cross-Channel Data Leakage | High | PR.DS-01, PR.DS-02, DE.CM-01, ID.AM-08 | Hardeningâ€“Advanced |
+| DSGAI10 | Synthetic Data & Anonymisation Pitfalls | Medium | GV.RM-06, ID.RA-01, PR.DS-01, DE.CM-09 | Hardeningâ€“Advanced |
+| DSGAI11 | Cross-Context Conversation Bleed | High | PR.AA-05, PR.DS-01, DE.CM-01, ID.RA-01 | Foundationalâ€“Hardening |
+| DSGAI12 | Unsafe NL Data Gateways | Critical | PR.AA-05, PR.PS-04, DE.CM-01, ID.RA-01 | Foundationalâ€“Advanced |
+| DSGAI13 | Vector Store Platform Security | High | PR.DS-01, PR.AA-05, PR.PS-02, DE.CM-09 | Foundationalâ€“Hardening |
+| DSGAI14 | Excessive Telemetry & Monitoring Leakage | High | GV.OC-01, PR.DS-01, PR.AA-05, DE.CM-09 | Foundationalâ€“Hardening |
+| DSGAI15 | Over-Broad Context Windows | High | PR.AA-05, PR.DS-01, DE.CM-01, ID.RA-01 | Foundationalâ€“Hardening |
+| DSGAI16 | Endpoint & Browser Assistant Overreach | High | GV.SC-01, PR.PS-02, DE.CM-01, ID.AM-08 | Foundationalâ€“Hardening |
+| DSGAI17 | Data Availability & Resilience Failures | High | PR.IR-01, DE.CM-01, RS.MI-01, RC.RP-01 | Foundationalâ€“Advanced |
+| DSGAI18 | Inference & Data Reconstruction | High | PR.DS-01, DE.CM-09, ID.RA-01, GV.RM-06 | Hardeningâ€“Advanced |
+| DSGAI19 | Human-in-Loop & Labeler Overexposure | Medium | GV.SC-01, PR.AA-05, GV.OC-01, PR.AT-01 | Foundationalâ€“Hardening |
+| DSGAI20 | Model Exfiltration & IP Replication | High | PR.AA-05, DE.CM-01, DE.CM-09, ID.RA-01 | Hardeningâ€“Advanced |
+| DSGAI21 | Disinformation via Data Poisoning | High | GV.SC-01, DE.CM-09, RS.AN-03, PR.DS-01 | Hardeningâ€“Advanced |
 
 ---
 
 ## Audience tags
 
-- **CISO / governance** — full file, CSF 2.0 integration for GenAI data security programme
-- **Data governance lead** — DSGAI07, DSGAI08, DSGAI10 entries
-- **Risk manager** — GOVERN and IDENTIFY entries throughout
-- **Security operations** — DETECT and RESPOND entries throughout
-- **Federal agency / FISMA** — CSF 2.0 as NIST reference framework
+- **CISO / governance** â€” full file, CSF 2.0 integration for GenAI data security programme
+- **Data governance lead** â€” DSGAI07, DSGAI08, DSGAI10 entries
+- **Risk manager** â€” GOVERN and IDENTIFY entries throughout
+- **Security operations** â€” DETECT and RESPOND entries throughout
+- **Federal agency / FISMA** â€” CSF 2.0 as NIST reference framework
 
 ---
 
@@ -64,7 +64,7 @@ and acceptable use requirements are GOVERN responsibilities.
 
 ---
 
-### DSGAI01 — Sensitive Data Leakage
+### DSGAI01 â€” Sensitive Data Leakage
 
 **Severity:** Critical
 
@@ -76,51 +76,51 @@ and continuous monitoring (DE.CM) are the primary categories.
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Data Security | PR.DS-01 | PROTECT | Sensitive data at rest protected — training data, embeddings, RAG stores, prompt caches encrypted |
-| Data Security | PR.DS-02 | PROTECT | Sensitive data in transit protected — all GenAI API calls and RAG retrieval paths encrypted |
-| Continuous Monitoring | DE.CM-01 | DETECT | Networks and assets monitored — DLP on all GenAI output channels |
-| Risk Management Strategy | GV.RM-06 | GOVERN | Risk tolerance established — acceptable sensitive data disclosure risk defined per GenAI use case |
+| Data Security | PR.DS-01 | PROTECT | Sensitive data at rest protected â€” training data, embeddings, RAG stores, prompt caches encrypted |
+| Data Security | PR.DS-02 | PROTECT | Sensitive data in transit protected â€” all GenAI API calls and RAG retrieval paths encrypted |
+| Continuous Monitoring | DE.CM-01 | DETECT | Networks and assets monitored â€” DLP on all GenAI output channels |
+| Risk Management Strategy | GV.RM-06 | GOVERN | Risk tolerance established â€” acceptable sensitive data disclosure risk defined per GenAI use case |
 
 #### Mitigations by CSF function
 
 **GOVERN**
 - GV.RM-06: Establish risk tolerance for sensitive data
-  disclosure per GenAI use case — document acceptable
+  disclosure per GenAI use case â€” document acceptable
   classification levels in LLM scope
 - GV.OC-01: Data classification policy extended to all
-  GenAI data assets — training data, embeddings, outputs
+  GenAI data assets â€” training data, embeddings, outputs
 
 **IDENTIFY**
-- ID.AM-08: Inventory all data assets in GenAI scope —
+- ID.AM-08: Inventory all data assets in GenAI scope â€”
   training corpora, RAG sources, embedding stores,
   prompt caches, observability logs
 
 **PROTECT**
 - PR.DS-01: Encrypt all sensitive data at rest in GenAI
-  scope — embedding stores, training datasets, RAG stores
-- PR.DS-02: Encrypt all GenAI data flows in transit —
+  scope â€” embedding stores, training datasets, RAG stores
+- PR.DS-02: Encrypt all GenAI data flows in transit â€”
   TLS 1.2 minimum on all API calls and retrieval paths
-- PR.AA-05: Least-privilege retrieval — users access
+- PR.AA-05: Least-privilege retrieval â€” users access
   only data they are authorised to retrieve via GenAI
 
 **DETECT**
-- DE.CM-01: DLP on all GenAI output channels —
+- DE.CM-01: DLP on all GenAI output channels â€”
   sensitive patterns detected before delivery to users
 
 **RESPOND**
-- RS.AN-03: Investigate disclosure incidents — scope,
+- RS.AN-03: Investigate disclosure incidents â€” scope,
   affected data subjects, regulatory reporting obligations
-- RS.CO-03: Report incidents as required — breach
+- RS.CO-03: Report incidents as required â€” breach
   notification per applicable regulation
 
 #### Cross-references
 - LLM Top 10: LLM02 Sensitive Information Disclosure
 - Agentic Top 10: ASI03 Identity & Privilege Abuse
-- Other frameworks: ISO 27001 A.8.11/A.8.12 · NIST AI RMF GV-1.6 · EU AI Act Art. 10
+- Other frameworks: ISO 27001 A.8.11/A.8.12 Â· NIST AI RMF GV-1.6 Â· EU AI Act Art. 10
 
 ---
 
-### DSGAI02 — Agent Identity & Credential Exposure
+### DSGAI02 â€” Agent Identity & Credential Exposure
 
 **Severity:** Critical
 
@@ -132,41 +132,41 @@ NHI lifecycle that determines how exposed agent credentials are.
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Identity Management, Authentication & Access Control | PR.AA-01 | PROTECT | Identities and credentials managed — NHI inventory, lifecycle, short-lived JIT issuance |
-| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | Access permissions managed — agent credential scope enforced at minimum required |
-| Continuous Monitoring | DE.CM-01 | DETECT | Credential usage monitored — anomalous access patterns, lateral movement detected |
-| Risk Management Strategy | GV.RM-06 | GOVERN | Agent credential exposure in risk register — blast radius per deployment documented |
+| Identity Management, Authentication & Access Control | PR.AA-01 | PROTECT | Identities and credentials managed â€” NHI inventory, lifecycle, short-lived JIT issuance |
+| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | Access permissions managed â€” agent credential scope enforced at minimum required |
+| Continuous Monitoring | DE.CM-01 | DETECT | Credential usage monitored â€” anomalous access patterns, lateral movement detected |
+| Risk Management Strategy | GV.RM-06 | GOVERN | Agent credential exposure in risk register â€” blast radius per deployment documented |
 
 #### Mitigations by CSF function
 
 **GOVERN**
-- GV.RM-06: Include NHI exposure in risk register —
+- GV.RM-06: Include NHI exposure in risk register â€”
   credential scope, TTL, rotation programme, blast
   radius documented per agent deployment
 
 **IDENTIFY**
-- ID.AM-08: Inventory all agent NHIs — permissions,
+- ID.AM-08: Inventory all agent NHIs â€” permissions,
   TTL, rotation schedule, associated systems documented
 
 **PROTECT**
 - PR.AA-01: Short-lived JIT credentials per agent
-  session — no long-lived tokens, automatic expiry
-- PR.AA-05: Least privilege per agent — minimum scope,
+  session â€” no long-lived tokens, automatic expiry
+- PR.AA-05: Least privilege per agent â€” minimum scope,
   reviewed quarterly, no shared credentials
-- PR.DS-01: Credentials stored encrypted — secret
+- PR.DS-01: Credentials stored encrypted â€” secret
   manager, no cleartext in config or agent memory
 
 **DETECT**
-- DE.CM-01: Monitor credential usage continuously —
+- DE.CM-01: Monitor credential usage continuously â€”
   anomalous access scope or lateral movement alerted
 
 #### Cross-references
 - Agentic Top 10: ASI03 Identity & Privilege Abuse
-- Other frameworks: OWASP NHI Top 10 · ISO 27001 A.8.2 · AIUC-1 A/B007
+- Other frameworks: OWASP NHI Top 10 Â· ISO 27001 A.8.2 Â· AIUC-1 A/B007
 
 ---
 
-### DSGAI03 — Shadow AI & Unsanctioned Data Flows
+### DSGAI03 â€” Shadow AI & Unsanctioned Data Flows
 
 **Severity:** High
 
@@ -178,43 +178,43 @@ training (PR.AT) are the primary categories.
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Organisational Context | GV.OC-01 | GOVERN | Acceptable use policy for AI tools — approved list, prohibited use cases, data handling requirements |
-| Awareness and Training | PR.AT-01 | PROTECT | Users trained on shadow AI risk — policy awareness, prohibited tool use, reporting obligations |
-| Continuous Monitoring | DE.CM-09 | DETECT | Monitoring for use of unauthorised software — shadow AI tool usage detected on endpoints and network |
-| Supply Chain Risk Management | GV.SC-01 | GOVERN | All approved AI tools managed as suppliers — TPSP assessment, contractual obligations |
+| Organisational Context | GV.OC-01 | GOVERN | Acceptable use policy for AI tools â€” approved list, prohibited use cases, data handling requirements |
+| Awareness and Training | PR.AT-01 | PROTECT | Users trained on shadow AI risk â€” policy awareness, prohibited tool use, reporting obligations |
+| Continuous Monitoring | DE.CM-09 | DETECT | Monitoring for use of unauthorised software â€” shadow AI tool usage detected on endpoints and network |
+| Supply Chain Risk Management | GV.SC-01 | GOVERN | All approved AI tools managed as suppliers â€” TPSP assessment, contractual obligations |
 
 #### Mitigations by CSF function
 
 **GOVERN**
 - GV.OC-01: Publish and enforce AI acceptable use
-  policy — approved tools, prohibited use cases, data
+  policy â€” approved tools, prohibited use cases, data
   handling requirements, consequences for violations
 - GV.SC-01: Treat all approved AI SaaS tools as third-party
-  suppliers — security assessment before approval, contracts
+  suppliers â€” security assessment before approval, contracts
   with data handling obligations
 
 **PROTECT**
-- PR.AT-01: Train all employees on shadow AI risk —
+- PR.AT-01: Train all employees on shadow AI risk â€”
   what data must not be used with unapproved tools,
   how to request tool approval
 
 **DETECT**
-- DE.CM-09: Monitor for shadow AI usage — DLP on
+- DE.CM-09: Monitor for shadow AI usage â€” DLP on
   known AI SaaS endpoints, endpoint monitoring,
   network egress analysis
 
 **RESPOND**
-- RS.AN-03: Investigate shadow AI incidents — what data
+- RS.AN-03: Investigate shadow AI incidents â€” what data
   was exposed, which vendor received it, regulatory
   notification if personal data involved
 
 #### Cross-references
 - DSGAI 2026: DSGAI07 Data Governance, DSGAI08 Non-Compliance
-- Other frameworks: ISO 27001 A.5.10/A.5.23 · EU AI Act Art. 25 · CIS Controls CIS 14
+- Other frameworks: ISO 27001 A.5.10/A.5.23 Â· EU AI Act Art. 25 Â· CIS Controls CIS 14
 
 ---
 
-### DSGAI04 — Data, Model & Artifact Poisoning
+### DSGAI04 â€” Data, Model & Artifact Poisoning
 
 **Severity:** Critical
 
@@ -226,32 +226,32 @@ backdoors. CSF 2.0 supply chain (GV.SC) and data security
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Supply Chain Risk Management | GV.SC-01 | GOVERN | Training data providers treated as suppliers — provenance, quality, integrity requirements in contracts |
-| Data Security | PR.DS-01 | PROTECT | Training data protected at rest — integrity verification, source allowlisting, provenance tracking |
-| Continuous Monitoring | DE.CM-09 | DETECT | Monitoring for unauthorised software — model integrity verification at deployment, output anomaly detection |
-| Incident Analysis | RS.AN-03 | RESPOND | Poisoning incidents analysed — affected training runs, deployed models, downstream impact assessed |
+| Supply Chain Risk Management | GV.SC-01 | GOVERN | Training data providers treated as suppliers â€” provenance, quality, integrity requirements in contracts |
+| Data Security | PR.DS-01 | PROTECT | Training data protected at rest â€” integrity verification, source allowlisting, provenance tracking |
+| Continuous Monitoring | DE.CM-09 | DETECT | Monitoring for unauthorised software â€” model integrity verification at deployment, output anomaly detection |
+| Incident Analysis | RS.AN-03 | RESPOND | Poisoning incidents analysed â€” affected training runs, deployed models, downstream impact assessed |
 
 #### Mitigations by CSF function
 
 **GOVERN**
 - GV.SC-01: Apply supply chain programme to training
-  data sources — provenance guarantees, quality
+  data sources â€” provenance guarantees, quality
   attestation, incident notification requirements
 
 **PROTECT**
-- PR.DS-01: Implement training data integrity controls —
+- PR.DS-01: Implement training data integrity controls â€”
   hash-based provenance, source allowlisting, anomaly
   detection on data distributions before training
-- Model rollback capability — clean checkpoint always
+- Model rollback capability â€” clean checkpoint always
   available for immediate revert
 
 **DETECT**
 - DE.CM-09: Model integrity verification at each
-  deployment — hash check against approved baseline,
+  deployment â€” hash check against approved baseline,
   production output anomaly monitoring
 
 **RESPOND**
-- RS.AN-03: Investigate poisoning — affected deployments,
+- RS.AN-03: Investigate poisoning â€” affected deployments,
   downstream impact, physical or operational consequences
 - RS.MI-02: Rollback to clean checkpoint, quarantine
   affected training data sources
@@ -259,11 +259,11 @@ backdoors. CSF 2.0 supply chain (GV.SC) and data security
 #### Cross-references
 - LLM Top 10: LLM03 Supply Chain, LLM04 Data & Model Poisoning
 - Agentic Top 10: ASI06 Memory & Context Poisoning
-- Other frameworks: NIST AI RMF MS-3.3 · ISO 27001 A.8.27 · MITRE ATLAS AML.T0032
+- Other frameworks: NIST AI RMF MS-3.3 Â· ISO 27001 A.8.27 Â· MITRE ATLAS AML.T0032
 
 ---
 
-### DSGAI05 — Data Integrity & Validation Failures
+### DSGAI05 â€” Data Integrity & Validation Failures
 
 **Severity:** High
 
@@ -276,37 +276,37 @@ for ingestion code.
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Platform Security | PR.PS-04 | PROTECT | Secure software development — multi-stage validation, path traversal prevention in ingestion code |
-| Data Security | PR.DS-01 | PROTECT | Data at rest integrity — snapshot import operations sandboxed, path traversal blocked |
-| Continuous Monitoring | DE.CM-09 | DETECT | Monitoring for anomalous data — unusual ingestion patterns, schema violations detected |
-| Risk Assessment | ID.RA-01 | IDENTIFY | Ingestion interface vulnerabilities documented in risk assessment — CVE-2024-3584 class |
+| Platform Security | PR.PS-04 | PROTECT | Secure software development â€” multi-stage validation, path traversal prevention in ingestion code |
+| Data Security | PR.DS-01 | PROTECT | Data at rest integrity â€” snapshot import operations sandboxed, path traversal blocked |
+| Continuous Monitoring | DE.CM-09 | DETECT | Monitoring for anomalous data â€” unusual ingestion patterns, schema violations detected |
+| Risk Assessment | ID.RA-01 | IDENTIFY | Ingestion interface vulnerabilities documented in risk assessment â€” CVE-2024-3584 class |
 
 #### Mitigations by CSF function
 
 **IDENTIFY**
 - ID.RA-01: Document ingestion integrity risks in risk
-  assessment — all ingestion interfaces identified,
+  assessment â€” all ingestion interfaces identified,
   CVE-2024-3584 class as urgent findings
 
 **PROTECT**
 - PR.PS-04: Multi-stage validation at all ingestion
-  boundaries — schema, semantic, path traversal
+  boundaries â€” schema, semantic, path traversal
   prevention as secure development requirements
-- PR.PS-02: Patch all known vector database CVEs —
+- PR.PS-02: Patch all known vector database CVEs â€”
   CVE-2024-3584 class treated as urgent
 
 **DETECT**
 - DE.CM-09: Monitor ingestion pipelines for anomalous
-  payloads — unusual encoding, schema violations alerted
+  payloads â€” unusual encoding, schema violations alerted
 
 #### Cross-references
 - LLM Top 10: LLM05 Insecure Output Handling
 - DSGAI 2026: DSGAI13 Vector Store Platform Security
-- Other frameworks: ISO 27001 A.8.26/A.8.28 · CWE-20 · OWASP ASVS V5
+- Other frameworks: ISO 27001 A.8.26/A.8.28 Â· CWE-20 Â· OWASP ASVS V5
 
 ---
 
-### DSGAI06 — Tool, Plugin & Agent Data Exchange
+### DSGAI06 â€” Tool, Plugin & Agent Data Exchange
 
 **Severity:** High
 
@@ -318,39 +318,39 @@ data handling obligations.
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Supply Chain Risk Management | GV.SC-01 | GOVERN | Tool and plugin providers treated as suppliers — data handling requirements in contracts |
-| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | Context minimisation — tools receive minimum required payload, not full context history |
-| Continuous Monitoring | DE.CM-01 | DETECT | All tool API calls monitored — DLP on outbound tool payloads |
-| Asset Management | ID.AM-08 | IDENTIFY | All tool integrations inventoried — data received, retained, training use, security assessment status |
+| Supply Chain Risk Management | GV.SC-01 | GOVERN | Tool and plugin providers treated as suppliers â€” data handling requirements in contracts |
+| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | Context minimisation â€” tools receive minimum required payload, not full context history |
+| Continuous Monitoring | DE.CM-01 | DETECT | All tool API calls monitored â€” DLP on outbound tool payloads |
+| Asset Management | ID.AM-08 | IDENTIFY | All tool integrations inventoried â€” data received, retained, training use, security assessment status |
 
 #### Mitigations by CSF function
 
 **GOVERN**
 - GV.SC-01: Treat all tool and plugin providers as
-  third-party suppliers — security assessment before
+  third-party suppliers â€” security assessment before
   approval, contracts with data handling obligations,
   zero training use by default
 
 **IDENTIFY**
-- ID.AM-08: Inventory all tool integrations — what data
+- ID.AM-08: Inventory all tool integrations â€” what data
   each receives, whether it is retained, sub-processor
   chain, security assessment status
 
 **PROTECT**
-- PR.AA-05: Implement context minimisation — tools
+- PR.AA-05: Implement context minimisation â€” tools
   receive only minimum required payload for their function
 
 **DETECT**
-- DE.CM-01: DLP on all tool API calls — sensitive data
+- DE.CM-01: DLP on all tool API calls â€” sensitive data
   patterns detected before leaving controlled environment
 
 #### Cross-references
 - Agentic Top 10: ASI02 Tool Misuse, ASI04 Supply Chain
-- Other frameworks: ISO 27001 A.5.19/A.5.20 · EU AI Act Art. 25 · SOC 2 CC9.1
+- Other frameworks: ISO 27001 A.5.19/A.5.20 Â· EU AI Act Art. 25 Â· SOC 2 CC9.1
 
 ---
 
-### DSGAI07 — Data Governance, Lifecycle & Classification
+### DSGAI07 â€” Data Governance, Lifecycle & Classification
 
 **Severity:** High
 
@@ -363,92 +363,92 @@ inventory problem.
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Organisational Context | GV.OC-01 | GOVERN | Data governance policy extended to all GenAI-derived assets — embeddings, caches, agent memory |
-| Asset Management | ID.AM-08 | IDENTIFY | GenAI data assets inventoried — training datasets, embeddings, RAG stores, agent memory, telemetry logs |
-| Data Security | PR.DS-01 | PROTECT | All GenAI data assets protected per classification — derived assets inherit source classification |
-| Continuous Monitoring | DE.CM-09 | DETECT | Monitoring for ungoverned data assets — new GenAI deployments creating untracked data flows detected |
+| Organisational Context | GV.OC-01 | GOVERN | Data governance policy extended to all GenAI-derived assets â€” embeddings, caches, agent memory |
+| Asset Management | ID.AM-08 | IDENTIFY | GenAI data assets inventoried â€” training datasets, embeddings, RAG stores, agent memory, telemetry logs |
+| Data Security | PR.DS-01 | PROTECT | All GenAI data assets protected per classification â€” derived assets inherit source classification |
+| Continuous Monitoring | DE.CM-09 | DETECT | Monitoring for ungoverned data assets â€” new GenAI deployments creating untracked data flows detected |
 
 #### Mitigations by CSF function
 
 **GOVERN**
 - GV.OC-01: Extend data governance policy to all GenAI
-  data assets — training data, embeddings, caches,
+  data assets â€” training data, embeddings, caches,
   agent memory, telemetry all covered
 - GV.RM-06: Include ungoverned derived asset risk in
-  risk register — scope, protection, deletion lifecycle
+  risk register â€” scope, protection, deletion lifecycle
 
 **IDENTIFY**
 - ID.AM-08: Extend asset inventory to all GenAI-derived
-  assets — embeddings, summaries, agent traces, caches
+  assets â€” embeddings, summaries, agent traces, caches
   all inventoried as data assets with classification
 
 **PROTECT**
-- PR.DS-01: Classification propagation — derived assets
+- PR.DS-01: Classification propagation â€” derived assets
   inherit the classification of their source documents,
   protection requirements applied automatically
-- Deletion procedures covering derived assets — deleting
+- Deletion procedures covering derived assets â€” deleting
   source triggers deletion of all derived representations
 
 **DETECT**
-- DE.CM-09: Monitor for new ungoverned GenAI data flows —
+- DE.CM-09: Monitor for new ungoverned GenAI data flows â€”
   alert on new deployments creating data assets outside
   the governance programme
 
 #### Cross-references
 - DSGAI 2026: DSGAI08 Non-Compliance, DSGAI01 Sensitive Data Leakage
-- Other frameworks: ISO 27001 A.5.9/A.8.10 · EU AI Act Art. 10 · SOC 2 C1.1
+- Other frameworks: ISO 27001 A.5.9/A.8.10 Â· EU AI Act Art. 10 Â· SOC 2 C1.1
 
 ---
 
-### DSGAI08 — Non-Compliance & Regulatory Violations
+### DSGAI08 â€” Non-Compliance & Regulatory Violations
 
 **Severity:** High
 
 GenAI systems trigger regulatory obligations without the organisation
-recognising it. CSF 2.0 GOVERN is the primary function — compliance
+recognising it. CSF 2.0 GOVERN is the primary function â€” compliance
 is a governance responsibility.
 
 #### CSF 2.0 mapping
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Organisational Context | GV.OC-01 | GOVERN | Regulatory obligations inform cybersecurity risk management — GenAI regulatory scope assessed and documented |
-| Risk Management Strategy | GV.RM-01 | GOVERN | Risk management strategy includes regulatory compliance risk — GenAI-specific obligations in risk programme |
-| Risk Assessment | ID.RA-01 | IDENTIFY | Compliance risks identified per GenAI deployment — applicable regulations, triggered obligations, controls gaps |
-| Communication | RS.CO-03 | RESPOND | Regulatory incident communication — breach notification, regulatory reporting, authority contact procedures |
+| Organisational Context | GV.OC-01 | GOVERN | Regulatory obligations inform cybersecurity risk management â€” GenAI regulatory scope assessed and documented |
+| Risk Management Strategy | GV.RM-01 | GOVERN | Risk management strategy includes regulatory compliance risk â€” GenAI-specific obligations in risk programme |
+| Risk Assessment | ID.RA-01 | IDENTIFY | Compliance risks identified per GenAI deployment â€” applicable regulations, triggered obligations, controls gaps |
+| Communication | RS.CO-03 | RESPOND | Regulatory incident communication â€” breach notification, regulatory reporting, authority contact procedures |
 
 #### Mitigations by CSF function
 
 **GOVERN**
 - GV.OC-01: Conduct regulatory scoping assessment for
-  all GenAI deployments — identify applicable regulations
+  all GenAI deployments â€” identify applicable regulations
   (GDPR, EU AI Act, HIPAA, CCPA, PCI DSS), obligations,
   accountable owners
 - GV.RM-01: Include regulatory compliance in risk
-  management strategy — GenAI-specific obligations
+  management strategy â€” GenAI-specific obligations
   in risk programme with defined treatment
 
 **IDENTIFY**
 - ID.RA-01: Risk assessment includes compliance gap
-  analysis — identify which obligations are met, which
+  analysis â€” identify which obligations are met, which
   are gaps, remediation priority
 
 **RESPOND**
-- RS.CO-03: Regulatory incident communication procedures —
+- RS.CO-03: Regulatory incident communication procedures â€”
   breach notification timelines, regulatory reporting,
   authority contacts documented and tested
 
 #### Cross-references
 - DSGAI 2026: DSGAI07 Data Governance
-- Other frameworks: EU AI Act Art. 10/17 · ISO 27001 A.5.31 · GDPR Art. 5/25/30
+- Other frameworks: EU AI Act Art. 10/17 Â· ISO 27001 A.5.31 Â· GDPR Art. 5/25/30
 
 ---
 
-### DSGAI09 — Multimodal Cross-Channel Data Leakage
+### DSGAI09 â€” Multimodal Cross-Channel Data Leakage
 
 **Severity:** High
 
-Multimodal GenAI processes images and audio — OCR and transcription
+Multimodal GenAI processes images and audio â€” OCR and transcription
 pipelines extract sensitive content that may not be treated as
 sensitive data. CSF 2.0 data security (PR.DS) and asset management
 (ID.AM) address this.
@@ -457,37 +457,37 @@ sensitive data. CSF 2.0 data security (PR.DS) and asset management
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Data Security | PR.DS-01 | PROTECT | Extracted content from multimodal inputs protected — OCR output of sensitive document classified and protected |
-| Data Security | PR.DS-02 | PROTECT | Extracted sensitive content encrypted in transit — multimodal extraction pipelines covered |
-| Continuous Monitoring | DE.CM-01 | DETECT | Multimodal extraction output monitored — DLP on OCR results, transcription outputs |
-| Asset Management | ID.AM-08 | IDENTIFY | Multimodal processing pipelines inventoried — what modalities are processed, what is extracted and stored |
+| Data Security | PR.DS-01 | PROTECT | Extracted content from multimodal inputs protected â€” OCR output of sensitive document classified and protected |
+| Data Security | PR.DS-02 | PROTECT | Extracted sensitive content encrypted in transit â€” multimodal extraction pipelines covered |
+| Continuous Monitoring | DE.CM-01 | DETECT | Multimodal extraction output monitored â€” DLP on OCR results, transcription outputs |
+| Asset Management | ID.AM-08 | IDENTIFY | Multimodal processing pipelines inventoried â€” what modalities are processed, what is extracted and stored |
 
 #### Mitigations by CSF function
 
 **IDENTIFY**
-- ID.AM-08: Inventory all multimodal processing pipelines —
+- ID.AM-08: Inventory all multimodal processing pipelines â€”
   what inputs are accepted, what is extracted, where
   extracted content is stored and for how long
 
 **PROTECT**
 - PR.DS-01: Apply same data protection to extracted
-  content as source modality — OCR output of a passport
+  content as source modality â€” OCR output of a passport
   image is as sensitive as the passport
 - Short retention for multimodal uploads and derived
-  content — automated deletion after purpose is served
+  content â€” automated deletion after purpose is served
 
 **DETECT**
-- DE.CM-01: DLP on multimodal extraction outputs —
+- DE.CM-01: DLP on multimodal extraction outputs â€”
   PII detected in OCR results and transcription before
   storage or downstream use
 
 #### Cross-references
 - DSGAI 2026: DSGAI01 Sensitive Data Leakage, DSGAI14 Telemetry Leakage
-- Other frameworks: ISO 27001 A.8.11 · GDPR Art. 9 · SOC 2 C2.1
+- Other frameworks: ISO 27001 A.8.11 Â· GDPR Art. 9 Â· SOC 2 C2.1
 
 ---
 
-### DSGAI10 — Synthetic Data & Anonymisation Pitfalls
+### DSGAI10 â€” Synthetic Data & Anonymisation Pitfalls
 
 **Severity:** Medium
 
@@ -500,21 +500,21 @@ standards.
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Risk Management Strategy | GV.RM-06 | GOVERN | Risk tolerance defined for re-identification risk in synthetic datasets — legal standard, not technical checkbox |
+| Risk Management Strategy | GV.RM-06 | GOVERN | Risk tolerance defined for re-identification risk in synthetic datasets â€” legal standard, not technical checkbox |
 | Risk Assessment | ID.RA-01 | IDENTIFY | Re-identification risk assessed for all synthetic datasets before use or distribution |
-| Data Security | PR.DS-01 | PROTECT | Synthetic datasets not automatically excluded from data protection — protected until re-identification risk formally assessed |
+| Data Security | PR.DS-01 | PROTECT | Synthetic datasets not automatically excluded from data protection â€” protected until re-identification risk formally assessed |
 | Continuous Monitoring | DE.CM-09 | DETECT | Monitoring for re-identification attempts against synthetic datasets |
 
 #### Mitigations by CSF function
 
 **GOVERN**
 - GV.RM-06: Establish risk tolerance for re-identification
-  risk — anonymisation standard, privacy budget, formal
+  risk â€” anonymisation standard, privacy budget, formal
   risk acceptance process before dataset release
 
 **IDENTIFY**
 - ID.RA-01: Formal re-identification risk assessment before
-  any synthetic dataset is used externally — membership
+  any synthetic dataset is used externally â€” membership
   inference testing as part of assessment
 
 **PROTECT**
@@ -524,11 +524,11 @@ standards.
 
 #### Cross-references
 - DSGAI 2026: DSGAI08 Non-Compliance, DSGAI18 Inference & Data Reconstruction
-- Other frameworks: ISO 27001 A.5.34 · GDPR Recital 26 · SOC 2 P4.2
+- Other frameworks: ISO 27001 A.5.34 Â· GDPR Recital 26 Â· SOC 2 P4.2
 
 ---
 
-### DSGAI11 — Cross-Context Conversation Bleed
+### DSGAI11 â€” Cross-Context Conversation Bleed
 
 **Severity:** High
 
@@ -540,32 +540,32 @@ isolation requirements.
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | Access permissions managed — per-user session isolation, per-tenant RAG namespaces enforced |
-| Data Security | PR.DS-01 | PROTECT | Session data protected — per-user context encrypted, KV cache isolation prevents cross-session exposure |
-| Continuous Monitoring | DE.CM-01 | DETECT | Session isolation monitored — cross-session access anomalies detected |
-| Risk Assessment | ID.RA-01 | IDENTIFY | Session isolation risks documented per deployment — shared infrastructure components assessed |
+| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | Access permissions managed â€” per-user session isolation, per-tenant RAG namespaces enforced |
+| Data Security | PR.DS-01 | PROTECT | Session data protected â€” per-user context encrypted, KV cache isolation prevents cross-session exposure |
+| Continuous Monitoring | DE.CM-01 | DETECT | Session isolation monitored â€” cross-session access anomalies detected |
+| Risk Assessment | ID.RA-01 | IDENTIFY | Session isolation risks documented per deployment â€” shared infrastructure components assessed |
 
 #### Mitigations by CSF function
 
 **PROTECT**
 - PR.AA-05: Strict session isolation for all GenAI
-  deployments — per-user context, RAG namespaces,
+  deployments â€” per-user context, RAG namespaces,
   KV cache isolation enforced at platform layer
-- PR.DS-01: Encrypt per-user session data — session
+- PR.DS-01: Encrypt per-user session data â€” session
   isolation technical control documented
 
 **DETECT**
-- DE.CM-01: Monitor for cross-session access anomalies —
+- DE.CM-01: Monitor for cross-session access anomalies â€”
   unusual retrieval patterns across session boundaries alerted
 
 #### Cross-references
 - LLM Top 10: LLM02 Sensitive Information Disclosure
 - DSGAI 2026: DSGAI13 Vector Store Platform Security
-- Other frameworks: ISO 27001 A.8.3 · GDPR Art. 32 · SOC 2 CC6.1
+- Other frameworks: ISO 27001 A.8.3 Â· GDPR Art. 32 Â· SOC 2 CC6.1
 
 ---
 
-### DSGAI12 — Unsafe Natural-Language Data Gateways
+### DSGAI12 â€” Unsafe Natural-Language Data Gateways
 
 **Severity:** Critical
 
@@ -578,38 +578,38 @@ secure development problem.
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | LLM-generated queries execute under requesting user's permissions — not shared high-privilege service account |
-| Platform Security | PR.PS-04 | PROTECT | Secure development — query allowlisting, parameterised execution as platform security requirements |
-| Continuous Monitoring | DE.CM-01 | DETECT | All LLM-generated queries to data systems logged and monitored — bulk extraction patterns detected |
-| Risk Assessment | ID.RA-01 | IDENTIFY | NL gateway interfaces documented in risk assessment — privilege level, query scope, data categories accessible |
+| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | LLM-generated queries execute under requesting user's permissions â€” not shared high-privilege service account |
+| Platform Security | PR.PS-04 | PROTECT | Secure development â€” query allowlisting, parameterised execution as platform security requirements |
+| Continuous Monitoring | DE.CM-01 | DETECT | All LLM-generated queries to data systems logged and monitored â€” bulk extraction patterns detected |
+| Risk Assessment | ID.RA-01 | IDENTIFY | NL gateway interfaces documented in risk assessment â€” privilege level, query scope, data categories accessible |
 
 #### Mitigations by CSF function
 
 **IDENTIFY**
-- ID.RA-01: Map all NL data gateways in risk assessment —
+- ID.RA-01: Map all NL data gateways in risk assessment â€”
   privilege level, query scope, data categories, row-level
   policy enforcement status
 
 **PROTECT**
-- PR.AA-05: Per-user query execution — LLM queries execute
+- PR.AA-05: Per-user query execution â€” LLM queries execute
   under requesting user's permissions, not shared
   high-privilege service account
 - PR.PS-04: Query allowlisting and parameterised execution
-  as secure development requirements — injection addressed
+  as secure development requirements â€” injection addressed
   as a known vulnerability class
 
 **DETECT**
-- DE.CM-01: Log and monitor all LLM-generated queries —
+- DE.CM-01: Log and monitor all LLM-generated queries â€”
   bulk extraction patterns, unusual query scope detected
 
 #### Cross-references
 - LLM Top 10: LLM05 Insecure Output Handling
 - Agentic Top 10: ASI02 Tool Misuse, ASI05 Unexpected Code Execution
-- Other frameworks: ISO 27001 A.8.26/A.8.28 · CWE-89 · ISA/IEC 62443 SR 2.2 (OT)
+- Other frameworks: ISO 27001 A.8.26/A.8.28 Â· CWE-89 Â· ISA/IEC 62443 SR 2.2 (OT)
 
 ---
 
-### DSGAI13 — Vector Store Platform Security
+### DSGAI13 â€” Vector Store Platform Security
 
 **Severity:** High
 
@@ -621,32 +621,32 @@ databases. CSF 2.0 data security (PR.DS) and platform security
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Data Security | PR.DS-01 | PROTECT | Vector store content encrypted at rest — embeddings treated as sensitive derived data assets |
-| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | RBAC on all vector stores — no unauthenticated access in any environment |
-| Platform Security | PR.PS-02 | PROTECT | Software managed to reduce risk — vector database CVEs patched promptly |
-| Continuous Monitoring | DE.CM-09 | DETECT | Monitoring for anomalous access — bulk extraction, RBAC bypass attempts detected |
+| Data Security | PR.DS-01 | PROTECT | Vector store content encrypted at rest â€” embeddings treated as sensitive derived data assets |
+| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | RBAC on all vector stores â€” no unauthenticated access in any environment |
+| Platform Security | PR.PS-02 | PROTECT | Software managed to reduce risk â€” vector database CVEs patched promptly |
+| Continuous Monitoring | DE.CM-09 | DETECT | Monitoring for anomalous access â€” bulk extraction, RBAC bypass attempts detected |
 
 #### Mitigations by CSF function
 
 **PROTECT**
 - PR.DS-01: Encrypt all vector store content at rest
-- PR.AA-05: RBAC enabled on all collections from day one —
+- PR.AA-05: RBAC enabled on all collections from day one â€”
   no unauthenticated access in any environment
-- PR.PS-02: Patch all vector database CVEs promptly —
+- PR.PS-02: Patch all vector database CVEs promptly â€”
   CVE-2024-3584 class as urgent findings
 
 **DETECT**
-- DE.CM-09: Monitor vector store access patterns —
+- DE.CM-09: Monitor vector store access patterns â€”
   bulk extraction, unusual query diversity alerted
 
 #### Cross-references
 - LLM Top 10: LLM08 Vector & Embedding Weaknesses
 - Agentic Top 10: ASI06 Memory & Context Poisoning
-- Other frameworks: ISO 27001 A.8.3/A.8.24 · CWE-284 · SOC 2 CC6.1
+- Other frameworks: ISO 27001 A.8.3/A.8.24 Â· CWE-284 Â· SOC 2 CC6.1
 
 ---
 
-### DSGAI14 — Excessive Telemetry & Monitoring Leakage
+### DSGAI14 â€” Excessive Telemetry & Monitoring Leakage
 
 **Severity:** High
 
@@ -658,35 +658,35 @@ CSF 2.0 GOVERN and data security (PR.DS) address telemetry governance.
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Organisational Context | GV.OC-01 | GOVERN | Telemetry governance policy — least-logging defaults, classification of captured data, retention limits |
-| Data Security | PR.DS-01 | PROTECT | Telemetry stores containing sensitive data protected — same requirements as production data stores |
-| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | Access controls on telemetry stores — need-to-know enforced, not open access because "just logs" |
-| Continuous Monitoring | DE.CM-09 | DETECT | Telemetry store access monitored — anomalous access patterns detected |
+| Organisational Context | GV.OC-01 | GOVERN | Telemetry governance policy â€” least-logging defaults, classification of captured data, retention limits |
+| Data Security | PR.DS-01 | PROTECT | Telemetry stores containing sensitive data protected â€” same requirements as production data stores |
+| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | Access controls on telemetry stores â€” need-to-know enforced, not open access because "just logs" |
+| Continuous Monitoring | DE.CM-09 | DETECT | Telemetry store access monitored â€” anomalous access patterns detected |
 
 #### Mitigations by CSF function
 
 **GOVERN**
-- GV.OC-01: Establish telemetry governance policy —
+- GV.OC-01: Establish telemetry governance policy â€”
   least-logging defaults, data classification applied
   to telemetry content, retention limits per tier
 
 **PROTECT**
 - PR.DS-01: Protect telemetry stores containing sensitive
-  data — PAN masking before logging, encryption at rest
+  data â€” PAN masking before logging, encryption at rest
 - PR.AA-05: Need-to-know access controls on all telemetry
-  stores — restrict to authorised personnel
+  stores â€” restrict to authorised personnel
 
 **DETECT**
-- DE.CM-09: Monitor telemetry store access — anomalous
+- DE.CM-09: Monitor telemetry store access â€” anomalous
   patterns alerted as potential exfiltration via logs
 
 #### Cross-references
 - DSGAI 2026: DSGAI01 Sensitive Data Leakage, DSGAI07 Data Governance
-- Other frameworks: ISO 27001 A.8.15 · GDPR Art. 32 · SOC 2 C2.1
+- Other frameworks: ISO 27001 A.8.15 Â· GDPR Art. 32 Â· SOC 2 C2.1
 
 ---
 
-### DSGAI15 — Over-Broad Context Windows
+### DSGAI15 â€” Over-Broad Context Windows
 
 **Severity:** High
 
@@ -699,33 +699,33 @@ assembly controls.
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | Access permissions applied to context assembly — minimum-necessary context injection enforced |
-| Data Security | PR.DS-01 | PROTECT | Context window content protected — highest classification of any included document drives handling |
-| Continuous Monitoring | DE.CM-01 | DETECT | Context assembly monitored — over-broad injection patterns detected |
-| Risk Assessment | ID.RA-01 | IDENTIFY | Context window risks documented — which deployments aggregate data across trust domains |
+| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | Access permissions applied to context assembly â€” minimum-necessary context injection enforced |
+| Data Security | PR.DS-01 | PROTECT | Context window content protected â€” highest classification of any included document drives handling |
+| Continuous Monitoring | DE.CM-01 | DETECT | Context assembly monitored â€” over-broad injection patterns detected |
+| Risk Assessment | ID.RA-01 | IDENTIFY | Context window risks documented â€” which deployments aggregate data across trust domains |
 
 #### Mitigations by CSF function
 
 **PROTECT**
-- PR.AA-05: Minimum-necessary context injection — retrieve
+- PR.AA-05: Minimum-necessary context injection â€” retrieve
   only passages directly relevant to the query, not broad
   datasets or full documents
-- PR.DS-01: Track classification ceiling in context window —
+- PR.DS-01: Track classification ceiling in context window â€”
   highest classification of any document drives response
   handling requirements
 
 **DETECT**
-- DE.CM-01: Monitor context assembly — over-broad injection
+- DE.CM-01: Monitor context assembly â€” over-broad injection
   aggregating data from multiple trust domains detected
 
 #### Cross-references
 - LLM Top 10: LLM07 System Prompt Leakage
 - Agentic Top 10: ASI01 Agent Goal Hijack
-- Other frameworks: AIUC-1 A/B005 · ISO 27001 A.8.3 · SOC 2 CC6.1
+- Other frameworks: AIUC-1 A/B005 Â· ISO 27001 A.8.3 Â· SOC 2 CC6.1
 
 ---
 
-### DSGAI16 — Endpoint & Browser Assistant Overreach
+### DSGAI16 â€” Endpoint & Browser Assistant Overreach
 
 **Severity:** High
 
@@ -737,38 +737,38 @@ CSF 2.0 supply chain (GV.SC) governs endpoint AI tool approval.
 | Category | ID | Function | How it applies |
 |---|---|---|---|
 | Supply Chain Risk Management | GV.SC-01 | GOVERN | Browser AI extension providers with sensitive data access treated as third-party suppliers |
-| Platform Security | PR.PS-02 | PROTECT | Software managed to reduce risk — browser AI extensions version-controlled, patched, approved before deployment |
+| Platform Security | PR.PS-02 | PROTECT | Software managed to reduce risk â€” browser AI extensions version-controlled, patched, approved before deployment |
 | Continuous Monitoring | DE.CM-01 | DETECT | AI assistant access to sensitive data on endpoints monitored |
-| Asset Management | ID.AM-08 | IDENTIFY | Approved browser AI extensions inventoried — data access scope, security assessment status |
+| Asset Management | ID.AM-08 | IDENTIFY | Approved browser AI extensions inventoried â€” data access scope, security assessment status |
 
 #### Mitigations by CSF function
 
 **GOVERN**
 - GV.SC-01: Treat approved browser AI extension providers
-  as third-party suppliers — security assessment before
+  as third-party suppliers â€” security assessment before
   approval, written agreements with data handling obligations
 
 **IDENTIFY**
-- ID.AM-08: Inventory all approved AI extensions —
+- ID.AM-08: Inventory all approved AI extensions â€”
   data access scope, version, security assessment date
 
 **PROTECT**
 - PR.PS-02: Approved extensions only, patched and
-  version-controlled — unapproved extensions blocked
+  version-controlled â€” unapproved extensions blocked
   at device management layer
 
 **DETECT**
-- DE.CM-01: Monitor AI assistant data access on endpoints —
+- DE.CM-01: Monitor AI assistant data access on endpoints â€”
   unusual data access patterns alerted
 
 #### Cross-references
 - Agentic Top 10: ASI10 Rogue Agents
 - DSGAI 2026: DSGAI03 Shadow AI
-- Other frameworks: ISO 27001 A.8.1/A.8.7 · SOC 2 CC9.1 · EU AI Act Art. 9
+- Other frameworks: ISO 27001 A.8.1/A.8.7 Â· SOC 2 CC9.1 Â· EU AI Act Art. 9
 
 ---
 
-### DSGAI17 — Data Availability & Resilience Failures
+### DSGAI17 â€” Data Availability & Resilience Failures
 
 **Severity:** High
 
@@ -780,39 +780,39 @@ recovery (RC.RP) govern availability requirements.
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Infrastructure Resilience | PR.IR-01 | PROTECT | Networks and environments protected for resilience — circuit breakers, freshness monitoring, redundancy |
-| Continuous Monitoring | DE.CM-01 | DETECT | GenAI pipeline health monitored — freshness, availability metrics reviewed continuously |
-| Incident Mitigation | RS.MI-01 | RESPOND | Pipeline failures contained — circuit breaker activation, graceful degradation, user notification |
-| Incident Recovery | RC.RP-01 | RECOVER | Recovery plan includes GenAI pipeline failures — BCP covers AI availability, RTO/RPO defined |
+| Infrastructure Resilience | PR.IR-01 | PROTECT | Networks and environments protected for resilience â€” circuit breakers, freshness monitoring, redundancy |
+| Continuous Monitoring | DE.CM-01 | DETECT | GenAI pipeline health monitored â€” freshness, availability metrics reviewed continuously |
+| Incident Mitigation | RS.MI-01 | RESPOND | Pipeline failures contained â€” circuit breaker activation, graceful degradation, user notification |
+| Incident Recovery | RC.RP-01 | RECOVER | Recovery plan includes GenAI pipeline failures â€” BCP covers AI availability, RTO/RPO defined |
 
 #### Mitigations by CSF function
 
 **PROTECT**
 - PR.IR-01: Circuit breakers and graceful degradation as
-  resilience measures — explicit unavailability notice
+  resilience measures â€” explicit unavailability notice
   rather than silent misinformation
 
 **DETECT**
-- DE.CM-01: Monitor GenAI pipeline health continuously —
+- DE.CM-01: Monitor GenAI pipeline health continuously â€”
   freshness alerts when index age exceeds threshold
 
 **RESPOND**
-- RS.MI-01: Graceful degradation — notify users explicitly
+- RS.MI-01: Graceful degradation â€” notify users explicitly
   when retrieval is unavailable rather than serving
   stale results as current
 
 **RECOVER**
-- RC.RP-01: BCP covers GenAI pipeline failures — RTO/RPO
+- RC.RP-01: BCP covers GenAI pipeline failures â€” RTO/RPO
   defined, failover tested annually
 
 #### Cross-references
 - LLM Top 10: LLM10 Unbounded Consumption
 - Agentic Top 10: ASI08 Cascading Agent Failures
-- Other frameworks: ISA/IEC 62443 SR 7.6 (OT) · SOC 2 A1.1 · AIUC-1 D
+- Other frameworks: ISA/IEC 62443 SR 7.6 (OT) Â· SOC 2 A1.1 Â· AIUC-1 D
 
 ---
 
-### DSGAI18 — Inference & Data Reconstruction
+### DSGAI18 â€” Inference & Data Reconstruction
 
 **Severity:** High
 
@@ -824,42 +824,42 @@ training data from GenAI model outputs. CSF 2.0 risk management
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Data Security | PR.DS-01 | PROTECT | Reconstruction resistance as data protection measure — differential privacy in training, confidence score suppression |
-| Continuous Monitoring | DE.CM-09 | DETECT | Monitoring for inference attack patterns — systematic output space probing detected |
-| Risk Assessment | ID.RA-01 | IDENTIFY | Inference attack risks documented per deployment — models trained on sensitive data assessed |
-| Risk Management Strategy | GV.RM-06 | GOVERN | Risk tolerance for inference attacks established — acceptable reconstruction risk defined per use case |
+| Data Security | PR.DS-01 | PROTECT | Reconstruction resistance as data protection measure â€” differential privacy in training, confidence score suppression |
+| Continuous Monitoring | DE.CM-09 | DETECT | Monitoring for inference attack patterns â€” systematic output space probing detected |
+| Risk Assessment | ID.RA-01 | IDENTIFY | Inference attack risks documented per deployment â€” models trained on sensitive data assessed |
+| Risk Management Strategy | GV.RM-06 | GOVERN | Risk tolerance for inference attacks established â€” acceptable reconstruction risk defined per use case |
 
 #### Mitigations by CSF function
 
 **GOVERN**
-- GV.RM-06: Define risk tolerance for inference attacks —
+- GV.RM-06: Define risk tolerance for inference attacks â€”
   what reconstruction risk is acceptable, what training
   data sensitivity triggers differential privacy
 
 **IDENTIFY**
-- ID.RA-01: Assess inference attack risk per model —
+- ID.RA-01: Assess inference attack risk per model â€”
   which models trained on sensitive data, what is the
   reconstruction attack surface
 
 **PROTECT**
 - PR.DS-01: Apply differential privacy in training for
-  sensitive corpora — privacy budget documented as
+  sensitive corpora â€” privacy budget documented as
   data protection control
-- Suppress confidence scores in production outputs —
+- Suppress confidence scores in production outputs â€”
   limits membership inference success rate
 
 **DETECT**
-- DE.CM-09: Monitor for inference attack patterns —
+- DE.CM-09: Monitor for inference attack patterns â€”
   systematic output space probing alerted
 
 #### Cross-references
 - LLM Top 10: LLM02 Sensitive Information Disclosure, LLM08 Vector & Embedding Weaknesses
 - DSGAI 2026: DSGAI10 Synthetic Data Pitfalls
-- Other frameworks: ISO 27001 A.8.11 · GDPR Art. 25 · SOC 2 C2.1
+- Other frameworks: ISO 27001 A.8.11 Â· GDPR Art. 25 Â· SOC 2 C2.1
 
 ---
 
-### DSGAI19 — Human-in-Loop & Labeler Overexposure
+### DSGAI19 â€” Human-in-Loop & Labeler Overexposure
 
 **Severity:** Medium
 
@@ -871,33 +871,33 @@ handling obligations.
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Supply Chain Risk Management | GV.SC-01 | GOVERN | Labelling vendors treated as suppliers — data handling requirements in contracts, compliance monitored |
-| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | Data minimisation — annotators access minimum content required for annotation function |
-| Organisational Context | GV.OC-01 | GOVERN | Acceptable use policy covers labelling activities — what data may be used in labelling workflows |
-| Awareness and Training | PR.AT-01 | PROTECT | Labelling staff trained on data handling — classification, prohibited use, incident reporting |
+| Supply Chain Risk Management | GV.SC-01 | GOVERN | Labelling vendors treated as suppliers â€” data handling requirements in contracts, compliance monitored |
+| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | Data minimisation â€” annotators access minimum content required for annotation function |
+| Organisational Context | GV.OC-01 | GOVERN | Acceptable use policy covers labelling activities â€” what data may be used in labelling workflows |
+| Awareness and Training | PR.AT-01 | PROTECT | Labelling staff trained on data handling â€” classification, prohibited use, incident reporting |
 
 #### Mitigations by CSF function
 
 **GOVERN**
 - GV.SC-01: Treat labelling vendors as third-party
-  suppliers — assess before engagement, contractual
+  suppliers â€” assess before engagement, contractual
   data handling obligations, right-to-audit
 - GV.OC-01: Define acceptable use for labelling
-  workflows — which data may be used, anonymisation
+  workflows â€” which data may be used, anonymisation
   requirements, retention limits
 
 **PROTECT**
-- PR.AA-05: Data minimisation in labelling tasks —
+- PR.AA-05: Data minimisation in labelling tasks â€”
   annotators see minimum content required, not full
   sensitive records
 
 #### Cross-references
 - DSGAI 2026: DSGAI07 Data Governance, DSGAI08 Non-Compliance
-- Other frameworks: ISO 27001 A.5.34 · GDPR Art. 28 · EU AI Act Art. 10
+- Other frameworks: ISO 27001 A.5.34 Â· GDPR Art. 28 Â· EU AI Act Art. 10
 
 ---
 
-### DSGAI20 — Model Exfiltration & IP Replication
+### DSGAI20 â€” Model Exfiltration & IP Replication
 
 **Severity:** High
 
@@ -909,37 +909,37 @@ govern the extraction prevention controls.
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | API rate limiting as access control — systematic extraction requires high query volumes |
-| Continuous Monitoring | DE.CM-01 | DETECT | Production API monitoring — unusual query diversity and volume indicative of extraction alerted |
-| Continuous Monitoring | DE.CM-09 | DETECT | Monitoring for extraction behaviour — systematic output space coverage pattern detected |
-| Risk Assessment | ID.RA-01 | IDENTIFY | Model extraction risk documented — IP exposure, CHD reconstruction potential assessed |
+| Identity Management, Authentication & Access Control | PR.AA-05 | PROTECT | API rate limiting as access control â€” systematic extraction requires high query volumes |
+| Continuous Monitoring | DE.CM-01 | DETECT | Production API monitoring â€” unusual query diversity and volume indicative of extraction alerted |
+| Continuous Monitoring | DE.CM-09 | DETECT | Monitoring for extraction behaviour â€” systematic output space coverage pattern detected |
+| Risk Assessment | ID.RA-01 | IDENTIFY | Model extraction risk documented â€” IP exposure, CHD reconstruction potential assessed |
 
 #### Mitigations by CSF function
 
 **PROTECT**
-- PR.AA-05: Rate limiting as access control — systematic
+- PR.AA-05: Rate limiting as access control â€” systematic
   extraction requires high query volumes, rate limiting
   raises cost and triggers detection
 
 **DETECT**
-- DE.CM-01: Monitor for extraction patterns —
+- DE.CM-01: Monitor for extraction patterns â€”
   unusual query diversity, high volume, systematic
   output space coverage alerted
-- DE.CM-09: Adaptive monitoring — alert on extraction
+- DE.CM-09: Adaptive monitoring â€” alert on extraction
   behaviour patterns specific to your model
 
 **RESPOND**
-- RS.MI-01: Contain extraction attempts — rate limit
+- RS.MI-01: Contain extraction attempts â€” rate limit
   tightening, session blocking, legal assessment
 
 #### Cross-references
 - LLM Top 10: LLM02 Sensitive Information Disclosure
 - DSGAI 2026: DSGAI18 Inference & Data Reconstruction
-- Other frameworks: ISO 27001 A.5.12 · MITRE ATLAS AML.T0016 · SOC 2 C2.1
+- Other frameworks: ISO 27001 A.5.12 Â· MITRE ATLAS AML.T0016 Â· SOC 2 C2.1
 
 ---
 
-### DSGAI21 — Disinformation via Data Poisoning
+### DSGAI21 â€” Disinformation via Data Poisoning
 
 **Severity:** High
 
@@ -951,37 +951,37 @@ detection (DE.CM) govern RAG corpus integrity.
 
 | Category | ID | Function | How it applies |
 |---|---|---|---|
-| Supply Chain Risk Management | GV.SC-01 | GOVERN | RAG data source providers treated as suppliers — content integrity requirements in contracts |
-| Continuous Monitoring | DE.CM-09 | DETECT | RAG corpus integrity monitored — anomalous content changes, unusual ingestion patterns detected |
-| Incident Analysis | RS.AN-03 | RESPOND | RAG poisoning incidents analysed — affected content identified, operational decisions influenced reviewed |
-| Data Security | PR.DS-01 | PROTECT | RAG corpus content integrity protected — hash-based verification, source trust tiering |
+| Supply Chain Risk Management | GV.SC-01 | GOVERN | RAG data source providers treated as suppliers â€” content integrity requirements in contracts |
+| Continuous Monitoring | DE.CM-09 | DETECT | RAG corpus integrity monitored â€” anomalous content changes, unusual ingestion patterns detected |
+| Incident Analysis | RS.AN-03 | RESPOND | RAG poisoning incidents analysed â€” affected content identified, operational decisions influenced reviewed |
+| Data Security | PR.DS-01 | PROTECT | RAG corpus content integrity protected â€” hash-based verification, source trust tiering |
 
 #### Mitigations by CSF function
 
 **GOVERN**
 - GV.SC-01: Include RAG data source providers in supply
-  chain programme — content integrity guarantees, incident
+  chain programme â€” content integrity guarantees, incident
   notification requirements in contracts
 
 **PROTECT**
-- PR.DS-01: RAG corpus integrity controls — source trust
+- PR.DS-01: RAG corpus integrity controls â€” source trust
   tiering, hash-based content verification, ingestion
   gates during elevated threat periods
 
 **DETECT**
 - DE.CM-09: Monitor RAG corpus for unauthorised
-  modifications — integrity hashing on all indexed
+  modifications â€” integrity hashing on all indexed
   content, anomalous changes alerted
 
 **RESPOND**
-- RS.AN-03: Investigate poisoning incidents — source
+- RS.AN-03: Investigate poisoning incidents â€” source
   quarantine, impacted index rebuild, output correction,
   user notification where material impact
 
 #### Cross-references
 - LLM Top 10: LLM04 Data & Model Poisoning, LLM09 Misinformation
 - Agentic Top 10: ASI06 Memory & Context Poisoning
-- Other frameworks: MITRE ATLAS AML.T0045 · ISO 27001 A.5.7 · SOC 2 PI1.2
+- Other frameworks: MITRE ATLAS AML.T0045 Â· ISO 27001 A.5.7 Â· SOC 2 PI1.2
 
 ---
 
@@ -1002,10 +1002,10 @@ detection (DE.CM) govern RAG corpus integrity.
 
 | Phase | DSGAI entries | CSF focus | Rationale |
 |---|---|---|---|
-| 1 — GOVERN + IDENTIFY | DSGAI01, DSGAI07, DSGAI08 | GV.OC-01, ID.AM-08 | Data inventory and governance before technical controls |
-| 2 — PROTECT | DSGAI02, DSGAI11, DSGAI12 | PR.AA, PR.DS, PR.PS-04 | Access control and NL gateway security close most common breach paths |
-| 3 — DETECT | DSGAI04, DSGAI21, DSGAI20 | DE.CM-09, DE.AE-02 | Poisoning, disinformation, and extraction detection programme |
-| 4 — RESPOND + RECOVER | All | RS.AN, RS.MI, RC.RP | Incident response tested, BCP covers all GenAI data scenarios |
+| 1 â€” GOVERN + IDENTIFY | DSGAI01, DSGAI07, DSGAI08 | GV.OC-01, ID.AM-08 | Data inventory and governance before technical controls |
+| 2 â€” PROTECT | DSGAI02, DSGAI11, DSGAI12 | PR.AA, PR.DS, PR.PS-04 | Access control and NL gateway security close most common breach paths |
+| 3 â€” DETECT | DSGAI04, DSGAI21, DSGAI20 | DE.CM-09, DE.AE-02 | Poisoning, disinformation, and extraction detection programme |
+| 4 â€” RESPOND + RECOVER | All | RS.AN, RS.MI, RC.RP | Incident response tested, BCP covers all GenAI data scenarios |
 
 ---
 
@@ -1014,8 +1014,8 @@ detection (DE.CM) govern RAG corpus integrity.
 - [NIST CSF 2.0](https://www.nist.gov/cyberframework)
 - [OWASP GenAI Data Security Risks 2026](https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/)
 - [NIST AI RMF 1.0](https://www.nist.gov/system/files/documents/2023/01/26/AI%20RMF%201.0.pdf)
-- [LLM Top 10 × CSF 2.0](../llm-top10/LLM_NISTCSF2.md)
-- [Agentic Top 10 × CSF 2.0](../agentic-top10/Agentic_NISTCSF2.md)
+- [LLM Top 10 Ã— CSF 2.0](../llm-top10/LLM_NISTCSF2.md)
+- [Agentic Top 10 Ã— CSF 2.0](../agentic-top10/Agentic_NISTCSF2.md)
 
 ---
 
@@ -1023,7 +1023,7 @@ detection (DE.CM) govern RAG corpus integrity.
 
 | Date | Version | Change | Author |
 |---|---|---|---|
-| 2026-03-26 | 2026-Q1 | Initial mapping — DSGAI01–DSGAI21 full entries with CSF 2.0 profile | OWASP GenAI Data Security Initiative |
+| 2026-03-26 | 2026-Q1 | Initial mapping â€” DSGAI01â€“DSGAI21 full entries with CSF 2.0 profile | OWASP GenAI Data Security Initiative |
 
 ---
 

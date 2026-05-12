@@ -1,0 +1,315 @@
+{
+  "id": "isa-62443",
+  "name": "ISA/IEC 62443",
+  "short_name": "62443",
+  "version": "2024",
+  "url": "https://www.isa.org/standards-and-publications/isa-standards/isa-iec-62443-series-of-standards",
+  "license": "Proprietary (ISA/IEC)",
+  "publisher": "ISA / IEC",
+  "category": "ot-ics",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "FR 1",
+      "title": "Identification and Authentication Control",
+      "description": "Identify and authenticate all users (human, software, device) before access.",
+      "parent": null,
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 1.1",
+      "title": "Human user identification and authentication",
+      "description": "Identify and authenticate all human users.",
+      "parent": "FR 1",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 1.2",
+      "title": "Software process and device identification and authentication",
+      "description": "Identify and authenticate all software processes and devices.",
+      "parent": "FR 1",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 1.3",
+      "title": "Account management",
+      "description": "Support management of all accounts by authorized users.",
+      "parent": "FR 1",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 1.5",
+      "title": "Authenticator management",
+      "description": "Support management of authenticators (passwords, tokens, certificates).",
+      "parent": "FR 1",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 1.7",
+      "title": "Strength of password-based authentication",
+      "description": "Enforce minimum password strength requirements.",
+      "parent": "FR 1",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "FR 2",
+      "title": "Use Control",
+      "description": "Enforce assigned privileges for actions on the system.",
+      "parent": null,
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 2.1",
+      "title": "Authorization enforcement",
+      "description": "Enforce assigned privileges for all entities.",
+      "parent": "FR 2",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 2.2",
+      "title": "Wireless use control",
+      "description": "Protect wireless communications from unauthorized access.",
+      "parent": "FR 2",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 2.4",
+      "title": "Mobile code",
+      "description": "Control the use of mobile code technologies.",
+      "parent": "FR 2",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 2.5",
+      "title": "Session lock",
+      "description": "Prevent further access at the end of a configurable time period of inactivity.",
+      "parent": "FR 2",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "FR 3",
+      "title": "System Integrity",
+      "description": "Ensure the integrity of the IACS to prevent unauthorized manipulation.",
+      "parent": null,
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 3.1",
+      "title": "Communication integrity",
+      "description": "Protect the integrity of transmitted information.",
+      "parent": "FR 3",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 3.2",
+      "title": "Malicious code protection",
+      "description": "Protect against, detect, report, and mitigate effects of malicious code.",
+      "parent": "FR 3",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 3.3",
+      "title": "Security functionality verification",
+      "description": "Provide mechanisms to verify intended operation of security functions.",
+      "parent": "FR 3",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 3.4",
+      "title": "Software and information integrity",
+      "description": "Detect, record, report, and protect against unauthorized changes to software.",
+      "parent": "FR 3",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 3.5",
+      "title": "Input validation",
+      "description": "Validate the syntax and content of inputs.",
+      "parent": "FR 3",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 3.6",
+      "title": "Deterministic output",
+      "description": "Provide deterministic output for defined error states.",
+      "parent": "FR 3",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "FR 4",
+      "title": "Data Confidentiality",
+      "description": "Ensure the confidentiality of information on communication channels and in data repositories.",
+      "parent": null,
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 4.1",
+      "title": "Information confidentiality",
+      "description": "Protect confidentiality of information at rest and in transit.",
+      "parent": "FR 4",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 4.3",
+      "title": "Use of cryptography",
+      "description": "Use cryptographic mechanisms to protect confidentiality and integrity.",
+      "parent": "FR 4",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "FR 5",
+      "title": "Restricted Data Flow",
+      "description": "Segment the system through zones and conduits to limit unnecessary data flows.",
+      "parent": null,
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 5.1",
+      "title": "Network segmentation",
+      "description": "Segment networks through zones and conduits.",
+      "parent": "FR 5",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 5.2",
+      "title": "Zone boundary protection",
+      "description": "Monitor and control communications at zone boundaries.",
+      "parent": "FR 5",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "FR 6",
+      "title": "Timely Response to Events",
+      "description": "Respond to security violations by notifying the proper authority and taking corrective action.",
+      "parent": null,
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 6.1",
+      "title": "Audit log accessibility",
+      "description": "Provide capability to access audit logs on a read-only basis.",
+      "parent": "FR 6",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 6.2",
+      "title": "Continuous monitoring",
+      "description": "Provide capability for continuous monitoring of security-relevant events.",
+      "parent": "FR 6",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "FR 7",
+      "title": "Resource Availability",
+      "description": "Ensure the availability of the system against denial-of-service events.",
+      "parent": null,
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 7.1",
+      "title": "Denial of service protection",
+      "description": "Protect against denial-of-service attacks.",
+      "parent": "FR 7",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 7.2",
+      "title": "Resource management",
+      "description": "Manage system resources to prevent resource exhaustion.",
+      "parent": "FR 7",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 7.3",
+      "title": "Control system backup",
+      "description": "Backup the control system software and configuration.",
+      "parent": "FR 7",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 7.4",
+      "title": "Control system recovery and reconstitution",
+      "description": "Recover and reconstitute the control system after a disruption.",
+      "parent": "FR 7",
+      "function": "Foundational Requirements"
+    },
+    {
+      "control_id": "SR 1.9",
+      "title": "Session lock",
+      "description": "Operator-accessible agent kill switch � halt all agent activity immediately without affecting process control; Agent sessions terminated and credentials revoked immediately on compromise detection; Ability to terminate LLM sessions immediately on detection of suspicious behaviour"
+    },
+    {
+      "control_id": "SR 6.6",
+      "title": "Timely response to events",
+      "description": "Anomalous tool invocation patterns detected and responded to � alert, suspend, investigate; Cascade indicators detected and responded to before physical process impact; Shadow AI discovery triggers incident response � data impact assessment, vendor notification"
+    },
+    {
+      "control_id": "SR 1.6",
+      "title": "Authenticator management",
+      "description": "Agent credentials managed with defined lifecycle � issuance, rotation, revocation procedures; Agent credential lifecycle managed � issuance, rotation, revocation documented per agent; LLM interactions logged with user identity — injection attempts attributable to specific sessions"
+    },
+    {
+      "control_id": "SR 2.6",
+      "title": "Use control",
+      "description": "Only approved, verified agent components permitted in OT zones � no runtime loading of unapproved tools; Rogue agent cannot load additional tools or expand its own capability scope; Only approved, validated data sources permitted in Zone 3 GenAI ingestion � unapproved sources blocked"
+    },
+    {
+      "control_id": "Supplier security requirements",
+      "title": "62443-2-4",
+      "description": "Security requirements applied to all agent tool and MCP server vendors with OT access; GenAI vendors handling OT-derived assets subject to 62443-2-4 programme; GenAI vendors assessed under OT supplier security programme � same requirements as OT software vendors"
+    },
+    {
+      "control_id": "SR 2.3",
+      "title": "Use control",
+      "description": "Agent code execution restricted to specific, defined operations � no shell access, no network programming; LLM advisory outputs clearly distinguished from authoritative documentation � source always visible; LLM output restricted to authorised actions — no raw output directly to control interfaces"
+    },
+    {
+      "control_id": "SR 3.7",
+      "title": "Software and information integrity (monitoring)",
+      "description": "Runtime monitoring of agent code execution � anomalous system calls detected and blocked; Continuous monitoring of agent memory for anomalous content patterns or unexpected modifications; Continuous behavioural monitoring of all OT agents � deviation from established baseline detected"
+    },
+    {
+      "control_id": "SR 4.4",
+      "title": "Communication integrity",
+      "description": "Message integrity enforced � replay protection, nonces, sequence numbers on A2A channels; GenAI outputs containing sensitive OT identifiers (tag names, IPs, device types) masked before leaving DMZ; OT-specific data masking before telemetry capture � tag IDs, equipment identifiers masked before logging"
+    },
+    {
+      "control_id": "SR 7.6",
+      "title": "Denial of service protection",
+      "description": "Circuit breakers preventing cascade propagation � agent failure contained within defined blast radius; Poisoned model availability impact contained � fallback procedure prevents physical process disruption; Circuit breakers preventing OT GenAI service degradation from affecting process control"
+    },
+    {
+      "control_id": "SR 7.7",
+      "title": "Control system backup",
+      "description": "Agent system failures cannot affect backup and recovery of OT process control; OT GenAI failures cannot affect backup and recovery of process control � independence verified; LLM resource exhaustion cannot affect backup and recovery of OT control systems"
+    },
+    {
+      "control_id": "SR 5.3",
+      "title": "Information flow restriction",
+      "description": "OT-sensitive context minimised before tool API calls � tools receive minimum required, not full OT context"
+    },
+    {
+      "control_id": "Security management system",
+      "title": "62443-2-1",
+      "description": "OT security management system updated to cover GenAI deployments � policy, roles, assessment"
+    },
+    {
+      "control_id": "Security management",
+      "title": "62443-2-1",
+      "description": "OT synthetic data governance policy � when synthetic data removes OT classification obligation"
+    },
+    {
+      "control_id": "SR 4.2",
+      "title": "Data confidentiality at rest",
+      "description": "OT data used in LLM context or stored by LLM components encrypted at rest"
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-04-09",
+      "change": "Initial seed — 7 foundational requirements with 25 system requirements",
+      "author": "emmanuelgjr"
+    }
+  ]
+}

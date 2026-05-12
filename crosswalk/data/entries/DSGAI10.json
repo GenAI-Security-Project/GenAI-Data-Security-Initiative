@@ -596,6 +596,24 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-049"
+    },
+    {
+      "name": "AI-generated CSAM detection evasion — adversarial manipulation of content safety classifiers",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-063"
+    },
+    {
+      "name": "LLM-generated malware evades endpoint detection — AI-assisted polymorphic code",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-075"
+    },
+    {
+      "name": "Midjourney Trump arrest deepfakes go viral — AI-generated images shape public perception",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2023,
+      "incident_id": "INC-077"
     }
   ],
   "crossrefs": {

@@ -17,20 +17,34 @@ researchers, and practitioners at any experience level.
 
 ## What you can contribute
 
-- **New framework mappings** — a framework not yet covered
-- **Control updates** — a framework has released a new version
-- **Incident references** — a real-world incident that illustrates a vulnerability
-- **Tool additions** — an open-source tool relevant to a mapping entry
-- **OT/ICS specifics** — industrial context for any mapping entry
-- **Translations** — see `/i18n/` for language stubs
-- **Bug fixes** — broken links, incorrect control IDs, typos
+- **New framework mappings** ï¿½ a framework not yet covered
+- **Control updates** ï¿½ a framework has released a new version
+- **Incident references** ï¿½ a real-world incident that illustrates a vulnerability
+- **Tool additions** ï¿½ an open-source tool relevant to a mapping entry
+- **OT/ICS specifics** ï¿½ industrial context for any mapping entry
+- **Translations** ï¿½ see `/i18n/` for language stubs
+- **Bug fixes** â€” broken links, incorrect control IDs, typos
+- **Framework submissions** â€” use the [Submit-a-Standard](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/submit) page to submit a new framework for automated mapping
+
+---
+
+## Submit a Standard (automated)
+
+The fastest way to add a new framework:
+
+1. Go to [Submit-a-Standard](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/submit) in the web app
+2. Paste your framework controls as JSON (see `data/framework-schema.json` for the schema)
+3. The classifier pipeline automatically proposes mappings to all 41 OWASP entries
+4. A PR is opened for review â€” use the [Review page](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/review) to accept/reject
+
+You can also submit via the [GitHub Issue template](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/issues/new?template=submit-framework.yml).
 
 ---
 
 ## Before you start
 
 1. Check [open issues](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/issues)
-   — your contribution may already be in progress
+   ï¿½ your contribution may already be in progress
 2. For new framework files, open an issue first to confirm scope
 3. Read [`shared/SEVERITY.md`](shared/SEVERITY.md) before assigning severity ratings
 4. Read [`shared/GLOSSARY.md`](shared/GLOSSARY.md) for consistent terminology
@@ -42,12 +56,12 @@ researchers, and practitioners at any experience level.
 Every mapping file must follow this structure:
 ```
 1. Header comment block (source list, framework, version, license)
-2. H1 title: "[Source list] × [Framework]"
+2. H1 title: "[Source list] ï¿½ [Framework]"
 3. One-paragraph description of the framework
 4. Framework domain/control summary table
 5. Quick-reference summary table (ID, Name, Severity, Controls, Tier, Scope)
 6. Audience tags
-7. Detailed mappings — one H3 section per vulnerability:
+7. Detailed mappings ï¿½ one H3 section per vulnerability:
    - Severity
    - Description (2 sentences max)
    - Real-world reference (if known)
@@ -62,7 +76,7 @@ Every mapping file must follow this structure:
 ```
 
 Copy [`agentic-top10/Agentic_AIUC1.md`](agentic-top10/Agentic_AIUC1.md)
-as your starting template — it is the reference implementation.
+as your starting template ï¿½ it is the reference implementation.
 
 ---
 
@@ -74,7 +88,7 @@ as your starting template — it is the reference implementation.
 4. Verify all links work
 5. Add a changelog entry at the bottom of any file you modify
 6. Update `data/` JSON if you are modifying a mapping entry
-7. Open a PR using the PR template — fill in every checklist item
+7. Open a PR using the PR template ï¿½ fill in every checklist item
 
 PRs without a source/evidence link will be held for review until one is provided.
 

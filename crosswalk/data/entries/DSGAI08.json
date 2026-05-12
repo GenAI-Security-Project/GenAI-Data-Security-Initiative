@@ -668,6 +668,102 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2025,
       "incident_id": "INC-034"
+    },
+    {
+      "name": "Rabbit R1 hardcoded API keys — all user data accessible to anyone with firmware",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-054"
+    },
+    {
+      "name": "Amazon Q developer leaks internal AWS data in enterprise environment",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-064"
+    },
+    {
+      "name": "OpenAI GPT-4 system prompt extraction toolkit — systematic prompt leakage",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-065"
+    },
+    {
+      "name": "Snowflake customer data breach via stolen credentials — 165+ organisations affected",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-070"
+    },
+    {
+      "name": "DeepSeek R1 data exfiltration — Chinese AI model sends data to China-linked servers",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-072"
+    },
+    {
+      "name": "Lasso Security — 1,500+ HuggingFace API tokens exposed in code repositories",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2023,
+      "incident_id": "INC-079"
+    },
+    {
+      "name": "ShadowRay 2.0 botnet — self-spreading crypto-mining via Ray AI framework",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-084"
+    },
+    {
+      "name": "ShadowMQ — critical RCE in Meta/NVIDIA/vLLM inference servers via pickle deserialization",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-085"
+    },
+    {
+      "name": "LiteLLM PyPI supply chain backdoor — TeamPCP campaign compromises 3.4M daily downloads",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-093"
+    },
+    {
+      "name": "Axios npm supply chain attack — North Korean Sapphire Sleet targets 70M weekly downloads",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-094"
+    },
+    {
+      "name": "GlassWorm supply chain — 72 malicious VSCode extensions, 9 million installs",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-097"
+    },
+    {
+      "name": "Moltbook — vibe-coded social network exposes 1.5M API tokens and 35K emails",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-099"
+    },
+    {
+      "name": "ServiceNow BodySnatcher — hardcoded secret key enables full AI agent hijacking (CVE-2025-12420)",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-104"
+    },
+    {
+      "name": "Microsoft Copilot Studio agents public by default — unauthorized data exfiltration",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-105"
+    },
+    {
+      "name": "Salesloft Drift OAuth breach — Chinese actor UNC6395 accesses 700+ Salesforce CRM environments",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-109"
+    },
+    {
+      "name": "Flowise CustomMCP code injection RCE — CVSS 10.0, 12,000 instances exposed",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-113"
     }
   ],
   "crossrefs": {

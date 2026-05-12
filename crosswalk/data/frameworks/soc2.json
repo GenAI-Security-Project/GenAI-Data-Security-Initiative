@@ -1,0 +1,1020 @@
+{
+  "id": "soc2",
+  "name": "SOC 2",
+  "short_name": "SOC 2",
+  "version": "2017 (2022 rev)",
+  "url": "https://www.aicpa-cima.com/resources/landing/2017-trust-services-criteria",
+  "license": "Proprietary (AICPA)",
+  "publisher": "AICPA",
+  "category": "certification",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "CC1.1",
+      "title": "COSO principle 1 — Integrity and ethical values",
+      "description": "The entity demonstrates a commitment to integrity and ethical values.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC1.2",
+      "title": "COSO principle 2 — Board independence and oversight",
+      "description": "The board of directors demonstrates independence from management and exercises oversight.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC1.3",
+      "title": "COSO principle 3 — Management establishes structure, authority, and responsibility",
+      "description": "Management establishes structures, reporting lines, and appropriate authorities and responsibilities.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC1.4",
+      "title": "COSO principle 4 — Commitment to competence",
+      "description": "The entity demonstrates a commitment to attract, develop, and retain competent individuals.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC1.5",
+      "title": "COSO principle 5 — Accountability",
+      "description": "The entity holds individuals accountable for their internal control responsibilities.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC2.1",
+      "title": "COSO principle 13 — Quality information",
+      "description": "The entity obtains or generates and uses relevant, quality information.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC2.2",
+      "title": "COSO principle 14 — Internal communication",
+      "description": "The entity internally communicates information necessary to support functioning of internal control.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC2.3",
+      "title": "COSO principle 15 — External communication",
+      "description": "The entity communicates with external parties regarding matters affecting functioning of internal control.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC3.1",
+      "title": "COSO principle 6 — Risk objectives",
+      "description": "The entity specifies objectives with sufficient clarity to enable identification and assessment of risks.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC3.2",
+      "title": "COSO principle 7 — Risk identification and analysis",
+      "description": "The entity identifies risks and analyses risks as a basis for determining how risks should be managed.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC3.3",
+      "title": "COSO principle 8 — Fraud risk",
+      "description": "The entity considers the potential for fraud in assessing risks.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC3.4",
+      "title": "COSO principle 9 — Change management",
+      "description": "The entity identifies and assesses changes that could significantly impact the system of internal control.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC4.1",
+      "title": "COSO principle 16 — Ongoing and separate evaluations",
+      "description": "The entity selects, develops, and performs ongoing and/or separate evaluations.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC4.2",
+      "title": "COSO principle 17 — Deficiency communication",
+      "description": "The entity evaluates and communicates internal control deficiencies in a timely manner.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC5.1",
+      "title": "COSO principle 10 — Control activities selection",
+      "description": "The entity selects and develops control activities that mitigate risks.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC5.2",
+      "title": "COSO principle 11 — Technology controls",
+      "description": "The entity selects and develops general control activities over technology.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC5.3",
+      "title": "COSO principle 12 — Policies and procedures",
+      "description": "The entity deploys control activities through policies and procedures.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC6.1",
+      "title": "Logical and physical access controls",
+      "description": "The entity implements logical access security measures to protect against unauthorized access.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC6.2",
+      "title": "Access provisioning",
+      "description": "Prior to issuing system credentials, the entity registers and authorizes new users.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC6.3",
+      "title": "Access removal",
+      "description": "The entity removes access to protected information when no longer needed.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC6.6",
+      "title": "System boundaries",
+      "description": "The entity implements controls to prevent or detect unauthorized access at system boundaries.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC6.7",
+      "title": "Data in transit",
+      "description": "The entity restricts the transmission of data to authorized external parties.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC6.8",
+      "title": "Malicious software prevention",
+      "description": "The entity implements controls to prevent or detect malicious software.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC7.1",
+      "title": "Anomaly detection",
+      "description": "The entity uses detection and monitoring procedures to identify anomalies.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC7.2",
+      "title": "Event monitoring",
+      "description": "The entity monitors system components for anomalies indicative of security events.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC7.3",
+      "title": "Security event evaluation",
+      "description": "The entity evaluates security events to determine whether they constitute security incidents.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC7.4",
+      "title": "Incident response",
+      "description": "The entity responds to identified security incidents by executing a defined incident response programme.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC7.5",
+      "title": "Incident recovery",
+      "description": "The entity identifies, develops, and implements activities to recover from identified security incidents.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC8.1",
+      "title": "Change management",
+      "description": "The entity authorizes, designs, develops, configures, documents, tests, approves, and implements changes.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC9.1",
+      "title": "Risk mitigation",
+      "description": "The entity identifies, selects, and develops risk mitigation activities.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "CC9.2",
+      "title": "Vendor and business partner risk",
+      "description": "The entity assesses and manages risks associated with vendors and business partners.",
+      "parent": null,
+      "function": "Common Criteria"
+    },
+    {
+      "control_id": "A1.1",
+      "title": "Availability commitments",
+      "description": "The entity maintains, monitors, and evaluates current processing capacity and use.",
+      "parent": null,
+      "function": "Availability"
+    },
+    {
+      "control_id": "A1.2",
+      "title": "Environmental protections and recovery",
+      "description": "The entity authorizes, designs, develops, and implements controls for environmental threats and recovery.",
+      "parent": null,
+      "function": "Availability"
+    },
+    {
+      "control_id": "C1.1",
+      "title": "Confidentiality identification",
+      "description": "The entity identifies and maintains confidential information.",
+      "parent": null,
+      "function": "Confidentiality"
+    },
+    {
+      "control_id": "C1.2",
+      "title": "Confidentiality disposal",
+      "description": "The entity disposes of confidential information to meet objectives.",
+      "parent": null,
+      "function": "Confidentiality"
+    },
+    {
+      "control_id": "PI1.1",
+      "title": "Processing integrity — input completeness and accuracy",
+      "description": "The entity implements policies and procedures for completeness and accuracy of inputs.",
+      "parent": null,
+      "function": "Processing Integrity"
+    },
+    {
+      "control_id": "PI1.2",
+      "title": "Processing integrity — system processing",
+      "description": "The entity implements policies and procedures over system processing to result in products and services meeting specifications.",
+      "parent": null,
+      "function": "Processing Integrity"
+    },
+    {
+      "control_id": "P1.1",
+      "title": "Privacy notice",
+      "description": "The entity provides notice to data subjects about its privacy practices.",
+      "parent": null,
+      "function": "Privacy"
+    },
+    {
+      "control_id": "P3.1",
+      "title": "Collection of personal information",
+      "description": "Personal information is collected consistent with the entity's objectives.",
+      "parent": null,
+      "function": "Privacy"
+    },
+    {
+      "control_id": "P4.1",
+      "title": "Use of personal information",
+      "description": "The entity limits the use of personal information to the purposes identified in the notice.",
+      "parent": null,
+      "function": "Privacy"
+    },
+    {
+      "control_id": "P6.1",
+      "title": "Disclosure of personal information",
+      "description": "The entity discloses personal information to third parties with consent or as identified in the notice.",
+      "parent": null,
+      "function": "Privacy"
+    },
+    {
+      "control_id": "Goal hijack risk identified in risk assessment — prompt injection, indirect injection, multi-turn manipulation documented",
+      "title": "CC3.2",
+      "description": "Risk register with goal hijack entries, treatment status"
+    },
+    {
+      "control_id": "Runtime monitoring for goal-deviation indicators — AI-specific anomaly detection covering instruction-override patterns",
+      "title": "CC7.2",
+      "description": "Monitoring configuration, alert logs, incident records"
+    },
+    {
+      "control_id": "Control activities define acceptable agent actions — agent cannot deviate from authorised goal scope",
+      "title": "CC5.2",
+      "description": "Agent permission policy, goal-state verification design documentation"
+    },
+    {
+      "control_id": "Agent processing is authorised — actions taken by agent correspond to user's authorised intent, not attacker's injected instruction",
+      "title": "PI1.1",
+      "description": "Action audit log, authorisation records per agent session"
+    },
+    {
+      "control_id": "Control activities define tool permission scope — which tools are permitted, which parameters are valid, which actions require confirmation",
+      "title": "CC5.2",
+      "description": "Tool permission policy, permitted action allowlist"
+    },
+    {
+      "control_id": "Logical access controls enforce tool permissions — agent cannot invoke tools outside authorised scope",
+      "title": "CC6.1",
+      "description": "Tool invocation logs, access rejection records"
+    },
+    {
+      "control_id": "Monitoring for anomalous tool invocations — destructive parameters, out-of-scope tools, unexpected sequences detected",
+      "title": "CC7.2",
+      "description": "Tool call audit log, anomaly alert records"
+    },
+    {
+      "control_id": "Tool invocations are complete and accurate — parameter validation ensures tool calls match intended business operation",
+      "title": "PI1.2",
+      "description": "Validation configuration, rejected call logs"
+    },
+    {
+      "control_id": "Agent credentials managed as logical access assets — provisioning, scope, rotation, revocation per access management policy",
+      "title": "CC6.1",
+      "description": "Credential lifecycle records, provisioning logs"
+    },
+    {
+      "control_id": "Credentials revoked at session end — no persistent credential caching in agent memory after session terminates",
+      "title": "CC6.3",
+      "description": "Session termination logs, credential TTL configuration"
+    },
+    {
+      "control_id": "Credential usage monitored — anomalous scope expansion or after-session access detected",
+      "title": "CC7.3",
+      "description": "Credential audit log, anomaly alert records"
+    },
+    {
+      "control_id": "Agent credentials treated as confidential information — stored in secrets manager, access-controlled",
+      "title": "C1.1",
+      "description": "Secrets management configuration, access control evidence"
+    },
+    {
+      "control_id": "Third-party agentic components assessed — agent frameworks, tool vendors, model providers subject to vendor risk management",
+      "title": "CC9.2",
+      "description": "Vendor assessments, contractual security obligations"
+    },
+    {
+      "control_id": "Component changes managed through change management — model updates, framework upgrades, tool changes require security review",
+      "title": "CC8.1",
+      "description": "Change management records, security review sign-offs"
+    },
+    {
+      "control_id": "Agentic supply chain risk included in risk assessment — compromised component scenarios documented with treatment",
+      "title": "CC3.3",
+      "description": "Risk register with supply chain entries"
+    },
+    {
+      "control_id": "Integrity checks required before component deployment — cryptographic verification of model weights and tool descriptors",
+      "title": "CC5.3",
+      "description": "Integrity verification configuration, deployment logs"
+    },
+    {
+      "control_id": "Control activities define permitted code execution scope — sandbox requirements, approved languages, forbidden operations",
+      "title": "CC5.2",
+      "description": "Code execution policy, sandbox configuration"
+    },
+    {
+      "control_id": "Execution sandboxes access-controlled — no host filesystem or network access without authorisation",
+      "title": "CC6.1",
+      "description": "Sandbox configuration, access control evidence"
+    },
+    {
+      "control_id": "Code execution events monitored — syscall patterns, network calls, and filesystem access from sandboxes logged",
+      "title": "CC7.2",
+      "description": "Execution audit log, alert configuration"
+    },
+    {
+      "control_id": "Code execution is authorised — agent cannot execute code that was not explicitly requested by authorised user",
+      "title": "PI1.1",
+      "description": "Code execution authorisation records"
+    },
+    {
+      "control_id": "Memory poisoning risk documented in risk assessment — scenarios for RAG, persistent memory, and context window corruption",
+      "title": "CC3.3",
+      "description": "Risk register with memory poisoning entries"
+    },
+    {
+      "control_id": "Agent memory stores monitored for unexpected modifications — baseline established, deviations trigger alerts",
+      "title": "CC7.2",
+      "description": "Memory access log, anomaly alert configuration"
+    },
+    {
+      "control_id": "Processing based on compromised memory is not authorised — memory integrity controls support PI1 evidence",
+      "title": "PI1.1",
+      "description": "Integrity verification configuration"
+    },
+    {
+      "control_id": "Controls on memory store write access — only authorised processes may write to agent memory stores",
+      "title": "CC5.2",
+      "description": "Memory access policy, write access controls"
+    },
+    {
+      "control_id": "Inter-agent authentication required — all agent-to-agent messages authenticated before acting",
+      "title": "CC6.1",
+      "description": "mTLS configuration, certificate management records"
+    },
+    {
+      "control_id": "Inter-agent communication policy — which agents may communicate with which, under what conditions, with what data",
+      "title": "CC5.2",
+      "description": "Inter-agent communication policy document"
+    },
+    {
+      "control_id": "Inter-agent traffic monitored — unexpected communication patterns, unauthorised agent requests detected",
+      "title": "CC7.2",
+      "description": "Inter-agent traffic logs, anomaly alert records"
+    },
+    {
+      "control_id": "Third-party agents treated as vendor risk — agents from external providers assessed before integration",
+      "title": "CC9.2",
+      "description": "Vendor assessment records for third-party agents"
+    },
+    {
+      "control_id": "Availability commitments defined for multi-agent system — RTO/RPO documented; cascade failure scenarios in availability risk",
+      "title": "A1.1",
+      "description": "Availability SLA, BCP documentation"
+    },
+    {
+      "control_id": "Capacity and performance monitoring — early warning of cascade failure precursors (latency, error rate, queue depth)",
+      "title": "A1.2",
+      "description": "Monitoring dashboards, alert configuration"
+    },
+    {
+      "control_id": "Cascade failure incidents detected and responded to — incident response procedures for multi-agent failures",
+      "title": "CC7.3",
+      "description": "IR plan covering cascade scenarios, incident records"
+    },
+    {
+      "control_id": "Cascade failure risk in risk assessment — blast radius analysis, dependency mapping documented",
+      "title": "CC3.3",
+      "description": "Risk register with cascade failure entries"
+    },
+    {
+      "control_id": "AI disclosure policy — users informed when interacting with AI agents; deceptive design patterns prohibited",
+      "title": "CC5.3",
+      "description": "AI disclosure policy, UI evidence"
+    },
+    {
+      "control_id": "Trust exploitation risk in risk assessment — social engineering, impersonation, false urgency scenarios documented",
+      "title": "CC3.3",
+      "description": "Risk register with trust exploitation entries"
+    },
+    {
+      "control_id": "Agent outputs are accurate and complete — outputs not designed to mislead; factual accuracy controls for high-stakes outputs",
+      "title": "PI1.3",
+      "description": "Output quality controls, factual accuracy testing"
+    },
+    {
+      "control_id": "Accuracy of personal data in AI outputs — privacy criteria require that AI-generated information about individuals is accurate",
+      "title": "P7.1",
+      "description": "Accuracy review procedures"
+    },
+    {
+      "control_id": "Continuous monitoring for rogue agent behaviour — actions outside authorised scope detected and alerted",
+      "title": "CC7.2",
+      "description": "Agent action audit log, anomaly alert records"
+    },
+    {
+      "control_id": "Access controls define authorised agent scope — technical enforcement of what agents may and may not do",
+      "title": "CC6.1",
+      "description": "Permission policy, access control configuration"
+    },
+    {
+      "control_id": "Rogue agent risk in risk assessment — autonomous agent operating outside scope is a documented risk",
+      "title": "CC3.3",
+      "description": "Risk register with rogue agent scenarios"
+    },
+    {
+      "control_id": "Rogue agent impact on availability — resource consumption by rogue agents does not degrade service for authorised operations",
+      "title": "A1.1",
+      "description": "Resource monitoring, quota enforcement records"
+    },
+    {
+      "control_id": "Policy identifying confidential information in GenAI scope � training data, RAG corpus, embeddings, outputs",
+      "title": "C1.1 � Confidentiality policy"
+    },
+    {
+      "control_id": "Technical controls protecting confidential data in GenAI pipelines � encryption, access controls, output scanning",
+      "title": "C2.1 � Confidential information protection"
+    },
+    {
+      "control_id": "Access controls on RAG retrieval � users retrieve only data they are authorised to access",
+      "title": "CC6.1 � Logical access"
+    },
+    {
+      "control_id": "Personal information in GenAI scope used only for authorised purposes � LLM processing limited to agreed use cases",
+      "title": "P5.1 � Personal information use"
+    },
+    {
+      "control_id": "DLP monitoring on all GenAI output channels � sensitive patterns detected before delivery to users",
+      "title": "CC7.2 � Anomaly detection"
+    },
+    {
+      "control_id": "Agent credentials managed as privileged access � minimum scope, documented justification, regular review",
+      "title": "CC6.1 � Logical access"
+    },
+    {
+      "control_id": "Agent credentials revoked on decommission and anomaly detection � no dormant agent NHIs",
+      "title": "CC6.3 � Access removal"
+    },
+    {
+      "control_id": "Agent tool providers assessed � data handling, credential security requirements in vendor agreements",
+      "title": "CC9.1 � Vendor risk"
+    },
+    {
+      "control_id": "Agent credential anomaly monitoring � unusual usage patterns detected and alerted",
+      "title": "CC7.2 � Anomaly detection"
+    },
+    {
+      "control_id": "Agent credential lifecycle procedures � issuance, rotation, revocation documented",
+      "title": "CC5.2 � Control activities"
+    },
+    {
+      "control_id": "Acceptable use procedures for AI tools � approved list, prohibited use cases, employee acknowledgement",
+      "title": "CC5.2 � Control activities"
+    },
+    {
+      "control_id": "Shadow AI vendors not in vendor risk programme � shadow AI discovery identifies unapproved vendors",
+      "title": "CC9.1 � Vendor risk"
+    },
+    {
+      "control_id": "Shadow AI usage identified as a risk in assessment � ungoverned data flows, training use by vendors",
+      "title": "CC3.2 � Risk assessment"
+    },
+    {
+      "control_id": "Confidentiality policy covers AI tool use � employees informed of restrictions on sharing confidential data",
+      "title": "C1.1 � Confidentiality policy"
+    },
+    {
+      "control_id": "Poisoning threats documented in GenAI risk assessment � training data, supply chain, model update vectors",
+      "title": "CC3.2 � Risk assessment"
+    },
+    {
+      "control_id": "Model promotions through change management � integrity verification before production deployment",
+      "title": "CC8.1 � Change management"
+    },
+    {
+      "control_id": "Training data providers in vendor risk programme � provenance, quality, integrity requirements assessed",
+      "title": "CC9.1 � Vendor risk"
+    },
+    {
+      "control_id": "Model output anomaly monitoring � poisoning indicators detected before operational impact",
+      "title": "CC7.2 � Anomaly detection"
+    },
+    {
+      "control_id": "Ingestion validation controls � schema and semantic validation ensuring only accurate inputs enter processing",
+      "title": "PI1.2 � System inputs complete and accurate"
+    },
+    {
+      "control_id": "Documented ingestion validation procedures � multi-stage validation, path traversal prevention",
+      "title": "CC5.2 � Control activities"
+    },
+    {
+      "control_id": "Ingestion anomaly detection � unusual payloads detected before pipeline completion",
+      "title": "CC7.2 � Anomaly detection"
+    },
+    {
+      "control_id": "Ingestion integrity risks in GenAI risk assessment � schema bypass, path traversal, adversarial payload vectors",
+      "title": "CC3.2 � Risk assessment"
+    },
+    {
+      "control_id": "Tool and plugin providers assessed in vendor risk programme � what data they receive, retain, and use",
+      "title": "CC9.1 � Vendor risk"
+    },
+    {
+      "control_id": "Contractual data handling obligations for tool providers � data minimisation, retention, training use restrictions",
+      "title": "CC9.2 � Vendor agreements"
+    },
+    {
+      "control_id": "Context minimisation for tool calls � tools receive minimum confidential data required for function",
+      "title": "C2.1 � Confidential information protection"
+    },
+    {
+      "control_id": "Tool access scoped to minimum required � agent tool permissions as privileged access",
+      "title": "CC6.1 � Logical access"
+    },
+    {
+      "control_id": "Policy identifies all confidential information in GenAI scope � including derived assets (embeddings, caches, traces)",
+      "title": "C1.1 � Confidentiality policy"
+    },
+    {
+      "control_id": "Personal information lifecycle management covers GenAI-derived assets � embeddings inherit source data obligations",
+      "title": "P4.1 � Privacy information lifecycle"
+    },
+    {
+      "control_id": "Data lifecycle procedures documented � classification propagation, retention schedules, deletion procedures",
+      "title": "CC5.2 � Control activities"
+    },
+    {
+      "control_id": "Ungoverned derived asset risks identified in assessment � embeddings, caches, agent memory outside governance scope",
+      "title": "CC3.2 � Risk assessment"
+    },
+    {
+      "control_id": "Commitment to compliance with applicable laws and regulations including AI-specific obligations",
+      "title": "CC5.1 � Control environment"
+    },
+    {
+      "control_id": "Regulatory risks identified in GenAI risk assessment � GDPR, EU AI Act, sector-specific regulations",
+      "title": "CC3.2 � Risk assessment"
+    },
+    {
+      "control_id": "Privacy programme covers GenAI processing of personal information � policies, notices, accountability",
+      "title": "P1.1 � Privacy management"
+    },
+    {
+      "control_id": "Regulatory compliance status communicated to management � AI Act obligations, NIS2 requirements",
+      "title": "CC2.1 � Communication"
+    },
+    {
+      "control_id": "Multimodal derived content (OCR output, transcripts) protected at same level as source uploads",
+      "title": "C2.1 � Confidential information protection"
+    },
+    {
+      "control_id": "Personal information extracted from multimodal inputs subject to same use restrictions as source data",
+      "title": "P5.1 � Personal information use"
+    },
+    {
+      "control_id": "Access controls on multimodal content stores � same rigour as equivalent text data stores",
+      "title": "CC6.1 � Logical access"
+    },
+    {
+      "control_id": "DLP monitoring on multimodal extraction pipelines � PII in OCR output and transcripts detected",
+      "title": "CC7.2 � Anomaly detection"
+    },
+    {
+      "control_id": "Synthetic datasets that are not truly anonymous subject to same retention obligations as source personal data",
+      "title": "P4.2 � Retention of personal information"
+    },
+    {
+      "control_id": "Synthetic data use must respect underlying privacy commitments if re-identification risk exists",
+      "title": "P5.1 � Personal information use"
+    },
+    {
+      "control_id": "Re-identification risk in synthetic datasets identified in risk assessment",
+      "title": "CC3.2 � Risk assessment"
+    },
+    {
+      "control_id": "Synthetic OT data and business data protected at source classification level until re-identification risk formally assessed",
+      "title": "C2.1 � Confidential information protection"
+    },
+    {
+      "control_id": "Strict session isolation � each user's context inaccessible to all other sessions",
+      "title": "CC6.1 � Logical access"
+    },
+    {
+      "control_id": "User session context classified as confidential � technical isolation controls",
+      "title": "C2.1 � Confidential information protection"
+    },
+    {
+      "control_id": "Personal information in user sessions used only for that user's authorised purposes � cross-session leakage is a P5 violation",
+      "title": "P5.1 � Personal information use"
+    },
+    {
+      "control_id": "Cross-session access anomalies monitored � unusual retrieval patterns detected",
+      "title": "CC7.2 � Anomaly detection"
+    },
+    {
+      "control_id": "LLM-generated queries execute under requesting user's permissions � least privilege, no shared high-privilege accounts",
+      "title": "CC6.1 � Logical access"
+    },
+    {
+      "control_id": "Policy requiring LLM-generated queries to be validated before execution � only authorised processing permitted",
+      "title": "PI1.1 � Processing integrity policy"
+    },
+    {
+      "control_id": "LLM-generated query results validated � destructive or over-broad queries blocked before execution",
+      "title": "PI1.3 � Outputs complete and accurate"
+    },
+    {
+      "control_id": "LLM-generated query anomaly monitoring � bulk extraction, unusual patterns, out-of-scope queries alerted",
+      "title": "CC7.2 � Anomaly detection"
+    },
+    {
+      "control_id": "Query allowlisting and human confirmation procedures documented",
+      "title": "CC5.2 � Control activities"
+    },
+    {
+      "control_id": "Vector store content encrypted at rest � embeddings of confidential data protected",
+      "title": "C2.1 � Confidential information protection"
+    },
+    {
+      "control_id": "RBAC on all vector store collections � no unauthenticated access",
+      "title": "CC6.1 � Logical access"
+    },
+    {
+      "control_id": "Vector database CVE patching managed through change management � timely remediation documented",
+      "title": "CC8.1 � Change management"
+    },
+    {
+      "control_id": "Vector store query anomaly monitoring � bulk extraction patterns detected",
+      "title": "CC7.2 � Anomaly detection"
+    },
+    {
+      "control_id": "GenAI telemetry classified and encrypted � content captured in traces protected at same level as source data",
+      "title": "C2.1 � Confidential information protection"
+    },
+    {
+      "control_id": "Personal information in telemetry used only for authorised purposes � same restrictions as production data",
+      "title": "P5.1 � Personal information use"
+    },
+    {
+      "control_id": "Access controls on telemetry stores � same rigour as production data stores",
+      "title": "CC6.1 � Logical access"
+    },
+    {
+      "control_id": "Access anomaly monitoring on telemetry stores � bulk access patterns detected",
+      "title": "CC7.2 � Monitoring"
+    },
+    {
+      "control_id": "Context window assembly respects user authorisation � no content from higher classification tier than user's access level",
+      "title": "CC6.1 � Logical access"
+    },
+    {
+      "control_id": "Highest classification in context window drives handling � response treated as confidential if context contains confidential data",
+      "title": "C2.1 � Confidential information protection"
+    },
+    {
+      "control_id": "Minimum-necessary context injection procedures � documented and enforced",
+      "title": "CC5.2 � Control activities"
+    },
+    {
+      "control_id": "Over-broad context risks identified � cross-trust-domain aggregation assessed",
+      "title": "CC3.2 � Risk assessment"
+    },
+    {
+      "control_id": "Approved AI assistants with scoped permissions � permission minimisation documented and enforced",
+      "title": "CC6.1 � Logical access"
+    },
+    {
+      "control_id": "Browser AI extension providers assessed in vendor risk programme � data handling, telemetry, update security",
+      "title": "CC9.1 � Vendor risk"
+    },
+    {
+      "control_id": "Endpoint AI acceptable use procedures � approved extension list, prohibited data access, employee acknowledgement",
+      "title": "CC5.2 � Control activities"
+    },
+    {
+      "control_id": "Endpoint AI overreach risks identified � data access scope, exfiltration paths assessed",
+      "title": "CC3.2 � Risk assessment"
+    },
+    {
+      "control_id": "LLM service availability commitments cover RAG freshness � stale data producing misinformation is an availability failure",
+      "title": "A1.1 � Availability policy"
+    },
+    {
+      "control_id": "Circuit breakers and freshness monitoring protect availability commitments � graceful degradation over silent failure",
+      "title": "A1.2 � Environmental protections"
+    },
+    {
+      "control_id": "RAG freshness monitoring � alert when index staleness exceeds threshold before misinformation reaches users",
+      "title": "CC7.2 � Anomaly detection"
+    },
+    {
+      "control_id": "Silent RAG degradation identified as availability risk in assessment",
+      "title": "CC3.2 � Risk assessment"
+    },
+    {
+      "control_id": "Inference attack resistance as confidentiality protection � technical measures limiting reconstruction success",
+      "title": "C2.1 � Confidential information protection"
+    },
+    {
+      "control_id": "Using model outputs to reconstruct personal information beyond authorised purposes is a P5 violation",
+      "title": "P5.1 � Personal information use"
+    },
+    {
+      "control_id": "Output monitoring for reconstruction indicators � systematic query patterns detected",
+      "title": "CC7.2 � Anomaly detection"
+    },
+    {
+      "control_id": "Inference attack risks identified in GenAI risk assessment � membership inference, model inversion vectors",
+      "title": "CC3.2 � Risk assessment"
+    },
+    {
+      "control_id": "Labelling vendors assessed in vendor risk programme � data access scope, handling requirements, sub-processor chain",
+      "title": "CC9.1 � Vendor risk"
+    },
+    {
+      "control_id": "Contractual data handling obligations for labelling vendors � data minimisation, retention, permitted use",
+      "title": "CC9.2 � Vendor agreements"
+    },
+    {
+      "control_id": "Personal information accessed by labellers documented � purpose, scope, and safeguards",
+      "title": "P3.1 � Personal information collection"
+    },
+    {
+      "control_id": "Labelling vendor use of personal information restricted � no secondary use, training, or retention beyond task",
+      "title": "P5.1 � Personal information use"
+    },
+    {
+      "control_id": "Proprietary model artifacts classified as confidential � access controls, rate limiting, extraction detection",
+      "title": "C2.1 � Confidential information protection"
+    },
+    {
+      "control_id": "API rate limiting as access control limiting systematic model extraction",
+      "title": "CC6.1 � Logical access"
+    },
+    {
+      "control_id": "Model extraction pattern monitoring � unusual query diversity and volume detected",
+      "title": "CC7.2 � Anomaly detection"
+    },
+    {
+      "control_id": "Model extraction risks identified in risk assessment � extraction vectors, IP exposure assessed",
+      "title": "CC3.2 � Risk assessment"
+    },
+    {
+      "control_id": "RAG corpus integrity controls � only accurate, verified content enters the retrieval index",
+      "title": "PI1.2 � System inputs complete and accurate"
+    },
+    {
+      "control_id": "LLM outputs derived from poisoned RAG are a processing integrity failure � detection before delivery",
+      "title": "PI1.3 � Outputs complete and accurate"
+    },
+    {
+      "control_id": "RAG corpus data source providers assessed � content quality, update process, integrity guarantees",
+      "title": "CC9.1 � Vendor risk"
+    },
+    {
+      "control_id": "RAG corpus anomaly detection � unusual content or modifications detected before reaching production",
+      "title": "CC7.2 � Anomaly detection"
+    },
+    {
+      "control_id": "Prompt injection documented as a threat in LLM application risk assessment � vectors, likelihood, impact assessed",
+      "title": "CC3.2 � Risk assessment identifies threats and vulnerabilities"
+    },
+    {
+      "control_id": "Runtime monitoring for prompt injection indicators on all LLM input channels � alerts integrated into SOC monitoring",
+      "title": "CC7.2 � Anomaly and threat detection"
+    },
+    {
+      "control_id": "Input validation procedures documented for all LLM integrations � implemented, tested, and reviewed",
+      "title": "CC5.2 � Select and develop control activities"
+    },
+    {
+      "control_id": "LLM access controls limit the blast radius of successful injection � least privilege enforced on all tool access",
+      "title": "CC6.1 � Logical access restrictions"
+    },
+    {
+      "control_id": "Policy identifying confidential information in LLM scope and how it is handled � training data, RAG corpus, outputs",
+      "title": "C1.1 � Confidentiality policy"
+    },
+    {
+      "control_id": "Technical controls protecting confidential data in LLM pipelines � encryption, access controls, output scanning",
+      "title": "C2.1 � Confidential information protection"
+    },
+    {
+      "control_id": "Personal information in LLM scope identified � training data, RAG sources, outputs � collection documented",
+      "title": "P3.1 � Personal information collection"
+    },
+    {
+      "control_id": "Personal information used only for purposes disclosed � LLM processing of customer PII limited to agreed use cases",
+      "title": "P5.1 � Personal information use"
+    },
+    {
+      "control_id": "Access controls on RAG data sources � users retrieve only data they are authorised to access",
+      "title": "CC6.1 � Logical access"
+    },
+    {
+      "control_id": "LLM component vendors assessed before use � security questionnaires, SOC 2 reports reviewed, ongoing monitoring",
+      "title": "CC9.1 � Vendor risk management"
+    },
+    {
+      "control_id": "Contractual security obligations for LLM vendors � data handling, vulnerability disclosure, incident notification",
+      "title": "CC9.2 � Vendor agreements"
+    },
+    {
+      "control_id": "LLM model updates and component changes managed through change management � approval, testing, rollback",
+      "title": "CC8.1 � Change management"
+    },
+    {
+      "control_id": "Supply chain attack vectors identified in LLM risk assessment � training data sources, model providers, plugin vendors",
+      "title": "CC3.2 � Risk assessment"
+    },
+    {
+      "control_id": "Data and model poisoning identified as threats in LLM risk assessment � training pipeline, supply chain, and model update vectors",
+      "title": "CC3.2 � Risk assessment"
+    },
+    {
+      "control_id": "Anomaly detection on model outputs and training data distributions � poisoning indicators detected before operational impact",
+      "title": "CC7.2 � Threat detection"
+    },
+    {
+      "control_id": "Model promotions managed through change management � integrity verification before production deployment",
+      "title": "CC8.1 � Change management"
+    },
+    {
+      "control_id": "Training data providers assessed � data provenance, quality, and integrity guarantees required from vendors",
+      "title": "CC9.1 � Vendor risk"
+    },
+    {
+      "control_id": "Policy requiring LLM output validation before use in downstream processing � complete and authorised processing",
+      "title": "PI1.1 � Processing integrity policies"
+    },
+    {
+      "control_id": "Input validation procedures for all systems consuming LLM output � encoding, schema validation, sanitisation",
+      "title": "CC5.2 � Select and develop control activities"
+    },
+    {
+      "control_id": "Monitoring for injection patterns in LLM output channels � detect anomalous processing before downstream harm",
+      "title": "CC7.2 � Anomaly detection"
+    },
+    {
+      "control_id": "Output injection risks identified in LLM risk assessment � XSS, SQL injection, command injection via AI-generated content",
+      "title": "CC3.2 � Risk assessment"
+    },
+    {
+      "control_id": "LLM tool access managed under least privilege � minimum scope, documented justification, regular review",
+      "title": "CC6.1 � Logical access restrictions"
+    },
+    {
+      "control_id": "LLM tool permissions removed promptly when no longer required � access review process covers LLM tool scope",
+      "title": "CC6.3 � Access removal"
+    },
+    {
+      "control_id": "Human oversight procedures for LLM autonomous actions � confirmation requirements documented and enforced",
+      "title": "CC5.2 � Control activities"
+    },
+    {
+      "control_id": "Excessive agency risks identified � what autonomous actions can the LLM take, what is the blast radius",
+      "title": "CC3.2 � Risk assessment"
+    },
+    {
+      "control_id": "System prompts classified as confidential � encryption at rest, access-controlled, not in cleartext config",
+      "title": "C2.1 � Confidential information protection"
+    },
+    {
+      "control_id": "Access controls on system prompt storage � only authorised personnel can read or modify, all access logged",
+      "title": "CC6.1 � Logical access"
+    },
+    {
+      "control_id": "System prompt security procedures � version control, rotation, extraction resistance testing documented",
+      "title": "CC5.2 � Control activities"
+    },
+    {
+      "control_id": "Access to system prompt storage monitored � anomalous access attempts detected and alerted",
+      "title": "CC7.2 � Monitoring"
+    },
+    {
+      "control_id": "Embeddings of confidential information protected � encrypted at rest, access-controlled, inversion-resistant",
+      "title": "C2.1 � Confidential information protection"
+    },
+    {
+      "control_id": "RBAC on all vector store collections � no unauthenticated access in any environment",
+      "title": "CC6.1 � Logical access"
+    },
+    {
+      "control_id": "Anomaly detection on vector store query patterns � bulk extraction and unusual retrieval volumes detected",
+      "title": "CC7.2 � Anomaly detection"
+    },
+    {
+      "control_id": "Embeddings of personal data used only for authorised purposes � privacy commitments apply to derived forms",
+      "title": "P5.1 � Personal information use"
+    },
+    {
+      "control_id": "Policy on LLM output accuracy � acceptable accuracy thresholds, verification requirements for high-stakes use cases",
+      "title": "PI1.1 � Processing integrity policy"
+    },
+    {
+      "control_id": "LLM inputs (RAG sources, training data) quality controls � authoritative, current, verified sources",
+      "title": "PI1.2 � System inputs are complete and accurate"
+    },
+    {
+      "control_id": "Misinformation risk identified in LLM risk assessment � harm potential of incorrect outputs per use case",
+      "title": "CC3.2 � Risk assessment"
+    },
+    {
+      "control_id": "Production monitoring for accuracy degradation and hallucination patterns � drift detection",
+      "title": "CC7.2 � Anomaly detection"
+    },
+    {
+      "control_id": "LLM service availability commitments documented � SLAs, RTO/RPO, resource limits that protect availability",
+      "title": "A1.1 � Availability policies"
+    },
+    {
+      "control_id": "Rate limiting and resource controls protect LLM service availability � implemented and monitored",
+      "title": "A1.2 � Environmental protections"
+    },
+    {
+      "control_id": "Real-time monitoring of LLM resource consumption � cost anomalies and unusual volume patterns alerted",
+      "title": "CC7.2 � Anomaly detection"
+    },
+    {
+      "control_id": "Resource exhaustion risks identified in LLM risk assessment � DoS and sponge attack vectors assessed",
+      "title": "CC3.2 � Risk assessment"
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-04-09",
+      "change": "Initial seed — 41 Trust Services Criteria across CC, Availability, Confidentiality, PI, Privacy",
+      "author": "emmanuelgjr"
+    }
+  ]
+}

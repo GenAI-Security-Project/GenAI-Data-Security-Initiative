@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk — Shared Reference
+  GenAI Security Crosswalk â€” Shared Reference
   File    : shared/GLOSSARY.md
   Purpose : Unified terminology across all three source lists and all frameworks
   Version : 2026-Q1
@@ -23,7 +23,7 @@ for spoofing, replay, and agent-in-the-middle attacks (ASI07).
 
 **Agent**
 An autonomous or semi-autonomous AI system that uses an LLM to perceive
-its environment, plan, make decisions, and execute actions — often using
+its environment, plan, make decisions, and execute actions â€” often using
 external tools, memory, and other agents. Distinct from a simple LLM
 that only generates text responses.
 
@@ -93,12 +93,12 @@ See LLM04, ASI06, DSGAI04.
 
 **DBoM (Dataset Bill of Materials)**
 A structured inventory of all data used in training, fine-tuning, or
-retrieval — including sources, lineage, and provenance. The data analog
+retrieval â€” including sources, lineage, and provenance. The data analog
 of a Software Bill of Materials (SBOM).
 
 **DSGAI**
 OWASP GenAI Data Security Risks and Mitigations 2026. 21 entries
-(DSGAI01–DSGAI21) covering the full GenAI data security lifecycle.
+(DSGAI01â€“DSGAI21) covering the full GenAI data security lifecycle.
 Reference: https://genai.owasp.org
 
 ---
@@ -108,7 +108,7 @@ Reference: https://genai.owasp.org
 **Embedding**
 A numerical vector representation of text, images, or other data,
 used for semantic search and retrieval in RAG systems. Embeddings
-are a data security surface — they can leak information about source
+are a data security surface â€” they can leak information about source
 content and are vulnerable to inversion attacks. See LLM08, DSGAI13.
 
 ---
@@ -187,7 +187,7 @@ CycloneDX ML SBOM framework mapping.
 ## N
 
 **NHI (Non-Human Identity)**
-A machine identity — API key, service token, certificate, agent session —
+A machine identity â€” API key, service token, certificate, agent session â€”
 as distinct from a human user identity. Agents operate using NHIs.
 NHI security is directly relevant to ASI03. See OWASP NHI Top 10.
 
@@ -236,7 +236,7 @@ data flow risk. See DSGAI03.
 
 **SL (Security Level)**
 ISA/IEC 62443 concept defining the required robustness of security
-controls for an industrial zone or conduit. SL 1–4 from basic protection
+controls for an industrial zone or conduit. SL 1â€“4 from basic protection
 to protection against state-sponsored attacks.
 
 ---
@@ -280,9 +280,9 @@ Foundational architecture for securing multi-agent systems.
 
 | Prefix | Source list |
 |---|---|
-| `LLM01–LLM10` | OWASP Top 10 for LLM Applications 2025 |
-| `ASI01–ASI10` | OWASP Top 10 for Agentic Applications 2026 |
-| `DSGAI01–DSGAI21` | OWASP GenAI Data Security Risks & Mitigations 2026 |
+| `LLM01â€“LLM10` | OWASP Top 10 for LLM Applications 2025 |
+| `ASI01â€“ASI10` | OWASP Top 10 for Agentic Applications 2026 |
+| `DSGAI01â€“DSGAI21` | OWASP GenAI Data Security Risks & Mitigations 2026 |
 
 ---
 

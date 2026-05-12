@@ -1,0 +1,89 @@
+{
+  "id": "owasp-samm",
+  "name": "OWASP SAMM v2.0",
+  "short_name": "SAMM",
+  "version": "2.0",
+  "url": "https://owaspsamm.org/model/",
+  "license": "CC BY-SA 4.0",
+  "publisher": "OWASP",
+  "category": "appsec",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "D-TA",
+      "title": "Design / Threat Assessment",
+      "description": "Model all injection surfaces: user input, retrieved content, tool responses, sub-agent messages; High-impact actions (delete, exfiltrate, send) demand higher injection resistance; Include memory store read/write paths in threat model"
+    },
+    {
+      "control_id": "I-SB",
+      "title": "Implementation / Secure Build",
+      "description": "Enforce at agent boundary; validate all retrieved content before acting; Validate and sanitise all content written to persistent memory; Only approved tools can be registered; unsigned tools are rejected"
+    },
+    {
+      "control_id": "V-ST",
+      "title": "Verification / Security Testing",
+      "description": "Red team injection across all retrieval and tool paths; Test persistent memory integrity across session boundaries; Test whether a compromised sub-agent can escalate through the network"
+    },
+    {
+      "control_id": "O-IM",
+      "title": "Operations / Incident Management",
+      "description": "Detect agent plan deviation from expected trajectory; Alert on unexpected data volumes in tool calls or API responses; Alert immediately when output validator is disabled or bypassed"
+    },
+    {
+      "control_id": "G-EG",
+      "title": "Governance / Education & Guidance",
+      "description": "All developers with access to agent code understand injection risk model; Operators understand when to intervene and how to trigger override; Data engineers understand injection risk surface"
+    },
+    {
+      "control_id": "D-SA",
+      "title": "Design / Security Architecture",
+      "description": "Define per-agent permission sets; review in architecture assessment; Mutual authentication between all agent-to-agent communication; All agent outputs pass through content inspection before leaving system boundary"
+    },
+    {
+      "control_id": "G-SM",
+      "title": "Governance / Strategy & Metrics",
+      "description": "Formalise agent identity and permission lifecycle; No production agent deployment without signed safety control architecture review; Define maximum autonomy scope per agent class; mandate oversight gates"
+    },
+    {
+      "control_id": "V-AA",
+      "title": "Verification / Architecture Assessment",
+      "description": "Periodic review of declared vs granted permissions per agent; Confirm memory stores have appropriate access controls; Review and document all agent-to-agent trust grants"
+    },
+    {
+      "control_id": "O-OM",
+      "title": "Operations / Operational Management",
+      "description": "Alert when agent requests permissions outside declared scope; Alert on tool calls outside normal operating parameters; Apply DLP controls to all agent-generated output before delivery"
+    },
+    {
+      "control_id": "G-PC",
+      "title": "Governance / Policy & Compliance",
+      "description": "Document what permissions each agent class is authorised to hold; Policy governing what agents may instruct other agents to do; Process for approving, reviewing, and revoking tool integrations"
+    },
+    {
+      "control_id": "O-EM",
+      "title": "Operations / Environment Management",
+      "description": "Apply access controls, encryption at rest, and integrity verification to all memory stores; Continuous health checks; automatic isolation of degraded agents; Regular security updates for all pipeline components"
+    },
+    {
+      "control_id": "D-SR",
+      "title": "Design / Security Requirements",
+      "description": "Security requirements for every tool: auth, scope, output validation; Require data classification check before any dataset enters training pipeline; Define what categories of data may appear in model outputs"
+    },
+    {
+      "control_id": "V-RT",
+      "title": "Verification / Requirements-Driven Testing",
+      "description": "Automated tests verifying PII detection coverage; Tests verifying provenance metadata is preserved through pipeline; Data protection requirements verified in testing � PII patterns confirmed not to appear in LLM outputs"
+    },
+    {
+      "control_id": "I-SD",
+      "title": "Implementation / Secure Deployment",
+      "description": "Infrastructure-as-code with security controls applied at provisioning; Rate limiting and resource controls deployed with every LLM deployment � not optional post-deployment hardening"
+    },
+    {
+      "control_id": "Monitoring",
+      "title": "Operational Management (O-OM)",
+      "description": "Production accuracy monitoring as operational management � drift detection, degradation alerted"
+    }
+  ]
+}

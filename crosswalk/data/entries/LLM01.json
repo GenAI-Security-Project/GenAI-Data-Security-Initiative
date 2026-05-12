@@ -951,6 +951,96 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-046"
+    },
+    {
+      "name": "DPD AI chatbot swears at customer and criticises company — prompt injection via customer input",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-053"
+    },
+    {
+      "name": "MCP tool poisoning — hidden instructions in Model Context Protocol tool descriptions",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-062"
+    },
+    {
+      "name": "AI-generated CSAM detection evasion — adversarial manipulation of content safety classifiers",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-063"
+    },
+    {
+      "name": "OpenAI GPT-4 system prompt extraction toolkit — systematic prompt leakage",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-065"
+    },
+    {
+      "name": "GitHub Copilot Chat agent executes malicious code from repository context",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-067"
+    },
+    {
+      "name": "Claude computer use red-team: autonomous agent browses to attacker-controlled site and follows instructions",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-069"
+    },
+    {
+      "name": "LLM-generated malware evades endpoint detection — AI-assisted polymorphic code",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-075"
+    },
+    {
+      "name": "Claude hijacked for state-sponsored cyberattacks — 80-90% autonomous operation against 30 entities",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-083"
+    },
+    {
+      "name": "EchoLeak — zero-click Microsoft Copilot data exfiltration via email prompt injection",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-089"
+    },
+    {
+      "name": "Claude AI jailbreak — Mexican government breach, 150GB data theft across 10 agencies",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-092"
+    },
+    {
+      "name": "Microsoft 365 Copilot XPIA phishing — attacker-shaped email summaries via hidden instructions",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-095"
+    },
+    {
+      "name": "Clinejection — CI/CD pipeline compromise via Cline's issue triage bot, 4,000 machines infected",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-098"
+    },
+    {
+      "name": "AI recommendation poisoning — hidden prompt injections in 'Summarize with AI' buttons across 31 companies",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2026,
+      "incident_id": "INC-100"
+    },
+    {
+      "name": "IDEsaster — 30+ vulnerabilities across AI coding tools (Cursor, Windsurf, Copilot, Zed, Roo Code)",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-103"
+    },
+    {
+      "name": "Anthropic Claude misuse report — ransomware development, North Korean employment fraud, extortion",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2025,
+      "incident_id": "INC-110"
     }
   ],
   "crossrefs": {

@@ -1,0 +1,446 @@
+{
+  "id": "owasp-asvs",
+  "name": "OWASP ASVS 4.0.3",
+  "short_name": "ASVS",
+  "version": "4.0.3",
+  "url": "https://owasp.org/www-project-application-security-verification-standard/",
+  "license": "CC BY-SA 4.0",
+  "publisher": "OWASP",
+  "category": "appsec",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "V1",
+      "title": "Architecture, Design and Threat Modeling",
+      "description": "Ensure a verified application satisfies high-level security architecture requirements.",
+      "parent": null,
+      "function": "Architecture"
+    },
+    {
+      "control_id": "V1.1",
+      "title": "Secure Software Development Lifecycle",
+      "description": "Ensure the use of a secure software development lifecycle that addresses security in all stages.",
+      "parent": "V1",
+      "function": "Architecture"
+    },
+    {
+      "control_id": "V1.2",
+      "title": "Authentication Architecture",
+      "description": "Verify that authentication is addressed in the architecture.",
+      "parent": "V1",
+      "function": "Architecture"
+    },
+    {
+      "control_id": "V1.4",
+      "title": "Access Control Architecture",
+      "description": "Verify that access controls are applied consistently.",
+      "parent": "V1",
+      "function": "Architecture"
+    },
+    {
+      "control_id": "V1.5",
+      "title": "Input and Output Architecture",
+      "description": "Verify that input and output requirements define handling of data based on type and content.",
+      "parent": "V1",
+      "function": "Architecture"
+    },
+    {
+      "control_id": "V2",
+      "title": "Authentication",
+      "description": "Verify that the application uses appropriate authentication mechanisms.",
+      "parent": null,
+      "function": "Verification"
+    },
+    {
+      "control_id": "V2.1",
+      "title": "Password Security",
+      "description": "Verify password requirements align with modern standards.",
+      "parent": "V2",
+      "function": "Verification"
+    },
+    {
+      "control_id": "V2.5",
+      "title": "Credential Recovery",
+      "description": "Verify credential recovery mechanisms are secure.",
+      "parent": "V2",
+      "function": "Verification"
+    },
+    {
+      "control_id": "V2.8",
+      "title": "One Time Verifier",
+      "description": "Verify one-time passwords and verifiers are secure.",
+      "parent": "V2",
+      "function": "Verification"
+    },
+    {
+      "control_id": "V3",
+      "title": "Session Management",
+      "description": "Verify the application has adequate session management controls.",
+      "parent": null,
+      "function": "Verification"
+    },
+    {
+      "control_id": "V4",
+      "title": "Access Control",
+      "description": "Verify that users can only access functions and data for which they possess specific authorization.",
+      "parent": null,
+      "function": "Verification"
+    },
+    {
+      "control_id": "V4.1",
+      "title": "General Access Control Design",
+      "description": "Verify access control is applied server-side and consistently.",
+      "parent": "V4",
+      "function": "Verification"
+    },
+    {
+      "control_id": "V4.2",
+      "title": "Operation Level Access Control",
+      "description": "Verify access controls at the operation and function level.",
+      "parent": "V4",
+      "function": "Verification"
+    },
+    {
+      "control_id": "V5",
+      "title": "Validation, Sanitization and Encoding",
+      "description": "Verify that the application sanitizes, validates, and encodes untrusted input.",
+      "parent": null,
+      "function": "Verification"
+    },
+    {
+      "control_id": "V5.1",
+      "title": "Input Validation",
+      "description": "Verify input validation controls are in place.",
+      "parent": "V5",
+      "function": "Verification"
+    },
+    {
+      "control_id": "V5.2",
+      "title": "Sanitization and Sandboxing",
+      "description": "Verify that sanitization and sandboxing are used to prevent injection.",
+      "parent": "V5",
+      "function": "Verification"
+    },
+    {
+      "control_id": "V5.3",
+      "title": "Output Encoding and Injection Prevention",
+      "description": "Verify that output encoding prevents injection attacks.",
+      "parent": "V5",
+      "function": "Verification"
+    },
+    {
+      "control_id": "V5.5",
+      "title": "Deserialization Prevention",
+      "description": "Verify that deserialization is done safely.",
+      "parent": "V5",
+      "function": "Verification"
+    },
+    {
+      "control_id": "V6",
+      "title": "Stored Cryptography",
+      "description": "Verify that cryptographic modules and algorithms are used correctly.",
+      "parent": null,
+      "function": "Verification"
+    },
+    {
+      "control_id": "V7",
+      "title": "Error Handling and Logging",
+      "description": "Verify that errors are handled safely and logs contain sufficient information.",
+      "parent": null,
+      "function": "Verification"
+    },
+    {
+      "control_id": "V7.1",
+      "title": "Log Content",
+      "description": "Verify that security-relevant events are logged.",
+      "parent": "V7",
+      "function": "Verification"
+    },
+    {
+      "control_id": "V7.2",
+      "title": "Log Processing",
+      "description": "Verify that logs are processed securely.",
+      "parent": "V7",
+      "function": "Verification"
+    },
+    {
+      "control_id": "V8",
+      "title": "Data Protection",
+      "description": "Verify that data is protected in transit and at rest.",
+      "parent": null,
+      "function": "Verification"
+    },
+    {
+      "control_id": "V8.1",
+      "title": "General Data Protection",
+      "description": "Verify sensitive data is identified and protected.",
+      "parent": "V8",
+      "function": "Verification"
+    },
+    {
+      "control_id": "V8.3",
+      "title": "Sensitive Private Data",
+      "description": "Verify that sensitive data is protected from unauthorized access.",
+      "parent": "V8",
+      "function": "Verification"
+    },
+    {
+      "control_id": "V9",
+      "title": "Communication",
+      "description": "Verify that communications are encrypted using TLS.",
+      "parent": null,
+      "function": "Verification"
+    },
+    {
+      "control_id": "V10",
+      "title": "Malicious Code",
+      "description": "Verify that code does not contain malicious logic.",
+      "parent": null,
+      "function": "Verification"
+    },
+    {
+      "control_id": "V11",
+      "title": "Business Logic",
+      "description": "Verify that business logic flows are sequential and audited.",
+      "parent": null,
+      "function": "Verification"
+    },
+    {
+      "control_id": "V12",
+      "title": "Files and Resources",
+      "description": "Verify that untrusted files and resources are handled safely.",
+      "parent": null,
+      "function": "Verification"
+    },
+    {
+      "control_id": "V13",
+      "title": "API and Web Service",
+      "description": "Verify that API and web service requests are validated.",
+      "parent": null,
+      "function": "Verification"
+    },
+    {
+      "control_id": "V13.1",
+      "title": "Generic Web Service Security",
+      "description": "Verify that all API and web service interactions are authenticated and authorized.",
+      "parent": "V13",
+      "function": "Verification"
+    },
+    {
+      "control_id": "V14",
+      "title": "Configuration",
+      "description": "Verify that the application is securely configured.",
+      "parent": null,
+      "function": "Verification"
+    },
+    {
+      "control_id": "V5.1.1",
+      "title": "Verify all user input validated against allowlist",
+      "description": "All inputs to agents validated � indirect injection through processed content equally in scope; All content entering agent memory validated � injection patterns rejected at write boundary; All inputs to LLMs validated � indirect injection through processed content equally in scope"
+    },
+    {
+      "control_id": "V5.2.1",
+      "title": "Verify output encoding prevents injection",
+      "description": "Agent responses encoded before passing to downstream renderers � outputs treated as untrusted; Agent code output encoded before rendering in any context; Agent advisory outputs clearly labelled � users cannot mistake AI output for authoritative content"
+    },
+    {
+      "control_id": "V5.2.5",
+      "title": "Verify application protects against OS command injection",
+      "description": "Agent-generated instructions not executed in system context without validation; Agent-generated commands validated before any shell execution; LLM-generated content validated before execution in any shell or interpreter context"
+    },
+    {
+      "control_id": "V1.1.2",
+      "title": "Threat modelling of all data flows",
+      "description": "All agent input sources threat-modelled � every indirect injection path documented; Supply chain threat model documents all agent component sources and trust levels; LLM data flows threat-modelled � all injection paths identified and documented"
+    },
+    {
+      "control_id": "V11.1.2",
+      "title": "Verify business logic limits prevent function abuse",
+      "description": "Business logic controls prevent injection from redirecting agent goal; Tool chain exploitation scenarios identified in threat model � mitigations implemented and verified; Code execution capability in agents subject to business logic controls � sandbox, allowlist, static analysis"
+    },
+    {
+      "control_id": "V4.1.3",
+      "title": "Verify access control enforces least privilege",
+      "description": "Agent tool access scoped to minimum required operations � read-only by default, write access formally approved; Agent credential scope minimum required � no over-privileged NHIs; Memory write access restricted to minimum required sources � only agent and authorised administrators can write"
+    },
+    {
+      "control_id": "V4.1.1",
+      "title": "Verify all sensitive functions have access control",
+      "description": "All destructive tool operations require explicit authorisation � not inheritable from agent session; LLM cannot access sensitive functions (write, delete, execute) without explicit authorisation"
+    },
+    {
+      "control_id": "V7.2.2",
+      "title": "Verify all business logic decisions logged",
+      "description": "All tool invocations logged � tool identity, parameters, agent session, timestamp; All agent tool invocations and recommendations logged � systematic bias detectable through aggregate analysis; All LLM tool invocations logged with full context � every tool call auditable"
+    },
+    {
+      "control_id": "V13.1.1",
+      "title": "Verify API rate limiting",
+      "description": "Tool API endpoints rate-limited � anomalous invocation frequency detected; Rate limiting on all agent API endpoints � cascade amplification through API exhaustion limited; Rate limiting prevents rogue agent from amplifying impact through API exhaustion"
+    },
+    {
+      "control_id": "V2.1.1",
+      "title": "Verify credentials not in source code",
+      "description": "Agent credentials not hardcoded � secret manager required"
+    },
+    {
+      "control_id": "V6.1.1",
+      "title": "Verify sensitive data encrypted at rest",
+      "description": "Agent credentials encrypted at rest � no cleartext in config or agent memory; Agent memory stores encrypted at rest � embeddings, long-term memory; Training data, embeddings, RAG document stores, and prompt caches encrypted at rest"
+    },
+    {
+      "control_id": "V7.2.1",
+      "title": "Verify access control decisions logged",
+      "description": "All credential usage logged � issuance, access, expiry detectable; All A2A messages logged � sender identity, content hash, schema validation results; All agent actions logged � no production deployment without complete observability"
+    },
+    {
+      "control_id": "V14.2.3",
+      "title": "Verify secrets not in source code",
+      "description": "Agent credentials not committed to source control; System prompts not hardcoded in source code � stored in secret management system"
+    },
+    {
+      "control_id": "V10.2.1",
+      "title": "Verify third-party components current and free of vulnerabilities",
+      "description": "All agent component libraries scanned for CVEs � ML SBOM maintained and monitored; All LLM component libraries and dependencies scanned for CVEs � ML SBOM maintained; Training pipeline components scanned � compromised dependencies rejected"
+    },
+    {
+      "control_id": "V10.2.2",
+      "title": "Verify only minimal approved external libraries",
+      "description": "Approved component list � unsigned or unverified agent components rejected; Approved component list for LLM deployments � unsigned or unverified components rejected"
+    },
+    {
+      "control_id": "V14.2.2",
+      "title": "Verify build pipelines include security checks",
+      "description": "CI/CD pipeline for agent components includes integrity verification and CVE scanning; CI/CD pipeline for LLM components includes integrity verification and vulnerability scanning"
+    },
+    {
+      "control_id": "V5.2.4",
+      "title": "Verify application does not use eval or dynamic code",
+      "description": "No eval or exec of agent-generated code � absolute prohibition enforced in code review; No eval or dynamic code execution of LLM-generated content"
+    },
+    {
+      "control_id": "V5.3.5",
+      "title": "Verify output encoding in SQL context",
+      "description": "No raw agent output in SQL context � parameterised execution only; LLM-generated SQL parameterised � never raw LLM output in SQL context"
+    },
+    {
+      "control_id": "V12.1.1",
+      "title": "Verify file upload malware scanning",
+      "description": "Content entering agent memory scanned � adversarial content, injection patterns detected before write; Training data uploads scanned before ingestion � adversarial content detected; Content validation on all vector store ingestion � adversarial content detected"
+    },
+    {
+      "control_id": "V9.1.1",
+      "title": "Verify TLS used for all client connectivity",
+      "description": "All A2A communication encrypted � mutual TLS, no cleartext inter-agent messages; All LLM API communication and data flows encrypted in transit � TLS 1.2 minimum"
+    },
+    {
+      "control_id": "V3.3.1",
+      "title": "Verify anti-replay tokens in state-changing operations",
+      "description": "Replay protection on all A2A messages � nonces, timestamps, sequence numbers"
+    },
+    {
+      "control_id": "V11.1.1",
+      "title": "Verify business logic assumptions documented",
+      "description": "Cascade blast radius documented as business logic assumption � maximum affected systems formally accepted; AI advisory limitations documented as business logic assumptions � verification requirements per domain; LLM accuracy limitations documented as business logic assumptions � verification requirements defined"
+    },
+    {
+      "control_id": "V7.4.1",
+      "title": "Verify error handling does not expose sensitive data",
+      "description": "Cascade errors handled gracefully � no sensitive system information in error responses; Agent-influenced operator decisions logged � aggregate patterns detectable; LLM accuracy metrics and hallucination rate logged � production monitoring for output quality"
+    },
+    {
+      "control_id": "V13.1.3",
+      "title": "Verify API rejects large unexpected payloads",
+      "description": "Approval flows independent of agent interface � no state-changing approvals via agent chat; Token limits on LLM API inputs � requests exceeding limits rejected at the gateway"
+    },
+    {
+      "control_id": "V8 Data Protection",
+      "title": "V8.1.1 — Sensitive data not transmitted in URL parameters"
+    },
+    {
+      "control_id": "V4 Access Control",
+      "title": "V4.1.3 — Deny by default access control"
+    },
+    {
+      "control_id": "V5 Validation",
+      "title": "V5.2.8 — Output encoding for context"
+    },
+    {
+      "control_id": "V6 Cryptography",
+      "title": "V6.1.1 — Sensitive data not stored in cleartext"
+    },
+    {
+      "control_id": "V2 Authentication",
+      "title": "V2.1.1 — Passwords minimum 12 characters"
+    },
+    {
+      "control_id": "V1 Architecture",
+      "title": "V1.1.4 — Trust boundaries documented and enforced"
+    },
+    {
+      "control_id": "V7 Logging",
+      "title": "V7.2.2 — Log entries contain required information"
+    },
+    {
+      "control_id": "V14 Configuration",
+      "title": "V14.1.4 — All components inventoried"
+    },
+    {
+      "control_id": "V10 Malicious Code",
+      "title": "V10.2.1 — Application only uses official repositories"
+    },
+    {
+      "control_id": "V12 Files/Resources",
+      "title": "V12.1.1 — File upload size limits"
+    },
+    {
+      "control_id": "V9 Communication",
+      "title": "V9.1.1 — TLS for all connections"
+    },
+    {
+      "control_id": "V11 Business Logic",
+      "title": "V11.1.4 — Business logic limits on repeated actions"
+    },
+    {
+      "control_id": "V3 Session Management",
+      "title": "V3.1.1 — Session tokens unique and random"
+    },
+    {
+      "control_id": "V13 API",
+      "title": "V13.1.1 — API protection against enumeration"
+    },
+    {
+      "control_id": "V5.1.2",
+      "title": "Verify that HTTP request parts are validated, sanitised, or rejected",
+      "description": "LLM API request validation � prompt structure, content type, and character set enforced"
+    },
+    {
+      "control_id": "V8.1.1",
+      "title": "Verify sensitive data is not cached or exposed in logs",
+      "description": "LLM outputs containing sensitive data not logged in cleartext or cached without protection; System prompts not stored in cleartext application configuration or source code"
+    },
+    {
+      "control_id": "V8.3.4",
+      "title": "Verify PII is identified and protected",
+      "description": "PII in LLM training data, RAG sources, and outputs identified and handled per policy"
+    },
+    {
+      "control_id": "V4.2.2",
+      "title": "Verify anti-CSRF tokens in state-changing operations",
+      "description": "CSRF protection on endpoints where LLM output triggers state changes"
+    },
+    {
+      "control_id": "V11.1.4",
+      "title": "Verify business logic rate limits",
+      "description": "Business logic controls on LLM usage � per-tenant cost budgets, rate limit policies"
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-04-09",
+      "change": "Initial seed — 32 ASVS verification requirements and sub-requirements",
+      "author": "emmanuelgjr"
+    }
+  ]
+}

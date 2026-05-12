@@ -723,6 +723,18 @@
       "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-030"
+    },
+    {
+      "name": "DPD AI chatbot swears at customer and criticises company — prompt injection via customer input",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-053"
+    },
+    {
+      "name": "OpenAI GPT-4 system prompt extraction toolkit — systematic prompt leakage",
+      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "year": 2024,
+      "incident_id": "INC-065"
     }
   ],
   "crossrefs": {

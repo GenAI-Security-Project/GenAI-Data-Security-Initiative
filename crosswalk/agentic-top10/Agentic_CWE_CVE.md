@@ -3,11 +3,11 @@
   Source list : OWASP Top 10 for Agentic Applications 2026 (ASI01-ASI10)
   Framework   : CWE / CVE Mapping
   Version     : 2026-Q1
-  Maintained by: OWASP GenAI Data Security Initiative — https://genai.owasp.org
+  Maintained by: OWASP GenAI Data Security Initiative â€” https://genai.owasp.org
   License     : CC BY-SA 4.0
 -->
 
-# Agentic Top 10 2026 × CWE / CVE
+# Agentic Top 10 2026 Ã— CWE / CVE
 
 Mapping the [OWASP Top 10 for Agentic Applications 2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/)
 to [MITRE CWE](https://cwe.mitre.org/) (Common Weakness Enumeration)
@@ -20,7 +20,7 @@ and Exposures) relevant to agentic AI systems.
 
 **CWE mapping** provides the software weakness taxonomy that security
 architects, developers, and tool vendors use to classify root causes.
-Every agentic risk maps to one or more CWEs — these are the
+Every agentic risk maps to one or more CWEs â€” these are the
 engineering-level descriptions of what makes each risk possible.
 
 **CVE mapping** provides real-world incident and vulnerability
@@ -55,11 +55,11 @@ these risks are not theoretical.
 
 ## Audience tags
 
-- **Developer / AppSec engineer** — CWE IDs for SAST tool configuration
-- **Penetration tester** — CWE IDs for test scope definition; CVEs for evidence
-- **Risk manager** — CVE evidence for risk register entries
-- **Procurement / legal** — CVE evidence of real-world exploitability
-- **SIEM engineer** — CWE-based detection rule mapping
+- **Developer / AppSec engineer** â€” CWE IDs for SAST tool configuration
+- **Penetration tester** â€” CWE IDs for test scope definition; CVEs for evidence
+- **Risk manager** â€” CVE evidence for risk register entries
+- **Procurement / legal** â€” CVE evidence of real-world exploitability
+- **SIEM engineer** â€” CWE-based detection rule mapping
 
 ---
 
@@ -67,7 +67,7 @@ these risks are not theoretical.
 
 ---
 
-### ASI01 — Agent Goal Hijack
+### ASI01 â€” Agent Goal Hijack
 
 **Severity:** Critical
 
@@ -75,7 +75,7 @@ these risks are not theoretical.
 
 | CWE | Name | How it applies |
 |---|---|---|
-| CWE-20 | Improper Input Validation | Root cause — agent inputs not validated before entering model context; indirect injection content not treated as untrusted |
+| CWE-20 | Improper Input Validation | Root cause â€” agent inputs not validated before entering model context; indirect injection content not treated as untrusted |
 | CWE-74 | Improper Neutralisation of Special Elements in Output Used by a Downstream Component | Instruction elements in processed content not neutralised before agent reasoning |
 | CWE-693 | Protection Mechanism Failure | Safety and goal-verification controls bypassed through injection |
 | CWE-441 | Unintended Proxy or Intermediary | Agent acts as a proxy executing attacker instructions against backend systems |
@@ -85,7 +85,7 @@ these risks are not theoretical.
 
 | CVE | System | Description | Agentic relevance |
 |---|---|---|---|
-| CVE-2025-29927 | Next.js middleware | Middleware bypass allowing unauthenticated access through crafted headers | Pattern: input handling bypass enabling downstream injection — directly analogous to agent context injection via crafted inputs |
+| CVE-2025-29927 | Next.js middleware | Middleware bypass allowing unauthenticated access through crafted headers | Pattern: input handling bypass enabling downstream injection â€” directly analogous to agent context injection via crafted inputs |
 | CVE-2024-27564 | ChatGPT | SSRF via image injection causing server-side request forgery | Demonstrated indirect injection via processed content causing agent to make unintended requests |
 | CVE-2024-5184 | EmailGPT | Prompt injection via email content leading to arbitrary instructions execution | Direct real-world example of ASI01 via indirect injection channel |
 
@@ -93,7 +93,7 @@ these risks are not theoretical.
 
 Goal hijack is fundamentally CWE-20 (Improper Input Validation) at
 the agent context assembly layer. The agent's context window is a
-trust boundary — content from different sources (user, RAG, tools,
+trust boundary â€” content from different sources (user, RAG, tools,
 email) with different trust levels is mixed into a single flat
 namespace without content integrity markers. The fix is structural:
 maintain source provenance and trust level through context assembly
@@ -108,7 +108,7 @@ and apply differentiated validation per trust level.
 
 ---
 
-### ASI02 — Tool Misuse & Exploitation
+### ASI02 â€” Tool Misuse & Exploitation
 
 **Severity:** Critical
 
@@ -119,14 +119,14 @@ and apply differentiated validation per trust level.
 | CWE-284 | Improper Access Control | Agent can invoke tools it should not have access to; tool parameters not range-validated |
 | CWE-862 | Missing Authorisation | No authorisation check before irreversible tool invocations; human confirmation not required |
 | CWE-434 | Unrestricted Upload of File with Dangerous Type | Analogy: agent accepts and executes tool payloads without content validation |
-| CWE-913 | Improper Control of Dynamically-Managed Code Resources | MCP descriptors and tool specifications are dynamically loaded code resources — modification not controlled |
+| CWE-913 | Improper Control of Dynamically-Managed Code Resources | MCP descriptors and tool specifications are dynamically loaded code resources â€” modification not controlled |
 | CWE-20 | Improper Input Validation | Tool parameters generated by LLM not validated against safe ranges before execution |
 
 #### CVE evidence
 
 | CVE | System | Description | Agentic relevance |
 |---|---|---|---|
-| CVE-2025-43703 | MCP ecosystem | Malicious MCP server used tool descriptor to redirect agent actions (Postmark MCP — first malicious MCP on npm) | Direct ASI02 real-world example — poisoned tool descriptor causing unintended agent actions |
+| CVE-2025-43703 | MCP ecosystem | Malicious MCP server used tool descriptor to redirect agent actions (Postmark MCP â€” first malicious MCP on npm) | Direct ASI02 real-world example â€” poisoned tool descriptor causing unintended agent actions |
 | CVE-2025-30018 | Agent framework (undisclosed) | Tool call parameter injection bypassing schema validation | LLM-generated parameters used directly in system calls without validation |
 | CVE-2024-6087 | LangChain | Agent tools callable with arbitrary parameters through crafted inputs | Demonstrates CWE-284 in production agentic framework |
 
@@ -141,7 +141,7 @@ strict schema before execution.
 
 ---
 
-### ASI03 — Identity & Privilege Abuse
+### ASI03 â€” Identity & Privilege Abuse
 
 **Severity:** Critical
 
@@ -153,13 +153,13 @@ strict schema before execution.
 | CWE-522 | Insufficiently Protected Credentials | Agent credentials stored in cleartext memory, logs, config, or tool payloads |
 | CWE-312 | Cleartext Storage of Sensitive Information | Credentials and tokens not encrypted at rest in agent memory or configuration |
 | CWE-798 | Use of Hard-coded Credentials | Agent credentials hardcoded in prompts or source code |
-| CWE-613 | Insufficient Session Expiration | Long-lived agent credentials without expiry or rotation — NHI-7 |
+| CWE-613 | Insufficient Session Expiration | Long-lived agent credentials without expiry or rotation â€” NHI-7 |
 
 #### CVE evidence
 
 | CVE | System | Description | Agentic relevance |
 |---|---|---|---|
-| CVE-2025-54795 | Anthropic Claude Code | Confirmation bypass enabling execution of untrusted commands via agent credential access | Direct ASI03 example — agent identity used to bypass confirmation, enabling privilege abuse |
+| CVE-2025-54795 | Anthropic Claude Code | Confirmation bypass enabling execution of untrusted commands via agent credential access | Direct ASI03 example â€” agent identity used to bypass confirmation, enabling privilege abuse |
 | CVE-2025-32711 | Agent orchestration framework | Session token leaked to tool payload enabling lateral movement | NHI-2 credential leakage via tool call |
 | CVE-2024-45022 | AI platform credential handling | Service account credentials persisted in conversation logs | CWE-312 cleartext credential storage in agent observability pipeline |
 
@@ -168,12 +168,12 @@ strict schema before execution.
 Identity abuse is CWE-250 (Unnecessary Privileges) combined with
 CWE-522 (Insufficiently Protected Credentials). The NHI governance
 fix is: treat every agent credential as a privileged access token
-subject to PAM controls — least privilege, short TTL, JIT issuance,
+subject to PAM controls â€” least privilege, short TTL, JIT issuance,
 no cleartext storage, full audit logging.
 
 ---
 
-### ASI04 — Agentic Supply Chain Vulnerabilities
+### ASI04 â€” Agentic Supply Chain Vulnerabilities
 
 **Severity:** High
 
@@ -191,13 +191,13 @@ no cleartext storage, full audit logging.
 
 | CVE | System | Description | Agentic relevance |
 |---|---|---|---|
-| CVE-2024-34359 | llama_cpp_python | Remote code execution via malicious model file (pickle deserialisation) | CWE-506 — model artifact as a vehicle for embedded malicious code |
-| CVE-2025-32444 | MCP server npm package | Supply chain compromise of MCP server package with hidden exfiltration code | First documented MCP supply chain attack — ASI04 in production |
-| CVE-2024-3584 | Qdrant vector database | Path traversal via snapshot import achieving arbitrary file write | CWE-494 — component loaded without adequate integrity checks enabling write to host |
+| CVE-2024-34359 | llama_cpp_python | Remote code execution via malicious model file (pickle deserialisation) | CWE-506 â€” model artifact as a vehicle for embedded malicious code |
+| CVE-2025-32444 | MCP server npm package | Supply chain compromise of MCP server package with hidden exfiltration code | First documented MCP supply chain attack â€” ASI04 in production |
+| CVE-2024-3584 | Qdrant vector database | Path traversal via snapshot import achieving arbitrary file write | CWE-494 â€” component loaded without adequate integrity checks enabling write to host |
 
 #### Engineering root cause
 
-Supply chain risk is CWE-494 (Download Without Integrity Check) —
+Supply chain risk is CWE-494 (Download Without Integrity Check) â€”
 the fix is cryptographic verification of all components at every
 stage of the delivery pipeline. For ML-specific components, this
 means ML SBOM generation, model scanning (ModelScan), and hash
@@ -205,7 +205,7 @@ verification before any component enters a production environment.
 
 ---
 
-### ASI05 — Unexpected Code Execution
+### ASI05 â€” Unexpected Code Execution
 
 **Severity:** Critical
 
@@ -223,13 +223,13 @@ verification before any component enters a production environment.
 
 | CVE | System | Description | Agentic relevance |
 |---|---|---|---|
-| CVE-2024-3095 | AutoGPT | Remote code execution via crafted prompt triggering code generation and execution | Direct ASI05 example — prompt injection ? code generation ? RCE |
+| CVE-2024-3095 | AutoGPT | Remote code execution via crafted prompt triggering code generation and execution | Direct ASI05 example â€” prompt injection ? code generation ? RCE |
 | CVE-2024-27564 | ChatGPT plugins | SSRF via crafted image causing server-side request from agent execution context | Code execution context used for network-based attack |
 | CVE-2024-6087 | LangChain agents | Arbitrary code execution via tool input manipulation | CWE-94 in production LangChain agent framework |
 
 #### Engineering root cause
 
-Unexpected code execution is CWE-94 — the fix is never to execute
+Unexpected code execution is CWE-94 â€” the fix is never to execute
 LLM-generated code without (a) static analysis against an allowlist,
 (b) hardware-level sandboxing, and (c) network isolation of the
 execution context. The strongest control is CWE-94 prevention
@@ -238,7 +238,7 @@ the business case is compelling and the risk is formally accepted.
 
 ---
 
-### ASI06 — Memory & Context Poisoning
+### ASI06 â€” Memory & Context Poisoning
 
 **Severity:** High
 
@@ -250,26 +250,26 @@ the business case is compelling and the risk is formally accepted.
 | CWE-345 | Insufficient Verification of Data Authenticity | Memory content not integrity-verified before storage or retrieval |
 | CWE-20 | Improper Input Validation | Content entering agent memory not validated before write |
 | CWE-284 | Improper Access Control | Vector store and memory databases with insufficient access controls permitting unauthorised writes |
-| CWE-1341 | Multiple Releases of Same Resource or Handle | Memory TTL not enforced — entries persist beyond intended lifetime |
+| CWE-1341 | Multiple Releases of Same Resource or Handle | Memory TTL not enforced â€” entries persist beyond intended lifetime |
 
 #### CVE evidence
 
 | CVE | System | Description | Agentic relevance |
 |---|---|---|---|
-| CVE-2024-3584 | Qdrant | Path traversal via snapshot import enabling arbitrary file write on vector DB host | CWE-284 — vector store (memory infrastructure) with access control failure enabling direct memory poisoning |
-| CVE-2024-45022 | AI platform | Persistent memory manipulation via crafted conversation enabling long-term behavioural influence | Direct ASI06 example — poisoned conversation persisting as agent memory |
+| CVE-2024-3584 | Qdrant | Path traversal via snapshot import enabling arbitrary file write on vector DB host | CWE-284 â€” vector store (memory infrastructure) with access control failure enabling direct memory poisoning |
+| CVE-2024-45022 | AI platform | Persistent memory manipulation via crafted conversation enabling long-term behavioural influence | Direct ASI06 example â€” poisoned conversation persisting as agent memory |
 | CVE-2024-7965 | Chrome V8 | Memory corruption via type confusion | Infrastructure-level memory vulnerability that could affect agent runtime environments |
 
 #### Engineering root cause
 
-Memory poisoning is CWE-349 — the fix is treating the memory store
+Memory poisoning is CWE-349 â€” the fix is treating the memory store
 as a trust boundary. Content from different sources (conversation,
 tools, external data) should not be written to memory with equal
 trust without explicit validation and provenance tagging.
 
 ---
 
-### ASI07 — Insecure Inter-Agent Communication
+### ASI07 â€” Insecure Inter-Agent Communication
 
 **Severity:** High
 
@@ -277,7 +277,7 @@ trust without explicit validation and provenance tagging.
 
 | CWE | Name | How it applies |
 |---|---|---|
-| CWE-287 | Improper Authentication | A2A channels without mutual authentication — agents accept messages from any sender |
+| CWE-287 | Improper Authentication | A2A channels without mutual authentication â€” agents accept messages from any sender |
 | CWE-294 | Authentication Bypass by Capture-replay | Replay attacks on A2A channels without nonce-based replay protection |
 | CWE-319 | Cleartext Transmission of Sensitive Information | A2A messages containing sensitive context transmitted without encryption |
 | CWE-346 | Origin Validation Error | Agent does not verify that A2A messages originate from the claimed sender |
@@ -287,13 +287,13 @@ trust without explicit validation and provenance tagging.
 
 | CVE | System | Description | Agentic relevance |
 |---|---|---|---|
-| CVE-2025-32727 | Multi-agent orchestration framework | Unauthenticated inter-agent message injection enabling goal redirection | Direct ASI07 example — A2A channel without authentication |
+| CVE-2025-32727 | Multi-agent orchestration framework | Unauthenticated inter-agent message injection enabling goal redirection | Direct ASI07 example â€” A2A channel without authentication |
 | CVE-2024-7965 | A2A API implementation | Insufficient validation of agent-to-agent messages allowing spoofed coordinator messages | CWE-287 in production A2A communication |
 | CVE-2024-47832 | Workflow orchestration platform | Session token reuse across agent instances enabling replay | CWE-294 replay attack on agent communication |
 
 #### Engineering root cause
 
-A2A communication failures are CWE-287 (Improper Authentication) —
+A2A communication failures are CWE-287 (Improper Authentication) â€”
 the fix is mutual TLS with short-lived certificates and nonce-based
 replay protection on all inter-agent channels. This is the same
 fix as securing any microservice-to-microservice communication, with
@@ -302,7 +302,7 @@ and non-reusable across deployments.
 
 ---
 
-### ASI08 — Cascading Agent Failures
+### ASI08 â€” Cascading Agent Failures
 
 **Severity:** High
 
@@ -310,8 +310,8 @@ and non-reusable across deployments.
 
 | CWE | Name | How it applies |
 |---|---|---|
-| CWE-400 | Uncontrolled Resource Consumption | Agent resource consumption not bounded — enables exhaustion propagation across cluster |
-| CWE-703 | Improper Check or Handling of Exceptional Conditions | Agent failures not caught and handled — exception propagates to downstream agents |
+| CWE-400 | Uncontrolled Resource Consumption | Agent resource consumption not bounded â€” enables exhaustion propagation across cluster |
+| CWE-703 | Improper Check or Handling of Exceptional Conditions | Agent failures not caught and handled â€” exception propagates to downstream agents |
 | CWE-755 | Improper Handling of Exceptional Conditions | Cascade fails because upstream agents do not handle failure conditions gracefully |
 | CWE-730 | OWASP ReDoS | Regex-based input processing causing runaway computation propagating through pipeline |
 | CWE-674 | Uncontrolled Recursion | Recursive agent calls without depth limits enabling stack exhaustion cascade |
@@ -320,13 +320,13 @@ and non-reusable across deployments.
 
 | CVE | System | Description | Agentic relevance |
 |---|---|---|---|
-| CVE-2024-11831 | npm package in agent pipeline | Prototype pollution causing uncontrolled resource consumption | CWE-400 — resource exhaustion in agent pipeline component |
-| CVE-2025-30066 | tj-actions/changed-files (CI/CD supply chain) | Compromised CI action cascading to all downstream consumers | Supply chain failure pattern causing cascade across all dependent workflows — direct ASI08 analogue |
-| CVE-2024-3584 | Qdrant vector database | Resource exhaustion via malformed snapshot import | CWE-400 — cascade trigger via vector store component failure |
+| CVE-2024-11831 | npm package in agent pipeline | Prototype pollution causing uncontrolled resource consumption | CWE-400 â€” resource exhaustion in agent pipeline component |
+| CVE-2025-30066 | tj-actions/changed-files (CI/CD supply chain) | Compromised CI action cascading to all downstream consumers | Supply chain failure pattern causing cascade across all dependent workflows â€” direct ASI08 analogue |
+| CVE-2024-3584 | Qdrant vector database | Resource exhaustion via malformed snapshot import | CWE-400 â€” cascade trigger via vector store component failure |
 
 #### Engineering root cause
 
-Cascading failures are CWE-703/CWE-755 — improper exception handling
+Cascading failures are CWE-703/CWE-755 â€” improper exception handling
 combined with CWE-400 uncontrolled resource consumption. The fix is
 circuit breakers at every agent-to-agent and agent-to-system boundary,
 with explicit fail-safe defaults that halt autonomous operation rather
@@ -334,7 +334,7 @@ than propagating degraded state downstream.
 
 ---
 
-### ASI09 — Human-Agent Trust Exploitation
+### ASI09 â€” Human-Agent Trust Exploitation
 
 **Severity:** Medium
 
@@ -344,19 +344,19 @@ than propagating degraded state downstream.
 |---|---|---|
 | CWE-183 | Permissive List of Allowed Inputs | System accepts human-like agent output without disclosure requirements |
 | CWE-451 | User Interface Misrepresentation of Critical Information | Agent advisory output not clearly distinguished from authoritative system information in UI |
-| CWE-346 | Origin Validation Error | User cannot determine whether advice originates from AI or human — no origin verification |
+| CWE-346 | Origin Validation Error | User cannot determine whether advice originates from AI or human â€” no origin verification |
 | CWE-940 | Improper Verification of Source of a Communication Channel | User cannot verify the agent is operating under its stated configuration |
-| CWE-200 | Exposure of Sensitive Information to an Unauthorised Actor | System prompt and agent configuration not protected — extraction enables targeted trust exploitation |
+| CWE-200 | Exposure of Sensitive Information to an Unauthorised Actor | System prompt and agent configuration not protected â€” extraction enables targeted trust exploitation |
 
 #### CVE evidence
 
 | CVE | System | Description | Agentic relevance |
 |---|---|---|---|
-| CVE-2025-24371 | AI assistant platform | AI system manipulated into producing misleading content that appeared authoritative to users | Direct ASI09 example — trust exploitation through plausible but incorrect authoritative-appearing output |
+| CVE-2025-24371 | AI assistant platform | AI system manipulated into producing misleading content that appeared authoritative to users | Direct ASI09 example â€” trust exploitation through plausible but incorrect authoritative-appearing output |
 
 #### Engineering root cause
 
-Trust exploitation is CWE-451 (UI Misrepresentation) — the fix is
+Trust exploitation is CWE-451 (UI Misrepresentation) â€” the fix is
 mandatory, non-bypassable AI disclosure in all interface contexts
 (EU AI Act Art. 50), with visual distinction between agent advisory
 output and authoritative system content. The disclosure must be
@@ -366,7 +366,7 @@ rendering framework's persistent labels.
 
 ---
 
-### ASI10 — Rogue Agents
+### ASI10 â€” Rogue Agents
 
 **Severity:** Critical
 
@@ -374,18 +374,18 @@ rendering framework's persistent labels.
 
 | CWE | Name | How it applies |
 |---|---|---|
-| CWE-284 | Improper Access Control | Rogue agent exceeds its permitted access scope — no scope enforcement |
+| CWE-284 | Improper Access Control | Rogue agent exceeds its permitted access scope â€” no scope enforcement |
 | CWE-693 | Protection Mechanism Failure | Behavioural monitoring and detection mechanisms bypassed by rogue agent |
 | CWE-799 | Improper Control of Interaction Frequency | Rogue agent evades detection by maintaining normal action frequency while biasing recommendations |
 | CWE-506 | Embedded Malicious Code | Rogue behaviour may result from backdoored model or component |
-| CWE-276 | Incorrect Default Permissions | Agent deployed with broader permissions than needed — amplifies rogue blast radius |
+| CWE-276 | Incorrect Default Permissions | Agent deployed with broader permissions than needed â€” amplifies rogue blast radius |
 
 #### CVE evidence
 
 | CVE | System | Description | Agentic relevance |
 |---|---|---|---|
-| CVE-2025-54795 | Claude Code | Agent confirmation bypass via crafted inputs enabling execution of unintended commands | Demonstrates how an agent can be made to operate outside its intended constraints — rogue behaviour trigger |
-| CVE-2025-32444 | MCP npm package | Supply chain compromise introducing hidden exfiltration code operating covertly in agent context | Direct rogue agent via supply chain — agent appears compliant while covertly exfiltrating |
+| CVE-2025-54795 | Claude Code | Agent confirmation bypass via crafted inputs enabling execution of unintended commands | Demonstrates how an agent can be made to operate outside its intended constraints â€” rogue behaviour trigger |
+| CVE-2025-32444 | MCP npm package | Supply chain compromise introducing hidden exfiltration code operating covertly in agent context | Direct rogue agent via supply chain â€” agent appears compliant while covertly exfiltrating |
 
 #### Engineering root cause
 
@@ -473,10 +473,10 @@ encouraged to submit new CVEs via pull request as they are published.
 
 - [MITRE CWE](https://cwe.mitre.org/)
 - [MITRE CVE](https://cve.mitre.org/)
-- [NVD — National Vulnerability Database](https://nvd.nist.gov/)
+- [NVD â€” National Vulnerability Database](https://nvd.nist.gov/)
 - [OWASP Agentic Top 10 2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/)
-- [MITRE ATLAS — Adversarial ML Threat Matrix](https://atlas.mitre.org)
-- [OSV — Open Source Vulnerabilities](https://osv.dev)
+- [MITRE ATLAS â€” Adversarial ML Threat Matrix](https://atlas.mitre.org)
+- [OSV â€” Open Source Vulnerabilities](https://osv.dev)
 
 ---
 
@@ -484,7 +484,7 @@ encouraged to submit new CVEs via pull request as they are published.
 
 | Date | Version | Change | Author |
 |---|---|---|---|
-| 2026-03-26 | 2026-Q1 | Initial mapping — ASI01–ASI10 CWE and CVE evidence with CWE cross-reference index | OWASP GenAI Data Security Initiative |
+| 2026-03-26 | 2026-Q1 | Initial mapping â€” ASI01â€“ASI10 CWE and CVE evidence with CWE cross-reference index | OWASP GenAI Data Security Initiative |
 
 ---
 

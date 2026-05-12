@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk — Shared Reference
+  GenAI Security Crosswalk â€” Shared Reference
   File    : shared/GLOSSARY.md
   Purpose : Unified terminology across all three source lists and all frameworks
   Version : 2026-Q1
@@ -23,7 +23,7 @@ for spoofing, replay, and agent-in-the-middle attacks (ASI07).
 
 **Agent**
 An autonomous or semi-autonomous AI system that uses an LLM to perceive
-its environment, plan, make decisions, and execute actions — often using
+its environment, plan, make decisions, and execute actions â€” often using
 external tools, memory, and other agents. Distinct from a simple LLM
 that only generates text responses.
 
@@ -93,12 +93,12 @@ See LLM04, ASI06, DSGAI04.
 
 **DBoM (Dataset Bill of Materials)**
 A structured inventory of all data used in training, fine-tuning, or
-retrieval — including sources, lineage, and provenance. The data analog
+retrieval â€” including sources, lineage, and provenance. The data analog
 of a Software Bill of Materials (SBOM).
 
 **DSGAI**
 OWASP GenAI Data Security Risks and Mitigations 2026. 21 entries
-(DSGAI01–DSGAI21) covering the full GenAI data security lifecycle.
+(DSGAI01â€“DSGAI21) covering the full GenAI data security lifecycle.
 Reference: https://genai.owasp.org
 
 ---
@@ -108,7 +108,7 @@ Reference: https://genai.owasp.org
 **Embedding**
 A numerical vector representation of text, images, or other data,
 used for semantic search and retrieval in RAG systems. Embeddings
-are a data security surface — they can leak information about source
+are a data security surface â€” they can leak information about source
 content and are vulnerable to inversion attacks. See LLM08, DSGAI13.
 
 ---
@@ -138,28 +138,28 @@ of the model's internal logic.
 ## H
 
 **HITL (Human-in-the-Loop)**
-Here's the build order that maximizes impact — based on search traffic, community need, and urgency.
+Here's the build order that maximizes impact â€” based on search traffic, community need, and urgency.
 
 Build sequence
-Sprint 1 — Foundation (right now)
+Sprint 1 â€” Foundation (right now)
 These files are referenced by everything else. Do them first.
-OrderFileWhy first1shared/SEVERITY.mdEvery mapping file references it — severity definitions, AIVSS alignment2shared/GLOSSARY.mdUnified terms across LLM/ASI/DSGAI — stops contributor confusion3CONTRIBUTING.mdNeeded before anyone can fork and add to this4llm-top10/LLM_MITREATLAS.mdMost-used threat framework, highest search traffic
-Sprint 2 — Highest traffic mappings
-OrderFileWhy5agentic-top10/Agentic_MITREATLAS.mdCompletes the ATLAS pair6llm-top10/LLM_NISTAIRMF.mdMost required by enterprise/government7llm-top10/LLM_EUAIAct.mdAugust 2026 deadline — most urgent regulatory file8agentic-top10/Agentic_EUAIAct.mdAgents are explicitly in scope for EU AI Act
-Sprint 3 — Data security core
+OrderFileWhy first1shared/SEVERITY.mdEvery mapping file references it â€” severity definitions, AIVSS alignment2shared/GLOSSARY.mdUnified terms across LLM/ASI/DSGAI â€” stops contributor confusion3CONTRIBUTING.mdNeeded before anyone can fork and add to this4llm-top10/LLM_MITREATLAS.mdMost-used threat framework, highest search traffic
+Sprint 2 â€” Highest traffic mappings
+OrderFileWhy5agentic-top10/Agentic_MITREATLAS.mdCompletes the ATLAS pair6llm-top10/LLM_NISTAIRMF.mdMost required by enterprise/government7llm-top10/LLM_EUAIAct.mdAugust 2026 deadline â€” most urgent regulatory file8agentic-top10/Agentic_EUAIAct.mdAgents are explicitly in scope for EU AI Act
+Sprint 3 â€” Data security core
 OrderFileWhy9dsgai-2026/DSGAI_ISO27001.mdMost-certified standard globally10dsgai-2026/DSGAI_NISTAIRMF.mdUS federal alignment11dsgai-2026/DSGAI_EUAIAct.mdRegulatory trifecta complete
-Sprint 4 — OT/ICS (your specialty)
-OrderFileWhy12llm-top10/LLM_ISA62443.mdYour differentiator — nobody else has this done right13agentic-top10/Agentic_ISA62443.mdAgentic AI in OT is the frontier14llm-top10/LLM_NISTSP80082.mdPairs with 62443 for complete OT coverage
-Sprint 5 — Fill out remaining frameworks
+Sprint 4 â€” OT/ICS (your specialty)
+OrderFileWhy12llm-top10/LLM_ISA62443.mdYour differentiator â€” nobody else has this done right13agentic-top10/Agentic_ISA62443.mdAgentic AI in OT is the frontier14llm-top10/LLM_NISTSP80082.mdPairs with 62443 for complete OT coverage
+Sprint 5 â€” Fill out remaining frameworks
 Everything else in alphabetical batches using the template.
 
 Practical rhythm
-Each session we do 2–3 files. I generate the full content, you paste into terminal, commit, push. Keeps momentum without burnout.
-Today's session target: Sprint 1 files 1–3, then start file 4.
-Ready — I'll generate shared/SEVERITY.md now:
+Each session we do 2â€“3 files. I generate the full content, you paste into terminal, commit, push. Keeps momentum without burnout.
+Today's session target: Sprint 1 files 1â€“3, then start file 4.
+Ready â€” I'll generate shared/SEVERITY.md now:
 powershell@'
 <!--
-  GenAI Security Crosswalk — Shared Reference
+  GenAI Security Crosswalk â€” Shared Reference
   File    : shared/SEVERITY.md
   Purpose : Severity definitions used consistently across all mapping files
   Version : 2026-Q1
@@ -179,10 +179,10 @@ reviewing any entry.
 
 | Level | Colour code | AIVSS / CVSS range | Definition |
 |---|---|---|---|
-| **Critical** | RED | 9.0 – 10.0 | Exploitation is trivial or already observed in the wild. Direct, immediate impact on confidentiality, integrity, or availability of systems or data. Autonomous agent blast radius means a single compromise can affect entire workflows or physical systems. Requires immediate remediation. |
-| **High** | ORANGE | 7.0 – 8.9 | Exploitation is realistic with moderate attacker capability. Significant impact on one or more security properties. May require chaining with another vulnerability to reach full impact. Remediate within current sprint or release cycle. |
-| **Medium** | YELLOW | 4.0 – 6.9 | Exploitation requires specific conditions or attacker access. Partial or indirect impact. Often a contributing factor in attack chains rather than a standalone exploit path. Plan remediation within the quarter. |
-| **Low** | BLUE | 0.1 – 3.9 | Limited exploitability or impact in isolation. Typically informational, configuration, or defence-in-depth concern. Address in normal maintenance cycles. |
+| **Critical** | RED | 9.0 â€“ 10.0 | Exploitation is trivial or already observed in the wild. Direct, immediate impact on confidentiality, integrity, or availability of systems or data. Autonomous agent blast radius means a single compromise can affect entire workflows or physical systems. Requires immediate remediation. |
+| **High** | ORANGE | 7.0 â€“ 8.9 | Exploitation is realistic with moderate attacker capability. Significant impact on one or more security properties. May require chaining with another vulnerability to reach full impact. Remediate within current sprint or release cycle. |
+| **Medium** | YELLOW | 4.0 â€“ 6.9 | Exploitation requires specific conditions or attacker access. Partial or indirect impact. Often a contributing factor in attack chains rather than a standalone exploit path. Plan remediation within the quarter. |
+| **Low** | BLUE | 0.1 â€“ 3.9 | Limited exploitability or impact in isolation. Typically informational, configuration, or defence-in-depth concern. Address in normal maintenance cycles. |
 
 ---
 
@@ -228,7 +228,7 @@ When submitting a new mapping or updating an existing one:
    CVE CVSS score, or OWASP source list definition)
 2. If a real-world incident changes the practical severity of an entry,
    add an incident reference and update with a changelog entry
-3. OT severity must be assessed separately — do not assume IT severity
+3. OT severity must be assessed separately â€” do not assume IT severity
    translates directly to OT contexts
 4. Agentic amplifiers must be noted explicitly when they affect the rating
 

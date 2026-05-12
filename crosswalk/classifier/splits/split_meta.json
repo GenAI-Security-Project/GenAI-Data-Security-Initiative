@@ -1,0 +1,60 @@
+{
+  "seed": 42,
+  "hash_algorithm": "sha256",
+  "hash_key_format": "{entry_id}::{framework}::{control_id}",
+  "contamination_clean_framework": "CoSAI",
+  "calibration": {
+    "count": 150,
+    "by_source_list": {
+      "LLM-Top10-2025": 50,
+      "DSGAI-2026": 58,
+      "Agentic-Top10-2026": 42
+    },
+    "by_severity": {
+      "High": 75,
+      "Critical": 58,
+      "Medium": 17
+    },
+    "by_framework": {
+      "ENISA Multilayer Framework": 16,
+      "ISO/IEC 42001:2023": 11,
+      "OWASP ASVS 4.0.3": 10,
+      "PCI DSS v4.0": 8,
+      "ISO/IEC 27001:2022": 8,
+      "AIUC-1": 7,
+      "OWASP SAMM v2.0": 7,
+      "FedRAMP": 7,
+      "DORA": 7,
+      "ISA/IEC 62443": 6
+    }
+  },
+  "test": {
+    "count": 3060,
+    "by_source_list": {
+      "LLM-Top10-2025": 790,
+      "Agentic-Top10-2026": 807,
+      "DSGAI-2026": 1463
+    },
+    "by_severity": {
+      "Critical": 943,
+      "Medium": 357,
+      "High": 1760
+    },
+    "by_framework": {
+      "OWASP SAMM v2.0": 180,
+      "NIST CSF 2.0": 162,
+      "SOC 2": 162,
+      "ISO/IEC 27001:2022": 159,
+      "NIST AI RMF 1.0": 158,
+      "PCI DSS v4.0": 158,
+      "ISO/IEC 42001:2023": 153,
+      "AIUC-1": 149,
+      "ENISA Multilayer Framework": 148,
+      "NIST SP 800-82 Rev 3": 148
+    }
+  },
+  "clean": {
+    "count": 0,
+    "by_source_list": {}
+  }
+}

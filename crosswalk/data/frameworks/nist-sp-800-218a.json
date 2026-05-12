@@ -1,0 +1,274 @@
+{
+  "id": "nist-sp-800-218a",
+  "name": "NIST SP 800-218A",
+  "short_name": "SP 800-218A",
+  "version": "1.0",
+  "url": "https://csrc.nist.gov/pubs/sp/800/218/a/final",
+  "license": "Public Domain",
+  "publisher": "NIST",
+  "category": "appsec",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "Threat model the agent pipeline for adversarial goal manipulation vectors including direct injection, indirect injection via tool outputs, and context poisoning",
+      "title": "PW.2.1-PS – Design software to meet security requirements",
+      "description": "Ensures goal integrity is a design-phase requirement for all agentic systems"
+    },
+    {
+      "control_id": "Review agent behaviour for goal deviation — verify that the agent maintains intended objectives under adversarial input conditions",
+      "title": "PW.7.2-PS – Review the software for security vulnerabilities",
+      "description": "Catches goal manipulation vulnerabilities before production deployment"
+    },
+    {
+      "control_id": "Conduct adversarial red-team testing against goal hijacking vectors including injection through every data source, tool output, and context channel",
+      "title": "PW.8.2-PS – Test for security vulnerabilities",
+      "description": "Validates goal integrity controls under realistic attack conditions"
+    },
+    {
+      "control_id": "Establish procedures to identify goal hijacking incidents in production including goal deviation monitoring, triage, and confirmation workflows",
+      "title": "RV.1.1-PS – Identify and confirm vulnerabilities",
+      "description": "Enables rapid detection and response to goal manipulation in live systems"
+    },
+    {
+      "control_id": "Define explicit security requirements specifying the maximum permitted tool access, API scope, data source access, and resource boundaries for each agent deployment",
+      "title": "PW.1.1-PS – Define security requirements",
+      "description": "Establishes access control as a mandatory deployment requirement"
+    },
+    {
+      "control_id": "Threat model all agent access paths to tools, data stores, and APIs; design least-privilege tool manifests and enforce tenant isolation by design",
+      "title": "PW.2.1-PS – Design software to meet security requirements",
+      "description": "Ensures access boundaries are designed before implementation"
+    },
+    {
+      "control_id": "Protect agent configuration files, tool manifests, permission policies, and orchestration definitions from unauthorised modification",
+      "title": "PS.1.1-PS – Protect all code from unauthorised access",
+      "description": "Prevents tampering with access control configuration"
+    },
+    {
+      "control_id": "Review agent access control enforcement — verify that tool permission manifests, RBAC policies, and tenant isolation boundaries are correctly implemented and cannot be bypassed",
+      "title": "PW.7.2-PS – Review the software for security vulnerabilities",
+      "description": "Validates access controls before production deployment"
+    },
+    {
+      "control_id": "Define explicit privilege boundaries for each agent identity — maximum permitted privilege level, credential scope, and escalation constraints",
+      "title": "PW.1.1-PS – Define security requirements",
+      "description": "Establishes privilege boundaries as mandatory requirements"
+    },
+    {
+      "control_id": "Implement secure credential handling — agents must not inherit user credentials, store tokens in context, or pass credentials between agents without explicit authorisation",
+      "title": "PW.5.1-PS – Secure coding practices",
+      "description": "Prevents credential leakage through agent code paths"
+    },
+    {
+      "control_id": "Protect credential stores, identity configurations, and privilege mapping files from unauthorised access and modification",
+      "title": "PS.1.1-PS – Protect all code from unauthorised access",
+      "description": "Prevents tampering with privilege boundaries"
+    },
+    {
+      "control_id": "Establish monitoring and triage procedures for privilege escalation incidents — detect agents operating beyond their assigned privilege level",
+      "title": "RV.1.1-PS – Identify and confirm vulnerabilities",
+      "description": "Enables rapid detection of privilege escalation in production"
+    },
+    {
+      "control_id": "Vet all third-party agent components — tools, plugins, MCP servers, model weights, orchestration libraries — for provenance, integrity, and security posture before use",
+      "title": "PW.4.1-PS – Reuse existing well-secured software",
+      "description": "Prevents introduction of compromised components into agent pipelines"
+    },
+    {
+      "control_id": "Verify integrity of all agent artefacts and third-party components using cryptographic signatures and checksums before deployment",
+      "title": "PS.2.1-PS – Verify software integrity",
+      "description": "Detects tampering in agent supply chain artefacts"
+    },
+    {
+      "control_id": "Maintain a secure, versioned registry of all agent components with provenance records; enable auditability and rollback",
+      "title": "PS.3.1-PS – Archive and protect software releases",
+      "description": "Ensures traceability and recovery capability for supply chain incidents"
+    },
+    {
+      "control_id": "Monitor for newly disclosed vulnerabilities in third-party agent components; establish a triage process for AI-specific supply chain disclosures",
+      "title": "RV.1.1-PS – Identify and confirm vulnerabilities",
+      "description": "Enables rapid response to supply chain compromises"
+    },
+    {
+      "control_id": "Threat model all code execution paths in agent workflows; design sandboxing, resource limits, and execution constraints as explicit security requirements",
+      "title": "PW.2.1-PS – Design software to meet security requirements",
+      "description": "Ensures code execution boundaries are designed before implementation"
+    },
+    {
+      "control_id": "Implement secure coding for agent code execution — sandbox isolation, input validation for code generation, output filtering, and prevention of self-modification",
+      "title": "PW.5.1-PS – Secure coding practices",
+      "description": "Prevents code execution vulnerabilities in agent implementation"
+    },
+    {
+      "control_id": "Conduct adversarial testing targeting code execution — sandbox escapes, resource limit bypasses, self-modification, and host system access through generated code",
+      "title": "PW.8.2-PS – Test for security vulnerabilities",
+      "description": "Validates execution boundary controls under attack conditions"
+    },
+    {
+      "control_id": "Protect agent execution environments, sandbox configurations, and runtime constraints from unauthorised modification",
+      "title": "PS.1.1-PS – Protect all code from unauthorised access",
+      "description": "Prevents weakening of execution boundaries through configuration tampering"
+    },
+    {
+      "control_id": "Protect agent memory stores, context databases, and shared state repositories from unauthorised read, write, and modification; enforce access controls per agent identity",
+      "title": "PS.1.1-PS – Protect all code from unauthorised access",
+      "description": "Prevents direct tampering with agent memory and context"
+    },
+    {
+      "control_id": "Maintain versioned, integrity-verified snapshots of agent memory and context stores; enable rollback to pre-poisoning states",
+      "title": "PS.3.1-PS – Archive and protect software releases",
+      "description": "Ensures recovery capability for memory poisoning incidents"
+    },
+    {
+      "control_id": "Review agent behaviour for memory-influenced anomalies — verify that persistent memory and shared context do not introduce unintended behaviour changes across sessions",
+      "title": "PW.7.2-PS – Review the software for security vulnerabilities",
+      "description": "Catches memory poisoning effects before they propagate"
+    },
+    {
+      "control_id": "When memory poisoning is detected, conduct forensic analysis to identify the poisoned records, their ingestion source, propagation path, and blast radius across agents",
+      "title": "RV.3.1-PS – Analyse root causes",
+      "description": "Enables thorough incident response for memory poisoning events"
+    },
+    {
+      "control_id": "Define explicit security requirements constraining permitted tool invocation sequences and cross-tool data flows for each agent deployment",
+      "title": "PW.1.1-PS – Define security requirements",
+      "description": "Establishes chaining constraints as mandatory requirements"
+    },
+    {
+      "control_id": "Threat model tool interaction graphs — identify composite action sequences that could achieve unauthorised outcomes; design controls for chain-level authorisation",
+      "title": "PW.2.1-PS – Design software to meet security requirements",
+      "description": "Ensures chaining risks are addressed at design time"
+    },
+    {
+      "control_id": "Review agent behaviour for chain-based scope violations — verify that multi-step tool sequences cannot achieve outcomes exceeding individual tool permissions",
+      "title": "PW.7.2-PS – Review the software for security vulnerabilities",
+      "description": "Catches chaining vulnerabilities before production"
+    },
+    {
+      "control_id": "Establish monitoring for anomalous tool invocation sequences; define triage procedures for suspected lateral chaining incidents",
+      "title": "RV.1.1-PS – Identify and confirm vulnerabilities",
+      "description": "Enables detection of chaining attacks in production"
+    },
+    {
+      "control_id": "Design circuit breakers, step limits, cost budgets, and human approval gates as explicit security requirements for all agentic automation workflows",
+      "title": "PW.2.1-PS – Design software to meet security requirements",
+      "description": "Ensures cascade prevention is a design-phase requirement"
+    },
+    {
+      "control_id": "Conduct adversarial testing of cascade failure paths — test error propagation, hallucination amplification, and runaway automation scenarios",
+      "title": "PW.8.2-PS – Test for security vulnerabilities",
+      "description": "Validates cascade prevention controls under attack conditions"
+    },
+    {
+      "control_id": "Define remediation procedures for cascade failure incidents including automatic circuit breaker activation, workflow suspension, cost cap enforcement, and rollback",
+      "title": "RV.2.1-PS – Assess, prioritise, and remediate vulnerabilities",
+      "description": "Enables rapid response to cascading automation failures"
+    },
+    {
+      "control_id": "Define explicit requirements for maximum automation depth, step limits, cost budgets, and mandatory human checkpoints for each agent workflow",
+      "title": "PW.1.1-PS – Define security requirements",
+      "description": "Establishes automation boundaries as mandatory requirements"
+    },
+    {
+      "control_id": "Review agent behaviour for emergent capabilities — verify that self-modification, dynamic tool discovery, and autonomous agent spawning do not create unintended security exposures",
+      "title": "PW.7.2-PS – Review the software for security vulnerabilities",
+      "description": "Catches emergent pattern risks before production"
+    },
+    {
+      "control_id": "Conduct adversarial testing targeting emerging agentic patterns — self-evolution, prompt self-modification, autonomous tool acquisition, and dynamic agent creation",
+      "title": "PW.8.2-PS – Test for security vulnerabilities",
+      "description": "Validates controls against novel attack surfaces"
+    },
+    {
+      "control_id": "Establish monitoring for emergent agent behaviours — detect agents acquiring new capabilities, modifying their own definitions, or spawning sub-agents outside approved patterns",
+      "title": "RV.1.1-PS – Identify and confirm vulnerabilities",
+      "description": "Enables detection of emerging risks in production"
+    },
+    {
+      "control_id": "When incidents involve novel agentic patterns, conduct root cause analysis focused on understanding the emergent capability and its security implications",
+      "title": "RV.3.1-PS – Analyse root causes",
+      "description": "Builds organisational knowledge of emerging agentic risks"
+    },
+    {
+      "control_id": "Vet all external agent dependencies — LLM APIs, tool endpoints, MCP servers, orchestration platforms — for reliability, security posture, and failure mode characteristics before adoption",
+      "title": "PW.4.1-PS – Reuse existing well-secured software",
+      "description": "Prevents adoption of unreliable dependencies"
+    },
+    {
+      "control_id": "Verify that external dependency responses are consistent with expected behaviour — detect API version changes, model swaps, or degraded output quality that could affect agent correctness",
+      "title": "PS.2.1-PS – Verify software integrity",
+      "description": "Detects dependency degradation and tampering"
+    },
+    {
+      "control_id": "Monitor all agent dependencies for availability, behavioural consistency, and security posture changes; establish triage procedures for dependency degradation events",
+      "title": "RV.1.1-PS – Identify and confirm vulnerabilities",
+      "description": "Enables rapid detection of dependency failures"
+    },
+    {
+      "control_id": "Define remediation procedures for dependency failures — graceful degradation, fallback providers, workflow suspension, and stakeholder notification",
+      "title": "RV.2.1-PS – Assess, prioritise, and remediate vulnerabilities",
+      "description": "Ensures operational continuity during dependency outages"
+    },
+    {
+      "control_id": "PS.1.1-PS",
+      "title": "Protect all code from unauthorised access — data access audit controls",
+      "description": "Implement comprehensive audit logging for all access to training data, model weights, embedding stores, and pipeline configuration; enforce tamper-evident log storage; Implement controls to detect and prevent unauthorised AI tool usage that processes organisational data outside governed pipelines; Protect training data, model weights, adapters, and pipeline artefacts from unauthorised modification; enforce write access controls and integrity monitoring"
+    },
+    {
+      "control_id": "RV.1.1-PS",
+      "title": "Identify and confirm vulnerabilities — audit-driven detection",
+      "description": "Establish procedures to detect data access anomalies using audit logs; define triage workflows for suspicious access patterns across AI data stores; Establish procedures to identify data exposure from shadow AI tool usage; define triage and remediation workflows for unsanctioned data processing; Establish procedures to detect data misuse and manipulation in production including monitoring for purpose-scope violations and data manipulation patterns"
+    },
+    {
+      "control_id": "PW.1.1-PS",
+      "title": "Define security requirements — data inventory and classification",
+      "description": "Define security requirements mandating a complete data inventory covering all datasets used in training, fine-tuning, RAG, and evaluation; classify by sensitivity; Define security requirements governing how datasets may be combined for AI training and inference; require aggregation impact assessments before merging datasets; Define security requirements governing data retention periods, deletion procedures, and right-to-erasure compliance for all data in AI pipelines"
+    },
+    {
+      "control_id": "PW.2.1-PS",
+      "title": "Design software — data flow transparency",
+      "description": "Design AI pipelines with documented data flow diagrams showing data origins, transformations, storage locations, and access points; maintain as living artefacts; Design AI data pipelines with built-in lineage tracking; require lineage metadata capture at every transformation step as an explicit design requirement; Design AI data pipelines with aggregation controls that prevent combination of datasets whose joint sensitivity exceeds authorised classification levels"
+    },
+    {
+      "control_id": "PW.4.1-PS",
+      "title": "Reuse existing well-secured software — AI tool vetting",
+      "description": "Vet all AI tools, services, and plugins before organisational adoption; verify data handling, security posture, and compliance capabilities; Vet all third-party datasets, pre-trained models, and pipeline components for provenance, integrity, and potential poisoning before use; Vet all datasets for quality, completeness, representativeness, and fitness for purpose before use in any training or evaluation pipeline"
+    },
+    {
+      "control_id": "PS.3.1-PS",
+      "title": "Archive and protect software releases — versioned artefact management",
+      "description": "Maintain versioned, integrity-verified snapshots of all training data, model checkpoints, and pipeline artefacts; enable rollback to known-good state; Maintain versioned dataset snapshots with provenance metadata recording origin, collection method, processing steps, and quality metrics; Maintain end-to-end data lineage records linking every model version to its training data, transformations, and intermediate artefacts"
+    },
+    {
+      "control_id": "RV.3.1-PS",
+      "title": "Analyse root causes — poisoning forensics",
+      "description": "When poisoning is detected, conduct forensic analysis to identify corrupted records, trace to source, and determine blast radius across dependent models; When model failures trace to synthetic training data, conduct root cause analysis of the generation process, source data, and privacy mechanism; When discriminatory behaviour is identified, conduct root cause analysis tracing bias to specific training data sources, labelling processes, or preprocessing steps"
+    },
+    {
+      "control_id": "PS.2.1-PS",
+      "title": "Verify software integrity — data provenance verification",
+      "description": "Verify provenance and integrity of all datasets used in training, fine-tuning, and evaluation; maintain cryptographic attestation of data origin and chain of custody; Verify integrity of all third-party data deliveries using checksums, signatures, or schema validation; detect tampering or corruption before pipeline ingestion; Verify that the model artifact serving output has not been tampered with; maintain signed model checksums and verify before deployment"
+    },
+    {
+      "control_id": "PW.5.1-PS",
+      "title": "Secure coding — data handling in AI pipelines",
+      "description": "Enforce secure coding practices for all data handling in AI pipelines; implement output filtering, PII detection, and data masking before model responses reach consumers; Implement secure coding practices for all code paths that consume LLM output; treat model responses as untrusted input to downstream systems; Enforce secure coding standards prohibiting embedding of credentials, API keys, or sensitive configuration data in system prompts or model context"
+    },
+    {
+      "control_id": "PW.7.2-PS",
+      "title": "Review for security vulnerabilities — data leakage review",
+      "description": "Include data leakage and memorisation scenarios in pre-release security reviews; verify that outputs cannot reveal training data or sensitive context; Review synthetic data for bias inheritance, privacy leakage, and statistical fidelity before use in training pipelines; verify privacy guarantees are meaningful; Include data misuse and manipulation scenarios in pre-release reviews; verify that purpose limitation controls are enforced and cannot be bypassed"
+    },
+    {
+      "control_id": "PW.8.2-PS",
+      "title": "Test for security vulnerabilities — synthetic data adversarial testing",
+      "description": "Conduct adversarial testing of synthetic data for membership inference, attribute inference, and reconstruction attacks to validate privacy claims; Conduct adversarial testing for discriminatory outputs; test model behaviour across demographic groups, intersectional categories, and edge cases; Conduct adversarial testing (red-teaming) against prompt injection vectors before each production release; cover direct, indirect, and multimodal injection paths"
+    },
+    {
+      "control_id": "RV.2.1-PS",
+      "title": "Assess, prioritise, and remediate — deletion request remediation",
+      "description": "Define procedures to assess and remediate data deletion requests including impact analysis on trained models and retraining requirements; Define remediation procedures for availability incidents including model rollback, rate limit tightening, and cost circuit breakers; Define and test remediation procedures for availability incidents — rate limit tightening, model rollback, cost circuit breaker activation"
+    }
+  ]
+}

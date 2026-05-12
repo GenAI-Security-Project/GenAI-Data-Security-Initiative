@@ -1,7 +1,7 @@
 {
   "name": "genai-security-crosswalk",
-  "version": "2.0.0",
-  "description": "OWASP GenAI Security Crosswalk — mapping LLM Top 10, Agentic Top 10, and DSGAI 2026 to 17 industry frameworks",
+  "version": "3.1.0",
+  "description": "OWASP GenAI Security Crosswalk — mapping LLM Top 10, Agentic Top 10, and DSGAI 2026 to 25 industry frameworks",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -21,6 +21,10 @@
     "incidents": "node scripts/incidents-report.js",
     "query": "node scripts/query.js",
     "watch": "node scripts/watch.js",
+    "ingest": "node scripts/ingest-framework.mjs",
+    "extract-registry": "node scripts/extract-registry.js",
+    "framework-diff": "node scripts/framework-diff.js",
+    "state-report": "node scripts/state-report.js",
     "build": "npm run generate && npm run validate",
     "build:reports": "npm run compliance && npm run incidents",
     "ci": "npm run build && npm run build:reports",

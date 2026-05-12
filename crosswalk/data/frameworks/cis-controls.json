@@ -1,0 +1,391 @@
+{
+  "id": "cis-controls",
+  "name": "CIS Controls v8.1",
+  "short_name": "CIS v8.1",
+  "version": "8.1",
+  "url": "https://www.cisecurity.org/controls",
+  "license": "CC BY-NC-SA 4.0",
+  "publisher": "Center for Internet Security",
+  "category": "infosec",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "CIS-1",
+      "title": "Inventory and Control of Enterprise Assets",
+      "description": "Actively manage all enterprise assets connected to the infrastructure.",
+      "parent": null,
+      "function": "Basic Cyber Hygiene"
+    },
+    {
+      "control_id": "CIS-2",
+      "title": "Inventory and Control of Software Assets",
+      "description": "Actively manage all software on the network so only authorized software is installed.",
+      "parent": null,
+      "function": "Basic Cyber Hygiene"
+    },
+    {
+      "control_id": "CIS-3",
+      "title": "Data Protection",
+      "description": "Develop processes and technical controls to identify, classify, securely handle, retain, and dispose of data.",
+      "parent": null,
+      "function": "Basic Cyber Hygiene"
+    },
+    {
+      "control_id": "CIS-4",
+      "title": "Secure Configuration of Enterprise Assets and Software",
+      "description": "Establish and maintain the secure configuration of enterprise assets and software.",
+      "parent": null,
+      "function": "Basic Cyber Hygiene"
+    },
+    {
+      "control_id": "CIS-5",
+      "title": "Account Management",
+      "description": "Use processes and tools to assign and manage authorization to credentials for user accounts.",
+      "parent": null,
+      "function": "Basic Cyber Hygiene"
+    },
+    {
+      "control_id": "CIS-6",
+      "title": "Access Control Management",
+      "description": "Use processes and tools to create, assign, manage, and revoke access credentials and privileges.",
+      "parent": null,
+      "function": "Basic Cyber Hygiene"
+    },
+    {
+      "control_id": "CIS-7",
+      "title": "Continuous Vulnerability Management",
+      "description": "Develop a plan to continuously assess and track vulnerabilities on all enterprise assets.",
+      "parent": null,
+      "function": "Basic Cyber Hygiene"
+    },
+    {
+      "control_id": "CIS-8",
+      "title": "Audit Log Management",
+      "description": "Collect, alert, review, and retain audit logs of events.",
+      "parent": null,
+      "function": "Basic Cyber Hygiene"
+    },
+    {
+      "control_id": "CIS-9",
+      "title": "Email and Web Browser Protections",
+      "description": "Improve protections and detections of threats from email and web vectors.",
+      "parent": null,
+      "function": "Basic Cyber Hygiene"
+    },
+    {
+      "control_id": "CIS-10",
+      "title": "Malware Defenses",
+      "description": "Prevent or control the installation, spread, and execution of malicious applications.",
+      "parent": null,
+      "function": "Foundational"
+    },
+    {
+      "control_id": "CIS-11",
+      "title": "Data Recovery",
+      "description": "Establish and maintain data recovery practices sufficient to restore in-scope enterprise assets.",
+      "parent": null,
+      "function": "Foundational"
+    },
+    {
+      "control_id": "CIS-12",
+      "title": "Network Infrastructure Management",
+      "description": "Establish and maintain the secure configuration of network infrastructure.",
+      "parent": null,
+      "function": "Foundational"
+    },
+    {
+      "control_id": "CIS-13",
+      "title": "Network Monitoring and Defense",
+      "description": "Operate processes and tooling to establish and maintain comprehensive network monitoring and defense.",
+      "parent": null,
+      "function": "Foundational"
+    },
+    {
+      "control_id": "CIS-14",
+      "title": "Security Awareness and Skills Training",
+      "description": "Establish and maintain a security awareness program for all workforce members.",
+      "parent": null,
+      "function": "Foundational"
+    },
+    {
+      "control_id": "CIS-15",
+      "title": "Service Provider Management",
+      "description": "Develop a process to evaluate service providers who hold sensitive data or are responsible for IT platform or processes.",
+      "parent": null,
+      "function": "Foundational"
+    },
+    {
+      "control_id": "CIS-16",
+      "title": "Application Software Security",
+      "description": "Manage the security life cycle of in-house developed, hosted, or acquired software.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "CIS-17",
+      "title": "Incident Response Management",
+      "description": "Establish a program to develop and maintain an incident response capability.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "CIS-18",
+      "title": "Penetration Testing",
+      "description": "Test the effectiveness and resiliency of enterprise assets through identifying and exploiting weaknesses.",
+      "parent": null,
+      "function": "Organizational"
+    },
+    {
+      "control_id": "16.1 Establish secure application development standards",
+      "title": "CIS 16 � Application Software Security",
+      "description": "Secure development standards covering agentic integrations � input validation, goal-state verification; Secure development standards covering LLM integration � input validation, context separation"
+    },
+    {
+      "control_id": "18.1 Establish penetration testing programme",
+      "title": "CIS 18 � Penetration Testing",
+      "description": "Adversarial testing covering goal hijack � direct, indirect, multi-turn injection scenarios; Adversarial testing programme covering prompt injection scenarios"
+    },
+    {
+      "control_id": "8.2 Collect audit logs",
+      "title": "CIS 8 � Audit Log Management",
+      "description": "All agent inputs logged � injection attempts detectable through log analysis; Memory write operations logged � who or what wrote, when, content hash; Comprehensive audit logging of all agent actions � no production deployment without full observability"
+    },
+    {
+      "control_id": "13.8 Deploy a network intrusion detection solution",
+      "title": "CIS 13 � Network Monitoring and Defence",
+      "description": "Network-layer monitoring for injection indicators in agent traffic"
+    },
+    {
+      "control_id": "5.4 Restrict administrator privileges",
+      "title": "CIS 5 � Account Management",
+      "description": "Agent tool access managed as privileged access � minimum scope, regular review; Agent credentials managed as privileged accounts � minimum scope, regular review, JIT issuance; Approval flows independent of agent interface � sensitive approvals cannot be completed via agent chat"
+    },
+    {
+      "control_id": "6.1 Establish access granting process",
+      "title": "CIS 6 � Access Control Management",
+      "description": "Formal process for granting agent tool access � documented justification per tool; Formal process for granting LLM tool access � documented justification required"
+    },
+    {
+      "control_id": "8.5 Collect detailed audit logs",
+      "title": "CIS 8 � Audit Log Management",
+      "description": "All tool invocations logged � tool identity, parameters, agent identity, timestamp; All credential operations logged � issuance, use, anomalous patterns detectable; All A2A messages logged � sender identity, content hash, timestamp, schema validation results"
+    },
+    {
+      "control_id": "16.1 Establish secure development standards",
+      "title": "CIS 16 � Application Software Security",
+      "description": "Tool parameter validation as secure development requirement; Sandbox, static analysis, and allowlist as secure development requirements for code execution; Memory write validation as secure development requirement � untrusted sources cannot write directly"
+    },
+    {
+      "control_id": "6.2 Establish an access revoking process",
+      "title": "CIS 6 � Access Control Management",
+      "description": "Agent credential revocation process � immediate revocation on detection, decommission procedure"
+    },
+    {
+      "control_id": "3.11 Encrypt sensitive data at rest",
+      "title": "CIS 3 � Data Protection",
+      "description": "Agent credentials encrypted at rest � secret manager, no cleartext storage; Agent memory stores encrypted at rest � embeddings, long-term memory, operational knowledge; Embeddings, training data, and RAG caches containing sensitive data encrypted"
+    },
+    {
+      "control_id": "2.1 Establish and maintain software inventory",
+      "title": "CIS 2 � Inventory and Control of Software Assets",
+      "description": "ML SBOM as software asset inventory � all agent components (tools, MCP servers, models, libraries)"
+    },
+    {
+      "control_id": "7.1 Establish vulnerability management process",
+      "title": "CIS 7 � Continuous Vulnerability Management",
+      "description": "Agent component CVEs in vulnerability management � urgent patching for code execution risks; Vulnerability management process covers LLM component CVEs and dependency risks"
+    },
+    {
+      "control_id": "16.6 Use only up-to-date and trusted third-party components",
+      "title": "CIS 16 � Application Software Security",
+      "description": "Approved component list � only sourced from approved vendors, signatures verified; Only approved, verified LLM components used in production � unsigned components rejected"
+    },
+    {
+      "control_id": "15.1 Establish service provider management process",
+      "title": "CIS 15 � Service Provider Management",
+      "description": "Agent tool and MCP providers managed as service providers � security assessment before onboarding"
+    },
+    {
+      "control_id": "4.1 Establish secure configuration process",
+      "title": "CIS 4 � Secure Configuration",
+      "description": "Secure configuration includes code execution sandbox � no defaults permitting unrestricted execution; Secure configuration includes circuit breakers and rate limits � cascade prevention as configuration requirement; Secure configuration for LLM deployments � system prompts not in cleartext config"
+    },
+    {
+      "control_id": "18.1 Establish penetration testing",
+      "title": "CIS 18 � Penetration Testing",
+      "description": "Sandbox escape and code injection in penetration testing � adversarial scenarios before each deployment; Rogue agent scenarios in penetration testing � persistent hidden goal simulation, detection verification; Output injection scenarios in penetration testing � XSS, SQL injection via LLM output"
+    },
+    {
+      "control_id": "13.8 Deploy network intrusion detection",
+      "title": "CIS 13 � Network Monitoring",
+      "description": "Code execution environments network-monitored � outbound connection attempts from sandbox detected"
+    },
+    {
+      "control_id": "13.3 Deploy a network-based intrusion detection system",
+      "title": "CIS 13 � Network Monitoring",
+      "description": "Memory store access monitored � bulk read, anomalous write patterns detected"
+    },
+    {
+      "control_id": "12.4 Establish and maintain architecture diagram",
+      "title": "CIS 12 � Network Infrastructure Management",
+      "description": "A2A communication channels mapped in network architecture � authentication method, encryption status"
+    },
+    {
+      "control_id": "3.10 Encrypt sensitive data in transit",
+      "title": "CIS 3 � Data Protection",
+      "description": "All A2A messages encrypted in transit � no cleartext inter-agent communication"
+    },
+    {
+      "control_id": "12.6 Use network-based URL filters",
+      "title": "CIS 12 � Network Infrastructure Management",
+      "description": "Network controls prevent cascade propagation across agent cluster boundaries"
+    },
+    {
+      "control_id": "17.1 Designate personnel for incident response",
+      "title": "CIS 17 � Incident Response",
+      "description": "Defined response for cascade events � kill switch activation, process control fallback, operations notification; Defined response for trust exploitation incidents � operator retraining, pattern audit, interface redesign; Defined response for LLM misinformation incidents � correction, notification, root cause"
+    },
+    {
+      "control_id": "8.6 Collect DNS query audit logs",
+      "title": "CIS 8 � Audit Log Management",
+      "description": "Agent traffic monitored � cascade indicators detected before physical impact"
+    },
+    {
+      "control_id": "14.1 Establish security awareness programme",
+      "title": "CIS 14 � Security Awareness and Skills Training",
+      "description": "All users of agentic tools trained on AI limitations � verification requirements, how to identify manipulation; User training on LLM data handling � what data should not be shared with LLMs; User training on LLM output limitations � verification requirements and critical evaluation"
+    },
+    {
+      "control_id": "13.1 Centralise security event alerting",
+      "title": "CIS 13 � Network Monitoring and Defence",
+      "description": "Agent behavioural anomalies centralised and alerted � rogue agent patterns detected through SIEM"
+    },
+    {
+      "control_id": "17.2 Establish incident response procedures",
+      "title": "CIS 17 � Incident Response",
+      "description": "Rogue agent containment as incident response procedure � kill switch, audit, state validation, forensic"
+    },
+    {
+      "control_id": "CIS 3",
+      "title": "3.1 — Establish and maintain data management process"
+    },
+    {
+      "control_id": "CIS 8",
+      "title": "8.2 — Collect audit logs"
+    },
+    {
+      "control_id": "CIS 16",
+      "title": "16.12 — Implement code-level security checks"
+    },
+    {
+      "control_id": "CIS 5",
+      "title": "5.4 — Restrict administrator privileges"
+    },
+    {
+      "control_id": "CIS 6",
+      "title": "6.5 — Require MFA for admin access"
+    },
+    {
+      "control_id": "CIS 12",
+      "title": "12.7 — Deploy host-based intrusion detection"
+    },
+    {
+      "control_id": "CIS 2",
+      "title": "2.1 — Maintain authorised software inventory"
+    },
+    {
+      "control_id": "CIS 4",
+      "title": "4.1 — Establish secure configuration"
+    },
+    {
+      "control_id": "CIS 13",
+      "title": "13.4 — Perform traffic filtering"
+    },
+    {
+      "control_id": "CIS 14",
+      "title": "14.6 — Train workforce on AI security"
+    },
+    {
+      "control_id": "CIS 7",
+      "title": "7.1 — Establish vulnerability management"
+    },
+    {
+      "control_id": "CIS 18",
+      "title": "18.1 — Establish penetration testing programme"
+    },
+    {
+      "control_id": "CIS 15",
+      "title": "15.1 — Establish service provider management policy"
+    },
+    {
+      "control_id": "CIS 17",
+      "title": "17.1 — Incident response management"
+    },
+    {
+      "control_id": "CIS 10",
+      "title": "10.1 — Deploy anti-malware"
+    },
+    {
+      "control_id": "CIS 11",
+      "title": "11.1 — Establish recovery capability"
+    },
+    {
+      "control_id": "16.2 Implement code review",
+      "title": "CIS 16 � Application Software Security",
+      "description": "Code review for all LLM integration code � prompt injection patterns reviewed"
+    },
+    {
+      "control_id": "3.1 Establish and maintain data management process",
+      "title": "CIS 3 � Data Protection",
+      "description": "Data classification and handling requirements applied to all LLM data assets"
+    },
+    {
+      "control_id": "2.1 Establish and maintain software asset inventory",
+      "title": "CIS 2 � Inventory and Control of Software Assets",
+      "description": "ML SBOM maintained as part of software asset inventory � model versions, libraries, adapters"
+    },
+    {
+      "control_id": "7.5 Perform automated vulnerability scanning",
+      "title": "CIS 7 � Continuous Vulnerability Management",
+      "description": "Automated scanning of training pipeline components � vulnerabilities in data processing libraries"
+    },
+    {
+      "control_id": "16.7 Use standard hardening configuration templates",
+      "title": "CIS 16 � Application Software Security",
+      "description": "Hardened training pipeline configurations � immutable infrastructure, locked data sources"
+    },
+    {
+      "control_id": "18.3 Remediate penetration testing findings",
+      "title": "CIS 18 � Penetration Testing",
+      "description": "Poisoning scenarios in penetration testing � verify data integrity controls hold under attack"
+    },
+    {
+      "control_id": "8.12 Collect service provider logs",
+      "title": "CIS 8 � Audit Log Management",
+      "description": "Full audit trail of training data provenance and model training runs"
+    },
+    {
+      "control_id": "3.1 Establish data management process",
+      "title": "CIS 3 � Data Protection",
+      "description": "System prompts classified as sensitive configuration � data handling policy applied; RAG data governance � quality and freshness controls on retrieval sources"
+    },
+    {
+      "control_id": "7.1 Establish vulnerability management",
+      "title": "CIS 7 � Vulnerability Management",
+      "description": "Vector database CVEs in vulnerability management process � CVE-2024-3584 and equivalents"
+    },
+    {
+      "control_id": "12.6 Use of network-based URL filters",
+      "title": "CIS 12 � Network Infrastructure Management",
+      "description": "Rate limiting and traffic controls at the API gateway and network layer"
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-04-09",
+      "change": "Initial seed — 18 CIS Controls v8.1 top-level safeguard groups",
+      "author": "emmanuelgjr"
+    }
+  ]
+}
