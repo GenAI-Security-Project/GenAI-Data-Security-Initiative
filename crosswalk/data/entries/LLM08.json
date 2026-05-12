@@ -715,25 +715,25 @@
   "incidents": [
     {
       "name": "Azure OpenAI content filter bypass via structured output mode",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2025,
       "incident_id": "INC-037"
     },
     {
       "name": "Adversarial embedding attacks on production RAG systems",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-046"
     },
     {
       "name": "Google AI Overviews recommends adding glue to pizza — RAG hallucination at search scale",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-056"
     },
     {
       "name": "OpenAI Whisper hallucinating medical transcriptions — fabricated diagnoses in healthcare AI",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-080"
     }
@@ -755,7 +755,7 @@
     {
       "date": "2026-03-27",
       "version": "1.0.0",
-      "change": "Initial entry — generated from GenAI Security Crosswalk v1.5.1 mapping files",
+      "change": "Initial entry — generated from OWASP GenAI Crosswalk v1.5.1 mapping files",
       "author": "emmanuelgjr"
     }
   ]

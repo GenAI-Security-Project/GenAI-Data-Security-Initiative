@@ -1,5 +1,5 @@
 """
-GenAI Security Crosswalk — PyRIT Evaluation Script
+OWASP GenAI Crosswalk — PyRIT Evaluation Script
 ────────────────────────────────────────────────────────────────────────────
 OWASP Entry  : LLM01 — Prompt Injection (Critical)
 Source list  : OWASP LLM Top 10 2025

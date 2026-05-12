@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Source list : OWASP GenAI Data Security Risks and Mitigations 2026 (DSGAI01-DSGAI21)
   Framework   : PCI DSS v4.0
   Version     : 2026-Q1
@@ -1137,4 +1137,4 @@ decisions or provide incorrect compliance guidance to analysts.
 ---
 
 Maintained by the OWASP GenAI Data Security Initiative.
-Part of the GenAI Security Crosswalk: https://github.com/emmanuelgjr/GenAI-Security-Crosswalk
+Part of the OWASP GenAI Crosswalk: https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk

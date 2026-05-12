@@ -1,5 +1,5 @@
 # LAAF Stage S3 — Trigger Execution
-# GenAI Security Crosswalk configuration
+# OWASP GenAI Crosswalk configuration
 # Target: Memory-restored dormant payload activation (AV-2)
 # OWASP: ASI01 (Agent Goal Hijack), ASI06 (Memory and Context Poisoning), LLM06 (Excessive Agency)
 # MAESTRO: L3 Agent Frameworks (origin), L7 Agent Ecosystem (impact)

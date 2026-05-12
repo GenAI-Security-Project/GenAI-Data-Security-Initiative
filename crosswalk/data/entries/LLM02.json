@@ -802,43 +802,43 @@
   "incidents": [
     {
       "name": "Samsung employees leak source code and meeting notes via ChatGPT",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2023,
       "incident_id": "INC-001"
     },
     {
       "name": "OpenAI Redis caching bug exposes user conversation history",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2023,
       "incident_id": "INC-006"
     },
     {
       "name": "GitHub Copilot reproduces verbatim licensed code and embedded secrets",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2023,
       "incident_id": "INC-008"
     },
     {
       "name": "Slack AI indirect injection via channel content",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-024"
     },
     {
       "name": "DeepSeek AI database exposure — 1M+ chat logs publicly accessible",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2025,
       "incident_id": "INC-032"
     },
     {
       "name": "Cursor AI code agent leaking repository secrets via context window",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2025,
       "incident_id": "INC-034"
     },
     {
       "name": "Amazon Q developer leaks internal AWS data in enterprise environment",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-064"
     }
@@ -867,7 +867,7 @@
     {
       "date": "2026-03-27",
       "version": "1.0.0",
-      "change": "Initial entry — generated from GenAI Security Crosswalk v1.5.1 mapping files",
+      "change": "Initial entry — generated from OWASP GenAI Crosswalk v1.5.1 mapping files",
       "author": "emmanuelgjr"
     }
   ]

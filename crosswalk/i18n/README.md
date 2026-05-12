@@ -1,7 +1,7 @@
 # Translations — i18n
 
 This directory contains community-contributed translations of the
-GenAI Security Crosswalk mapping files.
+OWASP GenAI Crosswalk mapping files.
 
 Translations make this security guidance accessible to practitioners
 who work in languages other than English — expanding the reach of
@@ -154,5 +154,5 @@ translations or this directory.
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk) —
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) —
 maintained by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org)*

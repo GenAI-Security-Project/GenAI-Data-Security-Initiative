@@ -1,5 +1,5 @@
 # LAAF Stage S2 — Logic-Layer Injection
-# GenAI Security Crosswalk configuration
+# OWASP GenAI Crosswalk configuration
 # Target: Document/RAG context as LPCI delivery vector
 # OWASP: LLM01 (Prompt Injection), ASI01 (Agent Goal Hijack), DSGAI04 (RAG Poisoning)
 # MAESTRO: L2 Data Operations (origin), L3 Agent Frameworks (propagation)

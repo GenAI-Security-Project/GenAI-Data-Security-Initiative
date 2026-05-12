@@ -6,7 +6,7 @@
   Last-synced: 2026-03-28
 -->
 
-# GenAI Security Crosswalk
+# OWASP GenAI Crosswalk
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 [![OWASP Lab](https://img.shields.io/badge/OWASP-GenAI%20Data%20Security-blue)](https://genai.owasp.org)
@@ -167,7 +167,7 @@ Todo gratuito. Todo de código abierto. Construido para profesionales.
 ## Estructura del repositorio
 
 ```text
-GenAI-Security-Crosswalk/
+crosswalk/
 │
 ├── README.md
 ├── CROSSREF.md                      ← Referencia cruzada maestra: LLM ↔ ASI ↔ DSGAI

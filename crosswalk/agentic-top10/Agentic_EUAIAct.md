@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Source list : OWASP Top 10 for Agentic Applications 2026 (ASI01–ASI10)
   Framework   : EU Artificial Intelligence Act (EU AI Act) — Regulation EU 2024/1689
   Version     : 2026-Q1
@@ -677,5 +677,5 @@ Art. 55 systemic risk violations: up to **€35M or 7%**.
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk) —
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) —
 maintained by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org)*

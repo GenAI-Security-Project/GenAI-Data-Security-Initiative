@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Source list : OWASP Top 10 for Agentic Applications 2026 (ASI01–ASI10)
   Framework   : AIUC-1 — The standard for AI agent security, safety and reliability
   Version     : 2026-Q1
@@ -610,4 +610,4 @@ See: [AIUC-1 covers all OWASP Agentic Top 10 threats](https://www.aiuc-1.com/res
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk) — maintained by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org)*
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) — maintained by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org)*

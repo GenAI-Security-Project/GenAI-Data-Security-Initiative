@@ -1,4 +1,4 @@
-# Pre-Registration: GenAI Security Crosswalk Classifier
+# Pre-Registration: OWASP GenAI Crosswalk Classifier
 
 **Pre-registered:** 2026-04-09
 **Authors:** Emmanuel Guilherme Junior

@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the GenAI Security Crosswalk are documented here.
+All notable changes to the OWASP GenAI Crosswalk are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -101,7 +101,7 @@ Next: npm publish to npmjs.com, custom domain (crosswalk.owasp.org), vendor inte
 
 ### Added
 
-#### Web application — live at emmanuelgjr.github.io/GenAI-Security-Crosswalk
+#### Web application — live at genai-security-project.github.io/GenAI-Data-Security-Initiative
 
 - 7-page SPA: Landing, Explorer, Frameworks, Incidents, Score, Leaderboard, About
 - Evidence-based scoring with 3 validation tiers (Self-Assessed / Tool-Verified / Independently Attested)
@@ -161,7 +161,7 @@ Replaces jq with Node.js: `--stats`, `--severity`, `--framework`, `--entry`, `--
 
 #### GitHub Pages web application
 
-Live at **https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/**
+Live at **https://genai-security-project.github.io/GenAI-Data-Security-Initiative/**
 
 6-page SPA with hash-based routing:
 - **Landing** — hero, stats (computed from data), framework grid, source list breakdown
@@ -731,7 +731,7 @@ All planned framework mappings are now complete.
 
 ### First public release — v1.0
 
-The GenAI Security Crosswalk v1.0 is the most comprehensive publicly
+The OWASP GenAI Crosswalk v1.0 is the most comprehensive publicly
 available mapping of OWASP GenAI security risks to industry frameworks.
 
 ---
@@ -862,6 +862,6 @@ Quick reference:
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk) —
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) —
 maintained by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org)*
 

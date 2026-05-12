@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Document  : Translation Workflow
   Version   : 1.0.0 — 2026-03-27
   License   : CC BY-SA 4.0
@@ -7,7 +7,7 @@
 
 # Translation Workflow
 
-Guidelines for translating GenAI Security Crosswalk mapping files into
+Guidelines for translating OWASP GenAI Crosswalk mapping files into
 languages other than English.
 
 ---
@@ -175,6 +175,6 @@ reviewer approves the content.
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk) —
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) —
 maintained by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org)*
 *License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)*

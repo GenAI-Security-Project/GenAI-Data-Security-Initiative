@@ -1,5 +1,5 @@
 """
-GenAI Security Crosswalk — PyRIT Evaluation Script
+OWASP GenAI Crosswalk — PyRIT Evaluation Script
 ────────────────────────────────────────────────────────────────────────────
 OWASP Entry  : ASI01 — Agent Goal Hijack (Critical)
 Source list  : OWASP Agentic Top 10 2026

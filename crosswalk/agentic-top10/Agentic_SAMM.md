@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Source list : OWASP Top 10 for Agentic AI Applications 2026 (ASI01-ASI10)
   Framework   : OWASP SAMM v2.0 — Software Assurance Maturity Model
   Version     : 2026-Q1
@@ -610,6 +610,6 @@ Art. 14 (human oversight) and Art. 9 (risk management) compliance.
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk) —
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) —
 maintained by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org)*
 *License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)*

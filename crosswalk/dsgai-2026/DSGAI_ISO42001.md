@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Source list : OWASP GenAI Data Security Risks & Mitigations 2026 (DSGAI01-DSGAI21)
   Framework   : ISO/IEC 42001:2023 — Artificial Intelligence Management System
   Version     : 2026-Q1
@@ -1348,6 +1348,6 @@ where ISO 42001 AIMS controls are needed.
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/genai-security-crosswalk) —
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) —
 maintained by the OWASP GenAI Data Security Initiative.
 Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).*

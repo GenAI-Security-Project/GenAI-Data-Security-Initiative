@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   File    : RATIONALE.md
   Purpose : Rationale behind all framework mappings — what was included, why, and how
   Version : 2026-Q1
@@ -8,7 +8,7 @@
 
 # Mapping Rationale
 
-This document explains the reasoning behind the GenAI Security Crosswalk: why each framework was selected, how the mappings were constructed, and the methodology that ties it all together.
+This document explains the reasoning behind the OWASP GenAI Crosswalk: why each framework was selected, how the mappings were constructed, and the methodology that ties it all together.
 
 ---
 
@@ -247,4 +247,4 @@ Markdown serves human readers. JSON serves automation — compliance report gene
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk) — maintained by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org)*
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) — maintained by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org)*

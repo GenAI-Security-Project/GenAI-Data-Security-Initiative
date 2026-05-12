@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Source list : [REPLACE: OWASP Top 10 for LLM Applications 2025 (LLM01-LLM10)
                | OWASP Top 10 for Agentic AI Applications 2026 (ASI01-ASI10)
                | OWASP GenAI Data Security Risks 2026 (DSGAI01-DSGAI21)]
@@ -129,6 +129,6 @@ this framework — what does the framework "see" when it looks at this risk?]
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk) —
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) —
 maintained by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org)*
 *License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)*

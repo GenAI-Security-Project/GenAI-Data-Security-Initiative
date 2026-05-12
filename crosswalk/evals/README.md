@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Document  : Evaluation Profiles — Setup and Usage
   Version   : 1.0.0 — 2026-03-28
   License   : CC BY-SA 4.0
@@ -162,5 +162,5 @@ on every PR that touches LLM integration code. See inline comments for configura
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk)*
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk)*
 *License: CC BY-SA 4.0*

@@ -1,6 +1,6 @@
 # Governance
 
-This document defines how the GenAI Security Crosswalk project is
+This document defines how the OWASP GenAI Crosswalk project is
 maintained, how decisions are made, and how contributors can grow
 into leadership roles.
 

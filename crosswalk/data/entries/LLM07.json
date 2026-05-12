@@ -678,61 +678,61 @@
   "incidents": [
     {
       "name": "GitHub Copilot reproduces verbatim licensed code and embedded secrets",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2023,
       "incident_id": "INC-008"
     },
     {
       "name": "WormGPT — uncensored LLM sold for cybercrime on dark web forums",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2023,
       "incident_id": "INC-011"
     },
     {
       "name": "Perez & Ribeiro — 'Ignore Previous Prompt': foundational direct injection study",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2022,
       "incident_id": "INC-013"
     },
     {
       "name": "GPT-4 system prompt extraction via jailbreak in production deployments",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2023,
       "incident_id": "INC-018"
     },
     {
       "name": "LAAF v2.0 — Empirical LPCI breakthrough rates of 67–100% across 5 production LLMs",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2026,
       "incident_id": "INC-021"
     },
     {
       "name": "Greshake et al. \"Not What You've Signed Up For\" indirect prompt injection paper",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2023,
       "incident_id": "INC-022"
     },
     {
       "name": "GitHub Copilot Workspace prompt injection via repository content",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-025"
     },
     {
       "name": "Skeleton Key: direct system prompt override (Microsoft)",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-030"
     },
     {
       "name": "DPD AI chatbot swears at customer and criticises company — prompt injection via customer input",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-053"
     },
     {
       "name": "OpenAI GPT-4 system prompt extraction toolkit — systematic prompt leakage",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-065"
     }
@@ -754,7 +754,7 @@
     {
       "date": "2026-03-27",
       "version": "1.0.0",
-      "change": "Initial entry — generated from GenAI Security Crosswalk v1.5.1 mapping files",
+      "change": "Initial entry — generated from OWASP GenAI Crosswalk v1.5.1 mapping files",
       "author": "emmanuelgjr"
     }
   ]

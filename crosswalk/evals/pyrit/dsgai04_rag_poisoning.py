@@ -1,5 +1,5 @@
 """
-GenAI Security Crosswalk — PyRIT Evaluation Script
+OWASP GenAI Crosswalk — PyRIT Evaluation Script
 ────────────────────────────────────────────────────────────────────────────
 OWASP Entry  : DSGAI04 — Data Model and Artifact Poisoning (Critical)
 Source list  : OWASP GenAI Data Security Risks 2026

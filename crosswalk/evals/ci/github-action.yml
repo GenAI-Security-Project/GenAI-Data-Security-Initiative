@@ -1,4 +1,4 @@
-# GenAI Security Crosswalk — CI/CD Evaluation Workflow
+# OWASP GenAI Crosswalk — CI/CD Evaluation Workflow
 # ──────────────────────────────────────────────────────────────────────────────
 # Copy this file to .github/workflows/genai-security-eval.yml in any repo
 # that contains LLM or agentic AI application code.
@@ -10,7 +10,7 @@
 #   1. Add OPENAI_API_KEY to repository secrets (Settings → Secrets → Actions)
 #   2. Set EVAL_MODEL_NAME to the model your application uses
 #   3. Adjust paths in the trigger to match your LLM code locations
-#   4. Copy the evals/ folder from GenAI Security Crosswalk into your repo
+#   4. Copy the evals/ folder from OWASP GenAI Crosswalk into your repo
 #      (or reference it as a git submodule)
 #
 # Cost estimate: ~$0.10–0.50 per full suite run with gpt-4o-mini
@@ -136,7 +136,7 @@ jobs:
           if [ -n "$FAILED" ]; then
             echo "::error::Security evaluation FAILED for: $FAILED"
             echo "Review evaluation results in the artifacts tab."
-            echo "Crosswalk reference: https://github.com/emmanuelgjr/GenAI-Security-Crosswalk"
+            echo "Crosswalk reference: https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk"
             exit 1
           fi
 
@@ -311,7 +311,7 @@ jobs:
             echo "Logic-layer Prompt Control Injection vulnerabilities detected."
             echo "Review: ${{ env.RESULTS_DIR }}/laaf/crosswalk-report.md"
             echo "LAAF repo: https://github.com/qorvexconsulting1/laaf-V2.0"
-            echo "Crosswalk: https://github.com/emmanuelgjr/GenAI-Security-Crosswalk"
+            echo "Crosswalk: https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk"
             exit 1
           fi
 

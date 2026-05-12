@@ -1,5 +1,5 @@
 """
-GenAI Security Crosswalk — LAAF Results Crosswalk Reporter
+OWASP GenAI Crosswalk — LAAF Results Crosswalk Reporter
 ─────────────────────────────────────────────────────────────────────────────
 Reads LAAF scan results and maps breakthrough findings to OWASP entries and
 MAESTRO architectural layers. Produces a crosswalk-formatted Markdown report.
@@ -195,8 +195,8 @@ def render_markdown(results, stages):
 
     lines.append("# LAAF v2.0 — LPCI Crosswalk Assessment Report")
     lines.append("")
-    lines.append(f"> Generated {today} · GenAI Security Crosswalk + LAAF v2.0")
-    lines.append("> Crosswalk: https://github.com/emmanuelgjr/GenAI-Security-Crosswalk")
+    lines.append(f"> Generated {today} · OWASP GenAI Crosswalk + LAAF v2.0")
+    lines.append("> Crosswalk: https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk")
     lines.append("> LAAF: https://github.com/qorvexconsulting1/laaf-V2.0")
     lines.append("")
     lines.append("---")
@@ -330,13 +330,13 @@ def render_markdown(results, stages):
         for s in failed_stages:
             owasp_set.update(STAGE_MAP[s]["owasp"])
         for eid in sorted(owasp_set):
-            lines.append(f"- [{eid}](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/entries/{eid}.json) — crosswalk entry with framework controls")
+            lines.append(f"- [{eid}](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/entries/{eid}.json) — crosswalk entry with framework controls")
 
     lines.append("")
     lines.append("---")
     lines.append("")
     lines.append(f"_LAAF v2.0 · [arXiv:2507.10457](https://arxiv.org/abs/2507.10457) · "
-                 f"GenAI Security Crosswalk CC BY-SA 4.0 · {today}_")
+                 f"OWASP GenAI Crosswalk CC BY-SA 4.0 · {today}_")
 
     return "\n".join(lines)
 
@@ -383,7 +383,7 @@ def _get_mitigations(stage):
 def render_json(results, stages):
     output = {
         "generated": date.today().isoformat(),
-        "framework": "LAAF v2.0 + GenAI Security Crosswalk",
+        "framework": "LAAF v2.0 + OWASP GenAI Crosswalk",
         "stages": {},
         "attack_vectors": AV_MAP,
     }

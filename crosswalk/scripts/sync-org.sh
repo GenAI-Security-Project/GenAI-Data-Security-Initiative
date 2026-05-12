@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # ──────────────────────────────────────────────────────────────────────────
-# Sync GenAI Security Crosswalk to the OWASP org repo
+# Sync OWASP GenAI Crosswalk to the OWASP org repo
 #
 # Usage:
 #   bash scripts/sync-org.sh              # sync current state
 #   bash scripts/sync-org.sh v2.1.0       # sync with version label
 #
-# Source: emmanuelgjr/GenAI-Security-Crosswalk
+# Source: GenAI-Security-Project/GenAI-Data-Security-Initiative
 # Target: GenAI-Security-Project/GenAI-Data-Security-Initiative/crosswalk/
 # ──────────────────────────────────────────────────────────────────────────
 set -euo pipefail
@@ -18,7 +18,7 @@ SOURCE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 WORK_DIR="$(mktemp -d)"
 
 echo ""
-echo "GenAI Security Crosswalk — Org Sync"
+echo "OWASP GenAI Crosswalk — Org Sync"
 echo "════════════════════════════════════"
 echo "  Version : $VERSION"
 echo "  Source  : $SOURCE_DIR"
@@ -72,7 +72,7 @@ echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   git commit -m "Sync crosswalk v$VERSION — $(date +%Y-%m-%d)
 
-Source: https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/releases/tag/v$VERSION"
+Source: https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk/releases/tag/v$VERSION"
 
   git push origin main
   echo ""

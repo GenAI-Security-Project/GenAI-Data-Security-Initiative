@@ -811,37 +811,37 @@
   "incidents": [
     {
       "name": "Italy Garante orders ChatGPT GDPR enforcement — consent and data minimization failures",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2025,
       "incident_id": "INC-035"
     },
     {
       "name": "NYT v OpenAI — copyright training data ruling implications",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2025,
       "incident_id": "INC-039"
     },
     {
       "name": "TikTok EU data localization enforcement — Project Clover + EUR 345M GDPR fine",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2023,
       "incident_id": "INC-043"
     },
     {
       "name": "OpenAI ChatGPT data retention GDPR challenge — right to erasure vs model training",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-050"
     },
     {
       "name": "EU GDPR enforcement: ChatGPT cannot correct factually wrong personal data",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2024,
       "incident_id": "INC-068"
     },
     {
       "name": "EU AI Act first enforcement actions — prohibited AI practices take effect",
-      "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/blob/main/data/incidents.json",
+      "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/crosswalk/data/incidents.json",
       "year": 2025,
       "incident_id": "INC-071"
     }
@@ -886,7 +886,7 @@
     {
       "date": "2026-03-27",
       "version": "1.0.0",
-      "change": "Initial entry — generated from GenAI Security Crosswalk v1.5.1 mapping files",
+      "change": "Initial entry — generated from OWASP GenAI Crosswalk v1.5.1 mapping files",
       "author": "emmanuelgjr"
     }
   ]

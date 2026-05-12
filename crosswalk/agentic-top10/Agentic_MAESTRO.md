@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Source list : OWASP Top 10 for Agentic Applications 2026 (ASI01-ASI10)
   Framework   : MAESTRO — Multi-Agent Environment, Security, Threat, Risk, and Outcome
   Version     : 2026-Q1
@@ -1080,4 +1080,4 @@ The integration across OWASP artefacts is:
 
 Maintained by the OWASP GenAI Data Security Initiative.  
 Created by Emmanuel Guilherme Junior.  
-Part of the GenAI Security Crosswalk: https://github.com/emmanuelgjr/GenAI-Security-Crosswalk
+Part of the OWASP GenAI Crosswalk: https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk

@@ -1,4 +1,4 @@
-# Evaluation Report: GenAI Security Crosswalk Classifier
+# Evaluation Report: OWASP GenAI Crosswalk Classifier
 
 **Date:** 2026-04-09
 **Pre-registration:** [PREREGISTRATION.md](PREREGISTRATION.md) (committed before eval code ran)

@@ -1,5 +1,5 @@
 # LAAF Stage S5 — Evasion and Obfuscation
-# GenAI Security Crosswalk configuration
+# OWASP GenAI Crosswalk configuration
 # Target: Bypass security filters using layered encoding (L1-L5, E1-E11)
 # OWASP: LLM01 (Prompt Injection), LLM02 (Sensitive Information Disclosure)
 # MAESTRO: L1 Foundation Models (propagation), L5 Evaluation & Observability (blind-spot)

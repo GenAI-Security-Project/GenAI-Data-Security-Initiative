@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Source list : OWASP Top 10 for Agentic Applications 2026 (ASI01–ASI10)
   Framework   : MITRE ATLAS — Adversarial Threat Landscape for AI Systems
   Version     : 2026-Q1
@@ -720,5 +720,5 @@ to visualise agentic attack coverage across your threat model.
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk) —
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) —
 maintained by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org)*

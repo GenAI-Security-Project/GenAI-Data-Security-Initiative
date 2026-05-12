@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Source list : OWASP GenAI Data Security Risks 2026 (DSGAI01–DSGAI21)
   Framework   : DORA – Digital Operational Resilience Act (EU Regulation 2022/2554)
   Version     : 2026-Q1
@@ -1470,5 +1470,5 @@ damage.
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk) –
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) –
 maintained by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org)*

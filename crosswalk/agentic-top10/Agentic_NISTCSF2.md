@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Source list : OWASP Top 10 for Agentic Applications 2026 (ASI01-ASI10)
   Framework   : NIST Cybersecurity Framework 2.0 (CSF 2.0)
   Version     : 2026-Q1
@@ -581,4 +581,4 @@ without behavioural monitoring, rogue agents operate indefinitely.
 ---
 
 Maintained by the OWASP GenAI Data Security Initiative.
-Part of the GenAI Security Crosswalk: https://github.com/emmanuelgjr/GenAI-Security-Crosswalk
+Part of the OWASP GenAI Crosswalk: https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk

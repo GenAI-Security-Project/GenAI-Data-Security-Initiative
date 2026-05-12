@@ -3,7 +3,7 @@
 ## Scope of this policy
 
 This policy covers security vulnerabilities in the content and tooling
-of the **GenAI Security Crosswalk** repository — specifically:
+of the **OWASP GenAI Crosswalk** repository — specifically:
 
 - Factually incorrect security guidance that could mislead practitioners
   into deploying insecure controls
@@ -117,5 +117,5 @@ https://owasp.org/www-policy/operational/bug-bounty
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk) —
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) —
 maintained by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org)*

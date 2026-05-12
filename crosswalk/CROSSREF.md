@@ -1,4 +1,4 @@
-# GenAI Security Crosswalk — Master Cross-Reference
+# OWASP GenAI Crosswalk — Master Cross-Reference
 
 This is the single navigation index across all three OWASP GenAI source lists.
 Read left to right: an LLM vulnerability ? its agentic amplification ? its data security dimension.

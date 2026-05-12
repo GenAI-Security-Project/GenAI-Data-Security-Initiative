@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "GenAI Security Crosswalk Entry",
+  "title": "OWASP GenAI Crosswalk Entry",
   "description": "Schema for mapping OWASP GenAI vulnerabilities to security frameworks",
   "type": "object",
   "required": ["id", "name", "source_list", "severity", "mappings"],

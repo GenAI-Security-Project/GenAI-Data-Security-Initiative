@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Source list : OWASP Top 10 for Agentic Applications 2026 (ASI01-ASI10)
   Framework   : PCI DSS v4.0
   Version     : 2026-Q1
@@ -462,6 +462,6 @@ Requirement 10 (monitoring) are primary; Requirement 11.3
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/genai-security-crosswalk) —
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) —
 maintained by the OWASP GenAI Data Security Initiative.
 Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).*

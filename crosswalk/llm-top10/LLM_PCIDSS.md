@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Source list : OWASP Top 10 for LLM Applications 2025 (LLM01-LLM10)
   Framework   : PCI DSS v4.0
   Version     : 2026-Q1
@@ -840,4 +840,4 @@ against LLM applications in CDE are covered under Req 1
 ---
 
 Maintained by the OWASP GenAI Data Security Initiative.
-Part of the GenAI Security Crosswalk: https://github.com/emmanuelgjr/GenAI-Security-Crosswalk
+Part of the OWASP GenAI Crosswalk: https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk

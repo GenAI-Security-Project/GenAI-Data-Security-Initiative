@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * GenAI Security Crosswalk — Content Validator
+ * OWASP GenAI Crosswalk — Content Validator
  *
  * Checks all mapping files for structural integrity, internal link
  * resolution, bidirectional cross-references, naming conventions,
@@ -376,7 +376,7 @@ function run() {
   const fileArg    = args.indexOf('--file');
   const targetFile = fileArg !== -1 ? args[fileArg + 1] : null;
 
-  console.log('GenAI Security Crosswalk — Content Validator');
+  console.log('OWASP GenAI Crosswalk — Content Validator');
   console.log('='.repeat(50));
   if (quickMode)  console.log('Mode: quick (cross-ref bidirectionality skipped)');
   if (targetFile) console.log(`Mode: single file (${targetFile})`);

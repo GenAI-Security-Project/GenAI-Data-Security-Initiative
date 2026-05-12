@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Source list : OWASP GenAI Data Security Risks 2026 (DSGAI01-DSGAI21)
   Framework   : AIUC-1 — The standard for AI agent security, safety and reliability
   Version     : 2026-Q1
@@ -564,6 +564,6 @@ focus of AIUC-1 makes it exceptionally well-matched for the DSGAI taxonomy.
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk) —
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) —
 maintained by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org)*
 *License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)*

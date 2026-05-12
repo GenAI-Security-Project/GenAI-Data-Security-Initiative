@@ -1,1 +1,1 @@
-"""GenAI Security Crosswalk — Classifier Pipeline."""
+"""OWASP GenAI Crosswalk — Classifier Pipeline."""

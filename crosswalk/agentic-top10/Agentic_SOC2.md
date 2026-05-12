@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Source list : OWASP Top 10 for Agentic Applications 2026 (ASI01-ASI10)
   Framework   : SOC 2 Type II — AICPA Trust Services Criteria
   Version     : 2026-Q1
@@ -630,6 +630,6 @@ audit that includes agentic AI system scope:
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/genai-security-crosswalk) —
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) —
 maintained by the OWASP GenAI Data Security Initiative.
 Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).*

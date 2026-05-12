@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "GenAI Security Crosswalk — Framework Registry Entry",
+  "title": "OWASP GenAI Crosswalk — Framework Registry Entry",
   "description": "Schema for first-class framework definitions with full control inventories",
   "type": "object",
   "required": ["id", "name", "version", "url", "controls"],

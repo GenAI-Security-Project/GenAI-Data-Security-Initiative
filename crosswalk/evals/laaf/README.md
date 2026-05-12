@@ -1,7 +1,7 @@
 # LAAF v2.0 — Logic-layer Automated Attack Framework
 
 Integration of [LAAF v2.0](https://github.com/qorvexconsulting1/laaf-V2.0) into the
-GenAI Security Crosswalk evaluation suite.
+OWASP GenAI Crosswalk evaluation suite.
 
 LAAF is the first automated red-teaming framework purpose-built for
 **Logic-layer Prompt Control Injection (LPCI)** vulnerabilities in agentic LLM systems.
@@ -201,6 +201,6 @@ To use LAAF in your own CI:
 
 - [LAAF v2.0 repository](https://github.com/qorvexconsulting1/laaf-V2.0)
 - [LAAF research paper — arXiv:2507.10457](https://arxiv.org/abs/2507.10457)
-- [GenAI Security Crosswalk — ASI01 Agent Goal Hijack](../../agentic-top10/Agentic_MITREATLAS.md)
-- [GenAI Security Crosswalk — ASI06 Memory and Context Poisoning](../../agentic-top10/)
-- [GenAI Security Crosswalk — DSGAI04 Data Model and Artifact Poisoning](../../dsgai-2026/)
+- [OWASP GenAI Crosswalk — ASI01 Agent Goal Hijack](../../agentic-top10/Agentic_MITREATLAS.md)
+- [OWASP GenAI Crosswalk — ASI06 Memory and Context Poisoning](../../agentic-top10/)
+- [OWASP GenAI Crosswalk — DSGAI04 Data Model and Artifact Poisoning](../../dsgai-2026/)

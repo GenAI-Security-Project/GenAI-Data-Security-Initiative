@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: "OWASP GenAI Security Crosswalk"
+title: "OWASP GenAI Crosswalk"
 message: "If you use this dataset, please cite it using these metadata."
 type: dataset
 authors:
@@ -7,8 +7,8 @@ authors:
     family-names: Guilherme Junior
     orcid: ""
     affiliation: "OWASP GenAI Data Security Initiative"
-repository-code: "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk"
-url: "https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/"
+repository-code: "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk"
+url: "https://genai-security-project.github.io/GenAI-Data-Security-Initiative/"
 abstract: >-
   The most comprehensive publicly available mapping of AI security risks
   to industry compliance frameworks. Maps 41 OWASP GenAI vulnerability
@@ -36,7 +36,7 @@ version: "3.1.0"
 date-released: "2026-04-10"
 identifiers:
   - type: url
-    value: "https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/"
+    value: "https://genai-security-project.github.io/GenAI-Data-Security-Initiative/"
     description: "Live web application"
   - type: url
     value: "https://www.npmjs.com/package/genai-security-crosswalk"

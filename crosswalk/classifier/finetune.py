@@ -141,7 +141,7 @@ def finetune(
 ) -> SentenceTransformer:
     """Fine-tune the bi-encoder on calibration data."""
     print("=" * 60)
-    print("  GenAI Security Crosswalk — Bi-encoder Fine-tuning")
+    print("  OWASP GenAI Crosswalk — Bi-encoder Fine-tuning")
     print("=" * 60)
 
     # Load base model

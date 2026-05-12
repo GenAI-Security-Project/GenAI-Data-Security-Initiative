@@ -1,7 +1,7 @@
 # Data Layer
 
 The `/data/` folder contains machine-readable representations of the
-GenAI Security Crosswalk content, enabling programmatic access,
+OWASP GenAI Crosswalk content, enabling programmatic access,
 dashboard integration, and downstream tooling without scraping Markdown.
 
 ---

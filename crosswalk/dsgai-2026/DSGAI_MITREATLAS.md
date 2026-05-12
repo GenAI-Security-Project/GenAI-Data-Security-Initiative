@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Source list : OWASP GenAI Data Security Risks and Mitigations 2026 (DSGAI01-DSGAI21)
   Framework   : MITRE ATLAS (Adversarial Threat Landscape for Artificial-Intelligence Systems)
   Version     : 2026-Q1
@@ -1095,4 +1095,4 @@ Functional model replica constructed without training access
 ---
 
 Maintained by the OWASP GenAI Data Security Initiative.
-Part of the GenAI Security Crosswalk: https://github.com/emmanuelgjr/GenAI-Security-Crosswalk
+Part of the OWASP GenAI Crosswalk: https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk

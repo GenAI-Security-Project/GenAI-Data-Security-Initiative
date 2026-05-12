@@ -1,5 +1,5 @@
 # LAAF Stage S1 — Reconnaissance
-# GenAI Security Crosswalk configuration
+# OWASP GenAI Crosswalk configuration
 # Target: System prompt extraction and authorised scope mapping
 # OWASP: LLM07 (System Prompt Leakage), LLM01 (Prompt Injection)
 # MAESTRO: L1 Foundation Models (origin), L4 Deployment (blind-spot)

@@ -1,7 +1,7 @@
 {
   "version": "3.0.0",
   "generated": "2026-04-10",
-  "description": "Real-world and research-demonstrated AI security incidents, mapped to OWASP GenAI entries and MAESTRO architectural layers. Maintained as part of the GenAI Security Crosswalk.",
+  "description": "Real-world and research-demonstrated AI security incidents, mapped to OWASP GenAI entries and MAESTRO architectural layers. Maintained as part of the OWASP GenAI Crosswalk.",
   "incidents": [
     {
       "id": "INC-001",

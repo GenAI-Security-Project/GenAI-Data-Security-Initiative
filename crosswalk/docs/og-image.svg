@@ -55,6 +55,6 @@
   <text x='60' y='540' font-family='system-ui,sans-serif' font-size='15' fill='#64748b'>EU AI Act  ·  FedRAMP  ·  DORA  ·  NIST  ·  ISO 27001  ·  SOC 2  ·  PCI DSS  ·  and 18 more</text>
 
   <rect y='580' width='1200' height='50' fill='rgba(255,255,255,0.03)'/>
-  <text x='60' y='612' font-family='system-ui,sans-serif' font-size='14' fill='#64748b'>emmanuelgjr.github.io/GenAI-Security-Crosswalk</text>
+  <text x='60' y='612' font-family='system-ui,sans-serif' font-size='14' fill='#64748b'>genai-security-project.github.io/GenAI-Data-Security-Initiative</text>
   <text x='1140' y='612' font-family='system-ui,sans-serif' font-size='14' fill='#64748b' text-anchor='end'>Created by Emmanuel Guilherme Junior  ·  OWASP GenAI Data Security Initiative</text>
 </svg>

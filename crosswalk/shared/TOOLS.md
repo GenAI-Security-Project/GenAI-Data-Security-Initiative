@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk — Shared Resources
+  OWASP GenAI Crosswalk — Shared Resources
   File        : TOOLS.md — Open-Source Security Tools for GenAI Systems
   Version     : 2026-Q1
   Maintained by: OWASP GenAI Data Security Initiative — https://genai.owasp.org
@@ -289,4 +289,4 @@ least one OWASP source list entry in this repo, not a duplicate.
 ---
 
 Maintained by the OWASP GenAI Data Security Initiative.
-Part of the GenAI Security Crosswalk: https://github.com/emmanuelgjr/GenAI-Security-Crosswalk
+Part of the OWASP GenAI Crosswalk: https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk

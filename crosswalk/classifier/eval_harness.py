@@ -198,7 +198,7 @@ def run_eval(use_reranker: bool = False, verbose: bool = False,
              output_path: str | None = None) -> dict:
     """Run full evaluation pipeline."""
     print("=" * 60)
-    print(f"  GenAI Security Crosswalk — Classifier Evaluation")
+    print(f"  OWASP GenAI Crosswalk — Classifier Evaluation")
     print(f"  Mode: {'Bi-encoder + Cross-encoder reranker' if use_reranker else 'Bi-encoder baseline'}")
     print("=" * 60)
 

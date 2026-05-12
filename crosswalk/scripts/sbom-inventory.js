@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * GenAI Security Crosswalk — Content Inventory SBOM Generator
+ * OWASP GenAI Crosswalk — Content Inventory SBOM Generator
  * Generates a CycloneDX 1.5 SBOM of all crosswalk data assets.
  * Output: sbom-content.cdx.json
  */
@@ -128,7 +128,7 @@ const bom = {
     tools: [
       {
         vendor: 'OWASP',
-        name: 'GenAI Security Crosswalk',
+        name: 'OWASP GenAI Crosswalk',
         version: version,
       },
     ],

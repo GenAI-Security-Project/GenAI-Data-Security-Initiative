@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk — Shared Reference
+  OWASP GenAI Crosswalk — Shared Reference
   File    : shared/GLOSSARY.md
   Purpose : Unified terminology across all three source lists and all frameworks
   Version : 2026-Q1
@@ -159,7 +159,7 @@ Today's session target: Sprint 1 files 1–3, then start file 4.
 Ready — I'll generate shared/SEVERITY.md now:
 powershell@'
 <!--
-  GenAI Security Crosswalk — Shared Reference
+  OWASP GenAI Crosswalk — Shared Reference
   File    : shared/SEVERITY.md
   Purpose : Severity definitions used consistently across all mapping files
   Version : 2026-Q1
@@ -244,4 +244,4 @@ When submitting a new mapping or updating an existing one:
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk)*
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk)*

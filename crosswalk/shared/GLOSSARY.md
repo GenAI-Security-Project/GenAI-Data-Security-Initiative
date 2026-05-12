@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk — Shared Reference
+  OWASP GenAI Crosswalk — Shared Reference
   File    : shared/GLOSSARY.md
   Purpose : Unified terminology across all three source lists and all frameworks
   Version : 2026-Q1
@@ -286,4 +286,4 @@ Foundational architecture for securing multi-agent systems.
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk)*
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk)*

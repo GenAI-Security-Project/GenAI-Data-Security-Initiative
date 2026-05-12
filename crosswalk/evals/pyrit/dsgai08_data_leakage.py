@@ -1,5 +1,5 @@
 """
-GenAI Security Crosswalk — PyRIT Evaluation Script
+OWASP GenAI Crosswalk — PyRIT Evaluation Script
 ────────────────────────────────────────────────────────────────────────────
 OWASP Entry  : DSGAI08 — Data Leakage & Exposure (High)
 Source list  : OWASP Data Security for GenAI & LLM Applications

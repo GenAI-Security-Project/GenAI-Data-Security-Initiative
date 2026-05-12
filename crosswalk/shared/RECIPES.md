@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk — Shared Resources
+  OWASP GenAI Crosswalk — Shared Resources
   File        : RECIPES.md — Security Implementation Patterns for GenAI Systems
   Version     : 2026-Q1
   Maintained by: OWASP GenAI Data Security Initiative — https://genai.owasp.org
@@ -2615,5 +2615,5 @@ contains complete records of all enforcement actions.
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk) —
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) —
 maintained by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org)*

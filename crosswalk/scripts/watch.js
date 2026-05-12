@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * GenAI Security Crosswalk — External Source Watcher
+ * OWASP GenAI Crosswalk — External Source Watcher
  * ──────────────────────────────────────────────────────────────────────────
  * Monitors OWASP repos, arXiv, NVD, and framework pages for changes.
  * Opens GitHub Issues for each new finding.
@@ -13,7 +13,7 @@
  *
  * Environment:
  *   GITHUB_TOKEN       Required to open issues (omit for dry-run)
- *   GITHUB_REPOSITORY  Owner/repo (default: emmanuelgjr/GenAI-Security-Crosswalk)
+ *   GITHUB_REPOSITORY  Owner/repo (default: GenAI-Security-Project/GenAI-Data-Security-Initiative)
  * ──────────────────────────────────────────────────────────────────────────
  */
 
@@ -25,7 +25,7 @@ const crypto = require('crypto');
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY || 'emmanuelgjr/GenAI-Security-Crosswalk';
+const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY || 'GenAI-Security-Project/GenAI-Data-Security-Initiative';
 const GITHUB_TOKEN      = process.env.GITHUB_TOKEN || '';
 const STATE_FILE        = path.resolve(__dirname, '..', 'data', '.watch-state.json');
 const REQUEST_TIMEOUT_MS = 10_000;
@@ -117,7 +117,7 @@ async function fetchWithTimeout(url, options = {}) {
 function githubHeaders() {
   const headers = {
     'Accept':     'application/vnd.github+json',
-    'User-Agent': 'GenAI-Security-Crosswalk-Watcher/1.0',
+    'User-Agent': 'OWASP-GenAI-Crosswalk-Watcher/1.0',
   };
   if (GITHUB_TOKEN) headers['Authorization'] = `Bearer ${GITHUB_TOKEN}`;
   return headers;
@@ -319,7 +319,7 @@ async function watchArxiv(state) {
   let xml;
   try {
     const res = await fetchWithTimeout(ARXIV_URL, {
-      headers: { 'User-Agent': 'GenAI-Security-Crosswalk-Watcher/1.0' },
+      headers: { 'User-Agent': 'OWASP-GenAI-Crosswalk-Watcher/1.0' },
     });
     if (!res.ok) {
       console.error(`  [arxiv] HTTP ${res.status} from arXiv API.`);
@@ -364,7 +364,7 @@ async function watchArxiv(state) {
         mappingStr,
         ``,
         `### Suggested Action`,
-        `Review this paper against the GenAI Security Crosswalk entries and update relevant mapping files if new attack patterns or mitigations are identified.`,
+        `Review this paper against the OWASP GenAI Crosswalk entries and update relevant mapping files if new attack patterns or mitigations are identified.`,
       ].join('\n'),
     });
   }
@@ -418,7 +418,7 @@ async function watchNvd(state, sinceOverride) {
     let data;
     try {
       const res = await fetchWithTimeout(url, {
-        headers: { 'User-Agent': 'GenAI-Security-Crosswalk-Watcher/1.0' },
+        headers: { 'User-Agent': 'OWASP-GenAI-Crosswalk-Watcher/1.0' },
       });
 
       if (res.status === 403 || res.status === 429) {
@@ -485,7 +485,7 @@ async function watchNvd(state, sinceOverride) {
           owaspHint,
           ``,
           `### Suggested Action`,
-          `Review this CVE against the GenAI Security Crosswalk entries. ` +
+          `Review this CVE against the OWASP GenAI Crosswalk entries. ` +
           `Update \`data/incidents.json\` or relevant mapping files if this CVE represents a real-world exploitation of a mapped threat.`,
         ].join('\n'),
       });
@@ -522,7 +522,7 @@ async function watchFrameworks(state) {
       res = await fetchWithTimeout(fw.url, {
         method:  'HEAD',
         headers: {
-          'User-Agent':    'GenAI-Security-Crosswalk-Watcher/1.0',
+          'User-Agent':    'OWASP-GenAI-Crosswalk-Watcher/1.0',
           'Cache-Control': 'no-cache',
         },
         redirect: 'follow',
@@ -535,7 +535,7 @@ async function watchFrameworks(state) {
         res = await fetchWithTimeout(fw.url, {
           method:  'GET',
           headers: {
-            'User-Agent':    'GenAI-Security-Crosswalk-Watcher/1.0',
+            'User-Agent':    'OWASP-GenAI-Crosswalk-Watcher/1.0',
             'Cache-Control': 'no-cache',
             'Range':         'bytes=0-8191',
           },
@@ -580,7 +580,7 @@ async function watchFrameworks(state) {
       try {
         const chunkRes = await fetchWithTimeout(fw.url, {
           headers: {
-            'User-Agent': 'GenAI-Security-Crosswalk-Watcher/1.0',
+            'User-Agent': 'OWASP-GenAI-Crosswalk-Watcher/1.0',
             'Range':      'bytes=0-8191',
           },
           redirect: 'follow',
@@ -623,7 +623,7 @@ async function watchFrameworks(state) {
           ``,
           `### Suggested Action`,
           `1. Visit ${fw.url} and review the updated content.`,
-          `2. Check whether any changes affect mappings in the GenAI Security Crosswalk.`,
+          `2. Check whether any changes affect mappings in the OWASP GenAI Crosswalk.`,
           `3. Update relevant files under \`llm-top10/\`, \`agentic-top10/\`, \`dsgai-2026/\`, or \`shared/\` as needed.`,
           `4. Consider updating \`CROSSREF.md\` if cross-framework references change.`,
         ].join('\n'),
@@ -675,7 +675,7 @@ function printSummary({ date, watchers, findings, issueCount, dryRun, tokenPrese
     : `${issueCount} opened`;
 
   console.log('\n' + '═'.repeat(60));
-  console.log('GenAI Security Crosswalk — Watch Run');
+  console.log('OWASP GenAI Crosswalk — Watch Run');
   console.log('─'.repeat(60));
   console.log(`Date    : ${date}`);
   console.log(`Watchers: ${watchers.join(', ')}`);

@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Source list : OWASP Top 10 for LLM Applications 2025 (LLM01-LLM10)
   Framework   : SOC 2 Type II — AICPA Trust Services Criteria
   Version     : 2026-Q1
@@ -864,4 +864,4 @@ DoS risks identified) also apply.
 ---
 
 Maintained by the OWASP GenAI Data Security Initiative.
-Part of the GenAI Security Crosswalk: https://github.com/emmanuelgjr/GenAI-Security-Crosswalk
+Part of the OWASP GenAI Crosswalk: https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk

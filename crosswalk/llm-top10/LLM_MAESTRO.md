@@ -1,5 +1,5 @@
 <!--
-  GenAI Security Crosswalk
+  OWASP GenAI Crosswalk
   Source list : OWASP Top 10 for LLM Applications 2025 (LLM01-LLM10)
   Framework   : MAESTRO — Multi-Agent Environment, Security, Threat, Risk, and Outcome
   Version     : 2026-Q1
@@ -887,6 +887,6 @@ to fix) × severity × exploitability in your deployment context.
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/genai-security-crosswalk) —
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) —
 maintained by the OWASP GenAI Data Security Initiative.
 Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).*

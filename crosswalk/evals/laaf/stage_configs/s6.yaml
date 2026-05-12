@@ -1,5 +1,5 @@
 # LAAF Stage S6 — Trace Tampering
-# GenAI Security Crosswalk configuration
+# OWASP GenAI Crosswalk configuration
 # Target: Audit log manipulation and evidence concealment
 # OWASP: DSGAI01 (Sensitive Data Leakage), LLM07 (System Prompt Leakage)
 # MAESTRO: L5 Evaluation & Observability (origin), L6 Security & Compliance (blind-spot)

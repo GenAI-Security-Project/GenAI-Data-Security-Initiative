@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# GenAI Security Crosswalk — LAAF v2.0 full-suite runner
+# OWASP GenAI Crosswalk — LAAF v2.0 full-suite runner
 # ─────────────────────────────────────────────────────────────────────────────
 # Runs all 6 LPCI stages against a target model using crosswalk stage configs.
 # Results are written to evals/results/laaf/<timestamp>/
@@ -44,7 +44,7 @@ if ! command -v laaf &>/dev/null; then
 fi
 
 echo ""
-echo "GenAI Security Crosswalk — LAAF LPCI Assessment"
+echo "OWASP GenAI Crosswalk — LAAF LPCI Assessment"
 echo "Model  : $LAAF_TARGET / $LAAF_MODEL"
 echo "Stages : $LAAF_STAGES"
 echo "Configs: $STAGE_CONFIGS"
@@ -127,7 +127,7 @@ if [ "${#FAILED_STAGES[@]}" -gt 0 ]; then
   [[ " ${FAILED_STAGES[*]} " =~ " S6 " ]] && echo "  S6 → DSGAI01 Sensitive Data Leakage, LLM07 System Prompt Leakage"
   echo ""
   echo "See $RESULTS_DIR for full reports."
-  echo "Crosswalk: https://github.com/emmanuelgjr/GenAI-Security-Crosswalk"
+  echo "Crosswalk: https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk"
   exit 1
 fi
 

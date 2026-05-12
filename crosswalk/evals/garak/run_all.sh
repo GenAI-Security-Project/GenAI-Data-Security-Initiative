@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# GenAI Security Crosswalk — Run all Garak evaluation profiles
+# OWASP GenAI Crosswalk — Run all Garak evaluation profiles
 # ─────────────────────────────────────────────────────────────
 # Usage:
 #   bash evals/garak/run_all.sh
@@ -38,7 +38,7 @@ FAIL=0
 FAILED_PROFILES=()
 
 echo ""
-echo "GenAI Security Crosswalk — Garak evaluation suite"
+echo "OWASP GenAI Crosswalk — Garak evaluation suite"
 echo "Model: $MODEL_TYPE / $MODEL_NAME"
 echo "Results: $RESULTS_DIR"
 echo "────────────────────────────────────────────────────"

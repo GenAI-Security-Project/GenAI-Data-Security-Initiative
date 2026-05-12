@@ -2,7 +2,7 @@
 
 ## Our pledge
 
-We, the contributors and maintainers of the GenAI Security Crosswalk,
+We, the contributors and maintainers of the OWASP GenAI Crosswalk,
 pledge to make participation in this project a harassment-free experience
 for everyone, regardless of age, body size, disability, ethnicity, gender
 identity and expression, level of experience, nationality, personal
@@ -138,5 +138,5 @@ https://www.contributor-covenant.org/faq
 
 ---
 
-*Part of the [GenAI Security Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk) —
+*Part of the [OWASP GenAI Crosswalk](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/crosswalk) —
 maintained by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org)*

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * GenAI Security Crosswalk — CLI Query Interface
+ * OWASP GenAI Crosswalk — CLI Query Interface
  * ──────────────────────────────────────────────────────────────────────────
  * Query the crosswalk data layer from the command line — replaces jq.
  *
@@ -148,7 +148,7 @@ function showStats(entries, incidents) {
   const bySrc = {};
   entries.forEach(e => { bySrc[e.source_list] = (bySrc[e.source_list] || 0) + 1; });
 
-  console.log('\nGenAI Security Crosswalk — Summary Statistics');
+  console.log('\nOWASP GenAI Crosswalk — Summary Statistics');
   console.log('═'.repeat(50));
   console.log(`  Entries        : ${entries.length}`);
   console.log(`  Frameworks     : ${fws.size}`);

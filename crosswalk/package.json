@@ -1,7 +1,7 @@
 {
   "name": "genai-security-crosswalk",
   "version": "3.1.0",
-  "description": "OWASP GenAI Security Crosswalk — mapping LLM Top 10, Agentic Top 10, and DSGAI 2026 to 25 industry frameworks",
+  "description": "OWASP GenAI Crosswalk — mapping LLM Top 10, Agentic Top 10, and DSGAI 2026 to 25 industry frameworks",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -34,12 +34,12 @@
   "license": "CC-BY-SA-4.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk.git"
+    "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative.git"
   },
   "bugs": {
-    "url": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk/issues"
+    "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/issues"
   },
-  "homepage": "https://github.com/emmanuelgjr/GenAI-Security-Crosswalk#readme",
+  "homepage": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative#readme",
   "keywords": [
     "owasp",
     "llm-security",
