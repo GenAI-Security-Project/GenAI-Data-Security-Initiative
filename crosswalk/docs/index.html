@@ -1189,7 +1189,10 @@ input, select { font-family: inherit; }
       a.classList.toggle('active', linkPath === basePath);
     });
 
-    var renderFn = routes[basePath] || routes[path] || renderLanding;
+    function lookupRoute(key) {
+      return Object.prototype.hasOwnProperty.call(routes, key) ? routes[key] : null;
+    }
+    var renderFn = lookupRoute(basePath) || lookupRoute(path) || renderLanding;
     renderFn(app);
     window.scrollTo(0, 0);
 
