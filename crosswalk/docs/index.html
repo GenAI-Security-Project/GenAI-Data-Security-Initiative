@@ -1199,12 +1199,12 @@ input, select { font-family: inherit; }
     // Handle deep-link opening of modals
     if (explorerMatch) {
       var entryId = decodeURIComponent(explorerMatch[1]);
-      var target = ENTRY_MAP[entryId];
+      var target = Object.prototype.hasOwnProperty.call(ENTRY_MAP, entryId) ? ENTRY_MAP[entryId] : null;
       if (target) setTimeout(function() { openEntryModal(target); }, 150);
     }
     if (incidentMatch) {
       var incId = decodeURIComponent(incidentMatch[1]);
-      var targetInc = INCIDENT_MAP[incId];
+      var targetInc = Object.prototype.hasOwnProperty.call(INCIDENT_MAP, incId) ? INCIDENT_MAP[incId] : null;
       if (targetInc) setTimeout(function() { openIncidentModal(targetInc); }, 150);
     }
   }
