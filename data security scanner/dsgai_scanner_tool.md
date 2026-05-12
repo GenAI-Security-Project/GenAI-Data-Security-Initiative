@@ -1,4 +1,4 @@
-# GenAI Data Security Risks Tool — OWASP GenAI Data Security Compliance Report
+# GenAI Data Security Risks (DSGAI) Tool — OWASP GenAI Data Security Compliance Report
 
 ---
 **Description:** A Claude Code slash command skill that automatically scans GenAI and agentic codebases against the OWASP GenAI Data Security Risks and Mitigations 2026 (v1.0) specification, covering all 21 DSGAI risk controls across the full GenAI data lifecycle.
