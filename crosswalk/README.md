@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/">
-    <img src="docs/banner.svg" alt="OWASP GenAI Security Crosswalk" width="100%">
+  <a href="https://genai-security-project.github.io/GenAI-Data-Security-Initiative/">
+    <img src="docs/banner.svg" alt="OWASP GenAI Crosswalk" width="100%">
   </a>
 </p>
 
@@ -20,11 +20,11 @@
 </p>
 
 <p align="center">
-  <a href="https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/"><b>Live Web App</b></a> &middot;
-  <a href="https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/score"><b>Score Coverage</b></a> &middot;
-  <a href="https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/gaps"><b>Gap Analysis</b></a> &middot;
-  <a href="https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/explorer"><b>Explore Entries</b></a> &middot;
-  <a href="https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/incidents"><b>Incidents</b></a>
+  <a href="https://genai-security-project.github.io/GenAI-Data-Security-Initiative/"><b>Live Web App</b></a> &middot;
+  <a href="https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/score"><b>Score Coverage</b></a> &middot;
+  <a href="https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/gaps"><b>Gap Analysis</b></a> &middot;
+  <a href="https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/explorer"><b>Explore Entries</b></a> &middot;
+  <a href="https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/incidents"><b>Incidents</b></a>
 </p>
 
 Created and led by **[Emmanuel Guilherme Junior](https://github.com/emmanuelgjr)** — [OWASP GenAI Data Security Initiative](https://genai.owasp.org) Lead.
@@ -40,16 +40,16 @@ Created and led by **[Emmanuel Guilherme Junior](https://github.com/emmanuelgjr)
 ### 3 ways to use it (pick one)
 
 **1. Score your coverage in 60 seconds** (no install needed)
-> Go to the **[web app](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/score)**, select the frameworks you implement, see your gaps instantly. Upload tool results to validate.
-> Or try the **[gap analysis heatmap](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/gaps)** — red/yellow/green coverage across your compliance stack, exportable as PDF.
+> Go to the **[web app](https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/score)**, select the frameworks you implement, see your gaps instantly. Upload tool results to validate.
+> Or try the **[gap analysis heatmap](https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/gaps)** — red/yellow/green coverage across your compliance stack, exportable as PDF.
 
 **2. Read the mapping file you need** (browse the repo)
 > Find your framework below, click the file, read the controls. Example: deploying AI in the EU? Start with [LLM_EUAIAct.md](llm-top10/LLM_EUAIAct.md).
 
 **3. Run the tools** (for security engineers and red-teamers)
 ```bash
-git clone https://github.com/emmanuelgjr/GenAI-Security-Crosswalk.git
-cd GenAI-Security-Crosswalk
+git clone https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative.git
+cd GenAI-Data-Security-Initiative/crosswalk
 node scripts/compliance-report.js --framework "EU AI Act"   # gap assessment
 node scripts/incidents-report.js --entry LLM01              # incident analysis
 node scripts/compliance-report.js --format oscal            # GRC platform export
@@ -60,13 +60,13 @@ node scripts/incidents-report.js --format stix              # SIEM/SOAR export
 
 | You are... | Start here |
 |---|---|
-| **CISO / compliance officer** | [Score your coverage](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/score) → export the gap report |
-| **Security engineer** | [Explorer](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/explorer) → search by risk, see all controls |
+| **CISO / compliance officer** | [Score your coverage](https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/score) → export the gap report |
+| **Security engineer** | [Explorer](https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/explorer) → search by risk, see all controls |
 | **Red teamer** | [LAAF guide](evals/laaf/README.md) → run S1–S6 attack stages, map results to OWASP |
 | **GRC / auditor** | `compliance-report.js --format grc` → import into ServiceNow/Archer/Drata |
 | **Developer** | `npm install genai-security-crosswalk` → query risks + controls programmatically |
 | **Threat intel analyst** | `incidents-report.js --format stix` → ingest 80 AI incidents into Sentinel/Splunk |
-| **Framework author** | [Submit your standard](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/submit) → classifier maps it automatically |
+| **Framework author** | [Submit your standard](https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/submit) → classifier maps it automatically |
 
 ---
 
@@ -74,10 +74,10 @@ node scripts/incidents-report.js --format stix              # SIEM/SOAR export
 
 Have a framework that should be in the crosswalk? The **Submit-a-Standard** pipeline automates it:
 
-1. **[Paste your JSON](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/submit)** — structured controls with IDs and titles
+1. **[Paste your JSON](https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/submit)** — structured controls with IDs and titles
 2. **Classifier runs** — BGE bi-encoder + cross-encoder reranker proposes mappings to all 41 OWASP entries
 3. **PR opens** — proposed mappings with confidence scores, ready for human review
-4. **[Review & merge](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/review)** — accept, reject, or edit each mapping
+4. **[Review & merge](https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/review)** — accept, reject, or edit each mapping
 
 No server required — runs entirely via GitHub Actions on the static site.
 
@@ -93,7 +93,7 @@ node scripts/ingest-framework.mjs fw.json          # ingest a new framework
 node scripts/ingest-framework.mjs fw.json --validate  # validate only
 ```
 
-The registry powers the [control-level pivot views](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/frameworks) — click any framework, then click a control to see all OWASP entries that map to it.
+The registry powers the [control-level pivot views](https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/frameworks) — click any framework, then click a control to see all OWASP entries that map to it.
 
 ---
 
@@ -280,7 +280,7 @@ All free. All open-source. Built for practitioners.
 ## Repository structure
  
 ```text
-GenAI-Security-Crosswalk/
+crosswalk/                              ← within GenAI-Data-Security-Initiative/
 │
 ├── README.md
 ├── CROSSREF.md                      ← Master cross-reference: LLM ↔ ASI ↔ DSGAI
@@ -501,21 +501,21 @@ MAESTRO layer roles tracked per incident: **Origin** (where attack starts) · **
 
 ### Web app — interactive dashboard
 
-**https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/**
+**https://genai-security-project.github.io/GenAI-Data-Security-Initiative/**
 
 No install required. Works on desktop and mobile.
 
 | Page | What it does |
 |------|-------------|
-| [**Explorer**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/explorer) | Search and filter all 41 entries. Click any entry to see controls across all 25 frameworks. |
-| [**Frameworks**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/frameworks) | Interactive 41×25 coverage matrix. Click any cell to see the specific controls mapped. Drill into any control. |
-| [**Crosswalk**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/crosswalk) | Entry-to-control mapping explorer. Filter by severity, tier, scope. |
-| [**Incidents**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/incidents) | Browse 80 AI security incidents. Filter by severity, year, MAESTRO layer. Full attribution details. |
-| [**Score**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/score) | Select your frameworks, see coverage score. Upload Garak/PyRIT/LAAF results to validate. Export badge. |
-| [**Gap Analysis**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/gaps) | Select frameworks you implement, see red/yellow/green heatmap of OWASP risk coverage. Export PDF or CSV. |
-| [**Submit**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/submit) | Paste any framework's controls JSON and the ML classifier proposes mappings to all 41 OWASP entries. |
-| [**Tools**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/tools) | 70+ open-source security tools, searchable and organised by function. |
-| [**Recipes**](https://emmanuelgjr.github.io/GenAI-Security-Crosswalk/#/recipes) | 21 production-ready security patterns with working Python. |
+| [**Explorer**](https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/explorer) | Search and filter all 41 entries. Click any entry to see controls across all 25 frameworks. |
+| [**Frameworks**](https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/frameworks) | Interactive 41×25 coverage matrix. Click any cell to see the specific controls mapped. Drill into any control. |
+| [**Crosswalk**](https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/crosswalk) | Entry-to-control mapping explorer. Filter by severity, tier, scope. |
+| [**Incidents**](https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/incidents) | Browse 80 AI security incidents. Filter by severity, year, MAESTRO layer. Full attribution details. |
+| [**Score**](https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/score) | Select your frameworks, see coverage score. Upload Garak/PyRIT/LAAF results to validate. Export badge. |
+| [**Gap Analysis**](https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/gaps) | Select frameworks you implement, see red/yellow/green heatmap of OWASP risk coverage. Export PDF or CSV. |
+| [**Submit**](https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/submit) | Paste any framework's controls JSON and the ML classifier proposes mappings to all 41 OWASP entries. |
+| [**Tools**](https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/tools) | 70+ open-source security tools, searchable and organised by function. |
+| [**Recipes**](https://genai-security-project.github.io/GenAI-Data-Security-Initiative/#/recipes) | 21 production-ready security patterns with working Python. |
 
 **Evidence-based scoring** — three validation tiers:
 - **Self-Assessed** — checkbox only (unvalidated)
