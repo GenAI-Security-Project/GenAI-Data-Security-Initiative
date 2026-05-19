@@ -1,0 +1,53 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-voice-in-vehicle-assistant",
+  "scenario_name": "Voice in-vehicle infotainment assistant with cloud + on-device hybrid",
+  "entry_type": "synthetic_template",
+  "industry_sector": "automotive",
+  "deployment_pattern": "voice_assistant",
+  "description": "An OEM deploys a voice assistant in vehicle infotainment systems. Light queries (climate, music, navigation) run on-device; complex queries (point-of-interest lookup, calendar) round-trip to cloud. The assistant accesses the driver's calendar, contacts, and message read-aloud through a phone-integration tier. Voice biometrics are captured for personalization; cabin audio (potentially picking up passenger conversation) is in scope.",
+  "assumptions": [
+    "Driver consent captured at pairing; passenger consent not separately captured.",
+    "On-device model handles the bulk of queries; cloud round-trip required for ~20% of requests.",
+    "Geographic deployment includes EU and California jurisdictions."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "On-device small LLM + cloud LLM hybrid.", "sensitivity_tier": "high"},
+    {"role": "tool_or_plugin", "description": "Phone integration: contacts, calendar, messaging read-aloud.", "sensitivity_tier": "critical"},
+    {"role": "data_source", "description": "Voice biometrics for driver personalization; cabin audio buffer.", "sensitivity_tier": "critical"},
+    {"role": "guardrail_or_filter", "description": "Wake-word verification, content-classification on cabin audio.", "sensitivity_tier": "high"},
+    {"role": "observability_stack", "description": "Aggregated telemetry (no raw audio retention) for product analytics.", "sensitivity_tier": "high"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI01", "inherent_rating": "High", "rationale": "Calendar, contacts, and messages read-aloud expose PII; cabin audio may inadvertently capture passenger conversation.", "residual_rating": "Medium", "residual_rationale": "Driver consent captured; passenger consent gap remains; on-device retention only for raw audio."},
+    {"dsgai_id": "DSGAI08", "inherent_rating": "High", "rationale": "GDPR (consent specificity), CCPA (driver biometrics), EU AI Act biometrics provisions, state biometric-information laws (BIPA-class).", "residual_rating": "High", "residual_rationale": "Privacy notices in place; passenger-consent gap is a known compliance risk."},
+    {"dsgai_id": "DSGAI09", "inherent_rating": "High", "rationale": "Multimodal capture: audio plus on-screen content; risk of adversarial voice commands designed to spoof identification.", "residual_rating": "Medium", "residual_rationale": "Wake-word verification; voiceprint check for sensitive actions; no protection from replay attacks."},
+    {"dsgai_id": "DSGAI11", "inherent_rating": "Medium", "rationale": "Shared vehicle (rental, car-share) cross-user context leakage if personalization not properly reset.", "residual_rating": "Medium", "residual_rationale": "Reset on key-fob pairing change; rental-mode option exists but is operator-opt-in."},
+    {"dsgai_id": "DSGAI14", "inherent_rating": "Medium", "rationale": "Telemetry pipeline aggregates voice-feature data into cloud analytics.", "residual_rating": "Low", "residual_rationale": "No raw audio retention; aggregation only; opt-out path available."},
+    {"dsgai_id": "DSGAI16", "inherent_rating": "Medium", "rationale": "In-vehicle assistant has broad reach into paired phone data while driver is unable to monitor in real time.", "residual_rating": "Medium", "residual_rationale": "Driver-only configuration UI; phone-integration scope user-configurable."}
+  ],
+  "existing_controls": [
+    {"description": "On-device-only retention of raw audio; no raw audio leaves the vehicle.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI01", "DSGAI14"]},
+    {"description": "Wake-word verification + voiceprint check for sensitive actions.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI02", "DSGAI09"]},
+    {"description": "Personalization reset on key-fob pairing change.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI11"]},
+    {"description": "Driver-only configuration UI; phone-integration scope user-configurable.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI16"]},
+    {"description": "Telemetry aggregation; opt-out path available.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI14", "DSGAI08"]}
+  ],
+  "control_gaps": [
+    {"description": "Passenger consent for cabin audio not explicitly captured.", "addresses_dsgai": ["DSGAI08", "DSGAI01"], "suggested_remediation": "Add a one-time cabin-audio-aware notice and a session-mute option discoverable to passengers.", "urgency": "Near-term"},
+    {"description": "No protection against replay attacks on voiceprint authentication.", "addresses_dsgai": ["DSGAI09", "DSGAI02"], "suggested_remediation": "Add liveness checks or challenge-response for sensitive voiceprint-authenticated actions.", "urgency": "Strategic"},
+    {"description": "Rental-mode is operator-opt-in; many shared vehicles do not enable it.", "addresses_dsgai": ["DSGAI11"], "suggested_remediation": "Detect rental fleet via VIN-list; enable rental-mode by default; require operator opt-out.", "urgency": "Near-term"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-07", "control_name": "Users authenticated for access", "alignment_status": "satisfied"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.10", "control_name": "Privacy risk is evaluated", "alignment_status": "partial"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied"},
+    {"framework": "GDPR", "control_id": "Art. 9", "control_name": "Processing of special categories (biometrics)", "alignment_status": "partial"},
+    {"framework": "EU AI Act", "control_id": "Art. 5", "control_name": "Prohibited AI practices (biometric categorisation)", "alignment_status": "partial"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "partial"}
+  ],
+  "compliance_obligations": ["GDPR", "CCPA", "EU AI Act"],
+  "maturity_overall": "Developing",
+  "date_added": "2026-05-18",
+  "tags": ["automotive", "voice", "biometrics", "multimodal", "in-vehicle", "consent"]
+}

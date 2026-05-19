@@ -1,0 +1,55 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-insurance-claims-triage",
+  "scenario_name": "Insurance claims-triage assistant with document understanding",
+  "entry_type": "synthetic_template",
+  "industry_sector": "financial_services",
+  "deployment_pattern": "decision_support",
+  "description": "A property-and-casualty insurer deploys an assistant that triages incoming claims. The assistant ingests the first-notice-of-loss summary, OCRs supporting documents (photos, repair estimates, police reports), and recommends a claim category, severity tier, and routing decision. A claims adjuster reviews every recommendation. Fraud-classification signals feed into the recommendation; the adjuster retains decision authority.",
+  "assumptions": [
+    "Adjuster human-in-the-loop is mandatory; no autonomous claim decisions.",
+    "Fraud signals are advisory; the model does not surface adversely-impactful fraud flags directly to claimants.",
+    "Hosted LLM under enterprise data-isolation contract."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "Hosted third-party LLM, enterprise tier.", "sensitivity_tier": "high"},
+    {"role": "tool_or_plugin", "description": "Document OCR + structured-extraction service.", "sensitivity_tier": "critical"},
+    {"role": "rag_pipeline", "description": "Policy-document retrieval to ground coverage interpretation.", "sensitivity_tier": "high"},
+    {"role": "guardrail_or_filter", "description": "PII redaction; bias-classifier on demographic correlates; fraud-signal compartmentalization.", "sensitivity_tier": "critical"},
+    {"role": "identity_provider", "description": "Insurer IDP with adjuster-role attributes.", "sensitivity_tier": "high"},
+    {"role": "observability_stack", "description": "Per-claim audit log supporting regulator inquiries and adverse-action notices.", "sensitivity_tier": "critical"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI01", "inherent_rating": "High", "rationale": "Claims documents contain PII, medical info (auto/health overlap), and financial details.", "residual_rating": "Medium", "residual_rationale": "PII redaction at retrieval/output; per-claim scope."},
+    {"dsgai_id": "DSGAI04", "inherent_rating": "High", "rationale": "Bias in triage decisions across protected classes is a regulator and reputational concern.", "residual_rating": "Medium", "residual_rationale": "Annual bias audits; demographic-proxy detection on inputs."},
+    {"dsgai_id": "DSGAI08", "inherent_rating": "Critical", "rationale": "State insurance regulators (Model Bulletin on AI), NAIC AI bulletin, GDPR, EU AI Act high-risk classification for insurance underwriting.", "residual_rating": "High", "residual_rationale": "Adjuster HITL; adverse-action notices supported; conformity assessment pending."},
+    {"dsgai_id": "DSGAI09", "inherent_rating": "High", "rationale": "OCR of submitted photos and PDFs ingests multimodal content; visual prompt injection or staged fraud-photo manipulation is in scope.", "residual_rating": "Medium", "residual_rationale": "OCR injection-classifier; tamper-detection on submitted images."},
+    {"dsgai_id": "DSGAI14", "inherent_rating": "High", "rationale": "Per-claim audit logs hold detailed adjuster reasoning subject to subpoena and regulator review.", "residual_rating": "Medium", "residual_rationale": "Logs encrypted at rest; access role-gated to claims-management and compliance."},
+    {"dsgai_id": "DSGAI21", "inherent_rating": "Medium", "rationale": "Adversarial claim submissions could embed injection in narrative text to manipulate severity or routing.", "residual_rating": "Medium", "residual_rationale": "Injection-classifier on claim narrative; adjuster review."}
+  ],
+  "existing_controls": [
+    {"description": "Adjuster HITL mandatory; AI advisory only; adverse-action notice supported.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI04", "DSGAI08"]},
+    {"description": "Demographic-proxy detection on inputs; annual bias audits.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI04", "DSGAI08"]},
+    {"description": "PII redaction at retrieval/output; per-claim retrieval scope.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI01", "DSGAI11"]},
+    {"description": "OCR injection-classifier and image tamper-detection on submitted media.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI09", "DSGAI06"]},
+    {"description": "Per-claim audit log with adjuster identity, AI recommendation, and adjuster final decision.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI14", "DSGAI08"]}
+  ],
+  "control_gaps": [
+    {"description": "EU AI Act high-risk conformity assessment pending for EU footprint.", "addresses_dsgai": ["DSGAI08"], "suggested_remediation": "Complete the conformity assessment; document residual-risk acceptance.", "urgency": "Immediate"},
+    {"description": "Fraud-signal compartmentalization is policy-based; not technically enforced in the audit log.", "addresses_dsgai": ["DSGAI08", "DSGAI04"], "suggested_remediation": "Segregate fraud-signal viewers in the UI and the log; adverse-action workflow stays separate from triage workflow.", "urgency": "Immediate"},
+    {"description": "Image tamper-detection is heuristic; no signed-camera-attestation accepted.", "addresses_dsgai": ["DSGAI04", "DSGAI21"], "suggested_remediation": "Pilot signed-camera attestation acceptance for high-severity claims.", "urgency": "Strategic"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions with least privilege", "alignment_status": "satisfied"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.11", "control_name": "Fairness and bias evaluated", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied"},
+    {"framework": "EU AI Act", "control_id": "Annex III(5)", "control_name": "High-risk: insurance and creditworthiness", "alignment_status": "partial"},
+    {"framework": "GDPR", "control_id": "Art. 22", "control_name": "Automated individual decision-making", "alignment_status": "satisfied"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"},
+    {"framework": "SOC 2", "control_id": "CC6.1", "control_name": "Logical and physical access controls", "alignment_status": "satisfied"}
+  ],
+  "compliance_obligations": ["GDPR", "CCPA", "EU AI Act", "SOC 2"],
+  "maturity_overall": "Managed",
+  "date_added": "2026-05-18",
+  "tags": ["insurance", "claims", "fraud", "bias", "high-risk-ai-act", "regulated"]
+}

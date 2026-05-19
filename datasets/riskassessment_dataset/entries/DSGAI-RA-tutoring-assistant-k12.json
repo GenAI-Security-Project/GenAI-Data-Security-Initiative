@@ -1,0 +1,54 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-tutoring-assistant-k12",
+  "scenario_name": "K-12 tutoring assistant with student-progress context",
+  "entry_type": "synthetic_template",
+  "industry_sector": "education",
+  "deployment_pattern": "decision_support",
+  "description": "A school district deploys an AI tutoring assistant for K-12 students. The assistant retrieves over curriculum content, references the student's prior-assignment performance, and tailors explanations. The deployment processes minors' education records (FERPA-protected, COPPA-relevant for under-13s) and faces unique obligations around content appropriateness and parental consent.",
+  "assumptions": [
+    "Hosted LLM under enterprise educational data-isolation contract.",
+    "Student records are restricted by district policy; parents have access rights.",
+    "Content filtering is age-appropriate per grade level."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "Hosted third-party LLM, education-tier contract.", "sensitivity_tier": "critical"},
+    {"role": "data_source", "description": "Student information system holding records, assignments, and grades.", "sensitivity_tier": "critical"},
+    {"role": "rag_pipeline", "description": "Curriculum-content retrieval scoped to grade level.", "sensitivity_tier": "medium"},
+    {"role": "guardrail_or_filter", "description": "Age-appropriate-content classifier plus PII redaction.", "sensitivity_tier": "critical"},
+    {"role": "identity_provider", "description": "District SSO with role attributes (student / teacher / parent).", "sensitivity_tier": "critical"},
+    {"role": "observability_stack", "description": "Audit log retained per district records retention; FERPA-aligned.", "sensitivity_tier": "high"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI01", "inherent_rating": "Critical", "rationale": "Student records (PII of minors, learning-disability accommodations, behavioral notes) are highly sensitive.", "residual_rating": "Medium", "residual_rationale": "Per-student scope at retrieval; output PII redaction."},
+    {"dsgai_id": "DSGAI08", "inherent_rating": "Critical", "rationale": "FERPA, COPPA (under-13), state student-privacy laws, possible EU AI Act high-risk classification for educational scoring.", "residual_rating": "High", "residual_rationale": "Parental consent captured; AI register entry pending; FERPA disclosures aligned with district policy."},
+    {"dsgai_id": "DSGAI11", "inherent_rating": "High", "rationale": "Student-to-student context bleed would be a district-wide privacy incident.", "residual_rating": "Low", "residual_rationale": "Per-student retrieval filter; no cross-student memory store."},
+    {"dsgai_id": "DSGAI21", "inherent_rating": "High", "rationale": "Children may attempt manipulation to bypass content filters; injection from external homework-help content surfaces is plausible.", "residual_rating": "Medium", "residual_rationale": "Age-appropriate classifier; refusal stability tested across known jailbreak corpora."},
+    {"dsgai_id": "DSGAI19", "inherent_rating": "Medium", "rationale": "Teacher annotation of tutoring quality exposes annotators to student data beyond their classroom.", "residual_rating": "Low", "residual_rationale": "Annotation scoped to teacher's own students."},
+    {"dsgai_id": "DSGAI14", "inherent_rating": "High", "rationale": "Audit logs hold student-progress data subject to FERPA disclosure to parents.", "residual_rating": "Medium", "residual_rationale": "FERPA-aligned access; parent-portal integrated for record requests."}
+  ],
+  "existing_controls": [
+    {"description": "Per-student retrieval filter; no cross-student memory.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI11", "DSGAI01"]},
+    {"description": "Age-appropriate-content classifier on every output by grade.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI21", "DSGAI08"]},
+    {"description": "Parental consent captured pre-enrollment; opt-out path supported.", "tier": "Tier 3", "addresses_dsgai": ["DSGAI08"]},
+    {"description": "FERPA-aligned audit log access; parent-portal integration for record requests.", "tier": "Tier 3", "addresses_dsgai": ["DSGAI08", "DSGAI14"]},
+    {"description": "Annotation scoped to teacher's own students.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI19"]}
+  ],
+  "control_gaps": [
+    {"description": "EU AI Act classification for educational scoring is unresolved (may be high-risk).", "addresses_dsgai": ["DSGAI08"], "suggested_remediation": "Complete classification analysis; document conformity assessment if high-risk.", "urgency": "Immediate"},
+    {"description": "Refusal stability is tested at release but not continuously.", "addresses_dsgai": ["DSGAI21"], "suggested_remediation": "Add continuous refusal-rate monitoring against an evolving jailbreak corpus.", "urgency": "Near-term"},
+    {"description": "No formal periodic notice to parents about AI use in instruction.", "addresses_dsgai": ["DSGAI08"], "suggested_remediation": "Annual AI-use notice integrated with district communication cycles.", "urgency": "Near-term"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-05", "control_name": "Protections against data leaks", "alignment_status": "satisfied"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "GOVERN 1.5", "control_name": "Ongoing monitoring and review", "alignment_status": "partial"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied"},
+    {"framework": "FERPA", "control_id": "34 CFR 99.31", "control_name": "Disclosure without consent permitted", "alignment_status": "satisfied"},
+    {"framework": "EU AI Act", "control_id": "Annex III(3)", "control_name": "High-risk: education and vocational training", "alignment_status": "partial"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"}
+  ],
+  "compliance_obligations": ["FERPA", "GDPR", "EU AI Act"],
+  "maturity_overall": "Developing",
+  "date_added": "2026-05-18",
+  "tags": ["education", "k12", "minors", "ferpa", "coppa", "decision-support"]
+}

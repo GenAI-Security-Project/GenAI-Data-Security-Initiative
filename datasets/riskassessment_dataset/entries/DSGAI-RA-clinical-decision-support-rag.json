@@ -1,0 +1,65 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-clinical-decision-support-rag",
+  "scenario_name": "Clinical-decision-support RAG over EHR notes and clinical guidelines",
+  "entry_type": "synthetic_template",
+  "industry_sector": "healthcare",
+  "deployment_pattern": "decision_support",
+  "description": "A hospital system deploys a clinical-decision-support assistant available to licensed clinicians. The assistant retrieves over a corpus of de-identified clinical guidelines plus the patient's relevant EHR notes (with strict per-encounter scoping). It produces summaries and recommended-next-step prompts that the clinician must explicitly accept or reject. The assistant runs in a HIPAA-covered private cloud with a self-hosted open-weights model and a managed vector store inside the same enclave.",
+  "assumptions": [
+    "Self-hosted open-weights model inside a HIPAA-covered private cloud; no traffic leaves the enclave.",
+    "Every retrieval is scoped to the active patient encounter via the EHR session.",
+    "Final clinical decisions remain with the licensed clinician (HITL is mandatory)."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "Self-hosted open-weights clinical-tuned LLM (private cloud).", "sensitivity_tier": "critical"},
+    {"role": "embedding_model", "description": "Self-hosted embedding model; weights pinned.", "sensitivity_tier": "high"},
+    {"role": "vector_store", "description": "Managed vector store inside the HIPAA enclave.", "sensitivity_tier": "critical"},
+    {"role": "rag_pipeline", "description": "Ingestion service for clinical-guideline corpus plus on-the-fly encounter-scoped note retrieval.", "sensitivity_tier": "critical"},
+    {"role": "identity_provider", "description": "EHR-integrated SSO with provider role attributes.", "sensitivity_tier": "critical"},
+    {"role": "guardrail_or_filter", "description": "PHI redaction at logging boundary; clinical-grounding classifier.", "sensitivity_tier": "high"},
+    {"role": "observability_stack", "description": "Audit trail for every retrieval and recommendation accept/reject decision.", "sensitivity_tier": "high"},
+    {"role": "client_application", "description": "Clinician-facing UI inside the EHR product surface.", "sensitivity_tier": "high"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI01", "inherent_rating": "Critical", "rationale": "PHI on every turn; memorization of rare clinical phrases is a real privacy concern.", "residual_rating": "Medium", "residual_rationale": "Self-hosted model; no external egress; PHI redaction on logs; encounter-scoped retrieval."},
+    {"dsgai_id": "DSGAI08", "inherent_rating": "Critical", "rationale": "HIPAA, HITECH, state privacy laws, plus FDA implications for clinical decision support.", "residual_rating": "High", "residual_rationale": "BAA terms across stack; FDA classification not yet finalized."},
+    {"dsgai_id": "DSGAI11", "inherent_rating": "High", "rationale": "Cross-patient context bleed risk if encounter scoping breaks.", "residual_rating": "Low", "residual_rationale": "Encounter-bound retrieval filter on every query; no cross-encounter memory."},
+    {"dsgai_id": "DSGAI13", "inherent_rating": "High", "rationale": "Vector store holds PHI-embedded chunks; embedding inversion is in scope.", "residual_rating": "Medium", "residual_rationale": "Inside HIPAA enclave; access audited; inversion testing pending."},
+    {"dsgai_id": "DSGAI14", "inherent_rating": "High", "rationale": "Audit logs capture clinician prompts and model recommendations; PHI-bearing by design.", "residual_rating": "Medium", "residual_rationale": "Logs encrypted at rest; access restricted to compliance + security."},
+    {"dsgai_id": "DSGAI15", "inherent_rating": "High", "rationale": "Encounter-context windows can become broad if multiple specialties' notes are included.", "residual_rating": "Medium", "residual_rationale": "Specialty filter on retrieval but not adaptive."},
+    {"dsgai_id": "DSGAI18", "inherent_rating": "Medium", "rationale": "Membership inference and re-identification risks on a small-cohort fine-tune.", "residual_rating": "Medium", "residual_rationale": "Differential-privacy training not implemented yet."},
+    {"dsgai_id": "DSGAI19", "inherent_rating": "Medium", "rationale": "RLHF/feedback collection from clinicians may expose annotators to PHI beyond their care relationship.", "residual_rating": "Medium", "residual_rationale": "Feedback samples drawn from clinician's own encounters where possible."},
+    {"dsgai_id": "DSGAI20", "inherent_rating": "Medium", "rationale": "Clinical-tuned weights are competitive IP; insider model exfiltration is in scope.", "residual_rating": "Medium", "residual_rationale": "Hardware-backed key custody; egress controls; access auditing."},
+    {"dsgai_id": "DSGAI21", "inherent_rating": "Medium", "rationale": "Adversarial / outdated guidance ingested via the guideline corpus would produce misleading recommendations.", "residual_rating": "Low", "residual_rationale": "Guideline ingestion requires clinical-informatics review and a guideline source allowlist."}
+  ],
+  "existing_controls": [
+    {"description": "Encounter-bound retrieval filter on every query; no cross-encounter memory store.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI11", "DSGAI01"]},
+    {"description": "BAA and HIPAA security-rule controls across the technology stack.", "tier": "Tier 3", "addresses_dsgai": ["DSGAI08", "DSGAI07"]},
+    {"description": "Self-hosted model inside the HIPAA enclave; no external API egress.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI01", "DSGAI20"]},
+    {"description": "PHI redaction at logging boundary; encrypted logs; access limited to compliance.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI14"]},
+    {"description": "Guideline ingestion requires clinical-informatics review; source allowlist for ingestion.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI21", "DSGAI04"]},
+    {"description": "HITL: every recommendation is accept/reject by the licensed clinician; no autonomous action.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI05", "DSGAI08"]}
+  ],
+  "control_gaps": [
+    {"description": "FDA classification for the assistant is not yet finalized.", "addresses_dsgai": ["DSGAI08"], "suggested_remediation": "Complete the FDA Software-as-a-Medical-Device classification analysis and document the basis for the chosen path.", "urgency": "Immediate"},
+    {"description": "Differential-privacy training not implemented for clinical fine-tunes.", "addresses_dsgai": ["DSGAI18", "DSGAI01"], "suggested_remediation": "Adopt DP-SGD with audited noise budgets; document residual memorization on the model card.", "urgency": "Strategic"},
+    {"description": "Embedding inversion testing on the vector store has not been performed.", "addresses_dsgai": ["DSGAI13", "DSGAI18"], "suggested_remediation": "Run an inversion test on a representative sample; threshold-gate the embedding model for clinical content.", "urgency": "Near-term"},
+    {"description": "Specialty filter on retrieval is static, not adaptive.", "addresses_dsgai": ["DSGAI15"], "suggested_remediation": "Add task-classifier-driven retrieval scoping by clinical-question class.", "urgency": "Near-term"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-01", "control_name": "Data-at-rest is protected", "alignment_status": "satisfied"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.10", "control_name": "Privacy risk is evaluated", "alignment_status": "partial"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MANAGE 3.2", "control_name": "AI risks are responded to", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 27001", "control_id": "A.8.11", "control_name": "Data masking", "alignment_status": "satisfied"},
+    {"framework": "HIPAA", "control_id": "164.312(a)(1)", "control_name": "Access control standard", "alignment_status": "satisfied"},
+    {"framework": "HIPAA", "control_id": "164.312(b)", "control_name": "Audit controls", "alignment_status": "satisfied"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"},
+    {"framework": "EU AI Act", "control_id": "Annex III", "control_name": "High-risk AI in healthcare", "alignment_status": "partial", "notes": "If deployed for EU patients, classification under high-risk applies."}
+  ],
+  "compliance_obligations": ["HIPAA", "GDPR", "EU AI Act", "ISO 27001 certification"],
+  "maturity_overall": "Managed",
+  "date_added": "2026-05-18",
+  "tags": ["healthcare", "decision-support", "phi", "self-hosted", "hitl", "regulated"]
+}

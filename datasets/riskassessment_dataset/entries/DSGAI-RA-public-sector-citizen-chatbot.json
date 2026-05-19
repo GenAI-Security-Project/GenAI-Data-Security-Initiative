@@ -1,0 +1,58 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-public-sector-citizen-chatbot",
+  "scenario_name": "Public-sector citizen-services chatbot over published agency content",
+  "entry_type": "synthetic_template",
+  "industry_sector": "public_sector",
+  "deployment_pattern": "customer_facing_chatbot",
+  "description": "A municipal or national government agency deploys a citizen-services chatbot to handle high-volume inquiries about forms, benefits eligibility, and process steps. The chatbot retrieves over a published, publicly-available agency content corpus. Authentication is optional; authenticated sessions may receive personalized status updates from a limited read-only tool. The agency operates under public-records laws, accessibility mandates, and (where applicable) AI-specific regulations.",
+  "assumptions": [
+    "Knowledge corpus consists of already-public agency materials; no internal-only content indexed.",
+    "Personalization is limited to authenticated citizens via the national IDP.",
+    "Transcripts are subject to public-records retention and FOIA-equivalent disclosure."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "Hosted third-party LLM under public-sector terms (data residency, no training on agency data).", "sensitivity_tier": "high"},
+    {"role": "rag_pipeline", "description": "Indexer over published agency websites and forms corpus.", "sensitivity_tier": "medium"},
+    {"role": "vector_store", "description": "In-country managed vector store with residency guarantees.", "sensitivity_tier": "medium"},
+    {"role": "tool_or_plugin", "description": "Optional read-only status-lookup tool for authenticated citizens.", "sensitivity_tier": "high"},
+    {"role": "identity_provider", "description": "National IDP issuing short-lived citizen tokens.", "sensitivity_tier": "high"},
+    {"role": "guardrail_or_filter", "description": "Accessibility output transformations + PII redaction.", "sensitivity_tier": "high"},
+    {"role": "observability_stack", "description": "Audit logs retained per public-records schedule; subject to FOIA.", "sensitivity_tier": "high"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI01", "inherent_rating": "High", "rationale": "Status-lookup tool returns personal data; transcripts may capture citizen-identifying questions even without authentication.", "residual_rating": "Medium", "residual_rationale": "Per-session scope on tool; PII redaction at logging."},
+    {"dsgai_id": "DSGAI03", "inherent_rating": "Medium", "rationale": "Risk that staff use unauthorized AI tools to draft citizen replies, leaking PII to consumer services.", "residual_rating": "Medium", "residual_rationale": "AI-use policy in place; enforcement uneven across agencies."},
+    {"dsgai_id": "DSGAI08", "inherent_rating": "Critical", "rationale": "Data-protection law, public-records law, accessibility mandates, and (where applicable) AI-specific regulation all apply.", "residual_rating": "High", "residual_rationale": "DPIA on file; accessibility audits ongoing; AI register entry pending."},
+    {"dsgai_id": "DSGAI14", "inherent_rating": "High", "rationale": "Public-records retention forces long-term storage of transcripts that contain citizen PII.", "residual_rating": "Medium", "residual_rationale": "Field-level redaction at log emission; access controls on the archive."},
+    {"dsgai_id": "DSGAI15", "inherent_rating": "Medium", "rationale": "Authenticated sessions can include citizen-personal context that exceeds the immediate question.", "residual_rating": "Medium", "residual_rationale": "Per-turn context cap; not adaptive."},
+    {"dsgai_id": "DSGAI17", "inherent_rating": "High", "rationale": "High-availability citizen-services obligation; LLM-provider outage propagates to accessibility failure.", "residual_rating": "Medium", "residual_rationale": "Static fallback flow; multi-provider failover planned."},
+    {"dsgai_id": "DSGAI21", "inherent_rating": "Medium", "rationale": "Adversarial content posted to public agency pages could be indexed and surfaced as guidance.", "residual_rating": "Low", "residual_rationale": "Ingestion restricted to authored, reviewed CMS content."}
+  ],
+  "existing_controls": [
+    {"description": "Ingestion restricted to authored CMS content; no third-party web content indexed.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI21", "DSGAI06"]},
+    {"description": "In-country residency for the vector store and the LLM tenant.", "tier": "Tier 3", "addresses_dsgai": ["DSGAI08", "DSGAI07"]},
+    {"description": "Per-session scope on status-lookup tool; short-lived IDP tokens.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI01", "DSGAI02"]},
+    {"description": "Field-level redaction at log emission; archive access role-gated.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI14"]},
+    {"description": "Accessibility output transformations (plain-language summary, screen-reader formatting).", "tier": "Tier 2", "addresses_dsgai": ["DSGAI08"]},
+    {"description": "Static fallback flow when the LLM provider is degraded.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI17"]}
+  ],
+  "control_gaps": [
+    {"description": "AI register entry / EU AI Act conformity assessment not yet finalized.", "addresses_dsgai": ["DSGAI08"], "suggested_remediation": "Complete the AI-register entry and classify the deployment; document if high-risk classification applies.", "urgency": "Immediate"},
+    {"description": "No multi-provider LLM failover for a high-availability obligation.", "addresses_dsgai": ["DSGAI17"], "suggested_remediation": "Add a second LLM provider as warm standby; exercise failover quarterly.", "urgency": "Near-term"},
+    {"description": "Public-records retention schedule does not yet specify PII-redacted vs raw transcript handling.", "addresses_dsgai": ["DSGAI14", "DSGAI08"], "suggested_remediation": "Update retention schedule to differentiate PII-redacted from raw and align with the agency's records-management authority.", "urgency": "Immediate"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-02", "control_name": "Data-in-transit is protected", "alignment_status": "satisfied"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "GOVERN 1.5", "control_name": "Ongoing monitoring and review", "alignment_status": "partial"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "partial"},
+    {"framework": "ISO/IEC 27001", "control_id": "A.5.31", "control_name": "Legal, statutory, regulatory, and contractual requirements", "alignment_status": "satisfied"},
+    {"framework": "EU AI Act", "control_id": "Art. 49", "control_name": "Registration in EU database for high-risk systems", "alignment_status": "partial"},
+    {"framework": "GDPR", "control_id": "Art. 35", "control_name": "Data protection impact assessment", "alignment_status": "satisfied"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"}
+  ],
+  "compliance_obligations": ["GDPR", "EU AI Act", "UK Data Protection Act 2018"],
+  "maturity_overall": "Developing",
+  "date_added": "2026-05-18",
+  "tags": ["public-sector", "citizen-services", "high-availability", "accessibility", "regulated"]
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "./schema.json",
+  "assessment_id": "DSGAI-RA-customer-rag-banking",
+  "scenario_name": "Customer-facing RAG chatbot over retail-banking knowledge base",
+  "entry_type": "synthetic_template",
+  "industry_sector": "financial_services",
+  "deployment_pattern": "customer_facing_chatbot",
+  "description": "A retail bank deploys a customer-facing chatbot that answers product, fee, and account-handling questions by retrieving from a curated knowledge corpus (policy documents, FAQ articles, product disclosures). The chatbot is fronted by the bank's authenticated web and mobile channels; authenticated sessions may also query a limited tool that resolves the customer's own account balance and recent transactions. The deployment uses a hosted third-party LLM, an in-region managed vector store, an internally-maintained RAG ingestion pipeline, and a guardrail layer fronting both prompts and outputs. This archetype is the canonical example for the dataset.",
+  "assumptions": [
+    "All KB content is owned by the bank; no third-party ingestion at runtime.",
+    "Customer account-balance tool is read-only and scoped to the authenticated customer.",
+    "LLM provider is contracted under a BAA-equivalent enterprise agreement with no training on customer data."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "Hosted third-party general-purpose LLM (enterprise tier, customer-data-isolation contract).", "sensitivity_tier": "high"},
+    {"role": "embedding_model", "description": "Provider-hosted embedding model used for KB chunking and query encoding.", "sensitivity_tier": "medium"},
+    {"role": "vector_store", "description": "Managed in-region vector store with per-collection ACLs.", "sensitivity_tier": "high"},
+    {"role": "rag_pipeline", "description": "Internal batch ingestion service pulling KB articles from a CMS, chunking, embedding, and indexing.", "sensitivity_tier": "high"},
+    {"role": "tool_or_plugin", "description": "Account-balance lookup tool, read-only, scoped to authenticated customer's own accounts.", "sensitivity_tier": "critical"},
+    {"role": "guardrail_or_filter", "description": "Input + output safety classifiers covering PII regex detection, jailbreak signatures, and toxic content.", "sensitivity_tier": "high"},
+    {"role": "identity_provider", "description": "Bank IDP issuing short-lived tokens that bind chatbot turns to the authenticated customer identity.", "sensitivity_tier": "critical"},
+    {"role": "observability_stack", "description": "Centralized logging of prompts and responses with field-level redaction and 30-day retention.", "sensitivity_tier": "high"},
+    {"role": "client_application", "description": "Web and mobile chat front-ends inside the authenticated banking portal.", "sensitivity_tier": "medium"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI01", "inherent_rating": "Critical", "rationale": "RAG retrieves policy documents that may contain customer-specific examples and the account-balance tool returns sensitive financial data into the model context.", "residual_rating": "Medium", "residual_rationale": "Retrieval is scoped per-customer; output guardrails redact PII; logs are field-level redacted."},
+    {"dsgai_id": "DSGAI02", "inherent_rating": "High", "rationale": "Account-balance tool credentials must be scoped per-session; misconfiguration enables cross-customer data access.", "residual_rating": "Low", "residual_rationale": "Tool uses short-lived per-session tokens from the IDP; calls are end-to-end audited."},
+    {"dsgai_id": "DSGAI06", "inherent_rating": "High", "rationale": "Indirect prompt injection via KB content could coerce the agent to misuse the account-balance tool.", "residual_rating": "Medium", "residual_rationale": "KB ingestion has an editorial review gate; injection-detection runs at retrieval time."},
+    {"dsgai_id": "DSGAI08", "inherent_rating": "High", "rationale": "GDPR, CCPA, GLBA, and (for EU footprint) DORA + EU AI Act obligations apply to customer chat content.", "residual_rating": "Medium", "residual_rationale": "DPIA completed; contractual processor terms in place; consumer rights handling integrated."},
+    {"dsgai_id": "DSGAI11", "inherent_rating": "High", "rationale": "Shared vector store and shared LLM session-cache create cross-customer leakage exposure if isolation breaks.", "residual_rating": "Low", "residual_rationale": "Per-customer retrieval filter on every query; no cross-session memory store."},
+    {"dsgai_id": "DSGAI12", "inherent_rating": "Medium", "rationale": "Account-balance tool is constrained read-only but any future write tool would expose the LLM-to-DB gateway risk.", "residual_rating": "Low", "residual_rationale": "Current scope read-only; write expansion requires explicit security review."},
+    {"dsgai_id": "DSGAI13", "inherent_rating": "Medium", "rationale": "Vector store contains chunked KB content and potentially memorized customer-data fragments from prior ingestion runs.", "residual_rating": "Low", "residual_rationale": "Vector store under same KMS as primary KB; tenant isolation by collection."},
+    {"dsgai_id": "DSGAI14", "inherent_rating": "Medium", "rationale": "Logged prompts and responses can contain sensitive financial data and PII.", "residual_rating": "Low", "residual_rationale": "Logs are field-level redacted at ingestion; 30-day retention."},
+    {"dsgai_id": "DSGAI15", "inherent_rating": "Medium", "rationale": "Over-broad context could include policy material above the customer's need-to-know.", "residual_rating": "Medium", "residual_rationale": "Context truncation policy in place but not topic-aware."},
+    {"dsgai_id": "DSGAI17", "inherent_rating": "Medium", "rationale": "Customer-facing surface is a regulated availability concern; LLM-provider outage propagates to channel impact.", "residual_rating": "Medium", "residual_rationale": "Static fallback flow is implemented; multi-provider failover not yet."},
+    {"dsgai_id": "DSGAI21", "inherent_rating": "Medium", "rationale": "Adversarial submissions through public-facing surfaces (complaints, social media monitored content) could be indexed into the KB if processes weaken.", "residual_rating": "Low", "residual_rationale": "KB ingestion strictly from CMS-authored content; no external feed at runtime."}
+  ],
+  "existing_controls": [
+    {"description": "Per-customer retrieval scope: every retrieval query is bound to the authenticated customer's tenant filter.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI11", "DSGAI01"]},
+    {"description": "Short-lived per-session tokens from the IDP for the account-balance tool; no static service credentials.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI02", "DSGAI06"]},
+    {"description": "Input and output PII regex classifiers with allow/deny lists tuned to banking domain (account numbers, SSN, card PAN).", "tier": "Tier 1", "addresses_dsgai": ["DSGAI01", "DSGAI14"]},
+    {"description": "Editorial review gate on KB ingestion; injection-detection at retrieval time on retrieved chunks.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI06", "DSGAI21"]},
+    {"description": "Field-level redaction at log ingestion; 30-day retention with KMS-managed access controls.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI14"]},
+    {"description": "DPIA completed; consumer-rights handling pipeline integrated with the bank's DSAR process.", "tier": "Tier 3", "addresses_dsgai": ["DSGAI08", "DSGAI07"]},
+    {"description": "Markdown rendering in chat UI is sanitized; external image hosts are blocklisted from the assistant's allowed-egress set.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI01", "DSGAI15"]},
+    {"description": "Static fallback flow when the LLM provider is degraded; routes customers to scripted responses or human agents.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI17"]}
+  ],
+  "control_gaps": [
+    {"description": "No multi-provider LLM failover; outages propagate to channel availability.", "addresses_dsgai": ["DSGAI17"], "suggested_remediation": "Add a second LLM provider configured as warm standby; periodically exercise failover.", "urgency": "Near-term"},
+    {"description": "Context truncation is not topic-aware; over-broad context may be assembled for unrelated questions.", "addresses_dsgai": ["DSGAI15"], "suggested_remediation": "Implement task-classifier-driven context windows that retrieve only the chunks relevant to the predicted task class.", "urgency": "Near-term"},
+    {"description": "Embedding inversion risk on the vector store is not explicitly tested.", "addresses_dsgai": ["DSGAI18", "DSGAI13"], "suggested_remediation": "Run an annual Vec2Text-style inversion test on a representative sample; rotate embedding model if reconstruction exceeds threshold.", "urgency": "Strategic"},
+    {"description": "Adversarial-input red-team exercise not yet a release gate.", "addresses_dsgai": ["DSGAI21", "DSGAI06"], "suggested_remediation": "Add a published red-team corpus to the release gate; track refusal stability across versions.", "urgency": "Near-term"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-01", "control_name": "Data-at-rest is protected", "alignment_status": "satisfied", "notes": "KMS-managed encryption across KB, vector store, logs."},
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-01", "control_name": "Identities and credentials are managed", "alignment_status": "satisfied", "notes": "Short-lived IDP tokens; no static service credentials."},
+    {"framework": "NIST CSF 2.0", "control_id": "DE.CM-01", "control_name": "The network is monitored", "alignment_status": "partial", "notes": "Prompt/response monitoring exists; injection-rate anomaly detection not yet."},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.7", "control_name": "AI system security is evaluated and documented", "alignment_status": "partial", "notes": "Red-team exercises run; not yet a release gate."},
+    {"framework": "NIST AI RMF 1.0", "control_id": "GOVERN 5.1", "control_name": "Policies and procedures are in place for AI risk management", "alignment_status": "satisfied", "notes": "DPIA + AI risk policy maintained by the bank's model risk function."},
+    {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied", "notes": "DPIA + DSGAI-aligned assessment cycle annual."},
+    {"framework": "ISO/IEC 42001", "control_id": "A.8.2", "control_name": "Data resources for AI systems", "alignment_status": "satisfied", "notes": "KB and embedding store have classification labels and provenance."},
+    {"framework": "ISO/IEC 27001", "control_id": "A.5.34", "control_name": "Privacy and protection of PII", "alignment_status": "satisfied", "notes": "DSAR pipeline; field-level redaction."},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM01:2025", "control_name": "Prompt Injection", "alignment_status": "partial", "notes": "Detection in place; adversarial release-gate testing planned."},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied", "notes": "PII regex on input and output; logs redacted."},
+    {"framework": "GDPR", "control_id": "Art. 35", "control_name": "Data protection impact assessment", "alignment_status": "satisfied", "notes": "DPIA on file with the bank's DPO."},
+    {"framework": "EU AI Act", "control_id": "Art. 26", "control_name": "Obligations of deployers of high-risk AI systems", "alignment_status": "partial", "notes": "Classification pending; documentation in progress."},
+    {"framework": "SOC 2", "control_id": "CC6.1", "control_name": "Logical and physical access controls", "alignment_status": "satisfied", "notes": "Inherited from underlying SOC 2 Type II program."}
+  ],
+  "compliance_obligations": ["GDPR", "CCPA", "SOC 2", "ISO 27001 certification", "EU AI Act", "DORA"],
+  "maturity_overall": "Managed",
+  "date_added": "2026-05-18",
+  "tags": ["rag", "customer-facing", "financial-services", "tool-use", "regulated"],
+  "notes": "This entry is the canonical example for the dataset. It assumes a relatively mature financial-services deployment; less mature organizations should expect more 'partial' or 'missing' framework alignments and more 'Immediate'-urgency gaps. The archetype deliberately omits trading-floor and credit-decisioning use cases, which carry different risk profiles."
+}

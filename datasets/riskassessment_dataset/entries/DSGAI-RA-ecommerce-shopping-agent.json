@@ -1,0 +1,59 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-ecommerce-shopping-agent",
+  "scenario_name": "E-commerce shopping agent with payment-tool surface",
+  "entry_type": "synthetic_template",
+  "industry_sector": "retail_ecommerce",
+  "deployment_pattern": "multi_agent_workflow",
+  "description": "A direct-to-consumer e-commerce platform deploys an AI shopping agent that browses the catalog, recommends products, manages a cart, and (with explicit confirmation) initiates a checkout flow. The agent has a product-search tool, a cart-state tool, and a checkout-initiation tool; actual payment-card collection happens in the platform's PCI-DSS-scoped payment UI, not the agent. The agent is also exposed to indirect prompt injection from product reviews, third-party merchant descriptions, and search-result snippets.",
+  "assumptions": [
+    "Card data is never read by the agent; payment UI is separately PCI-scoped.",
+    "Checkout-initiation tool only places an order pending the user's PSP confirmation step.",
+    "Third-party merchant product descriptions are an untrusted content surface."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "Hosted third-party LLM, enterprise tier.", "sensitivity_tier": "high"},
+    {"role": "agent_framework", "description": "Shopping-agent orchestrator with product, cart, and checkout tools.", "sensitivity_tier": "critical"},
+    {"role": "tool_or_plugin", "description": "Product-catalog search tool.", "sensitivity_tier": "medium"},
+    {"role": "tool_or_plugin", "description": "Cart-state read/write tool, per-session token.", "sensitivity_tier": "high"},
+    {"role": "tool_or_plugin", "description": "Checkout-initiation tool; requires user UI confirmation.", "sensitivity_tier": "critical"},
+    {"role": "data_source", "description": "Product catalog with third-party merchant descriptions and customer reviews.", "sensitivity_tier": "high"},
+    {"role": "guardrail_or_filter", "description": "Injection-detection on merchant descriptions and reviews; output PII redaction.", "sensitivity_tier": "high"},
+    {"role": "identity_provider", "description": "Customer IDP for authenticated sessions.", "sensitivity_tier": "high"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI01", "inherent_rating": "Medium", "rationale": "Cart state and order history contain PII; LLM-output PII leakage possible.", "residual_rating": "Low", "residual_rationale": "PII redaction at output; cart tool returns only the active customer's state."},
+    {"dsgai_id": "DSGAI06", "inherent_rating": "High", "rationale": "Indirect prompt injection via product reviews or merchant descriptions could coerce the agent to misuse the checkout tool.", "residual_rating": "Medium", "residual_rationale": "Injection-classifier on merchant content; user UI confirmation before any order placement."},
+    {"dsgai_id": "DSGAI08", "inherent_rating": "High", "rationale": "PCI-DSS, GDPR (cart abandonment / behavioral profiling), CCPA, EU Consumer Rights Directive.", "residual_rating": "Medium", "residual_rationale": "PCI scope segregated from agent; consent capture for behavioral context."},
+    {"dsgai_id": "DSGAI12", "inherent_rating": "Medium", "rationale": "Catalog-search tool is an LLM-driven query path; misshapen queries could expose unintended catalog facets.", "residual_rating": "Low", "residual_rationale": "Catalog tool accepts only typed, schema-validated query fields."},
+    {"dsgai_id": "DSGAI11", "inherent_rating": "Medium", "rationale": "Shared agent surface for many concurrent customers; cross-customer cart leak if isolation breaks.", "residual_rating": "Low", "residual_rationale": "Per-session scope; cart-state never crosses sessions."},
+    {"dsgai_id": "DSGAI17", "inherent_rating": "High", "rationale": "Revenue-critical customer-facing channel; agent outage propagates to direct revenue loss.", "residual_rating": "Medium", "residual_rationale": "Static-recommendations fallback; full-site shopping remains available without the agent."},
+    {"dsgai_id": "DSGAI21", "inherent_rating": "Medium", "rationale": "Adversarial merchants or review-spam campaigns inject content designed to bias rankings or recommend competitor products.", "residual_rating": "Medium", "residual_rationale": "Recommendation ranking includes business rules; pure-LLM ranking limited."}
+  ],
+  "existing_controls": [
+    {"description": "Checkout-initiation tool requires user UI confirmation before any order placement.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI06", "DSGAI08"]},
+    {"description": "PCI-scoped payment UI is separate from agent surface; agent has no card-data path.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI08", "DSGAI02"]},
+    {"description": "Injection-classifier on third-party merchant descriptions and reviews.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI06", "DSGAI21"]},
+    {"description": "Catalog-search tool accepts only schema-validated query fields.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI12"]},
+    {"description": "Per-session scope on cart and order tools.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI11"]},
+    {"description": "Static recommendations + full-site fallback when the agent is degraded.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI17"]}
+  ],
+  "control_gaps": [
+    {"description": "No semantic taint-tracking across merchant content and downstream agent decisions.", "addresses_dsgai": ["DSGAI06", "DSGAI21"], "suggested_remediation": "Tag merchant content provenance; require step-up confirmation for tool calls following ingestion of untrusted merchant content.", "urgency": "Near-term"},
+    {"description": "Recommendation ranking auditability for fairness/competition reasons is incomplete.", "addresses_dsgai": ["DSGAI21", "DSGAI08"], "suggested_remediation": "Add ranking-feature audit trail per recommendation; expose to consumer-protection inquiries.", "urgency": "Strategic"},
+    {"description": "No cost-harvesting protection on agent-tool chains.", "addresses_dsgai": ["DSGAI17"], "suggested_remediation": "Per-session tool-call budget caps; alert on cost-harvesting patterns.", "urgency": "Near-term"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-01", "control_name": "Identities and credentials are managed", "alignment_status": "satisfied"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.6", "control_name": "AI system security is assessed", "alignment_status": "partial"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.7.3", "control_name": "AI system design and development", "alignment_status": "satisfied"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM05:2025", "control_name": "Improper Output Handling", "alignment_status": "satisfied"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM06:2025", "control_name": "Excessive Agency", "alignment_status": "partial"},
+    {"framework": "PCI DSS 4.0", "control_id": "Req. 6.4.3", "control_name": "Payment page scripts integrity", "alignment_status": "satisfied"},
+    {"framework": "GDPR", "control_id": "Art. 6", "control_name": "Lawfulness of processing", "alignment_status": "satisfied"}
+  ],
+  "compliance_obligations": ["GDPR", "CCPA", "PCI DSS", "SOC 2"],
+  "maturity_overall": "Developing",
+  "date_added": "2026-05-18",
+  "tags": ["ecommerce", "agent", "checkout", "merchant-content", "pci"]
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-hr-employee-chatbot",
+  "scenario_name": "Internal HR employee-questions chatbot with policy retrieval and limited HRIS lookups",
+  "entry_type": "synthetic_template",
+  "industry_sector": "hr_staffing",
+  "deployment_pattern": "internal_knowledge_assistant",
+  "description": "An enterprise deploys an internal HR chatbot that answers benefits, leave, payroll, and policy questions for employees. The chatbot retrieves over the HR policy corpus and (for authenticated sessions) can lookup limited HRIS facts: PTO balance, benefits enrollment status, paystub locator. Sensitive workflows (grievance filing, performance management) are explicitly out of scope. Risks center on PII exposure, cross-employee bleed, and indirect injection via shared HR documents.",
+  "assumptions": [
+    "HRIS lookup tool is read-only and scoped to the employee's own record.",
+    "Sensitive workflows are kept out of scope and routed to human HR.",
+    "Hosted LLM under enterprise data-isolation contract."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "Hosted third-party LLM, enterprise tier.", "sensitivity_tier": "high"},
+    {"role": "rag_pipeline", "description": "HR policy and benefits-document corpus retrieval.", "sensitivity_tier": "medium"},
+    {"role": "tool_or_plugin", "description": "HRIS lookup tool: PTO balance, benefits enrollment, paystub locator.", "sensitivity_tier": "critical"},
+    {"role": "identity_provider", "description": "Corporate IDP issuing employee-scoped tokens.", "sensitivity_tier": "critical"},
+    {"role": "guardrail_or_filter", "description": "PII redaction; escalation classifier for out-of-scope sensitive topics.", "sensitivity_tier": "high"},
+    {"role": "observability_stack", "description": "Audit log of HRIS-tool calls with employee identity; redacted retention.", "sensitivity_tier": "high"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI01", "inherent_rating": "High", "rationale": "HRIS data is PII-heavy; benefits enrollment can reveal health status (HIPAA-adjacent).", "residual_rating": "Medium", "residual_rationale": "Per-employee scope; output PII redaction."},
+    {"dsgai_id": "DSGAI02", "inherent_rating": "Medium", "rationale": "HRIS tool token compromise enables read across the employee's own record.", "residual_rating": "Low", "residual_rationale": "Short-lived per-session token; no static service credentials."},
+    {"dsgai_id": "DSGAI08", "inherent_rating": "High", "rationale": "GDPR, CCPA, sectoral employment-data rules; HIPAA implications via benefits.", "residual_rating": "Medium", "residual_rationale": "DPIA on file; HRIS data minimization in scope."},
+    {"dsgai_id": "DSGAI11", "inherent_rating": "High", "rationale": "Cross-employee context bleed would be a privacy incident with internal consequences.", "residual_rating": "Low", "residual_rationale": "Per-employee retrieval and tool scope; no cross-employee memory."},
+    {"dsgai_id": "DSGAI21", "inherent_rating": "Medium", "rationale": "HR document corpus is internally authored; risk is from intra-company injection (a poisoned policy doc).", "residual_rating": "Low", "residual_rationale": "Editorial gate on HR-policy ingestion; injection classifier on retrieved chunks."},
+    {"dsgai_id": "DSGAI14", "inherent_rating": "Medium", "rationale": "Audit logs hold employee-identified HRIS access; subject to DSAR.", "residual_rating": "Low", "residual_rationale": "Field redaction; access role-gated; retention aligned to records policy."}
+  ],
+  "existing_controls": [
+    {"description": "Per-employee scope on retrieval and HRIS tool.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI11", "DSGAI01"]},
+    {"description": "Short-lived per-session tokens; no static service creds.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI02"]},
+    {"description": "Escalation classifier routes sensitive topics (grievance, performance) to human HR.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI08", "DSGAI21"]},
+    {"description": "Editorial gate on HR-policy ingestion; injection classifier on retrieved chunks.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI06", "DSGAI21"]},
+    {"description": "Field-level redaction at audit log emission.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI14"]}
+  ],
+  "control_gaps": [
+    {"description": "Benefits-enrollment data reveals health status; not classified as HIPAA-equivalent everywhere it travels in the org.", "addresses_dsgai": ["DSGAI01", "DSGAI08"], "suggested_remediation": "Tag benefits content with elevated classification; apply HIPAA-style controls downstream.", "urgency": "Near-term"},
+    {"description": "Escalation classifier may misroute sensitive topics into the general chatbot path.", "addresses_dsgai": ["DSGAI08", "DSGAI21"], "suggested_remediation": "Add a periodic sample review of refused vs answered turns; tune the classifier.", "urgency": "Near-term"},
+    {"description": "No automated detection of HR-policy doc tampering.", "addresses_dsgai": ["DSGAI04", "DSGAI21"], "suggested_remediation": "Add integrity hashing on policy docs; alert on changes outside the editorial workflow.", "urgency": "Strategic"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions with least privilege", "alignment_status": "satisfied"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MAP 4.1", "control_name": "Approaches for mapping legal and AI risks", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.8.2", "control_name": "Data resources for AI systems", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 27001", "control_id": "A.5.34", "control_name": "Privacy and protection of PII", "alignment_status": "satisfied"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"},
+    {"framework": "GDPR", "control_id": "Art. 5(1)(c)", "control_name": "Data minimisation", "alignment_status": "satisfied"}
+  ],
+  "compliance_obligations": ["GDPR", "CCPA", "SOC 2"],
+  "maturity_overall": "Managed",
+  "date_added": "2026-05-18",
+  "tags": ["hr", "internal-tool", "hris", "policy-retrieval", "regulated-data"]
+}

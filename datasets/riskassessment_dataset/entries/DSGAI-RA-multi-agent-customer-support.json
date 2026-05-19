@@ -1,0 +1,63 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-multi-agent-customer-support",
+  "scenario_name": "Multi-agent customer-support workflow with KB, CRM, and ticketing tools",
+  "entry_type": "synthetic_template",
+  "industry_sector": "telecom",
+  "deployment_pattern": "multi_agent_workflow",
+  "description": "A telecom operator deploys a multi-agent customer-support workflow. A planner agent decomposes the customer's request and delegates to a KB-retrieval agent, a CRM-lookup agent, and (with explicit approval) a ticketing-write agent. The deployment supports both an authenticated customer-facing chat surface and a CSR-facing copilot that handles the same agents with elevated tool privileges. Agents communicate through a structured message bus; each agent has its own tool scope.",
+  "assumptions": [
+    "Customer-facing surface and CSR surface share infrastructure but not tool privileges.",
+    "Ticketing write requires CSR identity; no autonomous customer-side ticket creation.",
+    "Each agent has separately-scoped credentials."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "Hosted third-party LLM, enterprise tier.", "sensitivity_tier": "high"},
+    {"role": "agent_framework", "description": "Multi-agent orchestrator with structured inter-agent messages.", "sensitivity_tier": "critical"},
+    {"role": "rag_pipeline", "description": "KB retrieval agent over support articles.", "sensitivity_tier": "high"},
+    {"role": "tool_or_plugin", "description": "CRM-lookup agent (read) with per-session token.", "sensitivity_tier": "critical"},
+    {"role": "tool_or_plugin", "description": "Ticketing-write agent (CSR-only); requires explicit confirmation step.", "sensitivity_tier": "critical"},
+    {"role": "identity_provider", "description": "Customer IDP + CSR IDP; both issue short-lived tokens.", "sensitivity_tier": "critical"},
+    {"role": "guardrail_or_filter", "description": "PII redaction + injection-detection at agent boundaries.", "sensitivity_tier": "high"},
+    {"role": "observability_stack", "description": "Per-agent and per-tool-call audit log; structured for SIEM ingestion.", "sensitivity_tier": "high"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI01", "inherent_rating": "High", "rationale": "CRM lookup returns customer PII into the planner's context window.", "residual_rating": "Medium", "residual_rationale": "Per-session scope; output PII redaction; CSR-only escalation."},
+    {"dsgai_id": "DSGAI02", "inherent_rating": "High", "rationale": "Multiple tool agents with separately-scoped credentials; misconfiguration creates privilege confusion.", "residual_rating": "Medium", "residual_rationale": "Each agent uses short-lived IDP tokens with the calling user's identity."},
+    {"dsgai_id": "DSGAI06", "inherent_rating": "High", "rationale": "Inter-agent messages can carry context-poisoning payloads that propagate without re-validation.", "residual_rating": "Medium", "residual_rationale": "Agent-boundary injection-detection enabled; no untrusted-content re-injection without taint flag."},
+    {"dsgai_id": "DSGAI11", "inherent_rating": "High", "rationale": "Shared planner across many concurrent customers risks cross-customer context bleed.", "residual_rating": "Low", "residual_rationale": "Per-conversation isolation; planner state ephemeral per turn."},
+    {"dsgai_id": "DSGAI12", "inherent_rating": "Medium", "rationale": "Ticketing-write tool is a write surface; LLM-generated payloads need strict schema enforcement.", "residual_rating": "Low", "residual_rationale": "Write tool validates against ticket schema; rejects free-form fields."},
+    {"dsgai_id": "DSGAI15", "inherent_rating": "Medium", "rationale": "Multi-agent context accumulation grows the prompt across turns.", "residual_rating": "Medium", "residual_rationale": "Per-turn context budget enforced; older inter-agent messages compacted."},
+    {"dsgai_id": "DSGAI06", "inherent_rating": "High", "rationale": "Tool-poisoning (KB or CRM result) can steer the planner toward an unauthorized ticketing-write.", "residual_rating": "Medium", "residual_rationale": "CSR confirmation required before any ticketing-write; injection-classifier on tool results."},
+    {"dsgai_id": "DSGAI14", "inherent_rating": "Medium", "rationale": "Per-tool-call audit logs capture PII; SIEM ingestion broadens read surface.", "residual_rating": "Low", "residual_rationale": "Field redaction at log emission; SIEM access role-gated."},
+    {"dsgai_id": "DSGAI17", "inherent_rating": "Medium", "rationale": "Customer-channel availability obligations; multi-agent chain has more single-points-of-failure.", "residual_rating": "Medium", "residual_rationale": "Graceful single-agent degradation falls back to KB-only mode."}
+  ],
+  "existing_controls": [
+    {"description": "Per-agent scoped tokens via IDP; no shared service credentials.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI02", "DSGAI06"]},
+    {"description": "Agent-boundary injection-detection on inter-agent messages.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI06"]},
+    {"description": "Ticketing-write requires CSR identity AND explicit confirmation step.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI06", "DSGAI12"]},
+    {"description": "Write-tool schema validation rejects free-form fields and large blobs.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI12"]},
+    {"description": "Per-turn context budget + older inter-agent message compaction.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI15"]},
+    {"description": "Per-tool-call audit logs with field-level redaction.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI14"]},
+    {"description": "Graceful single-agent degradation for availability.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI17"]}
+  ],
+  "control_gaps": [
+    {"description": "No persistent multi-agent taint-tracking across conversation turns.", "addresses_dsgai": ["DSGAI06", "DSGAI15"], "suggested_remediation": "Adopt session-level taint that persists once any agent has ingested untrusted content; require step-up confirmation for sensitive tools thereafter.", "urgency": "Near-term"},
+    {"description": "CSR copilot privileges are not differentially audited from customer-facing path.", "addresses_dsgai": ["DSGAI02", "DSGAI19"], "suggested_remediation": "Tag CSR-elevated tool calls with the CSR's identity in audit logs and run anomaly detection on CSR-elevated patterns.", "urgency": "Immediate"},
+    {"description": "Inter-agent message volume / cost not capped per customer.", "addresses_dsgai": ["DSGAI17"], "suggested_remediation": "Per-customer agent-chain budget caps; alert on cost-harvesting patterns.", "urgency": "Near-term"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions with least privilege", "alignment_status": "satisfied"},
+    {"framework": "NIST CSF 2.0", "control_id": "DE.AE-02", "control_name": "Detected events analyzed", "alignment_status": "partial"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MANAGE 3.2", "control_name": "AI risks are responded to", "alignment_status": "partial"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.7.3", "control_name": "AI system design and development", "alignment_status": "satisfied"},
+    {"framework": "OWASP Agentic Top 10 2026", "control_id": "AGT-01", "control_name": "Tool privilege management", "alignment_status": "partial", "notes": "Per-agent scoping in place; cross-agent privilege escalation paths not fully audited."},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM05:2025", "control_name": "Improper Output Handling", "alignment_status": "satisfied"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM07:2025", "control_name": "System Prompt Leakage", "alignment_status": "partial"},
+    {"framework": "SOC 2", "control_id": "CC7.2", "control_name": "Monitoring activities", "alignment_status": "satisfied"}
+  ],
+  "compliance_obligations": ["GDPR", "SOC 2"],
+  "maturity_overall": "Developing",
+  "date_added": "2026-05-18",
+  "tags": ["multi-agent", "customer-support", "tool-use", "csr-copilot", "telecom"]
+}

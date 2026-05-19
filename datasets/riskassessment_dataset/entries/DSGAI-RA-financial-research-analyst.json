@@ -1,0 +1,55 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-financial-research-analyst",
+  "scenario_name": "Financial research analyst assistant fine-tuned on internal research notes",
+  "entry_type": "synthetic_template",
+  "industry_sector": "financial_services",
+  "deployment_pattern": "internal_knowledge_assistant",
+  "description": "An asset-management firm deploys an analyst assistant fine-tuned on the firm's internal research notes, model portfolios, and historical analyst commentary. The assistant retrieves over current research plus public market data, summarizes positions, and drafts client-facing memos pending analyst review. Fine-tuning increases memorization risk and creates a competitive-IP exposure surface; market-data sensitivity and MNPI obligations apply.",
+  "assumptions": [
+    "Fine-tuning corpus is firm-owned research; no client data in the corpus.",
+    "Material non-public information (MNPI) handling is segregated; assistant has no MNPI ingestion path.",
+    "Client-facing outputs require analyst review and compliance approval."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "Hosted third-party LLM, enterprise tier.", "sensitivity_tier": "high"},
+    {"role": "fine_tuned_adapter", "description": "Firm-tuned adapter for research-summary style.", "sensitivity_tier": "critical"},
+    {"role": "rag_pipeline", "description": "Indexer over research notes and current portfolio holdings.", "sensitivity_tier": "critical"},
+    {"role": "vector_store", "description": "Single-tenant vector store inside firm VPC.", "sensitivity_tier": "critical"},
+    {"role": "guardrail_or_filter", "description": "MNPI classifier; compliance-review gate on client-facing outputs.", "sensitivity_tier": "critical"},
+    {"role": "identity_provider", "description": "Firm IDP with analyst-role tokens.", "sensitivity_tier": "high"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI01", "inherent_rating": "High", "rationale": "Fine-tuned adapter memorizes rare phrases from research notes; extraction is more feasible than against the base model.", "residual_rating": "Medium", "residual_rationale": "Differential-privacy fine-tuning not yet; output style classifier limits verbatim regurgitation."},
+    {"dsgai_id": "DSGAI08", "inherent_rating": "Critical", "rationale": "SEC Reg FD, MNPI handling, GDPR/CCPA for client-facing material; MAR for EU footprint.", "residual_rating": "High", "residual_rationale": "MNPI segregation; compliance-review gate; conformity assessment pending."},
+    {"dsgai_id": "DSGAI20", "inherent_rating": "High", "rationale": "Fine-tuned adapter weights are competitive IP; extraction via API queries is a research-published risk.", "residual_rating": "Medium", "residual_rationale": "Per-analyst rate caps; query-pattern anomaly detection partial."},
+    {"dsgai_id": "DSGAI18", "inherent_rating": "Medium", "rationale": "Membership inference on fine-tuned adapter can reveal whether specific research notes were used.", "residual_rating": "Medium", "residual_rationale": "Audit pending; DP-fine-tune planned."},
+    {"dsgai_id": "DSGAI21", "inherent_rating": "Medium", "rationale": "Adversarial public market-data content could be retrieved and influence drafted recommendations.", "residual_rating": "Low", "residual_rationale": "Public-data ingestion restricted to vetted feeds; injection-classifier on retrieved chunks."},
+    {"dsgai_id": "DSGAI11", "inherent_rating": "Medium", "rationale": "Shared retrieval surface across analysts could leak unrelated research if scoping breaks.", "residual_rating": "Low", "residual_rationale": "Per-team scope; cross-team retrieval requires explicit re-scoping."}
+  ],
+  "existing_controls": [
+    {"description": "MNPI classifier on retrieved content and outputs.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI08", "DSGAI21"]},
+    {"description": "Compliance-review gate on every client-facing output before distribution.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI08", "DSGAI21"]},
+    {"description": "Public-data ingestion restricted to vetted feeds; injection-classifier on retrieved chunks.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI21", "DSGAI06"]},
+    {"description": "Per-team retrieval scope; cross-team retrieval requires explicit re-scoping.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI11"]},
+    {"description": "Per-analyst rate caps; query-pattern anomaly detection on adapter queries.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI20"]}
+  ],
+  "control_gaps": [
+    {"description": "Differential-privacy fine-tuning not implemented; memorization risk on the adapter is not bounded.", "addresses_dsgai": ["DSGAI01", "DSGAI18"], "suggested_remediation": "Adopt DP-SGD on adapter training; track epsilon per fine-tune.", "urgency": "Near-term"},
+    {"description": "Adapter exfiltration risk via query patterns not fully audited.", "addresses_dsgai": ["DSGAI20"], "suggested_remediation": "Add anomaly detection on diverse-query patterns suggesting distillation; rate-limit adaptive responses to high-volume keys.", "urgency": "Near-term"},
+    {"description": "MAR (EU Market Abuse Regulation) conformity assessment pending.", "addresses_dsgai": ["DSGAI08"], "suggested_remediation": "Complete MAR-applicability analysis; document residual-risk acceptance.", "urgency": "Immediate"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions with least privilege", "alignment_status": "satisfied"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.10", "control_name": "Privacy risk is evaluated", "alignment_status": "partial"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 27001", "control_id": "A.5.34", "control_name": "Privacy and protection of PII", "alignment_status": "satisfied"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "partial"},
+    {"framework": "EU AI Act", "control_id": "Art. 26", "control_name": "Obligations of deployers of high-risk AI systems", "alignment_status": "partial"},
+    {"framework": "SOC 2", "control_id": "CC6.1", "control_name": "Logical and physical access controls", "alignment_status": "satisfied"}
+  ],
+  "compliance_obligations": ["GDPR", "EU AI Act", "SOC 2"],
+  "maturity_overall": "Managed",
+  "date_added": "2026-05-18",
+  "tags": ["financial", "asset-management", "research", "fine-tuned", "mnpi", "ip-protection"]
+}

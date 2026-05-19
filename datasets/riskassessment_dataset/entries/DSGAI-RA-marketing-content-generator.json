@@ -1,0 +1,54 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-marketing-content-generator",
+  "scenario_name": "Marketing content generator with brand-voice tuning and web-fetch tool",
+  "entry_type": "synthetic_template",
+  "industry_sector": "media_marketing",
+  "deployment_pattern": "content_generation",
+  "description": "A marketing team deploys a content-generation assistant that drafts blog posts, ad copy, and social posts in the brand's tuned voice. The assistant has a web-fetch tool to gather contemporary references (competitor pages, trend articles, news). Generated content is reviewed by a marketing editor before publication. Risks span IP/copyright, brand reputation, hallucinated factual claims, and indirect prompt injection via fetched web content.",
+  "assumptions": [
+    "Hosted LLM under enterprise data-isolation contract.",
+    "Generated content reviewed by a marketing editor before publication.",
+    "Brand-voice adapter is firm-owned and considered competitive IP."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "Hosted third-party LLM, enterprise tier.", "sensitivity_tier": "medium"},
+    {"role": "fine_tuned_adapter", "description": "Brand-voice adapter trained on the firm's prior approved content.", "sensitivity_tier": "high"},
+    {"role": "tool_or_plugin", "description": "Web-fetch tool reading public competitor and news pages.", "sensitivity_tier": "high"},
+    {"role": "guardrail_or_filter", "description": "Brand-safety classifier (off-brand language); fact-claim detector; injection-classifier on fetched content.", "sensitivity_tier": "high"},
+    {"role": "observability_stack", "description": "Per-draft audit log capturing prompts, fetched sources, and final reviewer outcome.", "sensitivity_tier": "medium"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI04", "inherent_rating": "Medium", "rationale": "Brand-voice adapter trained on copyrighted firm content; risk of memorizing competitor content scraped during research.", "residual_rating": "Medium", "residual_rationale": "Training corpus restricted to firm-owned content; web-fetch limited to in-session use, not training."},
+    {"dsgai_id": "DSGAI06", "inherent_rating": "High", "rationale": "Web-fetch tool brings adversary-controlled content into model context; indirect injection straight into draft outputs.", "residual_rating": "Medium", "residual_rationale": "Injection-classifier on fetched content; reviewer gate before publication."},
+    {"dsgai_id": "DSGAI21", "inherent_rating": "High", "rationale": "Hallucinated factual claims published as authoritative; reputational and regulatory risk.", "residual_rating": "Medium", "residual_rationale": "Fact-claim detector flags unverifiable claims; reviewer must cite sources."},
+    {"dsgai_id": "DSGAI20", "inherent_rating": "Medium", "rationale": "Brand-voice adapter is competitive IP; extraction via query patterns possible.", "residual_rating": "Medium", "residual_rationale": "Per-team rate caps; anomaly detection partial."},
+    {"dsgai_id": "DSGAI17", "inherent_rating": "Low", "rationale": "Marketing throughput depends on assistant; not a critical-availability service.", "residual_rating": "Low", "residual_rationale": "Manual drafting fallback always available."},
+    {"dsgai_id": "DSGAI08", "inherent_rating": "Medium", "rationale": "Copyright exposure from web-fetch; advertising-disclosure regulations on AI-generated content (FTC, Italy's AI labeling, EU AI Act transparency)."},
+    {"dsgai_id": "DSGAI14", "inherent_rating": "Low", "rationale": "Audit logs not particularly sensitive but contain brand-strategy hints.", "residual_rating": "Low", "residual_rationale": "Standard access controls; team-scoped retention."}
+  ],
+  "existing_controls": [
+    {"description": "Brand-voice adapter trained only on firm-owned content.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI04", "DSGAI08"]},
+    {"description": "Injection-classifier on fetched web content; flagged fetches held for human review.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI06", "DSGAI21"]},
+    {"description": "Reviewer gate before publication; reviewer must cite sources for factual claims.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI21", "DSGAI08"]},
+    {"description": "Per-team rate caps on adapter queries.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI20"]},
+    {"description": "AI-generated content labeled per FTC and EU AI Act transparency requirements.", "tier": "Tier 3", "addresses_dsgai": ["DSGAI08"]}
+  ],
+  "control_gaps": [
+    {"description": "Web-fetch tool's allowed-domain list is permissive (general news allowed).", "addresses_dsgai": ["DSGAI06", "DSGAI21"], "suggested_remediation": "Tighten the domain allowlist to a curated set of verified news and competitive-intel sources.", "urgency": "Near-term"},
+    {"description": "Adapter memorization not audited.", "addresses_dsgai": ["DSGAI01", "DSGAI18"], "suggested_remediation": "Run extractable-data audit on the adapter against the training corpus.", "urgency": "Strategic"},
+    {"description": "AI-disclosure labeling is end-of-process; in-draft signaling absent for reviewers.", "addresses_dsgai": ["DSGAI08"], "suggested_remediation": "Mark AI-generated sections inside the editorial UI so reviewers can apply heightened scrutiny.", "urgency": "Near-term"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.IP-12", "control_name": "Vulnerability management plan", "alignment_status": "partial"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.11", "control_name": "Fairness and bias evaluated", "alignment_status": "partial"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.7.3", "control_name": "AI system design and development", "alignment_status": "satisfied"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM01:2025", "control_name": "Prompt Injection", "alignment_status": "partial"},
+    {"framework": "EU AI Act", "control_id": "Art. 50", "control_name": "Transparency for content-generation systems", "alignment_status": "satisfied"},
+    {"framework": "GDPR", "control_id": "Art. 5(1)(d)", "control_name": "Accuracy", "alignment_status": "partial"}
+  ],
+  "compliance_obligations": ["GDPR", "EU AI Act"],
+  "maturity_overall": "Developing",
+  "date_added": "2026-05-18",
+  "tags": ["marketing", "content-generation", "brand-voice", "web-fetch", "copyright"]
+}

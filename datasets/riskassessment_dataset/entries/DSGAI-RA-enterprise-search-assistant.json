@@ -1,0 +1,58 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-enterprise-search-assistant",
+  "scenario_name": "Enterprise search assistant across SharePoint, Drive, Slack, and Confluence",
+  "entry_type": "synthetic_template",
+  "industry_sector": "cross_sector",
+  "deployment_pattern": "search_aggregator",
+  "description": "An enterprise deploys an AI-powered search assistant that aggregates content across SharePoint, Google Drive, Slack, Confluence, and an internal wiki. The assistant honors source-system ACLs at retrieval time, presents results with citations, and supports follow-up questions. A common failure mode in this archetype is upstream ACL drift: shared drives, channel histories, and wiki pages that accumulated over-broad permissions long before the assistant existed become trivially queryable.",
+  "assumptions": [
+    "Each source system enforces its own ACLs at retrieval time.",
+    "Users hold a single corporate identity across all source systems.",
+    "Hosted LLM under enterprise data-isolation contract."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "Hosted third-party LLM, enterprise tier.", "sensitivity_tier": "high"},
+    {"role": "embedding_model", "description": "Provider-hosted embedding model.", "sensitivity_tier": "high"},
+    {"role": "vector_store", "description": "Managed vector store; indexed content keyed by source-system document ID.", "sensitivity_tier": "high"},
+    {"role": "rag_pipeline", "description": "Connector-based ingestion for each source system; ACL metadata captured per chunk.", "sensitivity_tier": "critical"},
+    {"role": "identity_provider", "description": "Corporate IDP with role attributes used to enforce ACLs at retrieval time.", "sensitivity_tier": "critical"},
+    {"role": "data_source", "description": "SharePoint, Google Drive, Slack, Confluence, internal wiki.", "sensitivity_tier": "high"},
+    {"role": "guardrail_or_filter", "description": "Citation-link verification; PII output redaction.", "sensitivity_tier": "medium"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI01", "inherent_rating": "Critical", "rationale": "Over-permissive ACLs on source systems make sensitive content trivially queryable through the assistant.", "residual_rating": "High", "residual_rationale": "Retrieval-time ACL enforcement; no fix for upstream ACL drift."},
+    {"dsgai_id": "DSGAI03", "inherent_rating": "High", "rationale": "Shadow-data flows: shared drives with external link sharing become reachable.", "residual_rating": "High", "residual_rationale": "Connector configuration excludes link-shared content where flagged; not all sources flag consistently."},
+    {"dsgai_id": "DSGAI07", "inherent_rating": "High", "rationale": "No unified classification across source systems; the assistant has no signal to refuse a sensitive document beyond ACLs.", "residual_rating": "Medium", "residual_rationale": "Sensitivity-label connector for SharePoint partial; other sources lack labels."},
+    {"dsgai_id": "DSGAI11", "inherent_rating": "Medium", "rationale": "Shared embeddings across users could leak content via vector-store side channels if isolation breaks.", "residual_rating": "Low", "residual_rationale": "Per-user ACL filter at retrieval; no cross-user memory."},
+    {"dsgai_id": "DSGAI13", "inherent_rating": "Medium", "rationale": "Vector store holds embeddings of sensitive content from every connected source.", "residual_rating": "Medium", "residual_rationale": "Same KMS as primary source-system encryption; inversion testing pending."},
+    {"dsgai_id": "DSGAI15", "inherent_rating": "Medium", "rationale": "Cross-source context windows can pull unrelated sensitive content into a single answer.", "residual_rating": "Medium", "residual_rationale": "Per-turn context cap; not adaptive to task class."},
+    {"dsgai_id": "DSGAI21", "inherent_rating": "Medium", "rationale": "Indirect injection via Confluence pages or Slack messages from any employee could steer search responses.", "residual_rating": "Medium", "residual_rationale": "Injection-classifier on retrieved chunks; no taint-tracking yet."}
+  ],
+  "existing_controls": [
+    {"description": "Retrieval-time ACL enforcement against the source-system identity model.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI01", "DSGAI11"]},
+    {"description": "Citation-link verification; the assistant cites a real, retrieved document for each claim.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI21"]},
+    {"description": "SharePoint sensitivity-label connector applied at retrieval time.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI07"]},
+    {"description": "Output PII redaction.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI01"]},
+    {"description": "Per-user retrieval scope; no shared user-pool retrieval cache.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI11"]}
+  ],
+  "control_gaps": [
+    {"description": "No proactive scan or remediation of upstream over-permissive ACLs.", "addresses_dsgai": ["DSGAI01", "DSGAI03"], "suggested_remediation": "Run a one-time access-audit across connectors and remediate over-broad sharing; institute ongoing drift monitoring.", "urgency": "Immediate"},
+    {"description": "Sensitivity labels not consistent across non-SharePoint sources.", "addresses_dsgai": ["DSGAI07"], "suggested_remediation": "Extend the classification scheme to Drive/Slack/Confluence via classifier-assisted labeling.", "urgency": "Near-term"},
+    {"description": "No injection-detection taint tracking across multi-source retrieval.", "addresses_dsgai": ["DSGAI21", "DSGAI06"], "suggested_remediation": "Tag chunks with provenance; treat low-trust sources (open Slack channels, external link-shared docs) as injection-risk.", "urgency": "Near-term"},
+    {"description": "Embedding inversion testing on the vector store has not been performed.", "addresses_dsgai": ["DSGAI13", "DSGAI18"], "suggested_remediation": "Run an inversion test on a representative sample of indexed sensitive content.", "urgency": "Strategic"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions with least privilege", "alignment_status": "partial"},
+    {"framework": "NIST CSF 2.0", "control_id": "ID.AM-05", "control_name": "Resources prioritized by classification", "alignment_status": "partial"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MAP 2.3", "control_name": "Data sources documented", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.8.2", "control_name": "Data resources for AI systems", "alignment_status": "partial"},
+    {"framework": "ISO/IEC 27001", "control_id": "A.5.12", "control_name": "Classification of information", "alignment_status": "partial"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "partial"},
+    {"framework": "SOC 2", "control_id": "CC6.3", "control_name": "Access removal upon termination", "alignment_status": "satisfied"}
+  ],
+  "compliance_obligations": ["GDPR", "CCPA", "SOC 2"],
+  "maturity_overall": "Developing",
+  "date_added": "2026-05-18",
+  "tags": ["enterprise-search", "acl-drift", "rag", "shadow-data", "cross-source"]
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-email-triage-assistant",
+  "scenario_name": "Email triage assistant with attachment OCR",
+  "entry_type": "synthetic_template",
+  "industry_sector": "cross_sector",
+  "deployment_pattern": "email_triage",
+  "description": "An organization deploys an AI assistant that reads each user's inbox, summarizes messages, drafts replies, and extracts action items. Attachments are OCR'd to bring image-based content into the context window. The assistant is a privileged endpoint integration with access to every email in the user's mailbox — DSGAI16 endpoint overreach plus DSGAI09 multimodal capture combine to make this archetype unusually exposed.",
+  "assumptions": [
+    "Assistant runs server-side against the user's mailbox under delegated OAuth.",
+    "Inbox includes mail from external senders; attachments routinely contain PII.",
+    "Hosted LLM under enterprise data-isolation contract."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "Hosted third-party LLM, enterprise tier.", "sensitivity_tier": "high"},
+    {"role": "data_source", "description": "User mailbox (delegated OAuth read access).", "sensitivity_tier": "critical"},
+    {"role": "tool_or_plugin", "description": "Attachment OCR service; processes images, PDFs, scanned documents.", "sensitivity_tier": "critical"},
+    {"role": "guardrail_or_filter", "description": "Injection-classifier on email body and OCR output; PII redaction on response display.", "sensitivity_tier": "critical"},
+    {"role": "identity_provider", "description": "Corporate IDP issuing user-scoped tokens.", "sensitivity_tier": "high"},
+    {"role": "observability_stack", "description": "Audit log of summaries and drafted replies; field-redacted.", "sensitivity_tier": "high"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI01", "inherent_rating": "Critical", "rationale": "Inbox content + attachments contain PII, financial data, contracts, credentials shared in error, customer correspondence.", "residual_rating": "High", "residual_rationale": "Output PII redaction at display; semantic content still in the LLM context."},
+    {"dsgai_id": "DSGAI06", "inherent_rating": "Critical", "rationale": "Every email from an external sender is potential indirect prompt injection; any prompt-injection-bearing email reaches the assistant whether the user opens it or not.", "residual_rating": "High", "residual_rationale": "Injection-classifier on email body and OCR output; no auto-tool-action without user confirmation. EchoLeak demonstrated the residual risk class."},
+    {"dsgai_id": "DSGAI09", "inherent_rating": "High", "rationale": "Attachment OCR pulls image text into the model context; visual prompt injection in attachments is in scope.", "residual_rating": "Medium", "residual_rationale": "Injection-classifier on OCR output; flagged attachments held for human review."},
+    {"dsgai_id": "DSGAI15", "inherent_rating": "High", "rationale": "Mailbox-wide context for summarization is structurally over-broad.", "residual_rating": "High", "residual_rationale": "Per-summary chunking helps; semantic relevance gate not deployed."},
+    {"dsgai_id": "DSGAI16", "inherent_rating": "Critical", "rationale": "Endpoint-class reach: the assistant sees everything the user can see, including private correspondence.", "residual_rating": "High", "residual_rationale": "User-consent obtained; per-folder opt-out exists; reach remains inherent."},
+    {"dsgai_id": "DSGAI08", "inherent_rating": "High", "rationale": "GDPR Art. 5 (proportionality), CCPA, HIPAA (some inboxes), professional-privilege concerns.", "residual_rating": "Medium", "residual_rationale": "DPIA on file; HIPAA-scoped inboxes excluded by configuration."},
+    {"dsgai_id": "DSGAI14", "inherent_rating": "High", "rationale": "Audit logs of summaries can contain extracted PII at scale.", "residual_rating": "Medium", "residual_rationale": "Field redaction; 30-day retention; access role-gated."},
+    {"dsgai_id": "DSGAI21", "inherent_rating": "High", "rationale": "Phishing campaigns target the assistant — adversarial emails designed to manipulate AI-drafted replies into endorsing fraudulent requests.", "residual_rating": "Medium", "residual_rationale": "Drafted replies require user review; trusted-output-components hardening (no auto-link inclusion)."}
+  ],
+  "existing_controls": [
+    {"description": "Injection-classifier on email body and OCR output.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI06", "DSGAI09", "DSGAI21"]},
+    {"description": "No autonomous tool action; user reviews every drafted reply.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI06", "DSGAI21"]},
+    {"description": "HIPAA-scoped inboxes excluded by configuration.", "tier": "Tier 3", "addresses_dsgai": ["DSGAI08", "DSGAI01"]},
+    {"description": "Output PII redaction at display; audit-log redaction at emission.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI01", "DSGAI14"]},
+    {"description": "Per-folder opt-out for sensitive correspondence folders.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI16", "DSGAI15"]},
+    {"description": "Drafted replies do not auto-include links from the source email.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI21"]}
+  ],
+  "control_gaps": [
+    {"description": "Mailbox-wide summarization is structurally over-broad; no semantic relevance gate.", "addresses_dsgai": ["DSGAI15", "DSGAI16"], "suggested_remediation": "Limit summarization to user-selected threads; require explicit selection for mailbox-wide views.", "urgency": "Near-term"},
+    {"description": "Indirect-injection-via-email class is documented in production assistants (EchoLeak); residual risk acceptance is not formalized.", "addresses_dsgai": ["DSGAI06", "DSGAI21"], "suggested_remediation": "Document leadership residual-risk acceptance; deploy EchoLeak-style defenses (no markdown rendering to arbitrary external hosts; strict CSP).", "urgency": "Immediate"},
+    {"description": "Attachment-OCR pipeline scans for OCR injection but does not flag low-contrast or hidden-text patterns in PDFs.", "addresses_dsgai": ["DSGAI09", "DSGAI06"], "suggested_remediation": "Add visual-anomaly detection on attachments; flag for human review.", "urgency": "Near-term"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-05", "control_name": "Protections against data leaks", "alignment_status": "partial"},
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions with least privilege", "alignment_status": "partial"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MAP 4.1", "control_name": "Approaches for mapping legal and AI risks", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM01:2025", "control_name": "Prompt Injection", "alignment_status": "partial"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "partial"},
+    {"framework": "GDPR", "control_id": "Art. 5(1)(c)", "control_name": "Data minimisation", "alignment_status": "partial"}
+  ],
+  "compliance_obligations": ["GDPR", "CCPA", "SOC 2"],
+  "maturity_overall": "Developing",
+  "date_added": "2026-05-18",
+  "tags": ["email", "endpoint", "ocr", "indirect-injection", "echoleak-class", "dsgai16"]
+}

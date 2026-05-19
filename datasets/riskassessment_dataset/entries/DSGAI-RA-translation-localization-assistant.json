@@ -1,0 +1,50 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-translation-localization-assistant",
+  "scenario_name": "Translation and localization assistant for confidential business content",
+  "entry_type": "synthetic_template",
+  "industry_sector": "cross_sector",
+  "deployment_pattern": "content_generation",
+  "description": "An enterprise deploys an LLM-backed translation/localization assistant accessed by internal teams. The assistant handles strategy documents, contracts, internal communications, and sometimes regulated content. Translation reveals the source content to the model and to logs; cross-lingual safety-filter weakness (well-documented in the jailbreak literature) creates a side-channel where translated outputs may include content the original-language filter would have blocked.",
+  "assumptions": [
+    "Hosted LLM under enterprise data-isolation contract.",
+    "Translation requests routed through a corporate gateway with DLP.",
+    "Specific regulated content (e.g. clinical trial protocols, MNPI) is excluded by policy."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "Hosted third-party LLM, enterprise tier.", "sensitivity_tier": "high"},
+    {"role": "guardrail_or_filter", "description": "DLP at gateway + cross-lingual content classifier.", "sensitivity_tier": "high"},
+    {"role": "identity_provider", "description": "Corporate IDP issuing per-user tokens with team attribute.", "sensitivity_tier": "medium"},
+    {"role": "observability_stack", "description": "Prompt + output audit log with retention aligned to record management.", "sensitivity_tier": "high"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI01", "inherent_rating": "High", "rationale": "Source content frequently confidential (strategy, contracts, internal comms); the assistant sees it in its entirety.", "residual_rating": "Medium", "residual_rationale": "DLP at gateway blocks marked-confidential content; provider no-training contract."},
+    {"dsgai_id": "DSGAI03", "inherent_rating": "Medium", "rationale": "Users may use unsanctioned consumer translators for convenience, exfiltrating content.", "residual_rating": "Medium", "residual_rationale": "Org-wide AI-use policy; endpoint DLP partial."},
+    {"dsgai_id": "DSGAI21", "inherent_rating": "Medium", "rationale": "Cross-lingual safety-filter weakness: translation may render content that the source-language filter would have blocked.", "residual_rating": "Medium", "residual_rationale": "Output safety classifier in target language enabled; coverage uneven for low-resource languages."},
+    {"dsgai_id": "DSGAI14", "inherent_rating": "Medium", "rationale": "Audit logs hold full source and translated text including sensitive content.", "residual_rating": "Low", "residual_rationale": "Logs encrypted; access role-gated; retention aligned to records policy."},
+    {"dsgai_id": "DSGAI08", "inherent_rating": "Medium", "rationale": "GDPR / data-residency obligations for the source content; some jurisdictions require translation services to comply with sectoral rules.", "residual_rating": "Low", "residual_rationale": "Provider terms include residency for EU users; sectoral exclusions enforced by policy."}
+  ],
+  "existing_controls": [
+    {"description": "DLP at gateway scans source content for confidential markers; blocks marked content.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI01", "DSGAI03"]},
+    {"description": "Output safety classifier in target language on translations.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI21"]},
+    {"description": "Org AI-use policy; endpoint DLP on managed laptops.", "tier": "Tier 3", "addresses_dsgai": ["DSGAI03"]},
+    {"description": "Audit log access role-gated; retention aligned to records-management policy.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI14"]},
+    {"description": "Sectoral content exclusions enforced by policy (MNPI, clinical, classified).", "tier": "Tier 3", "addresses_dsgai": ["DSGAI08"]}
+  ],
+  "control_gaps": [
+    {"description": "Cross-lingual safety classifier coverage uneven for low-resource languages.", "addresses_dsgai": ["DSGAI21"], "suggested_remediation": "Expand classifier coverage; route low-resource-language requests to a stricter review path.", "urgency": "Near-term"},
+    {"description": "Endpoint DLP for personal-device translation use is incomplete.", "addresses_dsgai": ["DSGAI03"], "suggested_remediation": "Enforce managed-device-only access via IDP conditional access.", "urgency": "Near-term"},
+    {"description": "Audit-log retention does not differentiate translated PII from raw.", "addresses_dsgai": ["DSGAI14", "DSGAI08"], "suggested_remediation": "Apply field-level redaction to translated outputs; separate retention bucket for sensitive translations.", "urgency": "Strategic"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-05", "control_name": "Protections against data leaks", "alignment_status": "satisfied"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MAP 4.1", "control_name": "Approaches for mapping legal and AI risks", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.6.1.2", "control_name": "AI policy", "alignment_status": "satisfied"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"},
+    {"framework": "GDPR", "control_id": "Art. 28", "control_name": "Processor obligations", "alignment_status": "satisfied"}
+  ],
+  "compliance_obligations": ["GDPR", "SOC 2"],
+  "maturity_overall": "Defined",
+  "date_added": "2026-05-18",
+  "tags": ["translation", "localization", "cross-lingual", "dlp", "internal-tool"]
+}

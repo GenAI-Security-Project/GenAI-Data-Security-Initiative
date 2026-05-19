@@ -1,0 +1,54 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-synthetic-data-pipeline",
+  "scenario_name": "Synthetic-data generation pipeline using real PII for downstream model training",
+  "entry_type": "synthetic_template",
+  "industry_sector": "cross_sector",
+  "deployment_pattern": "training_or_data_pipeline",
+  "description": "An organization runs a pipeline that uses real customer data as seed to generate synthetic equivalents for downstream model training and analytics. The promise of synthetic data is privacy preservation; the documented risk is that re-identification, membership inference, and attribute disclosure remain feasible against many naive synthesis approaches. The pipeline must be assessed against DSGAI10 (synthetic-data pitfalls) and DSGAI18 (inference and reconstruction).",
+  "assumptions": [
+    "Synthesis runs inside a privacy-controlled enclave; raw data does not leave.",
+    "Synthetic outputs are intended to enable training and analytics outside the enclave.",
+    "Generator model is not retrained on synthetic outputs (avoiding distribution-drift)."
+  ],
+  "components": [
+    {"role": "training_pipeline", "description": "Synthetic-data generation pipeline (tabular + text variants).", "sensitivity_tier": "critical"},
+    {"role": "llm_provider", "description": "Self-hosted generative model for text synthesis.", "sensitivity_tier": "critical"},
+    {"role": "data_source", "description": "Raw customer-data warehouse (seed for synthesis).", "sensitivity_tier": "critical"},
+    {"role": "guardrail_or_filter", "description": "Re-identification and membership-inference auditor.", "sensitivity_tier": "critical"},
+    {"role": "observability_stack", "description": "Audit log of every synthesis run with metadata about the seed and outputs.", "sensitivity_tier": "high"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI10", "inherent_rating": "Critical", "rationale": "Synthetic data is presumed safe to share; in practice re-identification, attribute inference, and singling-out remain feasible on many synthesis approaches.", "residual_rating": "Medium", "residual_rationale": "Re-identification auditor runs on every synthesis batch; pipeline blocks releases exceeding the threshold."},
+    {"dsgai_id": "DSGAI18", "inherent_rating": "High", "rationale": "Membership inference against the generator may identify seed records; embedding inversion against text generators recovers source content.", "residual_rating": "Medium", "residual_rationale": "Membership-inference audit on every release candidate; threshold-gated."},
+    {"dsgai_id": "DSGAI04", "inherent_rating": "Medium", "rationale": "Synthetic data fed into downstream training propagates errors and biases; poisoning of seed data poisons everything downstream.", "residual_rating": "Medium", "residual_rationale": "Seed-data integrity checks pre-synthesis; not all biases captured."},
+    {"dsgai_id": "DSGAI07", "inherent_rating": "High", "rationale": "Lineage between seed records, synthesis runs, and downstream models must be traceable for DSAR/RTBF.", "residual_rating": "Medium", "residual_rationale": "Lineage captured for tabular synthesis; text-synthesis lineage partial."},
+    {"dsgai_id": "DSGAI08", "inherent_rating": "High", "rationale": "GDPR/CCPA implications: synthetic-data status is contested; some regulators treat synthetic data as derived from personal data and still in scope.", "residual_rating": "Medium", "residual_rationale": "Legal opinion on file; processor terms updated; DSAR pipeline traces seed records."},
+    {"dsgai_id": "DSGAI14", "inherent_rating": "Medium", "rationale": "Audit logs contain seed-record references and synthesis prompts; sensitive.", "residual_rating": "Low", "residual_rationale": "Logs inside the enclave; access role-gated."}
+  ],
+  "existing_controls": [
+    {"description": "Re-identification auditor on every synthesis batch; threshold-gated release.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI10", "DSGAI18"]},
+    {"description": "Membership-inference audit on each release candidate.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI18", "DSGAI01"]},
+    {"description": "Differential-privacy noise injection on tabular synthesis (where applicable).", "tier": "Tier 2", "addresses_dsgai": ["DSGAI10", "DSGAI18"]},
+    {"description": "Lineage capture for synthesis runs (seed → synthesis → output IDs).", "tier": "Tier 2", "addresses_dsgai": ["DSGAI07", "DSGAI08"]},
+    {"description": "Seed-data integrity checks pre-synthesis.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI04", "DSGAI05"]},
+    {"description": "Audit logs inside the privacy-controlled enclave with role-gated access.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI14"]}
+  ],
+  "control_gaps": [
+    {"description": "Text-synthesis lineage is partial; DSAR cannot always trace a seed record back from downstream outputs.", "addresses_dsgai": ["DSGAI07", "DSGAI08"], "suggested_remediation": "Adopt per-record provenance tags through the text-synthesis path; align with DSAR pipeline.", "urgency": "Immediate"},
+    {"description": "Differential-privacy noise budgets are configured per pipeline run but not centrally tracked.", "addresses_dsgai": ["DSGAI10", "DSGAI18"], "suggested_remediation": "Centralize epsilon tracking across runs; document the org-wide privacy-loss budget.", "urgency": "Near-term"},
+    {"description": "Generator-model retraining on synthetic outputs is policy-prohibited but not technically enforced.", "addresses_dsgai": ["DSGAI04", "DSGAI05"], "suggested_remediation": "Tag every synthesized record so downstream training pipelines can detect and refuse synthetic-on-synthetic loops.", "urgency": "Strategic"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-04", "control_name": "Adequate capacity to ensure availability", "alignment_status": "satisfied"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.10", "control_name": "Privacy risk is evaluated", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.8.2", "control_name": "Data resources for AI systems", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 27001", "control_id": "A.8.11", "control_name": "Data masking", "alignment_status": "satisfied"},
+    {"framework": "GDPR", "control_id": "Art. 25", "control_name": "Data protection by design and default", "alignment_status": "partial"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"}
+  ],
+  "compliance_obligations": ["GDPR", "CCPA", "ISO 27001 certification"],
+  "maturity_overall": "Defined",
+  "date_added": "2026-05-18",
+  "tags": ["synthetic-data", "privacy", "differential-privacy", "training-pipeline", "lineage"]
+}

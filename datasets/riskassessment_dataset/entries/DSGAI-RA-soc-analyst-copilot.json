@@ -1,0 +1,58 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-soc-analyst-copilot",
+  "scenario_name": "SOC analyst copilot with SIEM read and limited response-action tools",
+  "entry_type": "synthetic_template",
+  "industry_sector": "cybersecurity",
+  "deployment_pattern": "soc_analyst_copilot",
+  "description": "A security operations center deploys an analyst copilot. The copilot reads alerts, queries the SIEM and EDR, summarizes incidents, and (with explicit analyst confirmation) can perform low-blast-radius response actions like isolating an endpoint, blocking an indicator, or running an EDR threat-hunt query. The copilot's risk profile is asymmetric: its prompts and retrieved logs are crown-jewel sensitivity, and an attacker who already breached the SOC can use injection in logs to mislead analysts.",
+  "assumptions": [
+    "Tool actions require analyst confirmation; no autonomous response.",
+    "SIEM contains content that may include PII and credentials inadvertently logged elsewhere.",
+    "Self-hosted LLM inside the SOC's privileged enclave."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "Self-hosted LLM inside SOC enclave; no external egress.", "sensitivity_tier": "critical"},
+    {"role": "tool_or_plugin", "description": "SIEM/EDR query tool (read).", "sensitivity_tier": "critical"},
+    {"role": "tool_or_plugin", "description": "Response-action tool: endpoint isolate, IOC block, hunt query. Requires analyst confirmation.", "sensitivity_tier": "critical"},
+    {"role": "rag_pipeline", "description": "Runbook and prior-incident retrieval.", "sensitivity_tier": "high"},
+    {"role": "guardrail_or_filter", "description": "Injection-classifier on retrieved log content; secret-scanner on outputs.", "sensitivity_tier": "critical"},
+    {"role": "identity_provider", "description": "SOC IDP with elevated analyst-role tokens.", "sensitivity_tier": "critical"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI01", "inherent_rating": "Critical", "rationale": "SIEM and EDR data contain crown-jewel detection logic, secrets, and PII from incident scope.", "residual_rating": "High", "residual_rationale": "Self-hosted; secret-scanner on outputs; residual exposure from prompt content."},
+    {"dsgai_id": "DSGAI02", "inherent_rating": "Critical", "rationale": "Response-action tool can isolate hosts or block IOCs at scale; misuse has very high blast radius.", "residual_rating": "Medium", "residual_rationale": "Analyst confirmation gate; per-action audit log; scope limited to non-destructive."},
+    {"dsgai_id": "DSGAI06", "inherent_rating": "High", "rationale": "Adversary already in the environment can inject misleading content into logs to coerce analyst-confirmed response actions.", "residual_rating": "Medium", "residual_rationale": "Injection-classifier on log chunks; corroboration across sources required for high-blast actions."},
+    {"dsgai_id": "DSGAI20", "inherent_rating": "High", "rationale": "Copilot system prompt encodes the SOC's detection logic and playbook IP.", "residual_rating": "Medium", "residual_rationale": "Self-hosted; access auditing; system-prompt extraction monitored."},
+    {"dsgai_id": "DSGAI21", "inherent_rating": "High", "rationale": "Trusted-output-components manipulation: copilot might recommend masking an indicator the attacker planted.", "residual_rating": "Medium", "residual_rationale": "Recommendation must include cited evidence chain; analyst reviews before action."},
+    {"dsgai_id": "DSGAI17", "inherent_rating": "Medium", "rationale": "SOC operates 24/7; copilot outage affects analyst throughput during incidents.", "residual_rating": "Medium", "residual_rationale": "Manual playbook continues; copilot is augmentation."},
+    {"dsgai_id": "DSGAI14", "inherent_rating": "High", "rationale": "Audit logs of copilot reasoning are themselves crown-jewel; SOC counterintelligence concern.", "residual_rating": "Medium", "residual_rationale": "Logs inside the SOC enclave; access role-gated to SOC management."}
+  ],
+  "existing_controls": [
+    {"description": "Analyst confirmation gate for every response-action tool call.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI02", "DSGAI06"]},
+    {"description": "Self-hosted LLM inside SOC enclave; no external egress.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI20", "DSGAI01"]},
+    {"description": "Corroboration across multiple sources required for high-blast actions.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI06", "DSGAI21"]},
+    {"description": "Injection-classifier on retrieved log content; secret-scanner on outputs.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI06", "DSGAI01"]},
+    {"description": "Per-action audit log of analyst identity, rationale, and tool inputs.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI14", "DSGAI02"]},
+    {"description": "System-prompt extraction monitoring on copilot interactions.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI20"]}
+  ],
+  "control_gaps": [
+    {"description": "No tabletop exercise of adversary-injected-log-content-driven false response.", "addresses_dsgai": ["DSGAI06", "DSGAI21"], "suggested_remediation": "Quarterly red-team exercise simulating injection in logs; track copilot susceptibility.", "urgency": "Near-term"},
+    {"description": "Copilot prompt-IP protection is policy-based, not technical.", "addresses_dsgai": ["DSGAI20"], "suggested_remediation": "Move sensitive playbook details out of the system prompt and into a retrieval-time policy module the LLM does not see verbatim.", "urgency": "Strategic"},
+    {"description": "High-blast destructive actions (mass-isolation, broad block) not explicitly excluded.", "addresses_dsgai": ["DSGAI02", "DSGAI17"], "suggested_remediation": "Enumerate destructive actions and require break-glass approval flow; default-deny in copilot tool set.", "urgency": "Immediate"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "DE.AE-02", "control_name": "Detected events analyzed", "alignment_status": "satisfied"},
+    {"framework": "NIST CSF 2.0", "control_id": "RS.AN-01", "control_name": "Investigations are conducted", "alignment_status": "satisfied"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.7", "control_name": "AI system security is evaluated", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.7.3", "control_name": "AI system design and development", "alignment_status": "satisfied"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM06:2025", "control_name": "Excessive Agency", "alignment_status": "satisfied"},
+    {"framework": "OWASP Agentic Top 10 2026", "control_id": "AGT-02", "control_name": "Blast-radius limiting", "alignment_status": "partial"},
+    {"framework": "MITRE ATT&CK", "control_id": "M1056", "control_name": "Pre-compromise hardening", "alignment_status": "satisfied"},
+    {"framework": "SOC 2", "control_id": "CC7.3", "control_name": "Security incidents are identified", "alignment_status": "satisfied"}
+  ],
+  "compliance_obligations": ["SOC 2", "ISO 27001 certification"],
+  "maturity_overall": "Managed",
+  "date_added": "2026-05-18",
+  "tags": ["soc", "copilot", "incident-response", "siem", "hitl", "blast-radius"]
+}

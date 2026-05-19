@@ -1,0 +1,55 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-browser-productivity-assistant",
+  "scenario_name": "Browser-based productivity assistant reading page DOM and user docs",
+  "entry_type": "synthetic_template",
+  "industry_sector": "cross_sector",
+  "deployment_pattern": "browser_endpoint_assistant",
+  "description": "An enterprise deploys a browser-extension AI assistant that observes the active page DOM, the user's open documents, and (optionally) recent emails to provide summarization and drafting help. The extension runs in user-managed browsers and talks to a hosted LLM through a corporate proxy. The reach of the extension routinely exceeds the immediate task — DSGAI16 endpoint-assistant overreach is the dominant risk class.",
+  "assumptions": [
+    "Extension is corporate-managed and pushed via the enterprise MDM.",
+    "Hosted LLM accessed via a corporate egress proxy that enforces DLP.",
+    "Users include privileged roles whose tabs frequently contain crown-jewel content."
+  ],
+  "components": [
+    {"role": "browser_extension_or_endpoint", "description": "Corporate-managed browser extension reading active DOM + open documents.", "sensitivity_tier": "critical"},
+    {"role": "llm_provider", "description": "Hosted third-party LLM, enterprise tier; accessed via corporate proxy.", "sensitivity_tier": "high"},
+    {"role": "guardrail_or_filter", "description": "Egress-proxy DLP scanning prompts before they reach the provider.", "sensitivity_tier": "critical"},
+    {"role": "identity_provider", "description": "Corporate IDP gating extension installation and activation.", "sensitivity_tier": "high"},
+    {"role": "observability_stack", "description": "Extension telemetry: page categories, prompt volume, accept/reject ratios.", "sensitivity_tier": "high"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI01", "inherent_rating": "Critical", "rationale": "Active DOM and open documents can contain unredacted financial data, customer PII, IP, and credentials.", "residual_rating": "High", "residual_rationale": "Egress-proxy DLP redacts known secret patterns; semantic content still leaves the network."},
+    {"dsgai_id": "DSGAI03", "inherent_rating": "High", "rationale": "Users may install non-sanctioned AI extensions alongside the approved one, exfiltrating to consumer services.", "residual_rating": "Medium", "residual_rationale": "MDM allowlist of browser extensions; periodic compliance scan."},
+    {"dsgai_id": "DSGAI11", "inherent_rating": "Medium", "rationale": "Browser extension can read content from any tab regardless of business context.", "residual_rating": "Medium", "residual_rationale": "Per-domain activation policy; off-policy reads disabled."},
+    {"dsgai_id": "DSGAI14", "inherent_rating": "High", "rationale": "Extension telemetry captures page categories and prompt content; broad downstream warehouse access.", "residual_rating": "Medium", "residual_rationale": "Field redaction at ingest; access role-gated."},
+    {"dsgai_id": "DSGAI15", "inherent_rating": "High", "rationale": "Context windows pulled from DOM frequently include far more than the immediate task requires.", "residual_rating": "Medium", "residual_rationale": "Per-task context cap; not semantic."},
+    {"dsgai_id": "DSGAI16", "inherent_rating": "Critical", "rationale": "Foundational risk for this archetype: endpoint assistant overreach into any content the user can see.", "residual_rating": "High", "residual_rationale": "Domain allowlist; DLP at egress; residual exposure inherent to the pattern."},
+    {"dsgai_id": "DSGAI21", "inherent_rating": "Medium", "rationale": "Indirect injection via untrusted web pages the user browses.", "residual_rating": "Medium", "residual_rationale": "Injection-classifier on DOM content; no DOM tool privileges by default."}
+  ],
+  "existing_controls": [
+    {"description": "Domain allowlist for extension activation; sensitive financial-system tabs whitelisted only.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI16", "DSGAI11"]},
+    {"description": "Egress-proxy DLP scanning every prompt before it reaches the provider.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI01", "DSGAI14"]},
+    {"description": "MDM allowlist for browser extensions; periodic compliance scan.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI03"]},
+    {"description": "Injection-classifier on DOM content before model dispatch.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI21", "DSGAI06"]},
+    {"description": "Field-level telemetry redaction; role-gated downstream access.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI14"]}
+  ],
+  "control_gaps": [
+    {"description": "Per-task context cap is not semantic; over-broad DOM context still common.", "addresses_dsgai": ["DSGAI15", "DSGAI16"], "suggested_remediation": "Add semantic relevance gating: extract only the DOM subtree relevant to the user's prompt.", "urgency": "Near-term"},
+    {"description": "Privileged-role users have the same activation policy as standard users.", "addresses_dsgai": ["DSGAI01", "DSGAI16"], "suggested_remediation": "Differential activation: tighter domain allowlist for finance, HR, legal, executive personas.", "urgency": "Immediate"},
+    {"description": "DLP redacts secret patterns but not semantic content (project codenames, M&A discussion).", "addresses_dsgai": ["DSGAI01", "DSGAI14"], "suggested_remediation": "Add an entity-classifier on prompts to detect sensitive project context; route those prompts to a stricter on-prem model.", "urgency": "Strategic"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-05", "control_name": "Protections against data leaks", "alignment_status": "partial"},
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AT-01", "control_name": "Awareness and training", "alignment_status": "satisfied"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MAP 4.1", "control_name": "Approaches for mapping AI legal and technology risks", "alignment_status": "partial"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.6.1.4", "control_name": "Roles, responsibilities, and authorities", "alignment_status": "satisfied"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "partial"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM06:2025", "control_name": "Excessive Agency", "alignment_status": "partial"},
+    {"framework": "SOC 2", "control_id": "CC7.2", "control_name": "Monitoring activities", "alignment_status": "satisfied"}
+  ],
+  "compliance_obligations": ["GDPR", "CCPA", "SOC 2"],
+  "maturity_overall": "Developing",
+  "date_added": "2026-05-18",
+  "tags": ["browser-assistant", "endpoint", "dlp", "overreach", "dsgai16"]
+}

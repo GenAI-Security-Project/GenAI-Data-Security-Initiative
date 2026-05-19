@@ -1,0 +1,59 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-devops-incident-copilot",
+  "scenario_name": "DevOps / SRE incident-response copilot with cloud-runtime access",
+  "entry_type": "synthetic_template",
+  "industry_sector": "technology_saas",
+  "deployment_pattern": "soc_analyst_copilot",
+  "description": "An SRE org deploys an incident-response copilot for on-call engineers. The copilot reads alert payloads, queries observability stacks (metrics, logs, traces), retrieves runbooks, and can suggest or execute remediation actions through scoped tools (rolling restart, traffic shift, scaling change). Tool execution requires explicit on-call confirmation. The deployment puts very high-blast-radius actions one prompt away from a tired engineer at 03:00.",
+  "assumptions": [
+    "Tool actions require on-call confirmation; no fully-autonomous remediation.",
+    "Observability data may contain customer PII in logs (a separate hygiene problem).",
+    "Hosted LLM under enterprise data-isolation contract."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "Hosted third-party LLM, enterprise tier.", "sensitivity_tier": "high"},
+    {"role": "agent_framework", "description": "Incident-response copilot orchestrator.", "sensitivity_tier": "critical"},
+    {"role": "tool_or_plugin", "description": "Observability query tool (read-only against metrics/logs/traces).", "sensitivity_tier": "high"},
+    {"role": "tool_or_plugin", "description": "Remediation tool: rolling restart, traffic shift, scale change. Requires on-call confirmation.", "sensitivity_tier": "critical"},
+    {"role": "rag_pipeline", "description": "Runbook and incident-history retrieval.", "sensitivity_tier": "medium"},
+    {"role": "identity_provider", "description": "Corporate IDP issuing on-call-attribute-bearing tokens.", "sensitivity_tier": "critical"},
+    {"role": "observability_stack", "description": "Audit log of every tool invocation and the on-call's confirmation.", "sensitivity_tier": "critical"},
+    {"role": "guardrail_or_filter", "description": "Output PII redaction; remediation-tool input schema validation.", "sensitivity_tier": "high"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI02", "inherent_rating": "Critical", "rationale": "Remediation tools wield broad cloud-runtime privileges; credential or token compromise yields extensive blast radius.", "residual_rating": "Medium", "residual_rationale": "Short-lived per-on-call tokens; tool scope tied to the calling engineer's role."},
+    {"dsgai_id": "DSGAI06", "inherent_rating": "High", "rationale": "Indirect injection via alert payloads or log content could coerce the copilot into proposing destructive remediations.", "residual_rating": "Medium", "residual_rationale": "On-call confirmation gate; injection-classifier on retrieved log chunks."},
+    {"dsgai_id": "DSGAI01", "inherent_rating": "High", "rationale": "Logs commonly contain PII or secrets; copilot context-window will too.", "residual_rating": "Medium", "residual_rationale": "Output PII redaction; logs themselves remain a pre-existing hygiene problem."},
+    {"dsgai_id": "DSGAI12", "inherent_rating": "Medium", "rationale": "Observability-query tool is an LLM-driven query path against unstructured data.", "residual_rating": "Low", "residual_rationale": "Query tool accepts typed query DSL; no free-form passthrough."},
+    {"dsgai_id": "DSGAI17", "inherent_rating": "High", "rationale": "Bad remediation decision driven by LLM hallucination or injection could itself cause an availability incident.", "residual_rating": "Medium", "residual_rationale": "HITL confirmation; small-blast-radius defaults (canary, partial scale)."},
+    {"dsgai_id": "DSGAI14", "inherent_rating": "High", "rationale": "Audit logs are crown-jewel; capture every tool invocation, on-call identity, and rationale.", "residual_rating": "Low", "residual_rationale": "Logs encrypted, KMS-keyed; access role-gated to security."},
+    {"dsgai_id": "DSGAI21", "inherent_rating": "Medium", "rationale": "Adversary-injected log lines designed to mislead on-call analysis.", "residual_rating": "Medium", "residual_rationale": "Injection-classifier on log chunks; corroboration across sources before high-blast actions."}
+  ],
+  "existing_controls": [
+    {"description": "On-call confirmation gate for every remediation tool call.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI06", "DSGAI17"]},
+    {"description": "Short-lived per-on-call tokens; tool scope tied to engineer role.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI02"]},
+    {"description": "Remediation tools default to small blast radius (canary, partial scale).", "tier": "Tier 2", "addresses_dsgai": ["DSGAI17", "DSGAI06"]},
+    {"description": "Output PII redaction on copilot responses.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI01"]},
+    {"description": "Audit log of every tool call, rationale, and on-call identity.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI14"]},
+    {"description": "Injection-classifier on retrieved log chunks.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI06", "DSGAI21"]}
+  ],
+  "control_gaps": [
+    {"description": "PII in logs is a pre-existing hygiene problem; the copilot only worsens exposure surface.", "addresses_dsgai": ["DSGAI01", "DSGAI14"], "suggested_remediation": "Drive a log-hygiene program to redact PII at log emission; reduce blast radius for any AI assistant downstream.", "urgency": "Strategic"},
+    {"description": "Multi-tool action chains (read logs → identify customer impact → remediate) are not differentially audited.", "addresses_dsgai": ["DSGAI06", "DSGAI02"], "suggested_remediation": "Tag tool-call chains with intent and inputs; alert on unusual sequences.", "urgency": "Near-term"},
+    {"description": "No tabletop or red-team exercise of indirect-injection-driven destructive remediation.", "addresses_dsgai": ["DSGAI06", "DSGAI17"], "suggested_remediation": "Run quarterly tabletop exercises; document residual residual-risk acceptance from leadership.", "urgency": "Near-term"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions with least privilege", "alignment_status": "satisfied"},
+    {"framework": "NIST CSF 2.0", "control_id": "RS.MI-02", "control_name": "Incidents are mitigated", "alignment_status": "satisfied"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.6", "control_name": "AI system security is assessed", "alignment_status": "partial"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.7.3", "control_name": "AI system design and development", "alignment_status": "satisfied"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM06:2025", "control_name": "Excessive Agency", "alignment_status": "satisfied"},
+    {"framework": "OWASP Agentic Top 10 2026", "control_id": "AGT-02", "control_name": "Blast-radius limiting", "alignment_status": "satisfied"},
+    {"framework": "SOC 2", "control_id": "CC7.4", "control_name": "Operational incidents", "alignment_status": "satisfied"}
+  ],
+  "compliance_obligations": ["SOC 2", "ISO 27001 certification"],
+  "maturity_overall": "Managed",
+  "date_added": "2026-05-18",
+  "tags": ["devops", "sre", "incident-response", "agent", "blast-radius", "hitl"]
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-internal-code-assistant",
+  "scenario_name": "Internal IDE code-assistant with private source-code context",
+  "entry_type": "synthetic_template",
+  "industry_sector": "technology_saas",
+  "deployment_pattern": "code_assistant",
+  "description": "A software organization deploys an IDE-integrated code assistant for its engineers. The plugin reads the active file plus recent edits as context, calls a hosted LLM, and can optionally invoke a RAG over the company's internal monorepo and design-doc corpus. Engineering identities flow from the corporate IDP; usage telemetry is captured for productivity analytics. Source code is a mix of proprietary application logic, infrastructure-as-code, and security-sensitive components (auth, billing, key handling).",
+  "assumptions": [
+    "LLM provider contracted under enterprise data-isolation terms.",
+    "Plugin runs in engineer-managed laptops; not all laptops have endpoint DLP.",
+    "Monorepo includes secrets in some test-fixture files (historical state, not policy-compliant)."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "Hosted third-party code-tuned LLM, enterprise tier.", "sensitivity_tier": "high"},
+    {"role": "rag_pipeline", "description": "Background indexer over monorepo + design-doc corpus.", "sensitivity_tier": "high"},
+    {"role": "vector_store", "description": "Single-tenant vector store hosted in corporate VPC.", "sensitivity_tier": "high"},
+    {"role": "browser_extension_or_endpoint", "description": "IDE plugin running in engineer endpoints; reads buffer + open files.", "sensitivity_tier": "critical"},
+    {"role": "identity_provider", "description": "Corporate IDP issuing per-engineer tokens.", "sensitivity_tier": "high"},
+    {"role": "observability_stack", "description": "Productivity-analytics pipeline capturing prompts, completions, accept/reject.", "sensitivity_tier": "high"},
+    {"role": "guardrail_or_filter", "description": "Output secret-scanner and license-violation classifier.", "sensitivity_tier": "high"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI01", "inherent_rating": "High", "rationale": "Buffer reads can include secrets, customer data fixtures, or proprietary algorithms; LLM-side memorization risk if any training reuse occurred historically.", "residual_rating": "Medium", "residual_rationale": "Output secret scanner + provider no-training contract."},
+    {"dsgai_id": "DSGAI03", "inherent_rating": "High", "rationale": "Engineers may use unsanctioned coding-assistant variants outside the approved plugin, exfiltrating code into uncontrolled SaaS.", "residual_rating": "Medium", "residual_rationale": "Endpoint policy + DLP partial coverage; org-wide AI-policy training."},
+    {"dsgai_id": "DSGAI06", "inherent_rating": "Medium", "rationale": "Indirect injection via repository content (README, comments) could coerce assistant into recommending insecure patterns.", "residual_rating": "Medium", "residual_rationale": "No injection-detection on retrieved chunks yet."},
+    {"dsgai_id": "DSGAI14", "inherent_rating": "High", "rationale": "Productivity-analytics pipeline captures prompts that contain source code, secrets, and customer fixtures.", "residual_rating": "Medium", "residual_rationale": "Field redaction + retention cap; downstream warehouse access still broad."},
+    {"dsgai_id": "DSGAI15", "inherent_rating": "Medium", "rationale": "IDE context window can grow to include unrelated files an engineer opened; over-broad prompts.", "residual_rating": "Medium", "residual_rationale": "Per-file context cap; no semantic relevance gate."},
+    {"dsgai_id": "DSGAI16", "inherent_rating": "High", "rationale": "Endpoint plugin reads filesystem and active buffer; reach exceeds the immediate task.", "residual_rating": "Medium", "residual_rationale": "Plugin scoped to current workspace; off-workspace files excluded."},
+    {"dsgai_id": "DSGAI19", "inherent_rating": "Low", "rationale": "Some annotation/feedback workflow captures engineer-labeled completions for tuning.", "residual_rating": "Low", "residual_rationale": "Feedback samples redacted before any external use."},
+    {"dsgai_id": "DSGAI20", "inherent_rating": "Medium", "rationale": "Adversary with engineer credentials can systematically query the assistant to extract proprietary patterns and architectural details.", "residual_rating": "Medium", "residual_rationale": "Per-engineer rate caps; anomalous-query monitoring partial."},
+    {"dsgai_id": "DSGAI21", "inherent_rating": "Medium", "rationale": "Slopsquatted package suggestions risk; injection via repo README can steer suggestions.", "residual_rating": "Medium", "residual_rationale": "Suggestions validated against internal package allowlist for builds."}
+  ],
+  "existing_controls": [
+    {"description": "Plugin scoped to current workspace; reads no off-workspace files.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI16", "DSGAI15"]},
+    {"description": "Output secret-scanner blocks completions containing high-confidence secrets.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI01"]},
+    {"description": "Corporate AI-use policy + enforcement on managed laptops.", "tier": "Tier 3", "addresses_dsgai": ["DSGAI03"]},
+    {"description": "Suggestions for external packages validated against an internal allowlist at build time.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI21"]},
+    {"description": "Per-engineer rate caps + anomaly detection on prompt volume.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI20"]},
+    {"description": "Productivity-analytics field redaction; 90-day retention.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI14"]}
+  ],
+  "control_gaps": [
+    {"description": "No injection-detection on retrieved monorepo content.", "addresses_dsgai": ["DSGAI06", "DSGAI21"], "suggested_remediation": "Add injection classifier on retrieved chunks; tag suspicious chunks and exclude from completion context.", "urgency": "Near-term"},
+    {"description": "Endpoint DLP coverage is incomplete; some engineers run on personal devices.", "addresses_dsgai": ["DSGAI03", "DSGAI16"], "suggested_remediation": "Enforce managed-laptop-only for assistant access via IDP conditional access.", "urgency": "Immediate"},
+    {"description": "No semantic relevance gate on context-window assembly.", "addresses_dsgai": ["DSGAI15"], "suggested_remediation": "Add a relevance classifier and trim unrelated open files from context.", "urgency": "Strategic"},
+    {"description": "Historical secrets in monorepo test fixtures remain indexed.", "addresses_dsgai": ["DSGAI01", "DSGAI04"], "suggested_remediation": "Run a one-time secret sweep of the index; rotate any still-active secrets; exclude fixture paths from indexing.", "urgency": "Immediate"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-05", "control_name": "Protections against data leaks", "alignment_status": "partial"},
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions managed with least privilege", "alignment_status": "satisfied"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MAP 4.1", "control_name": "Approaches for mapping AI technology and legal risks", "alignment_status": "partial"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.6.1.2", "control_name": "AI policy", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 27001", "control_id": "A.8.10", "control_name": "Information deletion", "alignment_status": "partial"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "partial"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM03:2025", "control_name": "Supply Chain", "alignment_status": "partial"},
+    {"framework": "SOC 2", "control_id": "CC6.7", "control_name": "Restriction of access to information assets", "alignment_status": "satisfied"}
+  ],
+  "compliance_obligations": ["SOC 2", "GDPR"],
+  "maturity_overall": "Developing",
+  "date_added": "2026-05-18",
+  "tags": ["code-assistant", "endpoint", "ide-plugin", "source-code-exposure", "shadow-ai"]
+}

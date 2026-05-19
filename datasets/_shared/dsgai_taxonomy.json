@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DSGAI Risk Taxonomy",
+  "description": "Canonical list of DSGAI (Data Security for Generative AI) risk entries from OWASP GenAI Data Security Risks and Mitigations v1.0 (2026). This file is the reference all DSGAI datasets validate against.",
+  "source": "OWASP-GenAI-Data-Security-Risks-and-Mitigations-2026-v1.0.pdf",
+  "version": "1.0",
+  "entries": [
+    {
+      "id": "DSGAI01",
+      "name": "Sensitive Data Leakage",
+      "summary": "Sensitive data (PII, PHI, credentials, IP) leaking from model weights, fine-tuned adapters, or RAG retrieval, including via error messages, telemetry, and indirect prompt-injection exfiltration paths."
+    },
+    {
+      "id": "DSGAI02",
+      "name": "Agent Identity & Credential Exposure",
+      "summary": "Credential and identity failures that expose the data plane to unauthorized access, including over-scoped tokens, leaked API keys, and broken agent identity boundaries."
+    },
+    {
+      "id": "DSGAI03",
+      "name": "Shadow AI & Unsanctioned Data Flows",
+      "summary": "Ungoverned data flows arising from unsanctioned AI adoption, where employees or business units send sensitive data to AI services outside enterprise visibility or policy."
+    },
+    {
+      "id": "DSGAI04",
+      "name": "Data, Model & Artifact Poisoning",
+      "summary": "Pipeline integrity failures from training-data poisoning, supply-chain compromise of model or adapter artifacts, and tampering of derived assets such as embeddings."
+    },
+    {
+      "id": "DSGAI05",
+      "name": "Data Integrity & Validation Failures",
+      "summary": "Silent failures where data passes through ingestion, transformation, or retrieval without integrity checks, allowing tampered or malformed inputs to corrupt downstream behavior."
+    },
+    {
+      "id": "DSGAI06",
+      "name": "Tool, Plugin & Agent Data Exchange Risks",
+      "summary": "Risks introduced where plugins, tools, and agents exchange context — including over-broad tool permissions, unfiltered tool inputs/outputs, and inter-agent context smuggling."
+    },
+    {
+      "id": "DSGAI07",
+      "name": "Data Governance, Lifecycle & Classification for AI",
+      "summary": "Gaps in lifecycle management, classification, provenance, and traceability of AI-related data, treated as enabling conditions for every other DSGAI risk."
+    },
+    {
+      "id": "DSGAI08",
+      "name": "Non-Compliance & Regulatory Violations",
+      "summary": "Regulatory exposure under GDPR, HIPAA, CCPA, EU AI Act, and sector-specific regimes from AI data handling that fails statutory or contractual obligations."
+    },
+    {
+      "id": "DSGAI09",
+      "name": "Multimodal Capture & Cross-Channel Data Leakage",
+      "summary": "Sensitive data leakage through images, audio, video, OCR-rendered content, and embedded metadata — channels that bypass text-only filtering controls."
+    },
+    {
+      "id": "DSGAI10",
+      "name": "Synthetic Data, Anonymization & Transformation Pitfalls",
+      "summary": "False privacy guarantees in synthetic and de-identified data, where re-identification, attribute disclosure, or membership inference remains feasible."
+    },
+    {
+      "id": "DSGAI11",
+      "name": "Cross-Context & Multi-User Conversation Bleed",
+      "summary": "Conversation, session, or tenant data bleeding across user contexts due to shared caches, mis-scoped memory stores, or broken multi-tenant isolation."
+    },
+    {
+      "id": "DSGAI12",
+      "name": "Unsafe Natural-Language Data Gateways",
+      "summary": "Natural-language interfaces that translate user prompts into database queries (SQL, GraphQL, NoSQL, vector search) generating unsafe or unscoped data access."
+    },
+    {
+      "id": "DSGAI13",
+      "name": "Vector Store Platform Data Security",
+      "summary": "Vector store and embedding-platform risks including weak authentication, missing per-tenant isolation, embedding inversion, and unaudited admin access paths."
+    },
+    {
+      "id": "DSGAI14",
+      "name": "Excessive Telemetry & Monitoring Leakage",
+      "summary": "Telemetry, observability, and debug pipelines that capture sensitive prompt/response content and forward it to logging stacks outside the AI security boundary."
+    },
+    {
+      "id": "DSGAI15",
+      "name": "Over-Broad Context Windows & Prompt Over-Sharing",
+      "summary": "System prompts, retrieved chunks, tool outputs, and accumulated agent state expanding the model's context with data the user is not authorized to see."
+    },
+    {
+      "id": "DSGAI16",
+      "name": "Endpoint & Browser Assistant Overreach",
+      "summary": "Browser, IDE, and OS-level AI assistants reading screen content, files, or DOM data far beyond what the current task requires, often outside enterprise DLP coverage."
+    },
+    {
+      "id": "DSGAI17",
+      "name": "Data Availability & Resilience Failures in AI Pipelines",
+      "summary": "Availability and resilience failures in RAG and inference pipelines — index corruption, embedding-store outages, and cascading degradation that affect data-bearing services."
+    },
+    {
+      "id": "DSGAI18",
+      "name": "Inference & Data Reconstruction",
+      "summary": "Inference-time attacks reconstructing training data, embedded text, or attributes from model outputs, gradients, or stored vectors (membership inference, attribute inference, embedding inversion)."
+    },
+    {
+      "id": "DSGAI19",
+      "name": "Human-in-the-Loop & Labeler Overexposure",
+      "summary": "Annotators, reviewers, and RLHF labelers exposed to raw sensitive data beyond what their task requires, including data persisting in labeling platforms after use."
+    },
+    {
+      "id": "DSGAI20",
+      "name": "Model Exfiltration & IP Replication",
+      "summary": "Model weights, fine-tuned adapters, and proprietary prompt assets exfiltrated via API extraction, supply-chain access, or insider compromise."
+    },
+    {
+      "id": "DSGAI21",
+      "name": "Disinformation & Integrity Attacks via Data Poisoning",
+      "summary": "Adversarial disinformation injected into trusted retrieval sources at runtime (RAG corpora, web search, third-party feeds) to manipulate model output integrity."
+    }
+  ]
+}

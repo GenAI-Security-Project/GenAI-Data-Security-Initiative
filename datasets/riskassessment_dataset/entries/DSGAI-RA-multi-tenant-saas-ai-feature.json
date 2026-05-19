@@ -1,0 +1,58 @@
+{
+  "$schema": "../schema.json",
+  "assessment_id": "DSGAI-RA-multi-tenant-saas-ai-feature",
+  "scenario_name": "Embedded AI feature inside a multi-tenant SaaS product",
+  "entry_type": "synthetic_template",
+  "industry_sector": "technology_saas",
+  "deployment_pattern": "embedded_saas_feature",
+  "description": "A multi-tenant SaaS vendor adds an AI feature to its product — a 'summarize the open record' or 'draft from these notes' affordance available to every customer. The feature is implemented once for all tenants and runs against per-tenant data. The dominant risk is cross-tenant context bleed: any flaw in tenant scoping (cache keys, RAG filters, memory store, embedding-collection scope) becomes a multi-customer data-disclosure incident.",
+  "assumptions": [
+    "Hosted LLM under enterprise data-isolation contract.",
+    "Tenant identity is enforced at the API gateway and threaded through every retrieval and tool call.",
+    "Some legacy tenants exist on a per-tenant database; newer tenants share a multi-tenant DB with row-level security."
+  ],
+  "components": [
+    {"role": "llm_provider", "description": "Hosted third-party LLM, enterprise tier.", "sensitivity_tier": "high"},
+    {"role": "agent_framework", "description": "Per-feature mini-agents (summarize, draft, classify).", "sensitivity_tier": "critical"},
+    {"role": "rag_pipeline", "description": "Per-tenant retrieval over the tenant's records.", "sensitivity_tier": "critical"},
+    {"role": "vector_store", "description": "Multi-tenant vector store with per-tenant collection scope.", "sensitivity_tier": "critical"},
+    {"role": "guardrail_or_filter", "description": "Tenant-scoping validation classifier on every retrieval.", "sensitivity_tier": "critical"},
+    {"role": "identity_provider", "description": "Vendor IDP issuing tokens carrying tenant attribute.", "sensitivity_tier": "critical"},
+    {"role": "observability_stack", "description": "Audit logs include tenant ID on every record; SIEM-ingestion role-gated.", "sensitivity_tier": "high"}
+  ],
+  "risks_identified": [
+    {"dsgai_id": "DSGAI11", "inherent_rating": "Critical", "rationale": "Cross-tenant context bleed is the dominant risk class for this archetype; any flaw in scoping affects all tenants.", "residual_rating": "Medium", "residual_rationale": "Per-tenant retrieval filter at every layer; tenant-scoping classifier validates filter presence."},
+    {"dsgai_id": "DSGAI01", "inherent_rating": "High", "rationale": "Every retrieval and generation touches tenant-customer PII.", "residual_rating": "Medium", "residual_rationale": "Per-tenant scope; output PII redaction; processor terms with the LLM provider."},
+    {"dsgai_id": "DSGAI02", "inherent_rating": "Medium", "rationale": "Tenant tokens compromise leads to read access across the tenant's records.", "residual_rating": "Low", "residual_rationale": "Short-lived per-session tokens; tenant ID enforced server-side, not client-trusted."},
+    {"dsgai_id": "DSGAI08", "inherent_rating": "High", "rationale": "Every tenant brings its own data-protection regime; vendor must support GDPR, CCPA, HIPAA (some tenants), and sub-processor disclosure.", "residual_rating": "Medium", "residual_rationale": "DPA terms, sub-processor list, BAA available for HIPAA tenants."},
+    {"dsgai_id": "DSGAI13", "inherent_rating": "High", "rationale": "Shared vector store across many tenants; isolation failures are multi-customer events.", "residual_rating": "Medium", "residual_rationale": "Per-tenant collections; vector-store admin access tightly audited."},
+    {"dsgai_id": "DSGAI14", "inherent_rating": "Medium", "rationale": "Centralized logging across all tenants risks broad disclosure if access controls fail.", "residual_rating": "Low", "residual_rationale": "Logs partitioned by tenant; SIEM access role-gated."},
+    {"dsgai_id": "DSGAI17", "inherent_rating": "Medium", "rationale": "All tenants degrade simultaneously when the AI feature is degraded.", "residual_rating": "Medium", "residual_rationale": "Feature-flag rollback per tenant; non-AI fallback paths."}
+  ],
+  "existing_controls": [
+    {"description": "Tenant-scoping validation classifier asserts a per-tenant filter on every retrieval.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI11"]},
+    {"description": "Per-tenant vector store collections; admin access audited.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI13", "DSGAI11"]},
+    {"description": "Tenant ID enforced server-side at the API gateway, not trusted from client.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI02", "DSGAI11"]},
+    {"description": "DPA + sub-processor list + BAA available; per-tenant data-residency where contracted.", "tier": "Tier 3", "addresses_dsgai": ["DSGAI08", "DSGAI07"]},
+    {"description": "Logs partitioned by tenant; SIEM access role-gated.", "tier": "Tier 1", "addresses_dsgai": ["DSGAI14"]},
+    {"description": "Feature-flag rollback per tenant on AI-feature degradation.", "tier": "Tier 2", "addresses_dsgai": ["DSGAI17"]}
+  ],
+  "control_gaps": [
+    {"description": "No automated cross-tenant retrieval chaos test in CI.", "addresses_dsgai": ["DSGAI11"], "suggested_remediation": "Add a CI test that asserts a tenant-A user cannot retrieve tenant-B content even when forced; fail the build on any regression.", "urgency": "Immediate"},
+    {"description": "Embedding-store admin-access trails are audited but not anomaly-detected.", "addresses_dsgai": ["DSGAI13", "DSGAI02"], "suggested_remediation": "Add anomaly detection on vector-store admin operations; alert on cross-tenant access patterns.", "urgency": "Near-term"},
+    {"description": "Legacy tenants on per-tenant DB and newer tenants on shared DB have inconsistent isolation guarantees.", "addresses_dsgai": ["DSGAI11", "DSGAI13"], "suggested_remediation": "Document the isolation model per tenant; communicate the gap to enterprise customers.", "urgency": "Near-term"}
+  ],
+  "framework_alignments": [
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-05", "control_name": "Network integrity is protected", "alignment_status": "satisfied"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MAP 1.1", "control_name": "Context for AI system established", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.7.4", "control_name": "Verification and validation", "alignment_status": "partial"},
+    {"framework": "ISO/IEC 27001", "control_id": "A.5.10", "control_name": "Acceptable use", "alignment_status": "satisfied"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM08:2025", "control_name": "Vector and Embedding Weaknesses", "alignment_status": "partial"},
+    {"framework": "SOC 2", "control_id": "CC6.1", "control_name": "Logical and physical access controls", "alignment_status": "satisfied"}
+  ],
+  "compliance_obligations": ["GDPR", "CCPA", "HIPAA", "SOC 2", "ISO 27001 certification"],
+  "maturity_overall": "Managed",
+  "date_added": "2026-05-18",
+  "tags": ["multi-tenant", "saas", "isolation", "cross-tenant-bleed", "embedded-feature"]
+}
