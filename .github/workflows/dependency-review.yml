@@ -1,0 +1,74 @@
+# Blocks PRs that introduce known-vulnerable, license-incompatible, or
+  # malware-flagged dependencies before they reach main.
+  # Docs: https://github.com/actions/dependency-review-action
+
+  name: Dependency Review
+
+  on:
+    pull_request:
+      branches: [ "main" ]
+    merge_group:
+
+  # Cancel superseded runs on the same PR to save minutes.
+  concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+  # Least-privilege: read code, comment on PRs, nothing else.
+  permissions:
+    contents: read
+    pull-requests: write
+
+  jobs:
+    dependency-review:
+      name: Scan PR for vulnerable / disallowed dependencies
+      runs-on: ubuntu-latest
+      timeout-minutes: 10
+      steps:
+        - name: Harden runner
+          # Pin to SHA in production: replace @v2 with the commit SHA from
+          # https://github.com/step-security/harden-runner/releases
+          uses: step-security/harden-runner@v2
+          with:
+            egress-policy: audit
+
+        - name: Checkout
+          # Pin to SHA in production.
+          uses: actions/checkout@v4
+          with:
+            persist-credentials: false
+
+        - name: Dependency Review
+          # Pin to SHA in production.
+          uses: actions/dependency-review-action@v4
+          with:
+            # Block on Moderate+; raise to "high" only if you get noisy results.
+            fail-on-severity: moderate
+            comment-summary-in-pr: on-failure
+            # OSI-approved permissive licenses; tighten/loosen to match policy.
+            allow-licenses: >-
+              Apache-2.0,
+              BSD-2-Clause,
+              BSD-3-Clause,
+              ISC,
+              MIT,
+              MPL-2.0,
+              CC-BY-4.0,
+              CC0-1.0,
+              Unlicense
+            deny-licenses: >-
+              AGPL-1.0-only,
+              AGPL-1.0-or-later,
+              AGPL-3.0-only,
+              AGPL-3.0-or-later,
+              GPL-2.0-only,
+              GPL-3.0-only,
+              LGPL-2.0-only,
+              LGPL-3.0-only,
+              SSPL-1.0
+            # Block dependencies with active GitHub Security Advisories
+            # in the npm/PyPI/Maven/etc. ecosystems regardless of severity.
+            vulnerability-check: true
+            license-check: true
+            # Optional: warn (not fail) on these so they show in the PR summary.
+            warn-only: false
