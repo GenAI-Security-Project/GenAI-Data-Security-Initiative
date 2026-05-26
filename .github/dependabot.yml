@@ -71,34 +71,34 @@
     #     - dependency-name: "*"
     #       update-types: ["version-update:semver-major"]
 
-    # ----- Uncomment if a docs site / tooling adds package.json -----
-    # - package-ecosystem: "npm"
-    #   directory: "/"
-    #   schedule:
-    #     interval: "weekly"
-    #     day: "monday"
-    #     time: "06:00"
-    #     timezone: "Etc/UTC"
-    #   open-pull-requests-limit: 10
-    #   versioning-strategy: "increase-if-necessary"
-    #   labels:
-    #     - "dependencies"
-    #     - "javascript"
-    #     - "security"
-    #   commit-message:
-    #     prefix: "deps"
-    #     prefix-development: "deps-dev"
-    #     include: "scope"
-    #   groups:
-    #     npm-minor-and-patch:
-    #       applies-to: version-updates
-    #       update-types: ["minor", "patch"]
-    #     npm-security:
-    #       applies-to: security-updates
-    #       patterns: ["*"]
-    #   ignore:
-    #     - dependency-name: "*"
-    #       update-types: ["version-update:semver-major"]
+    # ----- npm dependencies in crosswalk/ -----
+    - package-ecosystem: "npm"
+      directory: "/crosswalk"
+      schedule:
+        interval: "weekly"
+        day: "monday"
+        time: "06:00"
+        timezone: "Etc/UTC"
+      open-pull-requests-limit: 10
+      versioning-strategy: "increase-if-necessary"
+      labels:
+        - "dependencies"
+        - "javascript"
+        - "security"
+      commit-message:
+        prefix: "deps"
+        prefix-development: "deps-dev"
+        include: "scope"
+      groups:
+        npm-minor-and-patch:
+          applies-to: version-updates
+          update-types: ["minor", "patch"]
+        npm-security:
+          applies-to: security-updates
+          patterns: ["*"]
+      ignore:
+        - dependency-name: "*"
+          update-types: ["version-update:semver-major"]
 
     # ----- Uncomment if/when a Dockerfile is added -----
     # - package-ecosystem: "docker"

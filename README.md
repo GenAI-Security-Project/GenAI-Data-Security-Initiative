@@ -63,7 +63,7 @@ The companion implementation guide covering data security principles, secure dep
 
 ## Framework Crosswalk
 
-The initiative maintains a comprehensive crosswalk of GenAI data security risks against 20 widely recognized cybersecurity and AI frameworks. The crosswalk covers all 41 entries across the OWASP LLM Top 10 2025, Agentic Top 10 2026, and DSGAI Risk Taxonomy.
+The initiative maintains a comprehensive crosswalk of GenAI data security risks against 21 widely recognized cybersecurity and AI frameworks. The crosswalk covers all 41 entries across the OWASP LLM Top 10 2025, Agentic Top 10 2026, and DSGAI Risk Taxonomy.
 
 ### 🌐 [Crosswalk →](https://genai-security-project.github.io/crosswalk/)
 The web application provides an interactive interface for exploring crosswalk mappings, framework coverage, incident data, security tooling, implementation recipes, and a glossary of key terms.
@@ -126,7 +126,7 @@ The initiative collaborates with leading AI risk authorities to consolidate effo
 
 - [MIT AI Risk Repository](https://airisk.mit.edu/)
 - [MITRE ATLAS](https://atlas.mitre.org/)
-- [NIST AI Risk Management Framework](https://www.nist.gov/artificial-intelligence/risk-management-framework)
+- [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework)
 
 Community members are encouraged to report new GenAI data security risks to these organizations as well as to this initiative.
 
@@ -135,7 +135,8 @@ Community members are encouraged to report new GenAI data security risks to thes
 ## How to Contribute
 
 - **Slack:** Join `#team-genai-data-security-initiative` on the [OWASP Slack workspace](https://owasp.slack.com) · [New to OWASP Slack? Join here](https://owasp.org/slack/invite)
-- **GitHub:** Submit issues or pull requests to this repository
+- **GitHub:** Submit issues or pull requests to this repository — see [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines
+- **Security:** Report vulnerabilities via [GitHub Private Vulnerability Reporting](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/security/advisories/new) — see [SECURITY.md](SECURITY.md)
 - **Contact:** Reach out to Emmanuel Guilherme Junior (Initiative Lead) via [Slack](https://owasp.slack.com) or [LinkedIn](https://www.linkedin.com/in/emmanuelgjr/)
 
 All contributions are welcome — from security practitioners, AI engineers, researchers, compliance professionals, and anyone working to secure GenAI systems.
