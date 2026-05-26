@@ -1,10 +1,10 @@
-name: Deploy crosswalk web app to GitHub Pages
+name: Redirect to crosswalk repo
 
 on:
   push:
     branches: [main]
     paths:
-      - 'crosswalk/docs/**'
+      - 'redirect/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -28,6 +28,6 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: crosswalk/docs
+          path: redirect
       - id: deployment
         uses: actions/deploy-pages@v4
