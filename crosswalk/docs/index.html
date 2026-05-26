@@ -1716,11 +1716,6 @@ input, select { font-family: inherit; }
     hero.appendChild(el('h1', {}, 'OWASP GenAI Crosswalk'));
     hero.appendChild(el('p', { className: 'subtitle' }, 'The most comprehensive mapping of AI security risks to industry frameworks'));
 
-    var creator = el('p', { className: 'creator' });
-    creator.appendChild(document.createTextNode('Created and led by '));
-    creator.appendChild(el('a', { href: 'https://github.com/emmanuelgjr', target: '_blank', rel: 'noopener' }, 'Emmanuel Guilherme Junior'));
-    creator.appendChild(document.createTextNode(' — OWASP GenAI Data Security Initiative Lead'));
-    hero.appendChild(creator);
 
     // Stats
     var totalRegControls = FW_REGISTRY.reduce(function(s, fw) { return s + (fw.controls || []).length; }, 0);
