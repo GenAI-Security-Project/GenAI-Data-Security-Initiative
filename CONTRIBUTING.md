@@ -111,7 +111,7 @@ Same process as above, but no validation run needed. Documentation improvements 
 
 ## Code of Conduct
 
-This initiative operates under the [OWASP Code of Conduct](https://owasp.org/www-policy/operational/code-of-conduct). We are committed to providing a welcoming and inclusive environment for everyone.
+This initiative operates under the [OWASP Code of Conduct](https://policy.owasp.org/operational/code-of-conduct). We are committed to providing a welcoming and inclusive environment for everyone.
 
 ---
 
