@@ -56,16 +56,6 @@
               CC-BY-4.0,
               CC0-1.0,
               Unlicense
-            deny-licenses: >-
-              AGPL-1.0-only,
-              AGPL-1.0-or-later,
-              AGPL-3.0-only,
-              AGPL-3.0-or-later,
-              GPL-2.0-only,
-              GPL-3.0-only,
-              LGPL-2.0-only,
-              LGPL-3.0-only,
-              SSPL-1.0
             # Block dependencies with active GitHub Security Advisories
             # in the npm/PyPI/Maven/etc. ecosystems regardless of severity.
             vulnerability-check: true
