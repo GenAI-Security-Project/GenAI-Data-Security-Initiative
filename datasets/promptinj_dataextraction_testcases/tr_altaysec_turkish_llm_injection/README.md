@@ -35,11 +35,12 @@ The source snapshot was transformed deterministically in source-ID order:
 1. Verify the pinned source-file SHA-256 and all 300 source prompt hashes.
 2. Preserve the adversarial text's Unicode representation; normalization is used only for duplicate matching.
 3. Replace named organizations, products, public or name-shaped people, and identifier-shaped values with typed synthetic placeholders.
-4. Map the intended protected asset and attack path to the canonical DSGAI taxonomy.
-5. Add explicit secure behavior, vulnerable behavior, and sandbox prerequisites.
-6. Correct language metadata after content-level review while retaining the original source label in provenance.
-7. Re-score `severity` using the target impact rubric while retaining `source_severity`.
-8. Recompute the adapted prompt SHA-256 and write one case per file plus a matching manifest row.
+4. Replace demonstration network locations with names under the IANA-reserved `.example` namespace.
+5. Map the intended protected asset and attack path to the canonical DSGAI taxonomy.
+6. Add explicit secure behavior, vulnerable behavior, and sandbox prerequisites.
+7. Correct language metadata after content-level review while retaining the original source label in provenance.
+8. Re-score `severity` using the target impact rubric while retaining `source_severity`.
+9. Recompute the adapted prompt SHA-256 and write one case per file plus a matching manifest row.
 
 Typed placeholders retain the security-testing intent without carrying named entities or realistic identifier values. Examples include `[SENTETIK_KAMU_KURUMU]`, `[SENTETIK_TC_KIMLIK_NO]`, `[SENTETIK_API_ANAHTARI]`, and `[SENTETIK_PLAKA]`.
 
@@ -87,6 +88,7 @@ Severity is a conservative test-impact label, not a CVSS score. Prompt-injection
 - Named organizations, products, public or name-shaped people, realistic TCKN/IBAN/phone/plate forms, credential candidates, and internal-ID candidates were removed from the adapted fields.
 - `KVKK` is intentionally retained only as the public name of Türkiye's data-protection law/regime; it is not treated as an organization, person, or private identifier.
 - No production credentials, real personal records, vendor-specific undisclosed vulnerabilities, or model performance claims are included.
+- Web-location fixtures use IANA-reserved `.example` names and require no third-party network target.
 - Encoded and mixed-script payloads are intentionally retained where they are the behavior under test.
 
 ## Validation evidence
@@ -103,6 +105,7 @@ Release QA performed on 2026-07-16:
 | Manifest-to-file integrity | 300 / 300 |
 | Canonical DSGAI/category validation | 300 / 300 |
 | Non-allowlisted denylisted named entities and direct PII/live-secret patterns | 0 findings |
+| Non-reserved network domains in adapted prompts | 0 findings |
 | Normalized exact duplicates | 0 |
 | Lexical near-duplicate pairs at similarity `>= 0.86` | 0 |
 
