@@ -28,7 +28,9 @@ keywords = ["anthropic", "sk-ant-"]
 id = "dsgai-named-credential"
 description = "DSGAI02 — named LLM/cloud/vector-store credential assignment, quote-optional"
 regex = '''(?i)(COHERE_API_KEY|GOOGLE_API_KEY|HF_TOKEN|HUGGINGFACE_TOKEN|AWS_ACCESS_KEY_ID|AZURE_OPENAI_KEY|GCP_SERVICE_ACCOUNT_KEY|QDRANT_API_KEY|PINECONE_API_KEY|WEAVIATE_API_KEY|MILVUS_TOKEN|LANGSMITH_API_KEY|LANGFUSE_PUBLIC_KEY|LANGFUSE_SECRET_KEY)\s*[:=]\s*["']?[A-Za-z0-9_\-]{16,}'''
-keywords = ["api_key", "token", "qdrant", "pinecone", "weaviate", "langfuse", "langsmith"]
+# "key" (case-insensitive) covers AZURE_OPENAI_KEY / GCP_SERVICE_ACCOUNT_KEY /
+# AWS_ACCESS_KEY_ID etc.; the keyword prefilter previously dropped those three.
+keywords = ["key", "token", "qdrant", "pinecone", "weaviate", "langfuse", "langsmith"]
 
 [[rules]]
 id = "dsgai-token-prefix"

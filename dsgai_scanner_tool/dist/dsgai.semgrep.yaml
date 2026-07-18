@@ -124,7 +124,7 @@ rules:
     severity: INFO
     message: 'DSGAI04 P04.2: Safe pickle (PASS counter)'
     patterns:
-      - pattern-regex: 'torch\.load\s*\([^)]*weights_only\s*=\s*True'
+      - pattern-regex: '(?m)torch\.load\s*\([^)]*weights_only\s*=\s*True'
     paths:
       include: ['*.py', '*.sh', '*.yml', '*.yaml', 'Dockerfile', 'requirements*.txt', 'pyproject.toml', 'setup.py']
     metadata:
@@ -150,7 +150,7 @@ rules:
     severity: WARNING
     message: 'DSGAI04 P04.4: Unpinned ML deps (WARN)'
     patterns:
-      - pattern-regex: '^(torch|transformers|tensorflow|langchain|openai|anthropic|llama-index)\s*(>=|~=|\^|>|<|<=|\*|latest)'
+      - pattern-regex: '(?m)^(torch|transformers|tensorflow|langchain|openai|anthropic|llama-index)\s*(>=|~=|\^|>|<|<=|\*|latest)'
     paths:
       include: ['*.py', '*.sh', '*.yml', '*.yaml', 'Dockerfile', 'requirements*.txt', 'pyproject.toml', 'setup.py']
     metadata:
@@ -228,7 +228,7 @@ rules:
     severity: INFO
     message: 'DSGAI05 P05.3: Tenant filter on search (PASS)'
     patterns:
-      - pattern-regex: '(similarity_search|vector_search)[^)]{0,100}(filter|namespace|where)[^)]{0,40}tenant'
+      - pattern-regex: '(?m)(similarity_search|vector_search)[^)]{0,100}(filter|namespace|where)[^)]{0,40}tenant'
     paths:
       include: ['*.py', '*.ts', '*.java', '*.kt']
     metadata:
@@ -241,7 +241,7 @@ rules:
     severity: INFO
     message: 'DSGAI05 P05.4: Integrity check on docs (PASS)'
     patterns:
-      - pattern-regex: '(hashlib|sha256[^\n]{0,40}doc|integrity[._-]check|verify[._-]document)'
+      - pattern-regex: '(?m)(hashlib|sha256[^\n]{0,40}doc|integrity[._-]check|verify[._-]document)'
     paths:
       include: ['*.py', '*.ts', '*.java', '*.kt']
     metadata:
@@ -280,7 +280,7 @@ rules:
     severity: ERROR
     message: 'DSGAI06 P06.1: Insecure MCP transport (FAIL)'
     patterns:
-      - pattern-regex: '("url"\s*:\s*"http://|transport[^\n]{0,20}http://|"command"[^}]{0,200}--http(?!s))'
+      - pattern-regex: '(?m)("url"\s*:\s*"http://|transport[^\n]{0,20}http://|"command"[^}]{0,200}--http(?!s))'
     paths:
       include: ['*.json', '*.yaml', '*.toml', '*.py', '*.ts', 'mcp.json', 'claude_desktop_config.json']
     metadata:
@@ -293,7 +293,7 @@ rules:
     severity: INFO
     message: 'DSGAI06 P06.2: MCP auth (PASS)'
     patterns:
-      - pattern-regex: '(mcp[^\n]{0,30}(api_key|auth|bearer)|x-api-key[^\n]{0,20}mcp)'
+      - pattern-regex: '(?m)(mcp[^\n]{0,30}(api_key|auth|bearer)|x-api-key[^\n]{0,20}mcp)'
     paths:
       include: ['*.json', '*.yaml', '*.toml', '*.py', '*.ts', 'mcp.json', 'claude_desktop_config.json']
     metadata:
@@ -306,7 +306,7 @@ rules:
     severity: INFO
     message: 'DSGAI06 P06.3: Tool schema validation (PASS)'
     patterns:
-      - pattern-regex: '(jsonschema|pydantic[^\n]{0,30}validate|zod|schema[^\n]{0,20}tool|input_schema)'
+      - pattern-regex: '(?m)(jsonschema|pydantic[^\n]{0,30}validate|zod|schema[^\n]{0,20}tool|input_schema)'
     paths:
       include: ['*.json', '*.yaml', '*.toml', '*.py', '*.ts', 'mcp.json', 'claude_desktop_config.json']
     metadata:
@@ -332,7 +332,7 @@ rules:
     severity: INFO
     message: 'DSGAI06 P06.5: uvicorn bind-all + no auth'
     patterns:
-      - pattern-regex: 'uvicorn\.run\([^)]*host\s*=\s*["'']0\.0\.0\.0'
+      - pattern-regex: '(?m)uvicorn\.run\([^)]*host\s*=\s*["'']0\.0\.0\.0'
     paths:
       include: ['*.json', '*.yaml', '*.toml', '*.py', '*.ts', 'mcp.json', 'claude_desktop_config.json']
     metadata:
@@ -618,7 +618,7 @@ rules:
     severity: INFO
     message: 'DSGAI11 P11.2: Tenant filter present (PASS)'
     patterns:
-      - pattern-regex: '(namespace\s*=[^,)]{0,40}tenant|collection[^=]{0,20}=\s*f?["''][^"'']*\{?tenant|filter\s*=\s*\{[^}]*tenant)'
+      - pattern-regex: '(?m)(namespace\s*=[^,)]{0,40}tenant|collection[^=]{0,20}=\s*f?["''][^"'']*\{?tenant|filter\s*=\s*\{[^}]*tenant)'
     paths:
       include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     metadata:
@@ -657,7 +657,7 @@ rules:
     severity: ERROR
     message: 'DSGAI12 P12.1: Raw LLM-output execution (FAIL)'
     patterns:
-      - pattern-regex: '(?:\.execute|\.run_query|executemany)\(\s*(?:f["'']|[^),]*\b(llm_\w*|completion\w*|generated_sql|generated_query|\w*\.content)\b)'
+      - pattern-regex: '(?m)(?:\.execute|\.run_query|executemany)\(\s*(?:f["'']|[^),]*\b(llm_\w*|completion\w*|generated_sql|generated_query|\w*\.content)\b)'
     paths:
       include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     metadata:
@@ -683,7 +683,7 @@ rules:
     severity: INFO
     message: 'DSGAI12 P12.3: Parameterized query (PASS)'
     patterns:
-      - pattern-regex: '(cursor\.execute\([^)]+,\s*[\[\(]|prepareStatement|bindValue|:param)'
+      - pattern-regex: '(?m)(cursor\.execute\([^)]+,\s*[\[\(]|prepareStatement|bindValue|:param)'
     paths:
       include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     metadata:
@@ -774,7 +774,7 @@ rules:
     severity: INFO
     message: 'DSGAI16 P16.3: Telemetry off (PASS)'
     patterns:
-      - pattern-regex: '(telemetry[^\n]{0,10}(off|false|disabled)|share_data\s*[:=]\s*false)'
+      - pattern-regex: '(?m)(telemetry[^\n]{0,10}(off|false|disabled)|share_data\s*[:=]\s*false)'
     paths:
       include: ['.copilotignore', '.aiignore', '.cursorignore', '.continueignore', '.codeiumignore', '.vscode/settings.json', 'cursor.json', 'continue.json']
     metadata:
@@ -826,7 +826,7 @@ rules:
     severity: INFO
     message: 'DSGAI17 P17.3: Timeout on LLM call (PASS)'
     patterns:
-      - pattern-regex: '(timeout\s*=\s*\d|request_timeout\s*=|httpx\.[^\n]{0,30}timeout)'
+      - pattern-regex: '(?m)(timeout\s*=\s*\d|request_timeout\s*=|httpx\.[^\n]{0,30}timeout)'
     paths:
       include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     metadata:
@@ -865,7 +865,7 @@ rules:
     severity: ERROR
     message: 'DSGAI17 P17.6: Unbounded retry (FAIL)'
     patterns:
-      - pattern-regex: 'while\s+True[^}]{0,200}(generate|complete|chat)|retry\s*\(\s*\)'
+      - pattern-regex: '(?m)while\s+True[^}]{0,200}(generate|complete|chat)|retry\s*\(\s*\)'
     paths:
       include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     metadata:
@@ -891,7 +891,7 @@ rules:
     severity: INFO
     message: 'DSGAI18 P18.2: PII detection on output'
     patterns:
-      - pattern-regex: '(detect_pii[^\n]{0,20}output|output[^\n]{0,20}detect_pii|presidio[^\n]{0,20}output|scan_output)'
+      - pattern-regex: '(?m)(detect_pii[^\n]{0,20}output|output[^\n]{0,20}detect_pii|presidio[^\n]{0,20}output|scan_output)'
     paths:
       include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     metadata:
@@ -956,7 +956,7 @@ rules:
     severity: INFO
     message: 'DSGAI19 P19.2: Labeling SDK auth from vault'
     patterns:
-      - pattern-regex: '(label_studio[^\n]{0,30}vault|labelbox[^\n]{0,30}secret|scale_api_key[^\n]{0,30}(vault|env))'
+      - pattern-regex: '(?m)(label_studio[^\n]{0,30}vault|labelbox[^\n]{0,30}secret|scale_api_key[^\n]{0,30}(vault|env))'
     paths:
       include: ['*.py', '*.ipynb', '*.ts', '*.yaml']
     metadata:
@@ -995,7 +995,7 @@ rules:
     severity: INFO
     message: 'DSGAI20 P20.1: API auth required (PASS)'
     patterns:
-      - pattern-regex: '(api_key[^\n]{0,15}(verify|validate)|bearer_token[^\n]{0,15}validate|Authorization[^\n]{0,15}required|@require_auth|auth_middleware|Depends\(.*auth)'
+      - pattern-regex: '(?m)(api_key[^\n]{0,15}(verify|validate)|bearer_token[^\n]{0,15}validate|Authorization[^\n]{0,15}required|@require_auth|auth_middleware|Depends\(.*auth)'
     paths:
       include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     metadata:
@@ -1047,7 +1047,7 @@ rules:
     severity: INFO
     message: 'DSGAI20 P20.5: Inference endpoint (count)'
     patterns:
-      - pattern-regex: '(@app\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict)|@router\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict)|app\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict))'
+      - pattern-regex: '(?m)(@app\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict)|@router\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict)|app\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict))'
     paths:
       include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     metadata:
@@ -1060,7 +1060,7 @@ rules:
     severity: INFO
     message: 'DSGAI21 P21.1: Read-only retrieval (PASS)'
     patterns:
-      - pattern-regex: '(read_only\s*=\s*True|readonly\s*=\s*True|HttpMethod\.GET|http_method[^\n]{0,10}get)'
+      - pattern-regex: '(?m)(read_only\s*=\s*True|readonly\s*=\s*True|HttpMethod\.GET|http_method[^\n]{0,10}get)'
     paths:
       include: ['*.py', '*.ts', '*.java', '*.kt']
     metadata:
@@ -1073,7 +1073,7 @@ rules:
     severity: WARNING
     message: 'DSGAI21 P21.2: KB write from agent (WARN)'
     patterns:
-      - pattern-regex: '(chromadb|qdrant|pinecone|weaviate|knowledge_base|kb_client)[^\n]{0,40}\.(upsert|insert|update|delete|add_documents|write)\('
+      - pattern-regex: '(?m)(chromadb|qdrant|pinecone|weaviate|knowledge_base|kb_client)[^\n]{0,40}\.(upsert|insert|update|delete|add_documents|write)\('
     paths:
       include: ['*.py', '*.ts', '*.java', '*.kt']
     metadata:
