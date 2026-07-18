@@ -1,0 +1,2218 @@
+{
+  "framework": "dsgai-2026-v1.0",
+  "rules": [
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI01",
+      "description": "PII scrubbing imports",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.json",
+        "*.env*"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P01.1",
+      "name": "pii-scrubbing-imports",
+      "pcre": "(anonymize|redact|scrub_pii|piiDetect|mask_pii|presidio)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI01",
+      "description": "No-train flags",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.json",
+        "*.env*"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P01.2",
+      "name": "no-train-flags",
+      "pcre": "(allow_training|training_opt_out|X-Training-Data|no_train)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI01",
+      "description": "Output PII filter",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.json",
+        "*.env*"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P01.3",
+      "name": "output-pii-filter",
+      "pcre": "(filter_pii|remove_pii|output_sanitize|output_filter)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI01",
+      "description": "Differential privacy lib",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.json",
+        "*.env*"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P01.4",
+      "name": "differential-privacy-lib",
+      "pcre": "(opacus|tensorflow\\.privacy|dp-accounting|differential\\.privacy)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI01",
+      "description": "Consent / GDPR check",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.json",
+        "*.env*"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P01.5",
+      "name": "consent-gdpr-check",
+      "pcre": "(consent_capture|gdpr|ccpa|data_subject|lawful_basis)",
+      "signal": "info"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "high",
+      "control": "DSGAI02",
+      "description": "Hardcoded LLM API key (OpenAI)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.js",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.env*",
+        "*.yaml",
+        "*.yml",
+        "*.json",
+        "*.toml",
+        "*.cfg"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P02.1",
+      "name": "hardcoded-llm-api-key",
+      "pcre": "(?i)(OPENAI_API_KEY|openai[._-]?api[._-]?key)\\s*[:=]\\s*[\"']sk-[A-Za-z0-9_\\-]{20,}",
+      "signal": "fail"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "high",
+      "control": "DSGAI02",
+      "description": "Hardcoded LLM API key (Anthropic)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.js",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.env*",
+        "*.yaml",
+        "*.yml",
+        "*.json",
+        "*.toml",
+        "*.cfg"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P02.2",
+      "name": "hardcoded-llm-api-key",
+      "pcre": "(?i)(ANTHROPIC_API_KEY|anthropic[._-]?api[._-]?key)\\s*[:=]\\s*[\"']sk-ant-[A-Za-z0-9_\\-]{20,}",
+      "signal": "fail"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "high",
+      "control": "DSGAI02",
+      "description": "Hardcoded Cohere/Google/HF tokens",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.js",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.env*",
+        "*.yaml",
+        "*.yml",
+        "*.json",
+        "*.toml",
+        "*.cfg"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P02.3",
+      "name": "hardcoded-cohere-google-hf-tokens",
+      "pcre": "(?i)(COHERE_API_KEY|GOOGLE_API_KEY|HF_TOKEN|HUGGINGFACE_TOKEN)\\s*[:=]\\s*[\"'][A-Za-z0-9_\\-]{20,}",
+      "signal": "fail"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "high",
+      "control": "DSGAI02",
+      "description": "Hardcoded AWS creds",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.js",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.env*",
+        "*.yaml",
+        "*.yml",
+        "*.json",
+        "*.toml",
+        "*.cfg"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P02.4",
+      "name": "hardcoded-aws-creds",
+      "pcre": "(AWS_ACCESS_KEY_ID|aws_access_key_id)\\s*[:=]\\s*[\"'][A-Z0-9]{16,}",
+      "signal": "fail"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "high",
+      "control": "DSGAI02",
+      "description": "Hardcoded Azure/GCP cred",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.js",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.env*",
+        "*.yaml",
+        "*.yml",
+        "*.json",
+        "*.toml",
+        "*.cfg"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P02.5",
+      "name": "hardcoded-azure-gcp-cred",
+      "pcre": "(AZURE_OPENAI_KEY|GCP_SERVICE_ACCOUNT_KEY)\\s*[:=]\\s*[\"'][A-Za-z0-9_\\-]{16,}",
+      "signal": "fail"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "low",
+      "control": "DSGAI02",
+      "description": "Wildcard token scope (warn)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.js",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.env*",
+        "*.yaml",
+        "*.yml",
+        "*.json",
+        "*.toml",
+        "*.cfg"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P02.6",
+      "name": "wildcard-token-scope",
+      "pcre": "(\"scope\"\\s*:\\s*\"\\*|permissions[^\\n]{0,30}\\*|scope[^\\n]{0,20}admin)",
+      "signal": "warn"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "medium",
+      "control": "DSGAI02",
+      "description": "Vault/secrets-manager (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.js",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.env*",
+        "*.yaml",
+        "*.yml",
+        "*.json",
+        "*.toml",
+        "*.cfg"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P02.7",
+      "name": "vault-secrets-manager",
+      "pcre": "(hvac\\.Client|hashicorp/vault|VAULT_(ADDR|TOKEN|NAMESPACE)|secretsmanager\\.|GetSecretValue|SecretManagerServiceClient|azure[._-]keyvault|@aws-sdk/client-secrets-manager)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "medium",
+      "control": "DSGAI02",
+      "description": "Tool-call signing (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.js",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.env*",
+        "*.yaml",
+        "*.yml",
+        "*.json",
+        "*.toml",
+        "*.cfg"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P02.8",
+      "name": "tool-call-signing",
+      "pcre": "(hmac|sign_request|verify_signature|tool_auth|mtls|mutual_tls)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI03",
+      "description": "Third-party LLM endpoints",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.go",
+        "*.yaml",
+        "*.json",
+        "*.env*"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P03.1",
+      "name": "third-party-llm-endpoints",
+      "pcre": "(api\\.openai\\.com|api\\.anthropic\\.com|generativelanguage\\.googleapis\\.com|api\\.cohere\\.com|api\\.together\\.xyz|api\\.mistral\\.ai|api\\.groq\\.com)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI03",
+      "description": "Internal LLM gateway (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.go",
+        "*.yaml",
+        "*.json",
+        "*.env*"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P03.2",
+      "name": "internal-llm-gateway",
+      "pcre": "(llm[._-]?gateway|ai[._-]?proxy|model[._-]?gateway|llm[._-]?proxy)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI03",
+      "description": "DLP / classification check",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.go",
+        "*.yaml",
+        "*.json",
+        "*.env*"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P03.3",
+      "name": "dlp-classification-check",
+      "pcre": "(dlp|data_classification|classify_data|sensitivity_check)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI04",
+      "description": "Unsafe pickle (FAIL)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.sh",
+        "*.yml",
+        "*.yaml",
+        "Dockerfile",
+        "requirements*.txt",
+        "pyproject.toml",
+        "setup.py"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P04.1",
+      "name": "unsafe-pickle",
+      "pcre": "torch\\.load\\s*\\(",
+      "signal": "fail",
+      "subtract": [
+        "P04.2"
+      ]
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI04",
+      "description": "Safe pickle (PASS counter)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.sh",
+        "*.yml",
+        "*.yaml",
+        "Dockerfile",
+        "requirements*.txt",
+        "pyproject.toml",
+        "setup.py"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P04.2",
+      "name": "safe-pickle",
+      "pcre": "torch\\.load\\s*\\([^)]*weights_only\\s*=\\s*True",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI04",
+      "description": "Artifact verification (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.sh",
+        "*.yml",
+        "*.yaml",
+        "Dockerfile",
+        "requirements*.txt",
+        "pyproject.toml",
+        "setup.py"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P04.3",
+      "name": "artifact-verification",
+      "pcre": "(sha256|verify_signature|model_hash|check_integrity)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI04",
+      "description": "Unpinned ML deps (WARN)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.sh",
+        "*.yml",
+        "*.yaml",
+        "Dockerfile",
+        "requirements*.txt",
+        "pyproject.toml",
+        "setup.py"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P04.4",
+      "name": "unpinned-ml-deps",
+      "pcre": "^(torch|transformers|tensorflow|langchain|openai|anthropic|llama-index)\\s*(>=|~=|\\^|>|<|<=|\\*|latest)",
+      "signal": "warn"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI04",
+      "description": "SBOM in CI (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.sh",
+        "*.yml",
+        "*.yaml",
+        "Dockerfile",
+        "requirements*.txt",
+        "pyproject.toml",
+        "setup.py"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P04.5",
+      "name": "sbom-in-ci",
+      "pcre": "(syft|cyclonedx|spdx|sbom)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI04",
+      "description": "Trusted registry (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.sh",
+        "*.yml",
+        "*.yaml",
+        "Dockerfile",
+        "requirements*.txt",
+        "pyproject.toml",
+        "setup.py"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P04.6",
+      "name": "trusted-registry",
+      "pcre": "(index-url|extra-index-url|artifactory|jfrog|verdaccio)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI04",
+      "description": "Hash-pinned install (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.sh",
+        "*.yml",
+        "*.yaml",
+        "Dockerfile",
+        "requirements*.txt",
+        "pyproject.toml",
+        "setup.py"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P04.7",
+      "name": "hash-pinned-install",
+      "pcre": "(--require-hashes|integrity\\s*:\\s*sha)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI05",
+      "description": "Document ingestion calls",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P05.1",
+      "name": "document-ingestion-calls",
+      "pcre": "(loader\\.load\\(|ingest_document\\(|add_documents\\(|index_document\\(|UnstructuredFileLoader|PyPDFLoader|DirectoryLoader)",
+      "requires_nearby": {
+        "rules": [
+          "P05.2",
+          "P05.3"
+        ],
+        "scope": "module"
+      },
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI05",
+      "description": "Access control (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P05.2",
+      "name": "access-control",
+      "pcre": "(acl_filter|access_check|permitted_docs|filter\\s*=.*tenant|namespace\\s*=.*tenant)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI05",
+      "description": "Tenant filter on search (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P05.3",
+      "name": "tenant-filter-on-search",
+      "pcre": "(similarity_search|vector_search)[^)]{0,100}(filter|namespace|where)[^)]{0,40}tenant",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI05",
+      "description": "Integrity check on docs (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P05.4",
+      "name": "integrity-check-on-docs",
+      "pcre": "(hashlib|sha256[^\\n]{0,40}doc|integrity[._-]check|verify[._-]document)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI05",
+      "description": "Chunk size limits (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P05.5",
+      "name": "chunk-size-limits",
+      "pcre": "(max_chunk_size|chunk_size\\s*=|max_doc_size|content_limit)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI05",
+      "description": "Path traversal risk",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P05.6",
+      "name": "path-traversal-risk",
+      "pcre": "(open\\(.*\\.\\.|os\\.path\\.join\\(.*request\\.|Path\\(.*request\\.)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI06",
+      "description": "Insecure MCP transport (FAIL)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.json",
+        "*.yaml",
+        "*.toml",
+        "*.py",
+        "*.ts",
+        "mcp.json",
+        "claude_desktop_config.json"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P06.1",
+      "name": "insecure-mcp-transport",
+      "pcre": "(\"url\"\\s*:\\s*\"http://|transport[^\\n]{0,20}http://|\"command\"[^}]{0,200}--http(?!s))",
+      "signal": "fail"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI06",
+      "description": "MCP auth (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.json",
+        "*.yaml",
+        "*.toml",
+        "*.py",
+        "*.ts",
+        "mcp.json",
+        "claude_desktop_config.json"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P06.2",
+      "name": "mcp-auth",
+      "pcre": "(mcp[^\\n]{0,30}(api_key|auth|bearer)|x-api-key[^\\n]{0,20}mcp)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI06",
+      "description": "Tool schema validation (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.json",
+        "*.yaml",
+        "*.toml",
+        "*.py",
+        "*.ts",
+        "mcp.json",
+        "claude_desktop_config.json"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P06.3",
+      "name": "tool-schema-validation",
+      "pcre": "(jsonschema|pydantic[^\\n]{0,30}validate|zod|schema[^\\n]{0,20}tool|input_schema)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI06",
+      "description": "Wildcard tool perms (WARN)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.json",
+        "*.yaml",
+        "*.toml",
+        "*.py",
+        "*.ts",
+        "mcp.json",
+        "claude_desktop_config.json"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P06.4",
+      "name": "wildcard-tool-perms",
+      "pcre": "(tools\\s*[:=]\\s*\\*|\"tools\"\\s*:\\s*\"\\*\"|allow_all_tools)",
+      "signal": "warn"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI06",
+      "description": "uvicorn bind-all + no auth",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.json",
+        "*.yaml",
+        "*.toml",
+        "*.py",
+        "*.ts",
+        "mcp.json",
+        "claude_desktop_config.json"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P06.5",
+      "name": "uvicorn-bind-all-no-auth",
+      "pcre": "uvicorn\\.run\\([^)]*host\\s*=\\s*[\"']0\\.0\\.0\\.0",
+      "requires_nearby": {
+        "absent": true,
+        "rule": "P06.2",
+        "scope": "module"
+      },
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI07",
+      "description": "TTL config",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.json"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P07.1",
+      "name": "ttl-config",
+      "notes": "Absence of P07.1-P07.4 in a multi-tenant or PII-handling repo = WARN.",
+      "pcre": "(ttl\\s*=|expires_in\\s*=|max_age\\s*=|RETENTION_DAYS|DATA_TTL|HISTORY_TTL)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI07",
+      "description": "Session cleanup (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.json"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P07.2",
+      "name": "session-cleanup",
+      "pcre": "(delete_session|clear_history|purge_conversation|clear_memory|delete_conversation)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI07",
+      "description": "Vector delete (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.json"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P07.3",
+      "name": "vector-delete",
+      "pcre": "(delete_namespace|delete_collection|drop_index|delete_index|reset_collection)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI07",
+      "description": "Right-to-erasure (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.json"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P07.4",
+      "name": "right-to-erasure",
+      "pcre": "(gdpr_delete|erase_user_data|handle_deletion|right_to_erasure|forget_user)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI08",
+      "description": "DPIA / privacy assessment doc",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.md",
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.json",
+        "docs/**",
+        "appsec/**",
+        "security-review/**"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P08.1",
+      "name": "dpia-privacy-assessment-doc",
+      "notes": "Absence of P08.1-P08.6 in a production GenAI service = WARN; absence in a high-risk EU AI Act use case = FAIL.",
+      "pcre": "(DPIA|PIA|privacy_assessment|privacy[._-]impact)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI08",
+      "description": "Data processing agreement ref",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.md",
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.json",
+        "docs/**",
+        "appsec/**",
+        "security-review/**"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P08.2",
+      "name": "data-processing-agreement-ref",
+      "pcre": "(data_processing_agreement|DPA|sub_processor)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI08",
+      "description": "Consent capture",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.md",
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.json",
+        "docs/**",
+        "appsec/**",
+        "security-review/**"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P08.3",
+      "name": "consent-capture",
+      "pcre": "(consent_capture|capture_consent|consent_record|lawful_basis)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI08",
+      "description": "EU AI Act annotation",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.md",
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.json",
+        "docs/**",
+        "appsec/**",
+        "security-review/**"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P08.4",
+      "name": "eu-ai-act-annotation",
+      "pcre": "(ai_act_risk_level|high_risk_ai|limited_risk|minimal_risk)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI08",
+      "description": "Audit logging",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.md",
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.json",
+        "docs/**",
+        "appsec/**",
+        "security-review/**"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P08.5",
+      "name": "audit-logging",
+      "pcre": "(audit_log|decision_log|audit_trail)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI08",
+      "description": "Do-not-track honored",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.md",
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.json",
+        "docs/**",
+        "appsec/**",
+        "security-review/**"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P08.6",
+      "name": "do-not-track-honored",
+      "pcre": "(do_not_track|opt_out|DNT)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI09",
+      "description": "EXIF / metadata strip",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "gated_on": "multimodal",
+      "id": "P09.1",
+      "name": "exif-metadata-strip",
+      "pcre": "(strip_exif|remove_metadata|PIL\\.Image|exifread|piexif)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI09",
+      "description": "Image PII / moderation",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "gated_on": "multimodal",
+      "id": "P09.2",
+      "name": "image-pii-moderation",
+      "pcre": "(detect_pii_in_image|content_filter|nsfw_detect|moderate_image)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI09",
+      "description": "MIME / file type validation",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "gated_on": "multimodal",
+      "id": "P09.3",
+      "name": "mime-file-type-validation",
+      "pcre": "(allowed_types|mime_type_check|magic\\.from_buffer|filetype\\.guess)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI09",
+      "description": "Size limit on upload",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "gated_on": "multimodal",
+      "id": "P09.4",
+      "name": "size-limit-on-upload",
+      "pcre": "(max_upload_size|MAX_FILE_SIZE|content[._-]length[._-]limit)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI09",
+      "description": "Steganography detection",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "gated_on": "multimodal",
+      "id": "P09.5",
+      "name": "steganography-detection",
+      "notes": "Absence = note only (advanced control); P09.1-P09.4 absence in a multimodal pipeline = WARN.",
+      "pcre": "(stego|steganography|stegano|lsb_detect)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI10",
+      "description": "Membership inference test",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ipynb",
+        "*.r"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "gated_on": "synthetic_data",
+      "id": "P10.1",
+      "name": "membership-inference-test",
+      "notes": "Synthetic data pipeline without any of P10.1/P10.2/P10.4 = FAIL.",
+      "pcre": "(membership_inference|mia_test|mia_attack)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI10",
+      "description": "Anonymity validation",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ipynb",
+        "*.r"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "gated_on": "synthetic_data",
+      "id": "P10.2",
+      "name": "anonymity-validation",
+      "pcre": "(k_anonymity|l_diversity|t_closeness|anonymization_check)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI10",
+      "description": "Privacy-preserving lib",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ipynb",
+        "*.r"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "gated_on": "synthetic_data",
+      "id": "P10.3",
+      "name": "privacy-preserving-lib",
+      "pcre": "(SDV|gretel|synthetic_data_vault|smartnoise)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI10",
+      "description": "DP noise in generation",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ipynb",
+        "*.r"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "gated_on": "synthetic_data",
+      "id": "P10.4",
+      "name": "dp-noise-in-generation",
+      "pcre": "(epsilon\\s*=|noise_multiplier\\s*=|dp_noise|laplace_noise|gaussian_noise)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI10",
+      "description": "Re-identification risk note",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ipynb",
+        "*.r"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "gated_on": "synthetic_data",
+      "id": "P10.5",
+      "name": "re-identification-risk-note",
+      "pcre": "(reidentification_risk|reid_check|disclosure_risk)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI11",
+      "description": "Vector query call sites",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P11.1",
+      "name": "vector-query-call-sites",
+      "pcre": "(similarity_search|max_marginal_relevance_search|as_retriever|(vectorstore|vector_store|retriever|index|collection|client)\\.(query|search)\\()",
+      "requires_nearby": {
+        "lines": 15,
+        "rule": "P11.2"
+      },
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI11",
+      "description": "Tenant filter present (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P11.2",
+      "name": "tenant-filter-present",
+      "pcre": "(namespace\\s*=[^,)]{0,40}tenant|collection[^=]{0,20}=\\s*f?[\"'][^\"']*\\{?tenant|filter\\s*=\\s*\\{[^}]*tenant)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI11",
+      "description": "Tenant verification (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P11.3",
+      "name": "tenant-verification",
+      "pcre": "(tenant_id\\s*in\\s*session|verify_tenant|assert_tenant|check_tenant|require_tenant)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI11",
+      "description": "Cross-tenant cache risk",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P11.4",
+      "name": "cross-tenant-cache-risk",
+      "pcre": "(global[._-]cache|shared[._-]prompt[._-]cache|@cache(?!\\s*\\(.*tenant))",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI12",
+      "description": "Raw LLM-output execution (FAIL)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P12.1",
+      "name": "raw-llm-output-execution",
+      "pcre": "execute\\([^)]*(llm|response|completion|output|generated)",
+      "signal": "fail"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI12",
+      "description": "LangChain SQL agent (FAIL signal)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P12.2",
+      "name": "langchain-sql-agent",
+      "pcre": "(SQLDatabaseChain|create_sql_agent|SQLDatabaseToolkit)",
+      "signal": "fail"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI12",
+      "description": "Parameterized query (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P12.3",
+      "name": "parameterized-query",
+      "pcre": "(cursor\\.execute\\([^)]+,\\s*[\\[\\(]|prepareStatement|bindValue|:param)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI12",
+      "description": "Read-only conn (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P12.4",
+      "name": "read-only-conn",
+      "pcre": "(read_only\\s*=\\s*True|readonly\\s*=\\s*True|read_only_connection|default_transaction_read_only)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI12",
+      "description": "Query validator (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P12.5",
+      "name": "query-validator",
+      "pcre": "(validate_query|query_validator|safe_sql|sql_guard|sanitize_sql)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI12",
+      "description": "DDL from agent (FAIL)",
+      "exclude_globs": [
+        "**/migrations/**",
+        "**/fixtures/**",
+        "**/tests/**",
+        "**/test/**"
+      ],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P12.6",
+      "name": "ddl-from-agent",
+      "notes": "DDL in migrations/fixtures/tests is benign — excluded from FAIL.",
+      "pcre": "\\b(DROP\\s+TABLE|TRUNCATE|ALTER\\s+TABLE|DELETE\\s+FROM)\\b",
+      "signal": "fail"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI12",
+      "description": "Row limit (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P12.7",
+      "name": "row-limit",
+      "pcre": "(LIMIT\\s+\\d+|max_rows\\s*=|fetch_limit\\s*=)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "low",
+      "control": "DSGAI13",
+      "description": "Vector store auth configured",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.env*"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P13.1",
+      "name": "vector-store-auth-configured",
+      "pcre": "(CHROMA_SERVER_AUTH|QDRANT_API_KEY|PINECONE_API_KEY|WEAVIATE_API_KEY|MILVUS_TOKEN|vectorstore[^\\n]{0,30}api_key)",
+      "signal": "info"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "medium",
+      "control": "DSGAI13",
+      "description": "TLS endpoints (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.env*"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P13.2",
+      "name": "tls-endpoints",
+      "pcre": "(https://[^\"']*?(qdrant|weaviate|pinecone|chroma)|ssl\\s*=\\s*True|tls\\s*=\\s*True|grpcs://)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "low",
+      "control": "DSGAI13",
+      "description": "Insecure binding (WARN)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.env*"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P13.3",
+      "name": "insecure-binding",
+      "pcre": "(host[^\\n]{0,15}0\\.0\\.0\\.0|ALLOW_RESET\\s*=\\s*True|chroma[^\\n]{0,30}http://localhost|qdrant[^\\n]{0,30}http://localhost)",
+      "signal": "warn"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "high",
+      "control": "DSGAI13",
+      "description": "Hardcoded vector token (FAIL)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.yaml",
+        "*.env*"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P13.4",
+      "name": "hardcoded-vector-token",
+      "pcre": "(QDRANT_API_KEY|PINECONE_API_KEY|WEAVIATE_API_KEY)\\s*=\\s*[\"'][A-Za-z0-9_\\-]{16,}",
+      "signal": "fail"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "medium",
+      "control": "DSGAI14",
+      "description": "Prompt logging disabled (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.yaml",
+        "*.env*"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P14.1",
+      "name": "prompt-logging-disabled",
+      "pcre": "(log_prompts\\s*=\\s*False|capture_content\\s*=\\s*False|OTEL_LOG_PROMPTS[^\\n]{0,10}false|log_completions\\s*=\\s*False)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "low",
+      "control": "DSGAI14",
+      "description": "Prompt logging enabled (WARN)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.yaml",
+        "*.env*"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P14.2",
+      "name": "prompt-logging-enabled",
+      "pcre": "(log_prompts\\s*=\\s*True|capture_content\\s*=\\s*True|log_full_response\\s*=\\s*True)",
+      "signal": "warn"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "medium",
+      "control": "DSGAI14",
+      "description": "PII redaction in log (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.yaml",
+        "*.env*"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P14.3",
+      "name": "pii-redaction-in-log",
+      "pcre": "(redact_pii|mask_sensitive|sanitize_log|scrub[^\\n]{0,10}log|log[^\\n]{0,10}redact)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "low",
+      "control": "DSGAI14",
+      "description": "Raw response print (WARN)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.yaml",
+        "*.env*"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P14.4",
+      "name": "raw-response-print",
+      "notes": "May contain inline PII in the format string — treated as VALUE-BEARING.",
+      "pcre": "(print\\((response|completion)|console\\.log\\((response|completion)|logger\\.(debug|info)\\([^)]*(response|completion))",
+      "signal": "warn"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "low",
+      "control": "DSGAI14",
+      "description": "LangSmith / Langfuse config",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.yaml",
+        "*.env*"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P14.5",
+      "name": "langsmith-langfuse-config",
+      "pcre": "(LANGSMITH_API_KEY|LANGFUSE_PUBLIC_KEY|langfuse[^\\n]{0,20}init|langsmith[^\\n]{0,20}trace)",
+      "signal": "info"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "high",
+      "control": "DSGAI15",
+      "description": "Secret in system prompt (FAIL)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P15.1",
+      "name": "secret-in-system-prompt",
+      "pcre": "(system_prompt|system_message)\\s*=\\s*[\"'][^\"']*(api_key|password|secret|token|sk-)",
+      "signal": "fail"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "medium",
+      "control": "DSGAI15",
+      "description": "Context size limit (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P15.2",
+      "name": "context-size-limit",
+      "pcre": "(max_context_length\\s*=|context_window_limit\\s*=|max_context_tokens\\s*=|truncate_context)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "medium",
+      "control": "DSGAI15",
+      "description": "Prompt from config (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P15.3",
+      "name": "prompt-from-config",
+      "pcre": "(system_prompt|system_message)[^\\n]{0,40}(config|vault|os\\.environ|getenv|secret_manager)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "low",
+      "control": "DSGAI15",
+      "description": "Over-fetch aggregation (WARN)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P15.4",
+      "name": "over-fetch-aggregation",
+      "pcre": "(customer_360|user_profile_all|fetch_all_user_data|get_full_profile|select\\s*\\*\\s*from\\s+users)",
+      "signal": "warn"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI16",
+      "description": "AI-ignore file present (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        ".copilotignore",
+        ".aiignore",
+        ".cursorignore",
+        ".continueignore",
+        ".codeiumignore",
+        ".vscode/settings.json",
+        "cursor.json",
+        "continue.json"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P16.1",
+      "name": "ai-ignore-file-present",
+      "notes": "Filename-existence check (not content grep). Absence in a repo with .env or secrets/ = WARN.",
+      "pcre": "(\\.(copilot|ai|cursor|continue|codeium)ignore)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI16",
+      "description": "Sensitive paths excluded",
+      "exclude_globs": [],
+      "file_globs": [
+        ".copilotignore",
+        ".aiignore",
+        ".cursorignore",
+        ".continueignore",
+        ".codeiumignore",
+        ".vscode/settings.json",
+        "cursor.json",
+        "continue.json"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P16.2",
+      "name": "sensitive-paths-excluded",
+      "notes": "Matched inside any AI-ignore file.",
+      "pcre": "(\\.env|secrets|credentials|\\.aws|\\.ssh|private_key)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI16",
+      "description": "Telemetry off (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        ".copilotignore",
+        ".aiignore",
+        ".cursorignore",
+        ".continueignore",
+        ".codeiumignore",
+        ".vscode/settings.json",
+        "cursor.json",
+        "continue.json"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P16.3",
+      "name": "telemetry-off",
+      "pcre": "(telemetry[^\\n]{0,10}(off|false|disabled)|share_data\\s*[:=]\\s*false)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI16",
+      "description": "Context scope limits",
+      "exclude_globs": [],
+      "file_globs": [
+        ".copilotignore",
+        ".aiignore",
+        ".cursorignore",
+        ".continueignore",
+        ".codeiumignore",
+        ".vscode/settings.json",
+        "cursor.json",
+        "continue.json"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P16.4",
+      "name": "context-scope-limits",
+      "pcre": "(contextWindow|ignorePaths|excludeFiles|maxContextLines)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI17",
+      "description": "Circuit breaker (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P17.1",
+      "name": "circuit-breaker",
+      "notes": "LLM-calling module with none of P17.1-P17.5 = WARN.",
+      "pcre": "(CircuitBreaker|@circuit|tenacity|resilience4j|pybreaker)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI17",
+      "description": "Retry with backoff (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P17.2",
+      "name": "retry-with-backoff",
+      "pcre": "(retry\\s*\\(|@retry|exponential_backoff|max_retries\\s*=|backoff_factor\\s*=|retry_with_backoff)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI17",
+      "description": "Timeout on LLM call (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P17.3",
+      "name": "timeout-on-llm-call",
+      "pcre": "(timeout\\s*=\\s*\\d|request_timeout\\s*=|httpx\\.[^\\n]{0,30}timeout)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI17",
+      "description": "Rate limit incoming (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P17.4",
+      "name": "rate-limit-incoming",
+      "pcre": "(rate_limit|@throttle|RateLimiter|slowapi|flask_limiter|express-rate-limit)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI17",
+      "description": "Fallback response (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P17.5",
+      "name": "fallback-response",
+      "pcre": "(fallback_response|default_response|graceful_degradation|on_failure_return)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI17",
+      "description": "Unbounded retry (FAIL)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P17.6",
+      "name": "unbounded-retry",
+      "pcre": "while\\s+True[^}]{0,200}(generate|complete|chat)|retry\\s*\\(\\s*\\)",
+      "signal": "fail"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI18",
+      "description": "Output guardrails (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P18.1",
+      "name": "output-guardrails",
+      "pcre": "(guardrails|nemo[._-]guardrails|llm_guard|output_guard|filter_output|sanitize_response|moderation)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI18",
+      "description": "PII detection on output",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P18.2",
+      "name": "pii-detection-on-output",
+      "pcre": "(detect_pii[^\\n]{0,20}output|output[^\\n]{0,20}detect_pii|presidio[^\\n]{0,20}output|scan_output)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI18",
+      "description": "Logprobs exposed (WARN)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P18.3",
+      "name": "logprobs-exposed",
+      "pcre": "(logprobs\\s*=\\s*True|return_logprobs\\s*=\\s*True|include_logprobs\\s*=\\s*True|top_logprobs\\s*=\\s*\\d)",
+      "signal": "warn"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI18",
+      "description": "LLM call sites (count)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P18.4",
+      "name": "llm-call-sites",
+      "pcre": "(\\.chat\\.completions\\.create|client\\.messages\\.create|openai\\.ChatCompletion|anthropic\\.messages|generate_content|chat\\.complete)",
+      "requires_nearby": {
+        "lines": 10,
+        "rule": "P18.5"
+      },
+      "signal": "count"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI18",
+      "description": "max_tokens set (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P18.5",
+      "name": "max-tokens-set",
+      "pcre": "max_tokens\\s*=\\s*\\d+",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI19",
+      "description": "Anonymization before export",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ipynb",
+        "*.ts",
+        "*.yaml"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "gated_on": "labeling",
+      "id": "P19.1",
+      "name": "anonymization-before-export",
+      "pcre": "(anonymize_for_labeling|pseudonymize|redact_before_export|mask_for_labeling)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI19",
+      "description": "Labeling SDK auth from vault",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ipynb",
+        "*.ts",
+        "*.yaml"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "gated_on": "labeling",
+      "id": "P19.2",
+      "name": "labeling-sdk-auth-from-vault",
+      "pcre": "(label_studio[^\\n]{0,30}vault|labelbox[^\\n]{0,30}secret|scale_api_key[^\\n]{0,30}(vault|env))",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI19",
+      "description": "Labeling access audit",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ipynb",
+        "*.ts",
+        "*.yaml"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "gated_on": "labeling",
+      "id": "P19.3",
+      "name": "labeling-access-audit",
+      "pcre": "(label[._-]audit|labeling_access_log|annotator_audit)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI19",
+      "description": "Re-identification post-label",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ipynb",
+        "*.ts",
+        "*.yaml"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "gated_on": "labeling",
+      "id": "P19.4",
+      "name": "re-identification-post-label",
+      "pcre": "(reid_check_post_label|labeling_reidentification|post_label_validation)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI20",
+      "description": "API auth required (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P20.1",
+      "name": "api-auth-required",
+      "pcre": "(api_key[^\\n]{0,15}(verify|validate)|bearer_token[^\\n]{0,15}validate|Authorization[^\\n]{0,15}required|@require_auth|auth_middleware|Depends\\(.*auth)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI20",
+      "description": "Rate limit (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P20.2",
+      "name": "rate-limit",
+      "pcre": "(rate_limit|RateLimiter|@throttle|slowapi|flask_limiter|express-rate-limit|@limiter\\.limit)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI20",
+      "description": "Input length validation (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P20.3",
+      "name": "input-length-validation",
+      "pcre": "(max_input_length\\s*=|max_input_tokens\\s*=|input[._-]truncat|validate[._-]length)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI20",
+      "description": "Prompt injection detect (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P20.4",
+      "name": "prompt-injection-detect",
+      "pcre": "(prompt_injection_detect|detect_injection|llm_guard|rebuff|input_guard|nemo[._-]guard)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI20",
+      "description": "Inference endpoint (count)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt",
+        "*.go"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P20.5",
+      "name": "inference-endpoint",
+      "pcre": "(@app\\.(post|get)\\([\"'][^\"']*(chat|generate|completion|infer|predict)|@router\\.(post|get)\\([\"'][^\"']*(chat|generate|completion|infer|predict)|app\\.(post|get)\\([\"'][^\"']*(chat|generate|completion|infer|predict))",
+      "requires_nearby": {
+        "lines": 15,
+        "rules": [
+          "P20.1",
+          "P20.2"
+        ]
+      },
+      "signal": "count"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI21",
+      "description": "Read-only retrieval (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P21.1",
+      "name": "read-only-retrieval",
+      "pcre": "(read_only\\s*=\\s*True|readonly\\s*=\\s*True|HttpMethod\\.GET|http_method[^\\n]{0,10}get)",
+      "signal": "pass_signal"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI21",
+      "description": "KB write from agent (WARN)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P21.2",
+      "name": "kb-write-from-agent",
+      "notes": "P21.2 in an agent module without P21.3 = WARN.",
+      "pcre": "(chromadb|qdrant|pinecone|weaviate|knowledge_base|kb_client)[^\\n]{0,40}\\.(upsert|insert|update|delete|add_documents|write)\\(",
+      "signal": "warn"
+    },
+    {
+      "classification": "structural",
+      "confidence": "low",
+      "control": "DSGAI21",
+      "description": "Write content validation",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P21.3",
+      "name": "write-content-validation",
+      "pcre": "(validate_content|sanitize[._-]write|verify[._-]knowledge|content[._-]check[._-]write)",
+      "signal": "info"
+    },
+    {
+      "classification": "structural",
+      "confidence": "medium",
+      "control": "DSGAI21",
+      "description": "KB versioning (PASS)",
+      "exclude_globs": [],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.java",
+        "*.kt"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P21.4",
+      "name": "kb-versioning",
+      "pcre": "(versioned\\s*=\\s*True|audit_writes|version_id|kb_audit|knowledge[._-]audit)",
+      "signal": "pass_signal"
+    }
+  ],
+  "ruleset_version": "0.3.0"
+}

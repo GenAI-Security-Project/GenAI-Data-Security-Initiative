@@ -28,11 +28,11 @@ make the tool measurably better — a good repro is the contribution.
 
 ## Contributing a rule
 
-Detection rules are moving from prose in `dsgai_scanner_tool.md` into data at
-`rules/dsgai-rules.yaml`, validated by `rules/rules.schema.json`. **(Landing soon —
-tracked by PR-03.)** Until that lands, describe your rule in a
-[new-rule issue](../.github/ISSUE_TEMPLATE/scanner-new-rule.yml) using the format below;
-once the YAML rule format ships, this section will point at `rules/README.md`.
+Detection rules live as data in [`rules/dsgai-rules.yaml`](rules/dsgai-rules.yaml),
+validated by `rules/rules.schema.json` and compiled to `rules/dsgai-rules.json`. See
+[`rules/README.md`](rules/README.md) for the full field reference. You can also propose
+a rule without writing YAML via a
+[new-rule issue](../.github/ISSUE_TEMPLATE/scanner-new-rule.yml).
 
 Every rule needs:
 
