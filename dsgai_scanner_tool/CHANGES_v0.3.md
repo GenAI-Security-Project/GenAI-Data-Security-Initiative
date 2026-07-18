@@ -9,6 +9,19 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
 ## [Unreleased]
 
 ### Added
+- **CVE pipeline, suppressions, baseline, incremental scanning** (PR-12).
+  - CVE fetching moved into the CLI (`cli/dsgai_cve.py`, stdlib urllib): OSV
+    `querybatch` is the per-version source, NVD enriches CVSS by `cveId` only (no
+    `keywordSearch`). Cached at `~/.dsgai/cve-cache/` (24h TTL, `--refresh-cve`);
+    online and offline runs are byte-identical. **The LLM never transcribes CVE data.**
+  - Inline `# dsgai-ignore: P##.# reason="…"` suppressions — surfaced in a visible
+    `suppressed` section, never silently dropped; a reason is required.
+  - `baseline` subcommand + `--baseline` — gate only on findings not in the baseline.
+  - `--diff <ref>` incremental scans (files changed vs a ref), labelled
+    "INCREMENTAL — not a full assessment".
+  - New `cve` subcommand; `--exclude`/`--diff`/`--baseline` wired through the skill and
+    the Action (which now fetches `dsgai_cve.py`). CVE enrichment reaches CI Job 1 with
+    no WebFetch. `langchain==0.1.0` yields real OSV advisories incl. EXPLOITABLE.
 - Contributor infrastructure: `[scanner]` GitHub issue-form templates (false-positive,
   false-negative, new-rule, bug), scanner `CONTRIBUTING.md`, public `ROADMAP.md`, and
   this changelog scaffold. (PR-01)

@@ -74,6 +74,7 @@ jobs:
           mkdir -p dsgai-tool/cli dsgai-tool/rules dsgai-tool/schemas
           base="https://raw.githubusercontent.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/${DSGAI_PIN}/dsgai_scanner_tool"
           curl -fsSL "$base/cli/dsgai_scan.py"        -o dsgai-tool/cli/dsgai_scan.py
+          curl -fsSL "$base/cli/dsgai_cve.py"          -o dsgai-tool/cli/dsgai_cve.py
           curl -fsSL "$base/rules/dsgai-rules.json"    -o dsgai-tool/rules/dsgai-rules.json
           curl -fsSL "$base/VERSION"                   -o dsgai-tool/VERSION
 

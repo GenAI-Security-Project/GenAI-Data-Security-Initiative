@@ -206,6 +206,53 @@ def test_cli_self_guard_rejects_leaked_finding():
         dsgai_scan.self_validate_checkpoint(cp)
 
 
+def _import_cli():
+    sys.path.insert(0, os.path.join(SCANNER, "cli"))
+    import dsgai_scan
+    return dsgai_scan
+
+
+def test_suppression_suppresses_exactly_one(tmp_path):
+    ds = _import_cli()
+    f = tmp_path / "x.py"
+    f.write_text(
+        'A = "sk-proj-FAKE00000000000000000000000000"  # dsgai-ignore: P02.9 reason="known test value"\n'
+        'B = "sk-proj-FAKE11111111111111111111111111"\n', encoding="utf-8")
+    files = [(str(f), "x.py")]
+    supp = ds.load_suppressions(files)
+    findings = [
+        {"control": "DSGAI02", "rule_id": "P02.9", "path": "x.py", "line": 1, "status": "fail"},
+        {"control": "DSGAI02", "rule_id": "P02.9", "path": "x.py", "line": 2, "status": "fail"},
+    ]
+    active, suppressed = ds.split_suppressed(findings, supp)
+    assert len(suppressed) == 1 and len(active) == 1
+    assert suppressed[0]["suppressed_reason"] == "known test value"
+
+
+def test_baseline_gating():
+    ds = _import_cli()
+    known = {"control": "DSGAI02", "rule_id": "P02.1", "path": "a.py", "line": 7, "status": "fail"}
+    fresh = {"control": "DSGAI04", "rule_id": "P04.1", "path": "b.py", "line": 1, "status": "fail"}
+    baseline = {ds.finding_fp(known)}
+    assert ds.finding_fp(known) in baseline      # known finding is baselined
+    assert ds.finding_fp(fresh) not in baseline  # a new finding gates
+
+
+@pytest.mark.skipif(not os.environ.get("DSGAI_CVE_LIVE"),
+                    reason="set DSGAI_CVE_LIVE=1 to run the live OSV CVE test")
+def test_cve_langchain_exploitable(tmp_path):
+    sys.path.insert(0, os.path.join(SCANNER, "cli"))
+    import dsgai_cve
+    req = tmp_path / "requirements.txt"
+    req.write_text("langchain==0.1.0\n", encoding="utf-8")
+    disc = [(str(req), "requirements.txt")]
+    cves = dsgai_cve.enrich(disc, refresh=True)
+    if not cves:
+        pytest.skip("OSV unreachable")
+    assert any(c["status"] == "EXPLOITABLE" for c in cves)
+    assert dsgai_cve.enrich(disc, offline=True) == cves  # cache → deterministic
+
+
 def test_rules_json_in_sync():
     from_yaml = yaml.safe_load(open(RULES_YAML, encoding="utf-8"))
     rebuilt = json.dumps(from_yaml, indent=2, sort_keys=True, ensure_ascii=False) + "\n"

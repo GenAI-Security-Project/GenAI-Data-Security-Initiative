@@ -36,7 +36,7 @@ BANNED_FINDING_FIELDS = {"match_text", "content", "value", "raw_grep_output"}
 CHECKPOINT_REQUIRED = {
     "schema_version", "ruleset_version", "skill_version", "framework", "engine",
     "git_commit", "scanned_at", "scan_scope", "obfuscation", "controls",
-    "findings", "cves", "file_map_ref",
+    "findings", "suppressed", "cves", "file_map_ref",
 }
 SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "venv", "env",
              "dist", "build", ".mypy_cache", ".pytest_cache", ".tox", ".idea"}
@@ -349,7 +349,8 @@ def git_commit(target):
         return None
 
 
-def build_checkpoint(ruleset, findings, controls, scope, obfuscation, target):
+def build_checkpoint(ruleset, findings, controls, scope, obfuscation, target,
+                     cves=None, suppressed=None, diff_scope=None):
     return {
         "schema_version": SCHEMA_VERSION,
         "ruleset_version": ruleset["ruleset_version"],
@@ -358,11 +359,12 @@ def build_checkpoint(ruleset, findings, controls, scope, obfuscation, target):
         "engine": "deterministic-cli",
         "git_commit": git_commit(target),
         "scanned_at": now_iso(),
-        "scan_scope": scope,
+        "scan_scope": (f"diff:{diff_scope}" if diff_scope else scope),
         "obfuscation": obfuscation,
         "controls": controls,
         "findings": findings,
-        "cves": [],
+        "suppressed": suppressed or [],
+        "cves": cves or [],
         "file_map_ref": None,
     }
 
@@ -373,7 +375,7 @@ def self_validate_checkpoint(cp):
     missing = CHECKPOINT_REQUIRED - set(cp)
     if missing:
         raise ValueError(f"checkpoint missing required fields: {sorted(missing)}")
-    for f in cp["findings"]:
+    for f in cp["findings"] + (cp.get("suppressed") or []):
         leaked = BANNED_FINDING_FIELDS & set(f)
         if leaked:
             raise ValueError(f"finding would leak match content via {sorted(leaked)}: "
@@ -461,6 +463,75 @@ def print_table(controls, findings):
 # --------------------------------------------------------------------------- #
 # Subcommands
 # --------------------------------------------------------------------------- #
+SUPPRESS_RE = __import__("re").compile(
+    r'dsgai-ignore:\s*(P\d{2}\.\d+)\s+reason=["\']([^"\']+)["\']')
+
+
+def load_suppressions(files):
+    """Map path -> [(line, rule_id, reason)] from inline `# dsgai-ignore` comments.
+
+    A finding is suppressed when a matching directive sits on its line or the
+    line immediately above. A reason string is required (the regex enforces it).
+    """
+    out = {}
+    for ap, rel in files:
+        try:
+            text = open(ap, encoding="utf-8", errors="replace").read().splitlines()
+        except OSError:
+            continue
+        for i, line in enumerate(text, 1):
+            m = SUPPRESS_RE.search(line)
+            if m:
+                out.setdefault(rel, []).append((i, m.group(1), m.group(2)))
+    return out
+
+
+def split_suppressed(findings, suppressions):
+    """Each `# dsgai-ignore` directive suppresses at most ONE finding: the one on
+    the same line (inline) if present, otherwise the one on the next line (comment
+    directly above the code). This avoids an inline comment also swallowing an
+    unrelated finding on the following line."""
+    removed = set()
+    suppressed = []
+    for path, directives in suppressions.items():
+        for (cline, crule, reason) in directives:
+            for target in (cline, cline + 1):
+                match = next((f for f in findings
+                              if id(f) not in removed and f["path"] == path
+                              and f["rule_id"] == crule and f["line"] == target), None)
+                if match is not None:
+                    removed.add(id(match))
+                    suppressed.append({**match, "suppressed_reason": reason})
+                    break
+    active = [f for f in findings if id(f) not in removed]
+    return active, suppressed
+
+
+def finding_fp(f):
+    """Stable fingerprint for baseline comparison (line-independent-ish)."""
+    return f"{f['control']}|{f['rule_id']}|{f['path']}"
+
+
+def load_baseline(path):
+    try:
+        data = json.load(open(path, encoding="utf-8"))
+        return set(data.get("fingerprints", []))
+    except (OSError, ValueError):
+        return None
+
+
+def diff_files(target, ref):
+    """Return the set of rel paths changed vs `ref` (git). None if unavailable."""
+    try:
+        r = subprocess.run(["git", "-C", os.path.abspath(target), "diff",
+                            "--name-only", ref], capture_output=True, text=True)
+        if r.returncode != 0:
+            return None
+        return {p.strip().replace("/", os.sep) for p in r.stdout.splitlines() if p.strip()}
+    except Exception:
+        return None
+
+
 def cmd_scan(args):
     rg = find_rg()
     if not rg:
@@ -477,6 +548,14 @@ def cmd_scan(args):
     scan_root = os.path.abspath(args.target)
     scoped_target = os.path.join(scan_root, scope) if scope != "." else scan_root
     files = discover_files(scoped_target, excludes)
+    diff_scope = None
+    if getattr(args, "diff", None):
+        changed = diff_files(args.target, args.diff)
+        if changed is None:
+            eprint(f"error: could not compute git diff vs '{args.diff}'")
+            return 2
+        files = [f for f in files if f[1].replace("/", os.sep) in changed]
+        diff_scope = args.diff
     detected = detect_stack(rg, files, scan_root)
     matches_by_rule = {}
     nearby_matches = {}
@@ -496,9 +575,36 @@ def cmd_scan(args):
         eprint(f"error: {exc}")
         return 2
     findings = resolve_findings(rules, matches_by_rule, detected, nearby_matches)
+
+    # Suppressions: inline `# dsgai-ignore` comments move findings to a visible
+    # Suppressed section rather than silently dropping them.
+    suppressions = load_suppressions(files)
+    findings, suppressed = split_suppressed(findings, suppressions)
+
+    # Baseline: mark previously-known findings so only NEW ones gate CI.
+    baseline = load_baseline(args.baseline) if getattr(args, "baseline", None) else None
+    if baseline is not None:
+        for f in findings:
+            if finding_fp(f) in baseline:
+                f["baselined"] = True
+
+    # CVE enrichment (deterministic, cached). Off with --no-cve.
+    cves = []
+    if not getattr(args, "no_cve", False):
+        try:
+            import dsgai_cve
+            cves = dsgai_cve.enrich(files, offline=getattr(args, "offline", False),
+                                    refresh=getattr(args, "refresh_cve", False))
+        except ImportError:
+            eprint("note: dsgai_cve module not found alongside the CLI; skipping CVE stage")
+        except Exception as exc:  # noqa: BLE001 — CVE is best-effort
+            eprint(f"note: CVE enrichment failed ({exc}); continuing")
+
     controls = classify_controls(rules, findings, detected)
     checkpoint = build_checkpoint(ruleset, findings, controls, scope,
-                                  args.obfuscation, args.target)
+                                  args.obfuscation, args.target,
+                                  cves=cves, suppressed=suppressed,
+                                  diff_scope=diff_scope)
 
     try:
         self_validate_checkpoint(checkpoint)
@@ -508,17 +614,26 @@ def cmd_scan(args):
 
     if args.format == "table":
         print_table(controls, findings)
+        if diff_scope:
+            print(f"  scope: INCREMENTAL diff vs {diff_scope} — not a full assessment")
+        if suppressed:
+            print(f"  suppressed: {len(suppressed)} finding(s) via dsgai-ignore")
+        if cves:
+            print(f"  CVEs: {len(cves)} "
+                  f"({sum(1 for c in cves if c['status'] == 'EXPLOITABLE')} exploitable)")
     if args.json_out:
         _write_json(args.json_out, checkpoint)
     if args.sarif:
         _write_json(args.sarif, build_sarif(ruleset, rules, findings))
 
-    threshold = args.fail_on
-    fails = sum(1 for f in findings if f["status"] == "fail")
-    warns = sum(1 for f in findings if f["status"] == "warn")
-    if threshold == "fail" and fails:
+    # Only NEW (non-baselined) findings gate the build.
+    gating = [f for f in findings if not f.get("baselined")]
+    fails = sum(1 for f in gating if f["status"] == "fail")
+    warns = sum(1 for f in gating if f["status"] == "warn")
+    exploitable = sum(1 for c in cves if c["status"] == "EXPLOITABLE")
+    if args.fail_on == "fail" and (fails or exploitable):
         return 1
-    if threshold == "warn" and (fails or warns):
+    if args.fail_on == "warn" and (fails or warns or exploitable):
         return 1
     return 0
 
@@ -566,6 +681,52 @@ def cmd_doctor(args):
     return 0 if ok else 2
 
 
+def cmd_baseline(args):
+    rg = find_rg()
+    if not rg:
+        eprint("error: ripgrep (rg) not found.")
+        return 2
+    ruleset = load_rules()
+    rules = ruleset["rules"]
+    scan_root = os.path.abspath(args.target)
+    scoped = os.path.join(scan_root, args.scope) if args.scope != "." else scan_root
+    files = discover_files(scoped, args.exclude or [])
+    detected = detect_stack(rg, files, scan_root)
+    matches_by_rule, nearby = {}, {}
+    for rule in rules:
+        cands = [f for f in files if glob_match(f[1], rule["file_globs"])
+                 and not glob_match(f[1], rule.get("exclude_globs") or [])]
+        matches_by_rule[rule["id"]] = run_rule(rg, rule, cands, scan_root)
+        rn = rule.get("requires_nearby") or {}
+        if rn.get("pattern"):
+            nearby[rule["id"]] = run_rule(rg, {"classification": "structural",
+                                               "pcre": rn["pattern"]}, cands, scan_root)
+    findings, _ = split_suppressed(
+        resolve_findings(rules, matches_by_rule, detected, nearby),
+        load_suppressions(files))
+    fps = sorted({finding_fp(f) for f in findings if f["status"] in ("fail", "warn")})
+    _write_json(args.out, {"ruleset_version": ruleset["ruleset_version"],
+                           "created_at": now_iso(), "fingerprints": fps})
+    print(f"wrote {args.out} ({len(fps)} baselined finding fingerprints)")
+    return 0
+
+
+def cmd_cve(args):
+    try:
+        import dsgai_cve
+    except ImportError:
+        eprint("error: dsgai_cve module not found alongside the CLI.")
+        return 2
+    files = discover_files(os.path.abspath(args.target), args.exclude or [])
+    cves = dsgai_cve.enrich(files, offline=args.offline, refresh=args.refresh_cve)
+    for c in cves:
+        cvss = f" CVSS {c['cvss']}" if c.get("cvss") is not None else ""
+        print(f"[{c['status']}] {c['package']}=={c['version']} {c['id']}{cvss}")
+    print(f"\n{len(cves)} advisories "
+          f"({sum(1 for c in cves if c['status'] == 'EXPLOITABLE')} exploitable)")
+    return 1 if any(c["status"] == "EXPLOITABLE" for c in cves) else 0
+
+
 def build_parser():
     p = argparse.ArgumentParser(prog="dsgai_scan", description="DSGAI deterministic scanner")
     p.add_argument("--version", action="version", version=f"dsgai_scan {read_version()}")
@@ -583,6 +744,14 @@ def build_parser():
                     const="internal", default="strict",
                     help="internal mode (full paths in report)")
     sp.add_argument("--fail-on", choices=["fail", "warn"], default="fail")
+    sp.add_argument("--diff", default=None, metavar="REF",
+                    help="incremental: scan only files changed vs REF")
+    sp.add_argument("--baseline", default=None, metavar="FILE",
+                    help="gate only on findings NOT in this baseline")
+    sp.add_argument("--no-cve", action="store_true", help="skip CVE enrichment")
+    sp.add_argument("--refresh-cve", action="store_true", help="ignore the CVE cache")
+    sp.add_argument("--offline", action="store_true",
+                    help="use the CVE cache only (no network)")
     sp.set_defaults(func=cmd_scan)
 
     dp = sub.add_parser("detect", help="check for GenAI signals (exit 0 if present)")
@@ -592,6 +761,20 @@ def build_parser():
 
     dop = sub.add_parser("doctor", help="check environment")
     dop.set_defaults(func=cmd_doctor)
+
+    bp = sub.add_parser("baseline", help="write current findings to a baseline file")
+    bp.add_argument("target", nargs="?", default=".")
+    bp.add_argument("--scope", default=".")
+    bp.add_argument("--exclude", action="append", default=[])
+    bp.add_argument("--out", default="dsgai-baseline.json")
+    bp.set_defaults(func=cmd_baseline)
+
+    cp = sub.add_parser("cve", help="CVE enrichment only (from dependency manifests)")
+    cp.add_argument("target", nargs="?", default=".")
+    cp.add_argument("--exclude", action="append", default=[])
+    cp.add_argument("--refresh-cve", action="store_true")
+    cp.add_argument("--offline", action="store_true")
+    cp.set_defaults(func=cmd_cve)
     return p
 
 
