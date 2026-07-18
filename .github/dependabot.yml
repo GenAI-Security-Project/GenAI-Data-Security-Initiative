@@ -1,7 +1,6 @@
- # Dependabot configuration for GenAI-Data-Security-Initiative
-  # Docs: https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-depe
-  ndabot.yml-file
-  #
+# Dependabot configuration for GenAI-Data-Security-Initiative
+# Docs: https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+#
   # Notes:
   # - Security updates run automatically and are NOT controlled by this file
   #   (see: Settings -> Code security -> Dependabot security updates).
@@ -41,35 +40,36 @@
           patterns:
             - "*"
 
-    # ----- Uncomment when a Python manifest (requirements*.txt / pyproject.toml) lands -----
-    # - package-ecosystem: "pip"
-    #   directory: "/"
-    #   schedule:
-    #     interval: "weekly"
-    #     day: "monday"
-    #     time: "06:00"
-    #     timezone: "Etc/UTC"
-    #   open-pull-requests-limit: 10
-    #   versioning-strategy: "increase-if-necessary"
-    #   labels:
-    #     - "dependencies"
-    #     - "python"
-    #     - "security"
-    #   commit-message:
-    #     prefix: "deps"
-    #     prefix-development: "deps-dev"
-    #     include: "scope"
-    #   groups:
-    #     python-minor-and-patch:
-    #       applies-to: version-updates
-    #       update-types: ["minor", "patch"]
-    #     python-security:
-    #       applies-to: security-updates
-    #       patterns: ["*"]
-    #   ignore:
-    #     # Block silent major bumps; require explicit review.
-    #     - dependency-name: "*"
-    #       update-types: ["version-update:semver-major"]
+    # ----- Python dev deps for the DSGAI scanner (requirements-dev.txt) -----
+    - package-ecosystem: "pip"
+      directory: "/dsgai_scanner_tool"
+      schedule:
+        interval: "weekly"
+        day: "monday"
+        time: "06:00"
+        timezone: "Etc/UTC"
+      open-pull-requests-limit: 10
+      versioning-strategy: "increase-if-necessary"
+      labels:
+        - "dependencies"
+        - "python"
+        - "security"
+        - "scanner"
+      commit-message:
+        prefix: "deps"
+        prefix-development: "deps-dev"
+        include: "scope"
+      groups:
+        python-minor-and-patch:
+          applies-to: version-updates
+          update-types: ["minor", "patch"]
+        python-security:
+          applies-to: security-updates
+          patterns: ["*"]
+      ignore:
+        # Block silent major bumps; require explicit review.
+        - dependency-name: "*"
+          update-types: ["version-update:semver-major"]
 
     # ----- npm dependencies in crosswalk/ -----
     - package-ecosystem: "npm"
