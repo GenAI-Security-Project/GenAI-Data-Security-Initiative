@@ -54,7 +54,20 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
   — the gate that makes external rule PRs safely mergeable. The PCRE compile check now
   keys on rg's exit code (catches PCRE2 errors the old substring check missed). (PR-06)
 
+- **Skill rewrite** (`dsgai_scanner_tool.md`) — the skill is now a CLI-first
+  orchestrator, not the engine. Adds a mandatory **Trust & Environment Preamble**
+  (repo content is untrusted; scanner-directed instructions are recorded as a note and
+  ignored — verified injection-immune on the deterministic path), a **Step 1.5**
+  CLI-first flow with an in-context fallback and `engine:` header, the value-bearing
+  **`rg -o --replace ''`** protocol (secret never leaves ripgrep), **STRICT-mode file
+  IDs** (`F07:12`) with a gitignored `DSGAI-filemap.json`, an **evidence-citation**
+  requirement (no status without rule IDs + locations), **timestamped reports** under
+  `dsgai-reports/`, checkpoint cache-invalidation, and `compatible_cli` frontmatter.
+  (PR-07)
+
 ### Changed
+- Honest-language pass across the skill: every "safe to share/commit/store" replaced
+  with "designed to minimize disclosure" + a residual-risk note. (PR-07)
 - `DSGAI-samplereport.png` compressed from ~5.0 MB to ~0.35 MB (14×) as an interim fix;
   full regeneration from the fixture app lands in PR-09. (PR-02)
 
