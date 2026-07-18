@@ -81,6 +81,16 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
   v0.4). Adds a Contributing quick-start ("found a wrong result? that's a contribution").
   Skill version badge → v0.3. (PR-09)
 
+- **Pre-commit: gitleaks pack + portable fallback** (PR-10). New
+  `integrations/gitleaks/dsgai.toml` — a gitleaks rule pack covering the DSGAI
+  credential set (quote-optional named assignments + raw token prefixes: Slack `xoxb-`,
+  GitHub `ghp_`/`github_pat_`, Google `AIza`, AWS `AKIA`, Anthropic/OpenAI project keys,
+  JWT) with an allowlist for `tests/fixtures/**`, lockfiles, minified JS, and snapshots.
+  `pre-commit-hook.md` now recommends gitleaks as primary. The bespoke
+  `dsgai-secret-scan.sh` fallback is fixed for portability: `mapfile` → a bash-3.2-safe
+  `while read -d ''` loop, `grep -zE` → a `case` filter, quote-optional pattern (catches
+  the unquoted-`.env` miss), plus a token-prefix branch — shellcheck clean.
+
 ### Changed
 - Honest-language pass across the skill **and README**: every "safe to share/commit/store"
   replaced with "designed to minimize disclosure" + a residual-risk note — the Phase-2
