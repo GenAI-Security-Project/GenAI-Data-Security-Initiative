@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 # OWASP DSGAI Compliance Scan
 #
 # Copy this file to `.github/workflows/dsgai-scan.yml` in your repo.
