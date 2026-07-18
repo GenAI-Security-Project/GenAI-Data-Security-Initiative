@@ -29,6 +29,7 @@
         "control": { "type": "string", "pattern": "^DSGAI[0-9]{2}$" },
         "name": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
         "classification": { "enum": ["structural", "value_bearing"] },
+        "match": { "enum": ["content", "file_exists"] },
         "signal": { "enum": ["fail", "warn", "pass_signal", "count", "info"] },
         "confidence": { "enum": ["high", "medium", "low"] },
         "pcre": { "type": "string", "minLength": 1 },

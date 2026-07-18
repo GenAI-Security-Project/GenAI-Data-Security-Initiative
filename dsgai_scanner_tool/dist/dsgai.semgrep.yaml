@@ -743,19 +743,6 @@ rules:
       dsgai_rule: P12.7
       confidence: medium
       framework: 'dsgai-2026-v1.0'
-  - id: dsgai-P16.1
-    languages: [generic]
-    severity: INFO
-    message: 'DSGAI16 P16.1: AI-ignore file present (PASS)'
-    patterns:
-      - pattern-regex: '(\.(copilot|ai|cursor|continue|codeium)ignore)'
-    paths:
-      include: ['.copilotignore', '.aiignore', '.cursorignore', '.continueignore', '.codeiumignore', '.vscode/settings.json', 'cursor.json', 'continue.json']
-    metadata:
-      dsgai_control: DSGAI16
-      dsgai_rule: P16.1
-      confidence: medium
-      framework: 'dsgai-2026-v1.0'
   - id: dsgai-P16.2
     languages: [generic]
     severity: INFO
@@ -997,7 +984,7 @@ rules:
     patterns:
       - pattern-regex: '(?m)(api_key[^\n]{0,15}(verify|validate)|bearer_token[^\n]{0,15}validate|Authorization[^\n]{0,15}required|@require_auth|auth_middleware|Depends\(.*auth)'
     paths:
-      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
     metadata:
       dsgai_control: DSGAI20
       dsgai_rule: P20.1
@@ -1010,7 +997,7 @@ rules:
     patterns:
       - pattern-regex: '(rate_limit|RateLimiter|@throttle|slowapi|flask_limiter|express-rate-limit|@limiter\.limit)'
     paths:
-      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
     metadata:
       dsgai_control: DSGAI20
       dsgai_rule: P20.2
@@ -1023,7 +1010,7 @@ rules:
     patterns:
       - pattern-regex: '(max_input_length\s*=|max_input_tokens\s*=|input[._-]truncat|validate[._-]length)'
     paths:
-      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
     metadata:
       dsgai_control: DSGAI20
       dsgai_rule: P20.3
@@ -1036,7 +1023,7 @@ rules:
     patterns:
       - pattern-regex: '(prompt_injection_detect|detect_injection|llm_guard|rebuff|input_guard|nemo[._-]guard)'
     paths:
-      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
     metadata:
       dsgai_control: DSGAI20
       dsgai_rule: P20.4
@@ -1049,7 +1036,7 @@ rules:
     patterns:
       - pattern-regex: '(?m)(@app\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict)|@router\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict)|app\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict))'
     paths:
-      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
     metadata:
       dsgai_control: DSGAI20
       dsgai_rule: P20.5

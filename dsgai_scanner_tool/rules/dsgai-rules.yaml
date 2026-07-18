@@ -899,6 +899,7 @@ rules:
     control: DSGAI16
     name: ai-ignore-file-present
     classification: structural
+    match: file_exists
     signal: pass_signal
     confidence: medium
     pcre: '(\.(copilot|ai|cursor|continue|codeium)ignore)'
@@ -1119,7 +1120,7 @@ rules:
     signal: pass_signal
     confidence: medium
     pcre: '(api_key[^\n]{0,15}(verify|validate)|bearer_token[^\n]{0,15}validate|Authorization[^\n]{0,15}required|@require_auth|auth_middleware|Depends\(.*auth)'
-    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'API auth required (PASS)'
@@ -1130,7 +1131,7 @@ rules:
     signal: pass_signal
     confidence: medium
     pcre: '(rate_limit|RateLimiter|@throttle|slowapi|flask_limiter|express-rate-limit|@limiter\.limit)'
-    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Rate limit (PASS)'
@@ -1141,7 +1142,7 @@ rules:
     signal: pass_signal
     confidence: medium
     pcre: '(max_input_length\s*=|max_input_tokens\s*=|input[._-]truncat|validate[._-]length)'
-    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Input length validation (PASS)'
@@ -1152,7 +1153,7 @@ rules:
     signal: pass_signal
     confidence: medium
     pcre: '(prompt_injection_detect|detect_injection|llm_guard|rebuff|input_guard|nemo[._-]guard)'
-    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Prompt injection detect (PASS)'
@@ -1163,7 +1164,7 @@ rules:
     signal: count
     confidence: medium
     pcre: '(@app\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict)|@router\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict)|app\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict))'
-    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Inference endpoint (count)'
