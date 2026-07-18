@@ -9,6 +9,10 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
 ## [Unreleased]
 
 ### Added
+- **License split (Apache-2.0 code / CC BY-SA 4.0 content)** — _DRAFT, PR-13, awaiting
+  OWASP leadership sign-off; not yet released._ Adds `LICENSES/` (Apache-2.0 + CC-BY-SA-4.0),
+  `LICENSE-NOTES.md` (path→license map + reasoning, naming the `rules/dsgai-rules.yaml`
+  gray zone explicitly), and SPDX headers on 16 code files. Attribution unchanged.
 - **Ecosystem expansion + rule-pack export** (PR-15).
   - **C# / Rust / Ruby**: detection signals (Semantic Kernel/Azure.AI.OpenAI, async-openai,
     ruby-openai); CVE manifest parsing for **NuGet** (`*.csproj`), **crates.io**

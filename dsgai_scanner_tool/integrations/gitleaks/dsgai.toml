@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 # DSGAI credential rule pack for gitleaks.
 # Covers the DSGAI02 credential set with quote-optional assignments and raw
 # token prefixes. Generated to mirror the P02.x / P02.9 rules in
