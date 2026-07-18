@@ -73,7 +73,7 @@ jobs:
 
       - name: Fetch the DSGAI scanner (pinned commit)
         run: |
-          mkdir -p dsgai-tool/cli dsgai-tool/rules dsgai-tool/schemas
+          mkdir -p dsgai-tool/cli dsgai-tool/rules
           base="https://raw.githubusercontent.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/${DSGAI_PIN}/dsgai_scanner_tool"
           curl -fsSL "$base/cli/dsgai_scan.py"        -o dsgai-tool/cli/dsgai_scan.py
           curl -fsSL "$base/cli/dsgai_cve.py"          -o dsgai-tool/cli/dsgai_cve.py

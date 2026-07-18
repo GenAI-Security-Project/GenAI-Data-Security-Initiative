@@ -29,7 +29,6 @@ VERSION_FILE = os.path.join(SCANNER_ROOT, "VERSION")
 SCHEMA_VERSION = "1.0"
 SKILL_VERSION = "0.3.0"
 
-VALUE_BEARING_CONTROLS = {"DSGAI02", "DSGAI13", "DSGAI14", "DSGAI15"}
 # Fields that must never appear on a finding — the redaction guarantee, enforced
 # in code before the checkpoint is written (and by schemas/dsgai-scan.schema.json).
 BANNED_FINDING_FIELDS = {"match_text", "content", "value", "raw_grep_output"}
@@ -281,16 +280,6 @@ def detect_stack(rg, files, scan_root):
         if _run_rg(rg, base, files, scan_root, f"detect:{cat}"):
             detected.add(cat)
     return detected
-
-
-def nearby(matches_by_rule, required_ids, path, line, window, module_scope):
-    for rid in required_ids:
-        for (mp, ml) in matches_by_rule.get(rid, ()):  # noqa: E501
-            if mp != path:
-                continue
-            if module_scope or abs(ml - line) <= window:
-                return True
-    return False
 
 
 def resolve_findings(rules, matches_by_rule, detected, nearby_matches=None):
