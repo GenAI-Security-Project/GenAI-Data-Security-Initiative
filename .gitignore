@@ -6,3 +6,10 @@ node_modules/
 __pycache__/
 *.pyc
 .env
+
+# DSGAI scanner generated artifacts
+DSGAI-scan.json
+DSGAI-scan.sarif
+DSGAI-filemap.json
+dsgai-baseline.json
+dsgai-reports/

@@ -29,6 +29,7 @@
         "control": { "type": "string", "pattern": "^DSGAI[0-9]{2}$" },
         "name": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
         "classification": { "enum": ["structural", "value_bearing"] },
+        "match": { "enum": ["content", "file_exists"] },
         "signal": { "enum": ["fail", "warn", "pass_signal", "count", "info"] },
         "confidence": { "enum": ["high", "medium", "low"] },
         "pcre": { "type": "string", "minLength": 1 },
@@ -54,13 +55,15 @@
           "properties": {
             "rule": { "$ref": "#/$defs/ruleId" },
             "rules": { "type": "array", "items": { "$ref": "#/$defs/ruleId" } },
+            "pattern": { "type": "string", "minLength": 1 },
             "lines": { "type": "integer", "minimum": 0 },
             "scope": { "enum": ["module", "file"] },
             "absent": { "type": "boolean" }
           },
           "anyOf": [
             { "required": ["rule"] },
-            { "required": ["rules"] }
+            { "required": ["rules"] },
+            { "required": ["pattern"] }
           ]
         },
         "gated_on": { "enum": ["multimodal", "synthetic_data", "labeling"] },

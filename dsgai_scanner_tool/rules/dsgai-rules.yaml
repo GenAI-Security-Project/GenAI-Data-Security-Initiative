@@ -65,8 +65,8 @@ rules:
     classification: value_bearing
     signal: fail
     confidence: high
-    pcre: '(?i)(OPENAI_API_KEY|openai[._-]?api[._-]?key)\s*[:=]\s*["'']sk-[A-Za-z0-9_\-]{20,}'
-    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg']
+    pcre: '(?i)(OPENAI_API_KEY|openai[._-]?api[._-]?key)\s*[:=]\s*["'']?sk-[A-Za-z0-9_\-]{20,}'
+    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg', '*.cs', '*.rs', '*.rb', '*.csproj']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Hardcoded LLM API key (OpenAI)'
@@ -76,8 +76,8 @@ rules:
     classification: value_bearing
     signal: fail
     confidence: high
-    pcre: '(?i)(ANTHROPIC_API_KEY|anthropic[._-]?api[._-]?key)\s*[:=]\s*["'']sk-ant-[A-Za-z0-9_\-]{20,}'
-    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg']
+    pcre: '(?i)(ANTHROPIC_API_KEY|anthropic[._-]?api[._-]?key)\s*[:=]\s*["'']?sk-ant-[A-Za-z0-9_\-]{20,}'
+    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg', '*.cs', '*.rs', '*.rb', '*.csproj']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Hardcoded LLM API key (Anthropic)'
@@ -87,8 +87,8 @@ rules:
     classification: value_bearing
     signal: fail
     confidence: high
-    pcre: '(?i)(COHERE_API_KEY|GOOGLE_API_KEY|HF_TOKEN|HUGGINGFACE_TOKEN)\s*[:=]\s*["''][A-Za-z0-9_\-]{20,}'
-    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg']
+    pcre: '(?i)(COHERE_API_KEY|GOOGLE_API_KEY|HF_TOKEN|HUGGINGFACE_TOKEN)\s*[:=]\s*["'']?[A-Za-z0-9_\-]{20,}'
+    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg', '*.cs', '*.rs', '*.rb', '*.csproj']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Hardcoded Cohere/Google/HF tokens'
@@ -98,8 +98,8 @@ rules:
     classification: value_bearing
     signal: fail
     confidence: high
-    pcre: '(AWS_ACCESS_KEY_ID|aws_access_key_id)\s*[:=]\s*["''][A-Z0-9]{16,}'
-    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg']
+    pcre: '(AWS_ACCESS_KEY_ID|aws_access_key_id)\s*[:=]\s*["'']?[A-Z0-9]{16,}'
+    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg', '*.cs', '*.rs', '*.rb', '*.csproj']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Hardcoded AWS creds'
@@ -109,8 +109,8 @@ rules:
     classification: value_bearing
     signal: fail
     confidence: high
-    pcre: '(AZURE_OPENAI_KEY|GCP_SERVICE_ACCOUNT_KEY)\s*[:=]\s*["''][A-Za-z0-9_\-]{16,}'
-    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg']
+    pcre: '(AZURE_OPENAI_KEY|GCP_SERVICE_ACCOUNT_KEY)\s*[:=]\s*["'']?[A-Za-z0-9_\-]{16,}'
+    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg', '*.cs', '*.rs', '*.rb', '*.csproj']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Hardcoded Azure/GCP cred'
@@ -121,7 +121,7 @@ rules:
     signal: warn
     confidence: low
     pcre: '("scope"\s*:\s*"\*|permissions[^\n]{0,30}\*|scope[^\n]{0,20}admin)'
-    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg']
+    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg', '*.cs', '*.rs', '*.rb', '*.csproj']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Wildcard token scope (warn)'
@@ -132,7 +132,7 @@ rules:
     signal: pass_signal
     confidence: medium
     pcre: '(hvac\.Client|hashicorp/vault|VAULT_(ADDR|TOKEN|NAMESPACE)|secretsmanager\.|GetSecretValue|SecretManagerServiceClient|azure[._-]keyvault|@aws-sdk/client-secrets-manager)'
-    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg']
+    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg', '*.cs', '*.rs', '*.rb', '*.csproj']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Vault/secrets-manager (PASS)'
@@ -143,10 +143,22 @@ rules:
     signal: pass_signal
     confidence: medium
     pcre: '(hmac|sign_request|verify_signature|tool_auth|mtls|mutual_tls)'
-    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg']
+    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg', '*.cs', '*.rs', '*.rb', '*.csproj']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Tool-call signing (PASS)'
+  - id: P02.9
+    control: DSGAI02
+    name: raw-token-literal
+    classification: value_bearing
+    signal: fail
+    confidence: high
+    pcre: '\b(sk-ant-[A-Za-z0-9_\-]{20,}|sk-proj-[A-Za-z0-9_\-]{20,}|ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{22,}|xox[baprs]-[A-Za-z0-9-]{10,}|AIza[0-9A-Za-z_\-]{35}|AKIA[0-9A-Z]{16}|eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,})\b'
+    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg', '*.cs', '*.rs', '*.rb', '*.csproj']
+    exclude_globs: ['*.min.js', 'dist/**', '**/__snapshots__/**', '*.lock', '*.map']
+    framework: 'dsgai-2026-v1.0'
+    description: 'Raw token literal (Slack/GitHub/Google/AWS/Anthropic/OpenAI/JWT) assigned to any variable'
+    notes: 'JWT branch is noisy in bundles/lockfiles (see exclude_globs); further split tracked as a good-first-issue.'
   - id: P03.1
     control: DSGAI03
     name: third-party-llm-endpoints
@@ -666,11 +678,12 @@ rules:
     classification: structural
     signal: fail
     confidence: medium
-    pcre: 'execute\([^)]*(llm|response|completion|output|generated)'
+    pcre: '(?:\.execute|\.run_query|executemany)\(\s*(?:f["'']|[^),]*\b(llm_\w*|completion\w*|generated_sql|generated_query|\w*\.content)\b)'
     file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Raw LLM-output execution (FAIL)'
+    requires_nearby: {pattern: '(chat\.completions\.create|messages\.create|create_sql_agent|SQLDatabaseChain|generate_content)', lines: 30}
   - id: P12.2
     control: DSGAI12
     name: langchain-sql-agent
@@ -745,7 +758,7 @@ rules:
     signal: info
     confidence: low
     pcre: '(CHROMA_SERVER_AUTH|QDRANT_API_KEY|PINECONE_API_KEY|WEAVIATE_API_KEY|MILVUS_TOKEN|vectorstore[^\n]{0,30}api_key)'
-    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.env*']
+    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.env*', '*.cs', '*.rs', '*.rb', '*.csproj']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Vector store auth configured'
@@ -756,7 +769,7 @@ rules:
     signal: pass_signal
     confidence: medium
     pcre: '(https://[^"'']*?(qdrant|weaviate|pinecone|chroma)|ssl\s*=\s*True|tls\s*=\s*True|grpcs://)'
-    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.env*']
+    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.env*', '*.cs', '*.rs', '*.rb', '*.csproj']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'TLS endpoints (PASS)'
@@ -767,7 +780,7 @@ rules:
     signal: warn
     confidence: low
     pcre: '(host[^\n]{0,15}0\.0\.0\.0|ALLOW_RESET\s*=\s*True|chroma[^\n]{0,30}http://localhost|qdrant[^\n]{0,30}http://localhost)'
-    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.env*']
+    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.env*', '*.cs', '*.rs', '*.rb', '*.csproj']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Insecure binding (WARN)'
@@ -777,8 +790,8 @@ rules:
     classification: value_bearing
     signal: fail
     confidence: high
-    pcre: '(QDRANT_API_KEY|PINECONE_API_KEY|WEAVIATE_API_KEY)\s*=\s*["''][A-Za-z0-9_\-]{16,}'
-    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.env*']
+    pcre: '(QDRANT_API_KEY|PINECONE_API_KEY|WEAVIATE_API_KEY)\s*=\s*["'']?[A-Za-z0-9_\-]{16,}'
+    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.env*', '*.cs', '*.rs', '*.rb', '*.csproj']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Hardcoded vector token (FAIL)'
@@ -886,6 +899,7 @@ rules:
     control: DSGAI16
     name: ai-ignore-file-present
     classification: structural
+    match: file_exists
     signal: pass_signal
     confidence: medium
     pcre: '(\.(copilot|ai|cursor|continue|codeium)ignore)'
@@ -1106,7 +1120,7 @@ rules:
     signal: pass_signal
     confidence: medium
     pcre: '(api_key[^\n]{0,15}(verify|validate)|bearer_token[^\n]{0,15}validate|Authorization[^\n]{0,15}required|@require_auth|auth_middleware|Depends\(.*auth)'
-    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'API auth required (PASS)'
@@ -1117,7 +1131,7 @@ rules:
     signal: pass_signal
     confidence: medium
     pcre: '(rate_limit|RateLimiter|@throttle|slowapi|flask_limiter|express-rate-limit|@limiter\.limit)'
-    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Rate limit (PASS)'
@@ -1128,7 +1142,7 @@ rules:
     signal: pass_signal
     confidence: medium
     pcre: '(max_input_length\s*=|max_input_tokens\s*=|input[._-]truncat|validate[._-]length)'
-    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Input length validation (PASS)'
@@ -1139,7 +1153,7 @@ rules:
     signal: pass_signal
     confidence: medium
     pcre: '(prompt_injection_detect|detect_injection|llm_guard|rebuff|input_guard|nemo[._-]guard)'
-    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Prompt injection detect (PASS)'
@@ -1150,7 +1164,7 @@ rules:
     signal: count
     confidence: medium
     pcre: '(@app\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict)|@router\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict)|app\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict))'
-    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Inference endpoint (count)'

@@ -29,9 +29,20 @@ VERSION_FILE = os.path.join(SCANNER_ROOT, "VERSION")
 SCHEMA_VERSION = "1.0"
 SKILL_VERSION = "0.3.0"
 
-VALUE_BEARING_CONTROLS = {"DSGAI02", "DSGAI13", "DSGAI14", "DSGAI15"}
+# Fields that must never appear on a finding — the redaction guarantee, enforced
+# in code before the checkpoint is written (and by schemas/dsgai-scan.schema.json).
+BANNED_FINDING_FIELDS = {"match_text", "content", "value", "raw_grep_output"}
+CHECKPOINT_REQUIRED = {
+    "schema_version", "ruleset_version", "skill_version", "framework", "engine",
+    "git_commit", "scanned_at", "scan_scope", "obfuscation", "controls",
+    "findings", "suppressed", "cves", "file_map_ref",
+}
 SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "venv", "env",
              "dist", "build", ".mypy_cache", ".pytest_cache", ".tox", ".idea"}
+# Credential-bearing files that MUST be scanned even when gitignored — a secret
+# scanner's whole job is to catch keys in exactly these, and they are almost
+# always gitignored (so `git ls-files` would drop them). Matched by basename.
+ALWAYS_SCAN_GLOBS = ["*.env", "*.env.*", ".env", ".env.*", "*.envrc"]
 
 # requires_nearby resolution: status when the requirement is violated (required
 # rule absent) vs satisfied (present). Read the require list / window from the
@@ -42,6 +53,9 @@ COMPOUND_STATUS = {
     "P11.1": {"violation": "fail", "satisfied": "pass_signal"},
     "P18.4": {"violation": "warn", "satisfied": "pass_signal"},
     "P20.5": {"violation": "fail", "satisfied": "pass_signal"},
+    # Corroborating-signal rules: fire only when the nearby signal is PRESENT
+    # (drop the match otherwise). P12.1 is a FAIL only when an LLM call is nearby.
+    "P12.1": {"violation": "drop", "satisfied": "fail"},
 }
 
 # Step-0 detection signals. Raw-endpoint signals catch repos calling LLM APIs
@@ -51,7 +65,9 @@ DETECT_SIGNALS = {
     "llm": [r"openai", r"anthropic", r"langchain", r"llama_index", r"llama-index",
             r"cohere", r"mistralai", r"litellm", r"api\.openai\.com",
             r"api\.anthropic\.com", r"generativelanguage\.googleapis\.com",
-            r"Microsoft\.SemanticKernel", r"Azure\.AI\.OpenAI"],
+            r"Microsoft\.SemanticKernel", r"Azure\.AI\.OpenAI",  # C# / NuGet
+            r"async-openai", r"async_openai",                    # Rust / crates.io
+            r"ruby-openai", r"ruby_openai", r"anthropic-rb"],     # Ruby / RubyGems
     "multimodal": [r"vision", r"image_url", r"ocr", r"whisper", r"audio",
                    r"detect_pii_in_image"],
     "synthetic_data": [r"\bSDV\b", r"gretel", r"synthetic_data_vault", r"smartnoise"],
@@ -96,16 +112,25 @@ def read_version():
 # File discovery
 # --------------------------------------------------------------------------- #
 def discover_files(target, excludes):
-    """Return files under target as (abs_path, rel_path) honoring .gitignore.
+    """Return files under target as (abs_path, rel_path).
 
-    Uses `git ls-files` (tracked + untracked-not-ignored) when target is inside
-    a repo — this respects .gitignore yet still includes tracked files such as a
-    committed fixture .env. Falls back to a filtered os.walk otherwise.
+    Uses `git ls-files` (tracked + untracked-not-ignored) when target is inside a
+    repo, so general noise/build output respects .gitignore. BUT credential
+    files matching ALWAYS_SCAN_GLOBS (e.g. `.env`) are ALWAYS included even when
+    gitignored — a secret scanner must scan exactly those. Falls back to a
+    filtered os.walk (which already sees everything) outside a repo.
     """
     target = os.path.abspath(target)
     files = _git_files(target)
     if files is None:
         files = _walk_files(target)
+    else:
+        # Union in gitignored credential files git would otherwise drop.
+        seen = set(files)
+        for ap in _sensitive_walk_files(target):
+            if ap not in seen:
+                seen.add(ap)
+                files.append(ap)
     out = []
     for ap in files:
         rel = os.path.relpath(ap, target).replace(os.sep, "/")
@@ -114,6 +139,18 @@ def discover_files(target, excludes):
         out.append((ap, rel))
     out.sort(key=lambda x: x[1])
     return out
+
+
+def _sensitive_walk_files(target):
+    """Files under target whose basename matches ALWAYS_SCAN_GLOBS (skips noise
+    dirs). Used to re-include gitignored credential files like .env."""
+    hits = []
+    for dp, dirs, fns in os.walk(target):
+        dirs[:] = [d for d in dirs if d not in SKIP_DIRS]
+        for fn in fns:
+            if any(fnmatch.fnmatch(fn, g) for g in ALWAYS_SCAN_GLOBS):
+                hits.append(os.path.join(dp, fn))
+    return hits
 
 
 def _git_files(target):
@@ -162,6 +199,41 @@ def glob_match(rel, globs):
 # --------------------------------------------------------------------------- #
 # Rule execution
 # --------------------------------------------------------------------------- #
+# Keep each rg command line well under the Windows CreateProcess cap (32767);
+# other platforms allow far more, but one conservative budget is simplest.
+_ARG_BUDGET = 24000
+
+
+def _batches(files):
+    """Yield lists of files whose joined path lengths stay under _ARG_BUDGET, so
+    a single rg invocation can never exceed the OS command-line limit (audit H4)."""
+    batch, size = [], 0
+    for f in files:
+        n = len(f[0]) + 1
+        if batch and size + n > _ARG_BUDGET:
+            yield batch
+            batch, size = [], 0
+        batch.append(f)
+        size += n
+    if batch:
+        yield batch
+
+
+def _run_rg(rg, base_cmd, files, scan_root, rid):
+    """Run rg over `files` in as many batches as needed; return stdout lines."""
+    lines = []
+    for batch in _batches(files):
+        cmd = base_cmd + [f[0] for f in batch]
+        try:
+            proc = subprocess.run(cmd, capture_output=True, text=True, cwd=scan_root)
+        except OSError as exc:  # e.g. arg list too long on a pathological path
+            raise RuntimeError(f"rg invocation failed for {rid}: {exc}")
+        if proc.returncode >= 2:
+            raise RuntimeError(f"rg failed on {rid}: {proc.stderr.strip()[:200]}")
+        lines.extend(proc.stdout.splitlines())
+    return lines
+
+
 def run_rule(rg, rule, files, scan_root):
     """Return a set of (rel_path, line) matches for one rule.
 
@@ -170,22 +242,14 @@ def run_rule(rg, rule, files, scan_root):
     """
     if not files:
         return set()
-    cmd = [rg, "--pcre2", "--no-config", "--with-filename", "--line-number"]
+    base = [rg, "--pcre2", "--no-config", "--with-filename", "--line-number"]
     if rule["classification"] == "value_bearing":
         # LOCATION-ONLY: rg erases the matched text before emitting anything.
-        cmd += ["--only-matching", "--replace", ""]
-    cmd += ["-e", rule["pcre"], "--"]
-    cmd += [f[0] for f in files]
-    proc = subprocess.run(cmd, capture_output=True, text=True, cwd=scan_root)
-    if proc.returncode >= 2:
-        raise RuntimeError(f"rg failed on {rule['id']}: {proc.stderr.strip()[:200]}")
+        base += ["--only-matching", "--replace", ""]
+    base += ["-e", rule["pcre"], "--"]
     matches = set()
     abs_to_rel = {f[0]: f[1] for f in files}
-    for line in proc.stdout.splitlines():
-        # Format: <path>:<line>:<rest>. Path is an absolute path we passed in;
-        # split off the trailing :line:rest without touching a drive colon.
-        rest = line
-        # find ':<digits>:' anchor from the path we know
+    for line in _run_rg(rg, base, files, scan_root, rule.get("id", "?")):
         parsed = _parse_rg_line(line, abs_to_rel)
         if parsed:
             matches.add(parsed)
@@ -207,32 +271,20 @@ def _parse_rg_line(line, abs_to_rel):
 def detect_stack(rg, files, scan_root):
     """Return the set of detected signal categories for NOT APPLICABLE gating."""
     detected = set()
-    paths = [f[0] for f in files]
-    if not paths:
+    if not files:
         return detected
     for cat, patterns in DETECT_SIGNALS.items():
         pat = "|".join(patterns)
-        proc = subprocess.run(
-            [rg, "--pcre2", "--no-config", "-l", "-i", "-e", pat, "--"] + paths,
-            capture_output=True, text=True, cwd=scan_root)
-        if proc.returncode == 0 and proc.stdout.strip():
+        base = [rg, "--pcre2", "--no-config", "-l", "-i", "-e", pat, "--"]
+        # Batched so a large repo can't blow the OS arg limit (audit H4).
+        if _run_rg(rg, base, files, scan_root, f"detect:{cat}"):
             detected.add(cat)
     return detected
 
 
-def nearby(matches_by_rule, required_ids, path, line, window, module_scope):
-    for rid in required_ids:
-        for (mp, ml) in matches_by_rule.get(rid, ()):  # noqa: E501
-            if mp != path:
-                continue
-            if module_scope or abs(ml - line) <= window:
-                return True
-    return False
-
-
-def resolve_findings(rules, matches_by_rule, detected):
+def resolve_findings(rules, matches_by_rule, detected, nearby_matches=None):
     """Apply subtract / requires_nearby / gating to produce resolved findings."""
-    by_id = {r["id"]: r for r in rules}
+    nearby_matches = nearby_matches or {}
     findings = []
     for rule in rules:
         rid = rule["id"]
@@ -251,14 +303,21 @@ def resolve_findings(rules, matches_by_rule, detected):
                 continue
             status = rule["signal"]
             if rn:
-                required = rn.get("rules") or ([rn["rule"]] if rn.get("rule") else [])
                 window = rn.get("lines", 0)
                 module_scope = rn.get("scope") == "module" or "lines" not in rn
-                need_all = "rules" in rn and rn.get("scope") != "module"
-                sat = _satisfied(matches_by_rule, required, path, line, window,
-                                 module_scope, need_all)
+                if rn.get("pattern"):
+                    # proximity of a raw corroborating pattern (e.g. an LLM call)
+                    sat = any(mp == path and (module_scope or abs(ml - line) <= window)
+                              for (mp, ml) in nearby_matches.get(rid, set()))
+                else:
+                    required = rn.get("rules") or ([rn["rule"]] if rn.get("rule") else [])
+                    need_all = "rules" in rn and rn.get("scope") != "module"
+                    sat = _satisfied(matches_by_rule, required, path, line, window,
+                                     module_scope, need_all)
                 cs = COMPOUND_STATUS.get(rid, {"violation": "fail", "satisfied": "pass_signal"})
                 status = cs["satisfied"] if sat else cs["violation"]
+                if status == "drop":
+                    continue  # corroborating signal absent — not a finding
             findings.append({
                 "control": rule["control"],
                 "rule_id": rid,
@@ -331,7 +390,8 @@ def git_commit(target):
         return None
 
 
-def build_checkpoint(ruleset, findings, controls, scope, obfuscation, target):
+def build_checkpoint(ruleset, findings, controls, scope, obfuscation, target,
+                     cves=None, suppressed=None, diff_scope=None):
     return {
         "schema_version": SCHEMA_VERSION,
         "ruleset_version": ruleset["ruleset_version"],
@@ -340,13 +400,49 @@ def build_checkpoint(ruleset, findings, controls, scope, obfuscation, target):
         "engine": "deterministic-cli",
         "git_commit": git_commit(target),
         "scanned_at": now_iso(),
-        "scan_scope": scope,
+        "scan_scope": (f"diff:{diff_scope}" if diff_scope else scope),
         "obfuscation": obfuscation,
         "controls": controls,
         "findings": findings,
-        "cves": [],
+        "suppressed": suppressed or [],
+        "cves": cves or [],
         "file_map_ref": None,
     }
+
+
+def self_validate_checkpoint(cp):
+    """Stdlib self-check run before writing the checkpoint (no jsonschema at
+    runtime). Enforces required fields and the redaction guarantee."""
+    missing = CHECKPOINT_REQUIRED - set(cp)
+    if missing:
+        raise ValueError(f"checkpoint missing required fields: {sorted(missing)}")
+    for f in cp["findings"] + (cp.get("suppressed") or []):
+        leaked = BANNED_FINDING_FIELDS & set(f)
+        if leaked:
+            raise ValueError(f"finding would leak match content via {sorted(leaked)}: "
+                             f"{f.get('rule_id')} {f.get('path')}")
+    return True
+
+
+def checkpoint_is_valid(cp, target, current_ruleset_version):
+    """Cache invalidation: a checkpoint may be reused only if it was produced at
+    the current HEAD, on a clean working tree, with the current ruleset. Anything
+    else means the findings could be stale — delete and rescan. A compliance
+    artifact must never serve stale findings with a fresh date. (The skill's
+    resume logic calls this from PR-07 on.)"""
+    if cp.get("ruleset_version") != current_ruleset_version:
+        return False
+    head = git_commit(target)
+    if not head or cp.get("git_commit") != head:
+        return False
+    try:
+        r = subprocess.run(["git", "-C", os.path.abspath(target), "status", "--porcelain"],
+                           capture_output=True, text=True)
+        if r.returncode != 0 or r.stdout.strip():
+            return False  # dirty working tree
+    except Exception:
+        return False
+    return True
 
 
 SARIF_LEVEL = {"fail": "error", "warn": "warning", "pass_signal": "note",
@@ -408,6 +504,75 @@ def print_table(controls, findings):
 # --------------------------------------------------------------------------- #
 # Subcommands
 # --------------------------------------------------------------------------- #
+SUPPRESS_RE = __import__("re").compile(
+    r'dsgai-ignore:\s*(P\d{2}\.\d+)\s+reason=["\']([^"\']+)["\']')
+
+
+def load_suppressions(files):
+    """Map path -> [(line, rule_id, reason)] from inline `# dsgai-ignore` comments.
+
+    A finding is suppressed when a matching directive sits on its line or the
+    line immediately above. A reason string is required (the regex enforces it).
+    """
+    out = {}
+    for ap, rel in files:
+        try:
+            text = open(ap, encoding="utf-8", errors="replace").read().splitlines()
+        except OSError:
+            continue
+        for i, line in enumerate(text, 1):
+            m = SUPPRESS_RE.search(line)
+            if m:
+                out.setdefault(rel, []).append((i, m.group(1), m.group(2)))
+    return out
+
+
+def split_suppressed(findings, suppressions):
+    """Each `# dsgai-ignore` directive suppresses at most ONE finding: the one on
+    the same line (inline) if present, otherwise the one on the next line (comment
+    directly above the code). This avoids an inline comment also swallowing an
+    unrelated finding on the following line."""
+    removed = set()
+    suppressed = []
+    for path, directives in suppressions.items():
+        for (cline, crule, reason) in directives:
+            for target in (cline, cline + 1):
+                match = next((f for f in findings
+                              if id(f) not in removed and f["path"] == path
+                              and f["rule_id"] == crule and f["line"] == target), None)
+                if match is not None:
+                    removed.add(id(match))
+                    suppressed.append({**match, "suppressed_reason": reason})
+                    break
+    active = [f for f in findings if id(f) not in removed]
+    return active, suppressed
+
+
+def finding_fp(f):
+    """Stable fingerprint for baseline comparison (line-independent-ish)."""
+    return f"{f['control']}|{f['rule_id']}|{f['path']}"
+
+
+def load_baseline(path):
+    try:
+        data = json.load(open(path, encoding="utf-8"))
+        return set(data.get("fingerprints", []))
+    except (OSError, ValueError):
+        return None
+
+
+def diff_files(target, ref):
+    """Return the set of rel paths changed vs `ref` (git). None if unavailable."""
+    try:
+        r = subprocess.run(["git", "-C", os.path.abspath(target), "diff",
+                            "--name-only", ref], capture_output=True, text=True)
+        if r.returncode != 0:
+            return None
+        return {p.strip().replace("/", os.sep) for p in r.stdout.splitlines() if p.strip()}
+    except Exception:
+        return None
+
+
 def cmd_scan(args):
     rg = find_rg()
     if not rg:
@@ -424,35 +589,97 @@ def cmd_scan(args):
     scan_root = os.path.abspath(args.target)
     scoped_target = os.path.join(scan_root, scope) if scope != "." else scan_root
     files = discover_files(scoped_target, excludes)
+    diff_scope = None
+    if getattr(args, "diff", None):
+        changed = diff_files(args.target, args.diff)
+        if changed is None:
+            eprint(f"error: could not compute git diff vs '{args.diff}'")
+            return 2
+        files = [f for f in files if f[1].replace("/", os.sep) in changed]
+        diff_scope = args.diff
     detected = detect_stack(rg, files, scan_root)
     matches_by_rule = {}
+    nearby_matches = {}
     try:
         for rule in rules:
             candidates = [f for f in files
                           if glob_match(f[1], rule["file_globs"])
                           and not glob_match(f[1], rule.get("exclude_globs") or [])]
-            matches_by_rule[rule["id"]] = run_rule(rg, rule, candidates, scan_root)
+            if rule.get("match") == "file_exists":
+                # Presence of a matching FILE is the signal (e.g. an AI-ignore
+                # file exists → PASS). No content grep. Anchor at line 1.
+                matches_by_rule[rule["id"]] = {(f[1], 1) for f in candidates}
+            else:
+                matches_by_rule[rule["id"]] = run_rule(rg, rule, candidates, scan_root)
+            rn = rule.get("requires_nearby") or {}
+            if rn.get("pattern"):
+                # Locate the corroborating pattern (always structural — a code
+                # shape like an LLM call, never a secret) for proximity checks.
+                probe = {"classification": "structural", "pcre": rn["pattern"]}
+                nearby_matches[rule["id"]] = run_rule(rg, probe, candidates, scan_root)
     except RuntimeError as exc:
         eprint(f"error: {exc}")
         return 2
-    findings = resolve_findings(rules, matches_by_rule, detected)
+    findings = resolve_findings(rules, matches_by_rule, detected, nearby_matches)
+
+    # Suppressions: inline `# dsgai-ignore` comments move findings to a visible
+    # Suppressed section rather than silently dropping them.
+    suppressions = load_suppressions(files)
+    findings, suppressed = split_suppressed(findings, suppressions)
+
+    # Baseline: mark previously-known findings so only NEW ones gate CI.
+    baseline = load_baseline(args.baseline) if getattr(args, "baseline", None) else None
+    if baseline is not None:
+        for f in findings:
+            if finding_fp(f) in baseline:
+                f["baselined"] = True
+
+    # CVE enrichment (deterministic, cached). Off with --no-cve.
+    cves = []
+    if not getattr(args, "no_cve", False):
+        try:
+            import dsgai_cve
+            cves = dsgai_cve.enrich(files, offline=getattr(args, "offline", False),
+                                    refresh=getattr(args, "refresh_cve", False))
+        except ImportError:
+            eprint("note: dsgai_cve module not found alongside the CLI; skipping CVE stage")
+        except Exception as exc:  # noqa: BLE001 — CVE is best-effort
+            eprint(f"note: CVE enrichment failed ({exc}); continuing")
+
     controls = classify_controls(rules, findings, detected)
     checkpoint = build_checkpoint(ruleset, findings, controls, scope,
-                                  args.obfuscation, args.target)
+                                  args.obfuscation, args.target,
+                                  cves=cves, suppressed=suppressed,
+                                  diff_scope=diff_scope)
+
+    try:
+        self_validate_checkpoint(checkpoint)
+    except ValueError as exc:
+        eprint(f"error: refusing to write an invalid checkpoint: {exc}")
+        return 2
 
     if args.format == "table":
         print_table(controls, findings)
+        if diff_scope:
+            print(f"  scope: INCREMENTAL diff vs {diff_scope} — not a full assessment")
+        if suppressed:
+            print(f"  suppressed: {len(suppressed)} finding(s) via dsgai-ignore")
+        if cves:
+            print(f"  CVEs: {len(cves)} "
+                  f"({sum(1 for c in cves if c['status'] == 'EXPLOITABLE')} exploitable)")
     if args.json_out:
         _write_json(args.json_out, checkpoint)
     if args.sarif:
         _write_json(args.sarif, build_sarif(ruleset, rules, findings))
 
-    threshold = args.fail_on
-    fails = sum(1 for f in findings if f["status"] == "fail")
-    warns = sum(1 for f in findings if f["status"] == "warn")
-    if threshold == "fail" and fails:
+    # Only NEW (non-baselined) findings gate the build.
+    gating = [f for f in findings if not f.get("baselined")]
+    fails = sum(1 for f in gating if f["status"] == "fail")
+    warns = sum(1 for f in gating if f["status"] == "warn")
+    exploitable = sum(1 for c in cves if c["status"] == "EXPLOITABLE")
+    if args.fail_on == "fail" and (fails or exploitable):
         return 1
-    if threshold == "warn" and (fails or warns):
+    if args.fail_on == "warn" and (fails or warns or exploitable):
         return 1
     return 0
 
@@ -500,6 +727,52 @@ def cmd_doctor(args):
     return 0 if ok else 2
 
 
+def cmd_baseline(args):
+    rg = find_rg()
+    if not rg:
+        eprint("error: ripgrep (rg) not found.")
+        return 2
+    ruleset = load_rules()
+    rules = ruleset["rules"]
+    scan_root = os.path.abspath(args.target)
+    scoped = os.path.join(scan_root, args.scope) if args.scope != "." else scan_root
+    files = discover_files(scoped, args.exclude or [])
+    detected = detect_stack(rg, files, scan_root)
+    matches_by_rule, nearby = {}, {}
+    for rule in rules:
+        cands = [f for f in files if glob_match(f[1], rule["file_globs"])
+                 and not glob_match(f[1], rule.get("exclude_globs") or [])]
+        matches_by_rule[rule["id"]] = run_rule(rg, rule, cands, scan_root)
+        rn = rule.get("requires_nearby") or {}
+        if rn.get("pattern"):
+            nearby[rule["id"]] = run_rule(rg, {"classification": "structural",
+                                               "pcre": rn["pattern"]}, cands, scan_root)
+    findings, _ = split_suppressed(
+        resolve_findings(rules, matches_by_rule, detected, nearby),
+        load_suppressions(files))
+    fps = sorted({finding_fp(f) for f in findings if f["status"] in ("fail", "warn")})
+    _write_json(args.out, {"ruleset_version": ruleset["ruleset_version"],
+                           "created_at": now_iso(), "fingerprints": fps})
+    print(f"wrote {args.out} ({len(fps)} baselined finding fingerprints)")
+    return 0
+
+
+def cmd_cve(args):
+    try:
+        import dsgai_cve
+    except ImportError:
+        eprint("error: dsgai_cve module not found alongside the CLI.")
+        return 2
+    files = discover_files(os.path.abspath(args.target), args.exclude or [])
+    cves = dsgai_cve.enrich(files, offline=args.offline, refresh=args.refresh_cve)
+    for c in cves:
+        cvss = f" CVSS {c['cvss']}" if c.get("cvss") is not None else ""
+        print(f"[{c['status']}] {c['package']}=={c['version']} {c['id']}{cvss}")
+    print(f"\n{len(cves)} advisories "
+          f"({sum(1 for c in cves if c['status'] == 'EXPLOITABLE')} exploitable)")
+    return 1 if any(c["status"] == "EXPLOITABLE" for c in cves) else 0
+
+
 def build_parser():
     p = argparse.ArgumentParser(prog="dsgai_scan", description="DSGAI deterministic scanner")
     p.add_argument("--version", action="version", version=f"dsgai_scan {read_version()}")
@@ -517,6 +790,14 @@ def build_parser():
                     const="internal", default="strict",
                     help="internal mode (full paths in report)")
     sp.add_argument("--fail-on", choices=["fail", "warn"], default="fail")
+    sp.add_argument("--diff", default=None, metavar="REF",
+                    help="incremental: scan only files changed vs REF")
+    sp.add_argument("--baseline", default=None, metavar="FILE",
+                    help="gate only on findings NOT in this baseline")
+    sp.add_argument("--no-cve", action="store_true", help="skip CVE enrichment")
+    sp.add_argument("--refresh-cve", action="store_true", help="ignore the CVE cache")
+    sp.add_argument("--offline", action="store_true",
+                    help="use the CVE cache only (no network)")
     sp.set_defaults(func=cmd_scan)
 
     dp = sub.add_parser("detect", help="check for GenAI signals (exit 0 if present)")
@@ -526,6 +807,20 @@ def build_parser():
 
     dop = sub.add_parser("doctor", help="check environment")
     dop.set_defaults(func=cmd_doctor)
+
+    bp = sub.add_parser("baseline", help="write current findings to a baseline file")
+    bp.add_argument("target", nargs="?", default=".")
+    bp.add_argument("--scope", default=".")
+    bp.add_argument("--exclude", action="append", default=[])
+    bp.add_argument("--out", default="dsgai-baseline.json")
+    bp.set_defaults(func=cmd_baseline)
+
+    cp = sub.add_parser("cve", help="CVE enrichment only (from dependency manifests)")
+    cp.add_argument("target", nargs="?", default=".")
+    cp.add_argument("--exclude", action="append", default=[])
+    cp.add_argument("--refresh-cve", action="store_true")
+    cp.add_argument("--offline", action="store_true")
+    cp.set_defaults(func=cmd_cve)
     return p
 
 
