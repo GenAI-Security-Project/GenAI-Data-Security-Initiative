@@ -1,0 +1,7 @@
+# Fixture dependencies — mix of pinned (old, CVE-bearing) and unpinned.
+# langchain 0.1.0 is intentionally old for CVE-pipeline testing (PR-12).
+langchain==0.1.0
+openai==1.3.0
+# Unpinned — DSGAI04 WARN (P04.4).
+transformers>=4.30
+torch>=2.0

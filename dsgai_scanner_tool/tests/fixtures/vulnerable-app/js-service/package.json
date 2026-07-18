@@ -1,0 +1,10 @@
+{
+  "name": "dsgai-fixture-js-service",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Intentionally vulnerable JS fixture service for DSGAI scanner tests. Never deploy.",
+  "main": "index.js",
+  "dependencies": {
+    "express": "4.18.2"
+  }
+}
