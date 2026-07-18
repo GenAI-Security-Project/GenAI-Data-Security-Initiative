@@ -1,0 +1,63 @@
+name: scanner-selftest
+
+# The gate that makes external rule PRs safely mergeable: installs ripgrep,
+# runs the pytest suite, and validates the ruleset + a fixture scan against
+# their schemas. Path-filtered to the scanner subproject.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'dsgai_scanner_tool/**'
+      - '.github/workflows/scanner-selftest.yml'
+  pull_request:
+    paths:
+      - 'dsgai_scanner_tool/**'
+      - '.github/workflows/scanner-selftest.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  selftest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up Python
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+        with:
+          python-version: '3.11'
+
+      - name: Install ripgrep (with PCRE2)
+        run: sudo apt-get update -qq && sudo apt-get install -y ripgrep
+
+      - name: Install dev dependencies
+        run: python -m pip install --quiet -r dsgai_scanner_tool/requirements-dev.txt
+
+      - name: Validate ruleset against its schema
+        run: |
+          python -c "import yaml, json, jsonschema; \
+            jsonschema.validate(yaml.safe_load(open('dsgai_scanner_tool/rules/dsgai-rules.yaml')), \
+            json.load(open('dsgai_scanner_tool/rules/rules.schema.json'))); \
+            print('ruleset schema OK')"
+
+      - name: Assert compiled JSON is in sync with YAML
+        run: python dsgai_scanner_tool/build/build_rules_json.py --check
+
+      - name: Run the self-test suite
+        working-directory: dsgai_scanner_tool
+        run: python -m pytest tests/test_runner.py -q
+
+      - name: Validate a fixture scan against the checkpoint + SARIF schemas
+        working-directory: dsgai_scanner_tool
+        run: |
+          python cli/dsgai_scan.py scan tests/fixtures/vulnerable-app \
+            --json-out /tmp/DSGAI-scan.json --sarif /tmp/scan.sarif --format none || true
+          python -c "import json, jsonschema; \
+            jsonschema.validate(json.load(open('/tmp/DSGAI-scan.json')), \
+            json.load(open('schemas/dsgai-scan.schema.json'))); \
+            print('checkpoint schema OK')"
+          python -c "import json; s=json.load(open('/tmp/scan.sarif')); \
+            assert s['version']=='2.1.0' and s['runs'][0]['tool']['driver']['name']=='dsgai-scan'; \
+            print('SARIF OK')"

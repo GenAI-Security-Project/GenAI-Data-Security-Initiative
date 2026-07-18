@@ -25,6 +25,8 @@ FIXTURE = os.path.join(HERE, "fixtures", "vulnerable-app")
 SHEET = os.path.join(HERE, "expected-findings.yaml")
 RULES_YAML = os.path.join(SCANNER, "rules", "dsgai-rules.yaml")
 RULES_JSON = os.path.join(SCANNER, "rules", "dsgai-rules.json")
+RULES_SCHEMA = os.path.join(SCANNER, "rules", "rules.schema.json")
+SCAN_SCHEMA = os.path.join(SCANNER, "schemas", "dsgai-scan.schema.json")
 BANNED_FIELDS = {"match_text", "content", "value", "raw_grep_output"}
 
 
@@ -67,9 +69,22 @@ def test_all_pcres_compile():
     for r in _rules():
         p = subprocess.run([rg, "--pcre2", "-q", "-e", r["pcre"]],
                            input="x\n", capture_output=True, text=True)
-        if p.returncode >= 2 and "regex parse error" in p.stderr:
-            bad.append(r["id"])
+        # rg exit codes: 0 match, 1 no match, >=2 error (incl. any regex/PCRE2
+        # compile failure — the message differs between engines, so key on the
+        # exit code, not a substring).
+        if p.returncode >= 2:
+            bad.append((r["id"], p.stderr.strip()[:120]))
     assert not bad, f"PCREs failed to compile: {bad}"
+
+
+@requires_rg
+def test_compile_check_catches_a_broken_pattern():
+    """Guard the guard: a deliberately invalid PCRE must be detected, so a
+    corrupted rule really does fail CI."""
+    rg = _rg()
+    p = subprocess.run([rg, "--pcre2", "-q", "-e", "(unterminated[class"],
+                       input="x\n", capture_output=True, text=True)
+    assert p.returncode >= 2
 
 
 @requires_rg
@@ -142,6 +157,53 @@ def test_value_bearing_execution_always_replaces():
     idx = src.index('classification"] == "value_bearing"')
     window = src[idx:idx + 200]
     assert "--replace" in window, "value-bearing branch does not pass --replace"
+
+
+@requires_rg
+def test_checkpoint_validates_against_schema(scan):
+    jsonschema = pytest.importorskip("jsonschema")
+    schema = json.loads(open(SCAN_SCHEMA, encoding="utf-8").read())
+    jsonschema.validate(scan["json"], schema)
+
+
+def test_scan_schema_rejects_match_text():
+    """The redaction guarantee is machine-checkable: a finding carrying match
+    content must be rejected by the checkpoint schema."""
+    jsonschema = pytest.importorskip("jsonschema")
+    schema = json.loads(open(SCAN_SCHEMA, encoding="utf-8").read())
+    bad = {
+        "schema_version": "1.0", "ruleset_version": "0.3.0", "skill_version": "0.3.0",
+        "framework": "dsgai-2026-v1.0", "engine": "deterministic-cli",
+        "git_commit": None, "scanned_at": "2023-11-14T22:13:20+00:00",
+        "scan_scope": ".", "obfuscation": "strict", "controls": {},
+        "findings": [{
+            "control": "DSGAI02", "rule_id": "P02.1", "path": "config.py",
+            "line": 7, "status": "fail", "classification": "value_bearing",
+            "match_text": "sk-proj-LEAKED",
+        }],
+        "cves": [], "file_map_ref": None,
+    }
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(bad, schema)
+
+
+def test_rules_validate_against_schema():
+    jsonschema = pytest.importorskip("jsonschema")
+    rules = yaml.safe_load(open(RULES_YAML, encoding="utf-8"))
+    schema = json.loads(open(RULES_SCHEMA, encoding="utf-8").read())
+    jsonschema.validate(rules, schema)
+
+
+def test_cli_self_guard_rejects_leaked_finding():
+    """The CLI's runtime (stdlib) self-check must refuse to write a checkpoint
+    whose finding carries match content — independent of jsonschema."""
+    sys.path.insert(0, os.path.join(SCANNER, "cli"))
+    import dsgai_scan
+    cp = {k: v for k, v in zip(dsgai_scan.CHECKPOINT_REQUIRED,
+                               [None] * len(dsgai_scan.CHECKPOINT_REQUIRED))}
+    cp["findings"] = [{"rule_id": "P02.1", "path": "x", "match_text": "sk-LEAK"}]
+    with pytest.raises(ValueError):
+        dsgai_scan.self_validate_checkpoint(cp)
 
 
 def test_rules_json_in_sync():

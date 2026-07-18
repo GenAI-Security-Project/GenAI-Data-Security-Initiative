@@ -44,6 +44,15 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
   (9 tests) asserts every PCRE compiles, the fixture scan matches the answer sheet
   exactly, SARIF validity, and the redaction guarantee. `requirements-dev.txt` +
   dependabot `pip` for the scanner. (PR-05)
+- **Checkpoint schema + CI self-test**: `schemas/dsgai-scan.schema.json` formalizes
+  `DSGAI-scan.json` and **forbids** `match_text`/`content`/`value`/`raw_grep_output` on
+  every finding (`"field": false`), making the redaction guarantee machine-checkable.
+  The CLI self-validates its checkpoint (stdlib) before writing and gained a
+  cache-invalidation check (`checkpoint_is_valid`: reuse only at current HEAD, clean
+  tree, matching ruleset). New `.github/workflows/scanner-selftest.yml` installs
+  ripgrep, runs pytest, and validates the ruleset + a fixture scan against their schemas
+  — the gate that makes external rule PRs safely mergeable. The PCRE compile check now
+  keys on rg's exit code (catches PCRE2 errors the old substring check missed). (PR-06)
 
 ### Changed
 - `DSGAI-samplereport.png` compressed from ~5.0 MB to ~0.35 MB (14×) as an interim fix;
