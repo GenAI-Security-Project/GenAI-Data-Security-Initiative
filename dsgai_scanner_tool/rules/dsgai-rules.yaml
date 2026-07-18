@@ -65,7 +65,7 @@ rules:
     classification: value_bearing
     signal: fail
     confidence: high
-    pcre: '(?i)(OPENAI_API_KEY|openai[._-]?api[._-]?key)\s*[:=]\s*["'']sk-[A-Za-z0-9_\-]{20,}'
+    pcre: '(?i)(OPENAI_API_KEY|openai[._-]?api[._-]?key)\s*[:=]\s*["'']?sk-[A-Za-z0-9_\-]{20,}'
     file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
@@ -76,7 +76,7 @@ rules:
     classification: value_bearing
     signal: fail
     confidence: high
-    pcre: '(?i)(ANTHROPIC_API_KEY|anthropic[._-]?api[._-]?key)\s*[:=]\s*["'']sk-ant-[A-Za-z0-9_\-]{20,}'
+    pcre: '(?i)(ANTHROPIC_API_KEY|anthropic[._-]?api[._-]?key)\s*[:=]\s*["'']?sk-ant-[A-Za-z0-9_\-]{20,}'
     file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
@@ -87,7 +87,7 @@ rules:
     classification: value_bearing
     signal: fail
     confidence: high
-    pcre: '(?i)(COHERE_API_KEY|GOOGLE_API_KEY|HF_TOKEN|HUGGINGFACE_TOKEN)\s*[:=]\s*["''][A-Za-z0-9_\-]{20,}'
+    pcre: '(?i)(COHERE_API_KEY|GOOGLE_API_KEY|HF_TOKEN|HUGGINGFACE_TOKEN)\s*[:=]\s*["'']?[A-Za-z0-9_\-]{20,}'
     file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
@@ -98,7 +98,7 @@ rules:
     classification: value_bearing
     signal: fail
     confidence: high
-    pcre: '(AWS_ACCESS_KEY_ID|aws_access_key_id)\s*[:=]\s*["''][A-Z0-9]{16,}'
+    pcre: '(AWS_ACCESS_KEY_ID|aws_access_key_id)\s*[:=]\s*["'']?[A-Z0-9]{16,}'
     file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
@@ -109,7 +109,7 @@ rules:
     classification: value_bearing
     signal: fail
     confidence: high
-    pcre: '(AZURE_OPENAI_KEY|GCP_SERVICE_ACCOUNT_KEY)\s*[:=]\s*["''][A-Za-z0-9_\-]{16,}'
+    pcre: '(AZURE_OPENAI_KEY|GCP_SERVICE_ACCOUNT_KEY)\s*[:=]\s*["'']?[A-Za-z0-9_\-]{16,}'
     file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
@@ -147,6 +147,18 @@ rules:
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Tool-call signing (PASS)'
+  - id: P02.9
+    control: DSGAI02
+    name: raw-token-literal
+    classification: value_bearing
+    signal: fail
+    confidence: high
+    pcre: '\b(sk-ant-[A-Za-z0-9_\-]{20,}|sk-proj-[A-Za-z0-9_\-]{20,}|ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{22,}|xox[baprs]-[A-Za-z0-9-]{10,}|AIza[0-9A-Za-z_\-]{35}|AKIA[0-9A-Z]{16}|eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,})\b'
+    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg']
+    exclude_globs: ['*.min.js', 'dist/**', '**/__snapshots__/**', '*.lock', '*.map']
+    framework: 'dsgai-2026-v1.0'
+    description: 'Raw token literal (Slack/GitHub/Google/AWS/Anthropic/OpenAI/JWT) assigned to any variable'
+    notes: 'JWT branch is noisy in bundles/lockfiles (see exclude_globs); further split tracked as a good-first-issue.'
   - id: P03.1
     control: DSGAI03
     name: third-party-llm-endpoints
@@ -666,11 +678,12 @@ rules:
     classification: structural
     signal: fail
     confidence: medium
-    pcre: 'execute\([^)]*(llm|response|completion|output|generated)'
+    pcre: '(?:\.execute|\.run_query|executemany)\(\s*(?:f["'']|[^),]*\b(llm_\w*|completion\w*|generated_sql|generated_query|\w*\.content)\b)'
     file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Raw LLM-output execution (FAIL)'
+    requires_nearby: {pattern: '(chat\.completions\.create|messages\.create|create_sql_agent|SQLDatabaseChain|generate_content)', lines: 30}
   - id: P12.2
     control: DSGAI12
     name: langchain-sql-agent
@@ -777,7 +790,7 @@ rules:
     classification: value_bearing
     signal: fail
     confidence: high
-    pcre: '(QDRANT_API_KEY|PINECONE_API_KEY|WEAVIATE_API_KEY)\s*=\s*["''][A-Za-z0-9_\-]{16,}'
+    pcre: '(QDRANT_API_KEY|PINECONE_API_KEY|WEAVIATE_API_KEY)\s*=\s*["'']?[A-Za-z0-9_\-]{16,}'
     file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.env*']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'

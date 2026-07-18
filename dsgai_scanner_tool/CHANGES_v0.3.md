@@ -101,4 +101,13 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
   full regeneration from the fixture app lands in PR-09. (PR-02)
 
 ### Fixed
-- _nothing yet_
+- **Confirmed false negative** (unquoted `.env` key): P02.1–P02.5 and P13.4 are now
+  quote-optional, and a new **P02.9** catches raw token literals (`sk-proj-`, `sk-ant-`,
+  `ghp_`, `github_pat_`, `xox[baprs]-`, `AIza`, `AKIA`, JWT) assigned to *any* variable
+  name. The fixture `.env` and the JS `xoxb-` token are now caught. (PR-11)
+- **Confirmed false positive** (innocent webhook flagged as LLM SQL injection): **P12.1**
+  rewritten to LLM-signal variable names and gated on an LLM call within 30 lines
+  (`requires_nearby.pattern`, confidence `medium`). `webhook.py` no longer fires;
+  `sql_agent.py` still does. Both Appendix A commands verified. The CLI gained
+  `requires_nearby.pattern` support and a `drop` outcome for corroborating-signal rules.
+  Zero `known_bug` markers remain in the answer sheet. (PR-11)

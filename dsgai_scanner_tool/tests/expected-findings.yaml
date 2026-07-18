@@ -1,61 +1,64 @@
 # Known-answer sheet for tests/fixtures/vulnerable-app.
 #
-# `findings` is exactly what the CURRENT (v0.2-baseline) ruleset produces on the
-# fixture, with compound logic (subtract / requires_nearby) resolved to a final
-# status. The PR-05 self-test asserts the scan reproduces this set exactly.
-# Line numbers are load-bearing — regenerate with tests/regen_expected.py after
-# editing any fixture and review the diff.
+# `findings` is exactly what the CURRENT ruleset produces on the fixture, with
+# compound logic (subtract / requires_nearby) resolved to a final status. The
+# PR-05 self-test asserts the scan reproduces this set exactly. Line numbers are
+# load-bearing — regenerate with tests/regen_expected.py after editing a fixture.
 #
-# Entries marked `known_bug: true` are WRONG under the v0.2 baseline and flip in
-# the PR named by `fixed_in` (tracked so the suite proves the fix).
+# As of PR-11 there are NO known_bug entries: the confirmed v0.2 false negative
+# (unquoted .env) and false positive (innocent webhook) are fixed and reflected
+# below. P02.9 (raw token literals) now catches keys assigned to arbitrary names.
 framework: dsgai-2026-v1.0
 
 findings:
-  # --- DSGAI02: credentials ---
+  # DSGAI02 — credentials. P02.1 is now quote-optional (catches the unquoted .env);
+  # P02.9 catches raw token literals (sk-proj-, xoxb-, ...) by any variable name.
+  - {control: DSGAI02, rule_id: P02.1, path: .env, line: 3, status: fail, classification: value_bearing}
+  - {control: DSGAI02, rule_id: P02.9, path: .env, line: 3, status: fail, classification: value_bearing}
   - {control: DSGAI02, rule_id: P02.1, path: config.py, line: 7, status: fail, classification: value_bearing}
-  - {control: DSGAI02, rule_id: P02.7, path: good_config.py, line: 11, status: pass_signal}
-  # --- DSGAI04: supply chain ---
-  - {control: DSGAI04, rule_id: P04.1, path: loader.py, line: 10, status: fail}          # torch.load, no weights_only (P04.2 absent)
-  - {control: DSGAI04, rule_id: P04.4, path: requirements.txt, line: 6, status: warn}     # transformers unpinned
-  - {control: DSGAI04, rule_id: P04.4, path: requirements.txt, line: 7, status: warn}     # torch unpinned
-  # --- DSGAI06: MCP / plugin ---
-  - {control: DSGAI06, rule_id: P06.1, path: mcp_config.json, line: 4, status: fail}       # http transport
-  - {control: DSGAI06, rule_id: P06.5, path: server.py, line: 18, status: fail}            # uvicorn 0.0.0.0, P06.2 absent in module
-  # --- DSGAI13: vector store (P13.3 also matches host 0.0.0.0 in server.py under v0.2 globs) ---
-  - {control: DSGAI13, rule_id: P13.3, path: server.py, line: 18, status: warn}
-  # --- DSGAI11: multi-tenant isolation ---
-  - {control: DSGAI11, rule_id: P11.1, path: retriever.py, line: 12, status: fail}         # no P11.2 within 15 lines
-  - {control: DSGAI11, rule_id: P11.1, path: retriever.py, line: 30, status: pass_signal}  # rescued by P11.2 on same line
+  - {control: DSGAI02, rule_id: P02.9, path: config.py, line: 7, status: fail, classification: value_bearing}
+  - {control: DSGAI02, rule_id: P02.7, path: good_config.py, line: 11, status: pass_signal, classification: value_bearing}
+  - {control: DSGAI02, rule_id: P02.9, path: js-service/index.js, line: 11, status: fail, classification: value_bearing}
+  # DSGAI04 — supply chain
+  - {control: DSGAI04, rule_id: P04.1, path: loader.py, line: 10, status: fail}
+  - {control: DSGAI04, rule_id: P04.4, path: requirements.txt, line: 6, status: warn}
+  - {control: DSGAI04, rule_id: P04.4, path: requirements.txt, line: 7, status: warn}
+  # DSGAI06 — MCP / plugin
+  - {control: DSGAI06, rule_id: P06.1, path: mcp_config.json, line: 4, status: fail}
+  - {control: DSGAI06, rule_id: P06.5, path: server.py, line: 18, status: fail}
+  # DSGAI13 — P13.3 also matches host 0.0.0.0 in server.py under v0.2 globs
+  - {control: DSGAI13, rule_id: P13.3, path: server.py, line: 18, status: warn, classification: value_bearing}
+  # DSGAI11 — multi-tenant isolation
+  - {control: DSGAI11, rule_id: P11.1, path: retriever.py, line: 12, status: fail}
+  - {control: DSGAI11, rule_id: P11.1, path: retriever.py, line: 30, status: pass_signal}
   - {control: DSGAI11, rule_id: P11.2, path: retriever.py, line: 30, status: pass_signal}
-  # --- DSGAI05: RAG access control PASS signals (tenant filter) ---
+  # DSGAI05 — RAG tenant-filter PASS signals
   - {control: DSGAI05, rule_id: P05.2, path: retriever.py, line: 30, status: pass_signal}
   - {control: DSGAI05, rule_id: P05.3, path: retriever.py, line: 30, status: pass_signal}
-  # --- DSGAI12: database agent ---
-  - {control: DSGAI12, rule_id: P12.2, path: sql_agent.py, line: 7, status: fail}          # SQLDatabaseChain import
-  - {control: DSGAI12, rule_id: P12.2, path: sql_agent.py, line: 8, status: fail}          # create_sql_agent import
-  - {control: DSGAI12, rule_id: P12.2, path: sql_agent.py, line: 13, status: fail}         # create_sql_agent call
-  - {control: DSGAI12, rule_id: P12.1, path: sql_agent.py, line: 20, status: fail}         # execute(generated_sql)
-  # --- DSGAI15: context window (secret in system prompt) ---
+  # DSGAI12 — database agent. P12.1 now fires only with an LLM call nearby (webhook dropped).
+  - {control: DSGAI12, rule_id: P12.2, path: sql_agent.py, line: 7, status: fail}
+  - {control: DSGAI12, rule_id: P12.2, path: sql_agent.py, line: 8, status: fail}
+  - {control: DSGAI12, rule_id: P12.2, path: sql_agent.py, line: 13, status: fail}
+  - {control: DSGAI12, rule_id: P12.1, path: sql_agent.py, line: 20, status: fail}
+  # DSGAI15 / DSGAI02 — secret in system prompt (P15.1 + P02.9 on the same line)
+  - {control: DSGAI02, rule_id: P02.9, path: system_prompt.py, line: 8, status: fail, classification: value_bearing}
   - {control: DSGAI15, rule_id: P15.1, path: system_prompt.py, line: 8, status: fail, classification: value_bearing}
-  # --- DSGAI14: telemetry content capture ---
+  # DSGAI14 — telemetry content capture
   - {control: DSGAI14, rule_id: P14.2, path: telemetry.py, line: 11, status: warn, classification: value_bearing}
-  # --- DSGAI17 / DSGAI20: PASS signals on the rate-limited endpoint ---
+  # DSGAI17 / DSGAI20 — PASS signals on the rate-limited endpoint
   - {control: DSGAI17, rule_id: P17.4, path: rate_limited_api.py, line: 8, status: pass_signal}
   - {control: DSGAI20, rule_id: P20.2, path: rate_limited_api.py, line: 8, status: pass_signal}
-  - {control: DSGAI20, rule_id: P20.5, path: rate_limited_api.py, line: 19, status: pass_signal}  # endpoint, rescued by nearby P20.1+P20.2
+  - {control: DSGAI20, rule_id: P20.5, path: rate_limited_api.py, line: 19, status: pass_signal}
   - {control: DSGAI20, rule_id: P20.2, path: rate_limited_api.py, line: 20, status: pass_signal}
   - {control: DSGAI20, rule_id: P20.1, path: rate_limited_api.py, line: 21, status: pass_signal}
-  # --- Known v0.2 false positive (flips to must_not_flag in PR-11) ---
-  - {control: DSGAI12, rule_id: P12.1, path: webhook.py, line: 11, status: fail, known_bug: true, fixed_in: PR-11, note: "innocent webhook — P12.1 rewrite removes this"}
 
 # Rules that must NEVER fire on these paths (negative cases).
 must_not_flag:
   - {rule_id: P02.1, path: good_config.py, reason: "secret comes from Vault, not hardcoded"}
+  - {rule_id: P02.9, path: good_config.py, reason: "no raw token literal — Vault retrieval"}
   - {rule_id: P20.5, path: rate_limited_api.py, reason: "endpoint is authenticated and rate limited"}
-  - {rule_id: P12.1, path: webhook.py, reason: "innocent webhook", pending_until: PR-11}
+  - {rule_id: P12.1, path: webhook.py, reason: "innocent webhook — no LLM call nearby (fixed in PR-11)"}
 
-# Things the v0.2 baseline SHOULD flag but misses. PR-11/PR-15 move these into `findings`.
+# Things the ruleset still misses, tracked to the PR that fixes each.
 known_false_negatives:
-  - {control: DSGAI02, rule_id: P02.1, path: .env, line: 3, reason: "unquoted key; v0.2 quote-required pattern misses it", fixed_in: PR-11}
-  - {control: DSGAI02, rule_id: P02.9, path: js-service/index.js, line: 11, reason: "raw xoxb- token on an arbitrary variable; no v0.2 rule matches", fixed_in: PR-11}
   - {control: DSGAI20, rule_id: P20.5, path: js-service/index.js, line: 12, reason: "unauthenticated /chat endpoint; DSGAI20 globs exclude *.js", fixed_in: PR-15}
