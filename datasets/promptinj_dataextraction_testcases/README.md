@@ -44,7 +44,7 @@ Each test case should include:
 |---|---:|---|
 | [`tr_altayduel_testcases.json`](tr_altayduel_testcases.json) | 5 | Aggregate Turkish test-case document |
 | [`tr_altaysec_turkish_llm_injection/`](tr_altaysec_turkish_llm_injection/) | 300 | Standalone Turkish cases with manifest and source lineage |
-| [`tr_turkish_conversation_prompt_injection_pairs/`](tr_turkish_conversation_prompt_injection_pairs/) | 150 | Standalone Turkish attack cases with matched benign controls |
+| [`tr_turkish_conversation_prompt_injection_pairs/`](tr_turkish_conversation_prompt_injection_pairs/) | 149 | Standalone Turkish-first attack cases with matched benign controls |
 
 ## Important
 

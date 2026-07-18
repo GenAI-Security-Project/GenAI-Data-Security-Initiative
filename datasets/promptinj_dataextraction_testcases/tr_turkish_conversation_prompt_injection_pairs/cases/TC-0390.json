@@ -1,7 +1,7 @@
 {
   "$schema": "../../../../data_validation/schemas/promptinj_testcase.schema.json",
   "testcase_id": "TC-0390",
-  "category": "tool_plugin_leakage",
+  "category": "other",
   "dsgai_mapping": [
     "DSGAI06",
     "DSGAI17"

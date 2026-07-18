@@ -1,6 +1,6 @@
 # Turkish Contrastive Prompt-Injection Test Cases
 
-This contribution adds 150 Turkish-first defensive test cases for
+This contribution adds 149 Turkish-first defensive test cases for
 prompt-injection, data-extraction, and agent-boundary regression testing. Every
 adversarial input is retained with a vocabulary- and context-matched benign
 control. The pairing lets an evaluator test both sides of the boundary:
@@ -14,8 +14,8 @@ claims, production logs, or a certification benchmark.
 
 ## Layout
 
-- `cases/TC-0301.json` through `cases/TC-0450.json`: one schema-conformant test
-  case per file.
+- `cases/TC-0301.json` through `cases/TC-0450.json`: 149 schema-conformant test
+  cases, with the documented source-quality exclusion `TC-0440` omitted.
 - `manifest.csv`: deterministic source-to-output mapping and integrity hashes.
 - `build_cases.py`: reproducible transformation from the pinned source release.
 - `contrastive_testcase.schema.json`: strict contract for the additional
@@ -64,12 +64,14 @@ The build performs the following deterministic steps in source-pair order:
    repository commit, then verify all three source-file hashes.
 2. Require exactly one attack and one benign-boundary row for each of the 150
    pair IDs, with both rows in the same source split.
-3. Preserve both source texts character-for-character as decoded Unicode
+3. Exclude source pair `pair_0140` because its reversed payload does not decode
+   to a coherent instruction; do not silently repair licensed source text.
+4. Preserve all contributed source texts character-for-character as decoded Unicode
    strings.
-4. Apply content-reviewed repository categories and DSGAI mappings.
-5. Add explicit secure and vulnerable behavior, synthetic-only sandbox
+5. Apply content-reviewed repository categories and DSGAI mappings.
+6. Add explicit secure and vulnerable behavior, synthetic-only sandbox
    prerequisites, scenario-impact severity, and scope metadata.
-6. Write one JSON case per pair and a manifest containing source and output
+7. Write one JSON case per included pair and a manifest containing source and output
    SHA-256 values.
 
 Category assignment is explicit rather than keyword-only. This prevents, for
@@ -78,7 +80,8 @@ an attempt to *extract* that message.
 
 ## Coverage
 
-All ten source attack families contribute 15 cases:
+Nine source attack families contribute 15 cases; obfuscation and code-switching
+contributes 14 after the documented malformed-payload exclusion:
 
 | Attack family | Cases |
 |---|---:|
@@ -91,27 +94,27 @@ All ten source attack families contribute 15 cases:
 | Indirect content injection | 15 |
 | RAG-context poisoning | 15 |
 | Memory-context poisoning | 15 |
-| Obfuscation and code-switching | 15 |
+| Obfuscation and code-switching | 14 |
 
 Repository categories after content review:
 
 | Category | Cases |
 |---|---:|
 | Direct extraction | 35 |
-| Tool/plugin leakage or unauthorized tool action | 33 |
+| Tool/plugin leakage | 3 |
 | System prompt extraction | 22 |
 | Credential harvesting | 21 |
 | Cross-context bleed | 3 |
 | Multimodal extraction | 1 |
-| Other prompt-injection controls | 35 |
+| Other prompt-injection controls | 64 |
 
 - 85 cases have `scope=data_extraction`.
-- 65 cases have `scope=prompt_injection_control` and should not be represented
+- 64 cases have `scope=prompt_injection_control` and should not be represented
   as confirmed extraction attempts.
-- Source split lineage is preserved: 100 train, 20 validation, and 30 test
+- Source split lineage is preserved: 100 train, 20 validation, and 29 test
   pairs. The contribution is a security regression suite; these source split
   labels are provenance, not a new train/test recommendation.
-- Primary attack-language review yields 148 `tr` and 2 `en` cases; both
+- Primary attack-language review yields 147 `tr` and 2 `en` cases; both
   English-primary attacks retain Turkish matched controls and explicit
   `languages=["en", "tr"]` metadata.
 
@@ -139,13 +142,13 @@ Release QA performed on 2026-07-18:
 
 | Check | Result |
 |---|---:|
-| Canonical and extension Draft-07 JSON Schema validation | 150 / 150 pass |
-| Unique sequential test-case IDs | 150 / 150 |
+| Canonical and extension Draft-07 JSON Schema validation | 149 / 149 pass |
+| Unique source-aligned test-case IDs (one documented gap) | 149 / 149 |
 | Test-case ID collisions with existing repository data | 0 |
-| Source attack/control pair integrity | 150 / 150 |
-| Pinned source file and row-text verification | 150 / 150 |
-| Manifest-to-file and SHA-256 integrity | 150 / 150 |
-| Canonical DSGAI mapping validation | 150 / 150 |
+| Source attack/control pair integrity | 149 / 149 |
+| Pinned source file and row-text verification | 149 / 149 |
+| Manifest-to-file and SHA-256 integrity | 149 / 149 |
+| Canonical DSGAI mapping validation | 149 / 149 |
 | Normalized exact attack/control collisions | 0 |
 | Normalized exact attack or control overlap with existing repository prompts | 0 |
 | Sensitive-data, live-secret, and named-vendor pattern findings | 0 |

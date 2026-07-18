@@ -25,6 +25,8 @@ from build_cases import (  # noqa: E402
     ADAPTATION_CHANGES,
     ADAPTATION_LICENSE,
     ADAPTATION_LICENSE_URL,
+    CONTRIBUTED_SOURCE_PAIRS,
+    EXCLUDED_PAIRS,
     FAMILIES,
     MANIFEST_FIELDNAMES,
     SOURCE_ATTRIBUTION,
@@ -46,8 +48,7 @@ from build_cases import (  # noqa: E402
 )
 
 
-CASE_COUNT = 150
-FIRST_TESTCASE = 301
+CASE_COUNT = len(CONTRIBUTED_SOURCE_PAIRS)
 NEAR_DUPLICATE_THRESHOLD = 0.92
 
 EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECASE)
@@ -258,7 +259,10 @@ def main() -> None:
     if len(case_paths) != CASE_COUNT:
         raise ValueError(f"expected {CASE_COUNT} case files, found {len(case_paths)}")
 
-    expected_ids = [f"TC-{number:04d}" for number in range(FIRST_TESTCASE, FIRST_TESTCASE + CASE_COUNT)]
+    expected_ids = [
+        f"TC-{300 + int(pair_id.rsplit('_', 1)[1]):04d}"
+        for pair_id in sorted(CONTRIBUTED_SOURCE_PAIRS)
+    ]
     external_id_locations = find_external_testcase_ids(root)
     id_collisions = sorted(set(expected_ids) & set(external_id_locations))
     if id_collisions:
@@ -325,6 +329,8 @@ def main() -> None:
         pair_number = int(testcase_id[3:]) - 300
         pair_id = provenance["source_pair_id"]
         expected_pair_id = f"pair_{pair_number:04d}"
+        if pair_id in EXCLUDED_PAIRS:
+            raise ValueError(f"{testcase_id}: excluded source-quality pair was emitted")
         expected_attack_id = f"tcpi_p{pair_number:04d}_a"
         expected_control_id = f"tcpi_p{pair_number:04d}_b"
         if pair_id != expected_pair_id:

@@ -111,14 +111,23 @@ CATEGORY_PAIRS = (
     ("cross_context_bleed", CROSS_CONTEXT_PAIRS),
     ("multimodal_extraction", MULTIMODAL_PAIRS),
     ("direct_extraction", DIRECT_EXTRACTION_PAIRS),
-    ("tool_plugin_leakage", TOOL_ACTION_PAIRS),
+    ("tool_plugin_leakage", TOOL_DATA_DISCLOSURE_PAIRS),
 )
 ALL_SOURCE_PAIRS = pair_ids(*range(1, 151))
+EXCLUDED_PAIRS = {
+    "pair_0140": (
+        "source payload does not decode to a coherent instruction; excluded "
+        "rather than silently correcting CC BY source text"
+    )
+}
+CONTRIBUTED_SOURCE_PAIRS = ALL_SOURCE_PAIRS - set(EXCLUDED_PAIRS)
 REVIEWED_CATEGORY_PAIRS = set().union(*(pairs for _, pairs in CATEGORY_PAIRS))
 if sum(len(pairs) for _, pairs in CATEGORY_PAIRS) != len(REVIEWED_CATEGORY_PAIRS):
     raise RuntimeError("content-reviewed category sets overlap")
 if not REVIEWED_CATEGORY_PAIRS.issubset(ALL_SOURCE_PAIRS):
     raise RuntimeError("content-reviewed category sets contain an unknown pair")
+if not set(EXCLUDED_PAIRS).issubset(ALL_SOURCE_PAIRS):
+    raise RuntimeError("source-quality exclusions contain an unknown pair")
 if not TOOL_DATA_DISCLOSURE_PAIRS.issubset(TOOL_ACTION_PAIRS):
     raise RuntimeError("tool disclosure set contains a non-tool pair")
 if not (
@@ -173,6 +182,8 @@ def classify_case(attack: dict[str, Any]) -> tuple[str, list[str], str, str]:
         "tool_plugin_leakage": "DSGAI06",
         "other": "DSGAI05",
     }[category]
+    if pair_id in TOOL_ACTION_PAIRS:
+        impact_mapping = "DSGAI06"
     family_context_mapping = {
         "direct_instruction_override": ["DSGAI05"],
         "system_prompt_extraction": [],
@@ -217,7 +228,7 @@ def classify_case(attack: dict[str, Any]) -> tuple[str, list[str], str, str]:
 
     if pair_id in CRITICAL_PAIRS:
         severity = "Critical"
-    elif category == "other" and family in {
+    elif category == "other" and pair_id not in TOOL_ACTION_PAIRS and family in {
         "direct_instruction_override",
         "roleplay_jailbreak",
         "obfuscation_code_switching",
@@ -514,7 +525,9 @@ def main() -> None:
     cases_dir = output_root / "cases"
     case_artifacts: list[tuple[str, str]] = []
     manifest_rows: list[dict[str, str]] = []
-    for offset, pair_id in enumerate(sorted(expected_pairs), start=0):
+    for pair_id in sorted(expected_pairs):
+        if pair_id in EXCLUDED_PAIRS:
+            continue
         attack = attacks[pair_id]
         control = controls[pair_id]
         pair_number = int(pair_id.rsplit("_", 1)[1])
@@ -533,7 +546,7 @@ def main() -> None:
         if attack_source_file != control_source_file:
             raise ValueError(f"{pair_id}: source files differ")
 
-        testcase_number = 301 + offset
+        testcase_number = 300 + pair_number
         case = build_case(testcase_number, attack, control, attack_source_file)
         output_file = f"cases/{case['testcase_id']}.json"
         serialized = json.dumps(case, ensure_ascii=False, indent=2) + "\n"
@@ -562,8 +575,11 @@ def main() -> None:
             }
         )
 
-    if len(case_artifacts) != 150 or len(manifest_rows) != 150:
-        raise ValueError("refusing to publish an incomplete 150-case build")
+    expected_output_count = len(CONTRIBUTED_SOURCE_PAIRS)
+    if len(case_artifacts) != expected_output_count or len(manifest_rows) != expected_output_count:
+        raise ValueError(
+            f"refusing to publish an incomplete {expected_output_count}-case build"
+        )
 
     fieldnames = list(MANIFEST_FIELDNAMES)
     for row in manifest_rows:
@@ -577,7 +593,7 @@ def main() -> None:
         staged_cases.mkdir()
         staged_manifest = build_root / "manifest.csv"
         for output_file, serialized in case_artifacts:
-            (build_root / output_file).write_text(serialized, encoding="utf-8")
+            (build_root / output_file).write_bytes(serialized.encode("utf-8"))
         with staged_manifest.open("w", encoding="utf-8", newline="") as handle:
             writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
             writer.writeheader()
