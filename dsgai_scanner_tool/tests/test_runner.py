@@ -375,6 +375,39 @@ def test_rg_arg_batching():
     assert sum(len(b) for b in batches) == len(files)  # no file dropped
 
 
+def test_checkpoint_is_valid_logic(tmp_path):
+    """Exercise the cache-invalidation helper (a stale ruleset invalidates)."""
+    ds = _import_cli()
+    repo = tmp_path / "r"
+    repo.mkdir()
+    subprocess.run(["git", "init", "-q"], cwd=repo, check=True)
+    (repo / "a.txt").write_text("x", encoding="utf-8")
+    subprocess.run(["git", "add", "."], cwd=repo, check=True)
+    subprocess.run(["git", "-c", "user.email=a@b.c", "-c", "user.name=t",
+                    "commit", "-qm", "i"], cwd=repo, check=True)
+    head = subprocess.run(["git", "-C", str(repo), "rev-parse", "HEAD"],
+                          capture_output=True, text=True).stdout.strip()
+    cp = {"git_commit": head, "ruleset_version": "0.3.0"}
+    assert ds.checkpoint_is_valid(cp, str(repo), "0.3.0") is True
+    assert ds.checkpoint_is_valid(cp, str(repo), "9.9.9") is False   # ruleset drift
+    assert ds.checkpoint_is_valid({"git_commit": "deadbeef", "ruleset_version": "0.3.0"},
+                                  str(repo), "0.3.0") is False        # HEAD mismatch
+
+
+def test_report_no_path_leak_on_filemap_miss(tmp_path):
+    """STRICT report must never fall back to a real path, and must escape the
+    line number (audit L3)."""
+    sys.path.insert(0, os.path.join(SCANNER, "cli"))
+    import dsgai_report
+    # a finding whose path is NOT in the (empty) filemap, with a malicious line
+    f = {"path": "app/secret/config.py", "line": "1<script>",
+         "classification": "structural"}
+    rendered = dsgai_report.loc(f, {}, internal=False)
+    assert "app/secret/config.py" not in rendered   # no real-path leak
+    assert "unmapped" in rendered                    # placeholder (HTML-escaped)
+    assert "<script>" not in rendered               # line escaped
+
+
 def test_rules_json_in_sync():
     from_yaml = yaml.safe_load(open(RULES_YAML, encoding="utf-8"))
     rebuilt = json.dumps(from_yaml, indent=2, sort_keys=True, ensure_ascii=False) + "\n"

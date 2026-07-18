@@ -50,9 +50,11 @@ def build_filemap(cp):
 
 
 def loc(f, filemap, internal):
-    p = f["path"] if internal else filemap.get(f["path"], f["path"])
+    # In STRICT mode, a filemap miss must NOT fall back to the real path — that
+    # would leak it into the "shareable" report. Use a placeholder (audit L3).
+    p = f["path"] if internal else filemap.get(f["path"], "<unmapped>")
     redacted = " (value redacted)" if f.get("classification") == "value_bearing" else ""
-    return f"{esc(p)}:{f['line']}{esc(redacted)}"
+    return f"{esc(p)}:{esc(f['line'])}{esc(redacted)}"  # escape line too (defense-in-depth)
 
 
 def render(cp, prose, internal):
