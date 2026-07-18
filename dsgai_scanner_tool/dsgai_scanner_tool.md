@@ -1,6 +1,6 @@
 ---
 description: OWASP DSGAI 2026 compliance scanner — audits GenAI/agentic codebases against all 21 data security risks, produces a self-contained HTML report designed to minimize disclosure
-argument-hint: '[--internal] [--no-cve] [--scope <path>] [--exclude <path>]'
+argument-hint: '[--internal] [--no-cve] [--scope <path>] [--exclude <path>] [--diff <ref>] [--baseline <file>]'
 allowed-tools: Read, Grep, Glob, Bash, Write, Edit, WebFetch, WebSearch
 compatible_cli: '>=0.3,<0.5'
 ---
@@ -583,7 +583,13 @@ Also identify:
      $([ -n "$EXCLUDE" ] && echo --exclude "$EXCLUDE") \
      --json-out DSGAI-scan.json --sarif DSGAI-scan.sarif --format table
    ```
-   Then consume `DSGAI-scan.json` (findings + per-control classification) as your evidence. Set the report header field **`engine: deterministic-cli`**.
+   Then consume `DSGAI-scan.json` (findings + per-control classification + CVEs + suppressed) as your evidence. Set the report header field **`engine: deterministic-cli`**.
+
+   **New flags (all handled by the CLI):**
+   - `--diff <ref>` — incremental scan of files changed vs `<ref>`. **Label the report "INCREMENTAL — not a full assessment"** (the checkpoint's `scan_scope` is `diff:<ref>`).
+   - `--baseline <file>` — gate only on findings not already in the baseline (write one with `dsgai_scan.py baseline --out dsgai-baseline.json`). Baselined findings carry `baselined: true`.
+   - `--exclude <path>` — exclude paths/globs (repeatable).
+   - **CVE enrichment now runs inside the CLI** (`cves` in the checkpoint, cached at `~/.dsgai/cve-cache/`). **You never transcribe CVE data — render exactly what the CLI fetched.** Inline `# dsgai-ignore: P##.# reason="…"` comments move findings to the checkpoint's `suppressed` list; render them in a visible **Suppressed** section, never silently.
 4. **If unavailable** (user installed only the `.md`): fall back to the in-context grep flow in Step 2 below — but with the value-bearing protocol replacement (never content-mode grep on secrets). Set the report header field **`engine: llm-grep`** so consumers know the reproducibility class of the artifact.
 5. **Checkpoint reuse (cache invalidation).** An existing `DSGAI-scan.json` may be reused **only if** its `git_commit` equals current `HEAD`, the working tree is clean (`git status --porcelain` empty), and its `ruleset_version` matches. Otherwise delete it and rescan. Never serve stale findings with a fresh date. (The CLI's `checkpoint_is_valid()` implements exactly this.)
 
