@@ -1,0 +1,6 @@
+# Development dependencies for the DSGAI scanner.
+# The runtime CLI (cli/dsgai_scan.py) is standard-library only and needs NONE of
+# these — they are for editing rules, building the JSON, and running the tests.
+PyYAML>=6.0
+pytest>=7.0
+jsonschema>=4.0

@@ -34,6 +34,16 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
   positive as tracked `known_bug`s, and an adversarial `docs/NOTES.md` prompt-injection
   fixture. `tests/regen_expected.py` regenerates/verifies line-pins;
   `.github/secret_scanning.yml` ignores the fixture fakes. (PR-04)
+- **Deterministic runner**: `cli/dsgai_scan.py` — a single-file, stdlib-only-at-runtime
+  CLI that runs the ruleset via `rg --pcre2` and emits `DSGAI-scan.json` + SARIF 2.1.0 +
+  a table summary, identically every run. Value-bearing rules run location-only
+  (`rg -o --replace ''`) so secrets never leave ripgrep; findings carry no match content
+  by construction. Implements `subtract`/`requires_nearby`/`exclude_globs`/`gated_on`,
+  per-control classification, `--scope`/`--exclude`, `SOURCE_DATE_EPOCH`, and `scan` /
+  `detect` / `doctor` subcommands with CI-friendly exit codes. `tests/test_runner.py`
+  (9 tests) asserts every PCRE compiles, the fixture scan matches the answer sheet
+  exactly, SARIF validity, and the redaction guarantee. `requirements-dev.txt` +
+  dependabot `pip` for the scanner. (PR-05)
 
 ### Changed
 - `DSGAI-samplereport.png` compressed from ~5.0 MB to ~0.35 MB (14×) as an interim fix;
