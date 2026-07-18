@@ -17,6 +17,13 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
   internal-link check), a deterministic markdown internal-link checker
   (`scripts/check_md_links.py`), and a `.gitattributes` forcing LF on scripts/YAML so
   Windows checkouts can't ship CRLF that breaks Linux CI. (PR-02)
+- **Rules as data**: all 106 detection patterns extracted verbatim from the skill's
+  Step 2 into `rules/dsgai-rules.yaml` (source of truth), validated by
+  `rules/rules.schema.json`, compiled to `rules/dsgai-rules.json` by
+  `build/build_rules_json.py`. Compound logic (`subtract`, `requires_nearby`,
+  `exclude_globs`, `gated_on`) and per-rule `classification`/`signal`/`confidence` are
+  encoded. `rules/README.md` documents the format. Skill Step 2 now marks the YAML as
+  canonical. (PR-03)
 
 ### Changed
 - `DSGAI-samplereport.png` compressed from ~5.0 MB to ~0.35 MB (14×) as an interim fix;

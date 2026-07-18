@@ -564,6 +564,8 @@ Also identify:
 
 ## Step 2: Scan for DSGAI Issues
 
+> **Canonical rule definitions live in [`rules/dsgai-rules.yaml`](rules/dsgai-rules.yaml)** (validated by `rules/rules.schema.json`, compiled to `rules/dsgai-rules.json`). The pattern listings in this Step are descriptive — the YAML is authoritative and is what the deterministic CLI executes. When they disagree, the YAML wins. (Full skill rewrite to CLI-first orchestration is PR-07.)
+
 ### Search Engine Prerequisite
 
 All patterns below use **PCRE / Perl-compatible regex syntax** — `\s`, `{n,m}`, character classes inside groups, alternation. Inside Claude Code, the Grep tool (ripgrep) supports this natively. Outside Claude Code, use `rg` (ripgrep) or `grep -P` (GNU grep with PCRE). Plain POSIX BRE/ERE will *not* match `\s`, `\d`, or `{n,m}` correctly and will produce false negatives.
