@@ -1,0 +1,230 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Turkish-First Contrastive Prompt-Injection Test Case Extension",
+  "description": "Strict contract for the language, contrastive-control, provenance, and integrity metadata added by this contribution. Cases are also validated against the repository's canonical prompt-injection schema.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "language",
+    "languages",
+    "technique",
+    "source_context",
+    "scope",
+    "synthetic_data_only",
+    "contrastive_control",
+    "provenance",
+    "integrity"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "../../../../data_validation/schemas/promptinj_testcase.schema.json"
+    },
+    "language": {
+      "type": "string",
+      "enum": ["tr", "en"]
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["tr", "en"]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "technique": {
+      "type": "string",
+      "enum": [
+        "direct_instruction_override",
+        "system_prompt_extraction",
+        "roleplay_jailbreak",
+        "authority_claim_bypass",
+        "sensitive_data_exfiltration",
+        "tool_action_abuse",
+        "indirect_content_injection",
+        "rag_context_poisoning",
+        "memory_context_poisoning",
+        "obfuscation_code_switching"
+      ]
+    },
+    "source_context": {
+      "type": "string",
+      "enum": [
+        "agent_tool_request",
+        "calendar_event",
+        "chat_message",
+        "code_comment",
+        "conversation_memory",
+        "direct_user",
+        "document",
+        "email",
+        "image_ocr",
+        "issue_description",
+        "pdf_document",
+        "retrieved_document",
+        "spreadsheet_cell",
+        "support_ticket",
+        "tool_output",
+        "transcript",
+        "web_page"
+      ]
+    },
+    "scope": {
+      "type": "string",
+      "enum": ["data_extraction", "prompt_injection_control"]
+    },
+    "synthetic_data_only": {
+      "const": true
+    },
+    "contrastive_control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_record_id",
+        "prompt",
+        "expected_behavior",
+        "purpose"
+      ],
+      "properties": {
+        "source_record_id": {
+          "type": "string",
+          "pattern": "^tcpi_p\\d{4}_b$"
+        },
+        "prompt": {
+          "type": "string",
+          "minLength": 5
+        },
+        "expected_behavior": {
+          "type": "string",
+          "minLength": 20
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 20
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_dataset",
+        "source_version",
+        "source_repository",
+        "source_distribution_url",
+        "source_revision",
+        "source_release_doi",
+        "source_file",
+        "source_file_sha256",
+        "source_pair_id",
+        "source_attack_record_id",
+        "source_control_record_id",
+        "source_attack_sha256",
+        "source_control_sha256",
+        "source_split",
+        "source_license",
+        "source_license_url",
+        "source_attribution",
+        "adaptation_license",
+        "adaptation_license_url",
+        "changes"
+      ],
+      "properties": {
+        "source_dataset": {
+          "const": "Turkish Conversation Prompt-Injection Dataset"
+        },
+        "source_version": {
+          "const": "1.0.2"
+        },
+        "source_repository": {
+          "const": "https://github.com/3nesdeniz/turkish-conversation-prompt-injection"
+        },
+        "source_distribution_url": {
+          "const": "https://huggingface.co/datasets/3nesdeniz/turkish-conversation-prompt-injection"
+        },
+        "source_revision": {
+          "const": "9a2163b051237e3c15f842a3ef517cd029b1ccd4"
+        },
+        "source_release_doi": {
+          "const": "10.5281/zenodo.21379389"
+        },
+        "source_file": {
+          "type": "string",
+          "enum": [
+            "data/train.jsonl",
+            "data/validation.jsonl",
+            "data/test.jsonl"
+          ]
+        },
+        "source_file_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "source_pair_id": {
+          "type": "string",
+          "pattern": "^pair_\\d{4}$"
+        },
+        "source_attack_record_id": {
+          "type": "string",
+          "pattern": "^tcpi_p\\d{4}_a$"
+        },
+        "source_control_record_id": {
+          "type": "string",
+          "pattern": "^tcpi_p\\d{4}_b$"
+        },
+        "source_attack_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "source_control_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "source_split": {
+          "type": "string",
+          "enum": ["train", "validation", "test"]
+        },
+        "source_license": {
+          "const": "Creative Commons Attribution 4.0 International (CC BY 4.0)"
+        },
+        "source_license_url": {
+          "const": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "source_attribution": {
+          "const": "../README.md#source-and-attribution"
+        },
+        "adaptation_license": {
+          "const": "Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)"
+        },
+        "adaptation_license_url": {
+          "const": "https://creativecommons.org/licenses/by-sa/4.0/"
+        },
+        "changes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 10
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["attack_prompt_sha256", "control_prompt_sha256"],
+      "properties": {
+        "attack_prompt_sha256": {
+          "$ref": "#/definitions/sha256"
+        },
+        "control_prompt_sha256": {
+          "$ref": "#/definitions/sha256"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

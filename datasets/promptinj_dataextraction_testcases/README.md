@@ -2,7 +2,7 @@
 
 A curated set of adversarial prompts and extraction techniques for red-teaming and regression testing of GenAI data security controls.
 
-**Status:** Accepting contributions — this dataset is being built from scratch with the community.
+**Status:** Accepting contributions — this dataset is maintained with the community.
 
 ## Scope
 
@@ -20,7 +20,10 @@ Categories include:
 
 ## Data Format
 
-<!-- TODO: Define schema once initial data is contributed -->
+The canonical JSON contract is
+[`data_validation/schemas/promptinj_testcase.schema.json`](../../data_validation/schemas/promptinj_testcase.schema.json).
+Contributions may add documented metadata for provenance, integrity, language,
+or contrastive controls while retaining the required base fields.
 
 Each test case should include:
 
@@ -34,6 +37,14 @@ Each test case should include:
 - **Severity if bypassed** — Critical / High / Medium / Low
 - **Source** — Research paper, tool, or original contribution
 - **Notes** — Any caveats, model-specific behavior, or known limitations
+
+## Current suites
+
+| Contribution | Cases | Format |
+|---|---:|---|
+| [`tr_altayduel_testcases.json`](tr_altayduel_testcases.json) | 5 | Aggregate Turkish test-case document |
+| [`tr_altaysec_turkish_llm_injection/`](tr_altaysec_turkish_llm_injection/) | 300 | Standalone Turkish cases with manifest and source lineage |
+| [`tr_turkish_conversation_prompt_injection_pairs/`](tr_turkish_conversation_prompt_injection_pairs/) | 150 | Standalone Turkish attack cases with matched benign controls |
 
 ## Important
 
