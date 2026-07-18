@@ -75,9 +75,18 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
   Fixed the push-gate bug — gating is now driven by the `DSGAI_FAIL_ON` repo variable
   (empty = report-only), not force-gated on every push. (PR-08)
 
+- **README truth pass**: reflects the deterministic-CLI + LLM-orchestration architecture,
+  two engine modes, SARIF/Code Scanning, timestamped reports, file-ID strict mode, and
+  a **Cost & runtime** section ($0 CLI-only mode, fork-PR behavior, `--diff` marked
+  v0.4). Adds a Contributing quick-start ("found a wrong result? that's a contribution").
+  Skill version badge → v0.3. (PR-09)
+
 ### Changed
-- Honest-language pass across the skill: every "safe to share/commit/store" replaced
-  with "designed to minimize disclosure" + a residual-risk note. (PR-07)
+- Honest-language pass across the skill **and README**: every "safe to share/commit/store"
+  replaced with "designed to minimize disclosure" + a residual-risk note — the Phase-2
+  overclaim gate now passes repo-wide. (PR-07, PR-09)
+- Sample-report image caption now states it is interim and will be regenerated from the
+  public fixture app once the deterministic report template lands (PR-14). (PR-09)
 - `DSGAI-samplereport.png` compressed from ~5.0 MB to ~0.35 MB (14×) as an interim fix;
   full regeneration from the fixture app lands in PR-09. (PR-02)
 
