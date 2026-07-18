@@ -40,6 +40,10 @@ CHECKPOINT_REQUIRED = {
 }
 SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "venv", "env",
              "dist", "build", ".mypy_cache", ".pytest_cache", ".tox", ".idea"}
+# Credential-bearing files that MUST be scanned even when gitignored — a secret
+# scanner's whole job is to catch keys in exactly these, and they are almost
+# always gitignored (so `git ls-files` would drop them). Matched by basename.
+ALWAYS_SCAN_GLOBS = ["*.env", "*.env.*", ".env", ".env.*", "*.envrc"]
 
 # requires_nearby resolution: status when the requirement is violated (required
 # rule absent) vs satisfied (present). Read the require list / window from the
@@ -109,16 +113,25 @@ def read_version():
 # File discovery
 # --------------------------------------------------------------------------- #
 def discover_files(target, excludes):
-    """Return files under target as (abs_path, rel_path) honoring .gitignore.
+    """Return files under target as (abs_path, rel_path).
 
-    Uses `git ls-files` (tracked + untracked-not-ignored) when target is inside
-    a repo — this respects .gitignore yet still includes tracked files such as a
-    committed fixture .env. Falls back to a filtered os.walk otherwise.
+    Uses `git ls-files` (tracked + untracked-not-ignored) when target is inside a
+    repo, so general noise/build output respects .gitignore. BUT credential
+    files matching ALWAYS_SCAN_GLOBS (e.g. `.env`) are ALWAYS included even when
+    gitignored — a secret scanner must scan exactly those. Falls back to a
+    filtered os.walk (which already sees everything) outside a repo.
     """
     target = os.path.abspath(target)
     files = _git_files(target)
     if files is None:
         files = _walk_files(target)
+    else:
+        # Union in gitignored credential files git would otherwise drop.
+        seen = set(files)
+        for ap in _sensitive_walk_files(target):
+            if ap not in seen:
+                seen.add(ap)
+                files.append(ap)
     out = []
     for ap in files:
         rel = os.path.relpath(ap, target).replace(os.sep, "/")
@@ -127,6 +140,18 @@ def discover_files(target, excludes):
         out.append((ap, rel))
     out.sort(key=lambda x: x[1])
     return out
+
+
+def _sensitive_walk_files(target):
+    """Files under target whose basename matches ALWAYS_SCAN_GLOBS (skips noise
+    dirs). Used to re-include gitignored credential files like .env."""
+    hits = []
+    for dp, dirs, fns in os.walk(target):
+        dirs[:] = [d for d in dirs if d not in SKIP_DIRS]
+        for fn in fns:
+            if any(fnmatch.fnmatch(fn, g) for g in ALWAYS_SCAN_GLOBS):
+                hits.append(os.path.join(dp, fn))
+    return hits
 
 
 def _git_files(target):

@@ -314,6 +314,31 @@ def test_atlas_map_valid():
         assert all(ctrl_re.match(c) for c in t["controls"])
 
 
+@requires_rg
+def test_gitignored_env_is_still_scanned(tmp_path):
+    """Real-world layout: a `.env` is gitignored + untracked. A secret scanner
+    MUST still scan it — regression test for the discovery bug where git
+    ls-files silently dropped it (the committed fixture .env masked this)."""
+    repo = tmp_path / "realrepo"
+    repo.mkdir()
+    subprocess.run(["git", "init", "-q"], cwd=repo, check=True)
+    (repo / ".gitignore").write_text(".env\n", encoding="utf-8")
+    (repo / ".env").write_text(
+        "OPENAI_API_KEY=sk-proj-FAKE00000000000000000000000000\n", encoding="utf-8")
+    (repo / "app.py").write_text("x = 1\n", encoding="utf-8")
+    env = dict(os.environ)
+    subprocess.run(["git", "add", ".gitignore", "app.py"], cwd=repo, check=True)
+    subprocess.run(["git", "-c", "user.email=a@b.c", "-c", "user.name=t",
+                    "commit", "-qm", "init"], cwd=repo, check=True)
+    out = tmp_path / "s.json"
+    subprocess.run([sys.executable, CLI, "scan", str(repo), "--no-cve",
+                    "--json-out", str(out), "--format", "none"], env=env)
+    cp = json.loads(out.read_text(encoding="utf-8"))
+    env_findings = [f for f in cp["findings"] if ".env" in f["path"]]
+    assert env_findings, "gitignored .env credential was not scanned"
+    assert cp["controls"]["DSGAI02"] == "FAIL"
+
+
 def test_rules_json_in_sync():
     from_yaml = yaml.safe_load(open(RULES_YAML, encoding="utf-8"))
     rebuilt = json.dumps(from_yaml, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
