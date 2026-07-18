@@ -35,6 +35,8 @@ def render():
     for r in data["rules"]:
         if r["classification"] != "structural":
             continue
+        if r.get("match") == "file_exists":
+            continue  # file-existence rules aren't expressible as pattern-regex
         sev = SEVERITY.get(r["signal"], "INFO")
         includes = ", ".join(yq(g) for g in r["file_globs"])
         # Semgrep pattern-regex runs against whole-file text; force multiline so a

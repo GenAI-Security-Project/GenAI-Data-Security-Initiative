@@ -616,7 +616,12 @@ def cmd_scan(args):
             candidates = [f for f in files
                           if glob_match(f[1], rule["file_globs"])
                           and not glob_match(f[1], rule.get("exclude_globs") or [])]
-            matches_by_rule[rule["id"]] = run_rule(rg, rule, candidates, scan_root)
+            if rule.get("match") == "file_exists":
+                # Presence of a matching FILE is the signal (e.g. an AI-ignore
+                # file exists → PASS). No content grep. Anchor at line 1.
+                matches_by_rule[rule["id"]] = {(f[1], 1) for f in candidates}
+            else:
+                matches_by_rule[rule["id"]] = run_rule(rg, rule, candidates, scan_root)
             rn = rule.get("requires_nearby") or {}
             if rn.get("pattern"):
                 # Locate the corroborating pattern (always structural — a code
