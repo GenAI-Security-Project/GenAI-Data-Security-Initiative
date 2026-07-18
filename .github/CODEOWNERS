@@ -1,0 +1,7 @@
+# Code owners for the GenAI-Data-Security-Initiative monorepo.
+# Docs: https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# Owners are requested for review automatically when matching files change.
+
+# DSGAI scanner tool subproject
+/dsgai_scanner_tool/ @emmanuelgjr

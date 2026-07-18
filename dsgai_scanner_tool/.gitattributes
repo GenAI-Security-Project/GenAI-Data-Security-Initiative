@@ -1,0 +1,6 @@
+# Force LF for scripts so Windows checkouts (core.autocrlf=true) can't ship
+# CRLF that breaks shellcheck / bash on Linux CI runners.
+*.sh text eol=lf
+*.py text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
