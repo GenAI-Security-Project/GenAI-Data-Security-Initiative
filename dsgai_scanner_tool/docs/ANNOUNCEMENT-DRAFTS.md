@@ -36,7 +36,7 @@
 > **Run the DSGAI scanner on your GenAI repo and tell us what it got wrong.**
 > `python cli/dsgai_scan.py scan .` ($0, no LLM) or the Claude Code skill. Every
 > false-positive / false-negative you file with the
-> [templates](<ISSUE_TEMPLATE link>) becomes a permanent, credited test case —
+> [issue templates](../../.github/ISSUE_TEMPLATE/) becomes a permanent, credited test case —
 > and feeds the precision benchmark. Recurring contributors are invited as
 > co-maintainers. No code required to help.
 
