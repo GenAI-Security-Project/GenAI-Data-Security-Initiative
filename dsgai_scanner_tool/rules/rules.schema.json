@@ -54,13 +54,15 @@
           "properties": {
             "rule": { "$ref": "#/$defs/ruleId" },
             "rules": { "type": "array", "items": { "$ref": "#/$defs/ruleId" } },
+            "pattern": { "type": "string", "minLength": 1 },
             "lines": { "type": "integer", "minimum": 0 },
             "scope": { "enum": ["module", "file"] },
             "absent": { "type": "boolean" }
           },
           "anyOf": [
             { "required": ["rule"] },
-            { "required": ["rules"] }
+            { "required": ["rules"] },
+            { "required": ["pattern"] }
           ]
         },
         "gated_on": { "enum": ["multimodal", "synthetic_data", "labeling"] },

@@ -50,6 +50,9 @@ COMPOUND_STATUS = {
     "P11.1": {"violation": "fail", "satisfied": "pass_signal"},
     "P18.4": {"violation": "warn", "satisfied": "pass_signal"},
     "P20.5": {"violation": "fail", "satisfied": "pass_signal"},
+    # Corroborating-signal rules: fire only when the nearby signal is PRESENT
+    # (drop the match otherwise). P12.1 is a FAIL only when an LLM call is nearby.
+    "P12.1": {"violation": "drop", "satisfied": "fail"},
 }
 
 # Step-0 detection signals. Raw-endpoint signals catch repos calling LLM APIs
@@ -238,9 +241,9 @@ def nearby(matches_by_rule, required_ids, path, line, window, module_scope):
     return False
 
 
-def resolve_findings(rules, matches_by_rule, detected):
+def resolve_findings(rules, matches_by_rule, detected, nearby_matches=None):
     """Apply subtract / requires_nearby / gating to produce resolved findings."""
-    by_id = {r["id"]: r for r in rules}
+    nearby_matches = nearby_matches or {}
     findings = []
     for rule in rules:
         rid = rule["id"]
@@ -259,14 +262,21 @@ def resolve_findings(rules, matches_by_rule, detected):
                 continue
             status = rule["signal"]
             if rn:
-                required = rn.get("rules") or ([rn["rule"]] if rn.get("rule") else [])
                 window = rn.get("lines", 0)
                 module_scope = rn.get("scope") == "module" or "lines" not in rn
-                need_all = "rules" in rn and rn.get("scope") != "module"
-                sat = _satisfied(matches_by_rule, required, path, line, window,
-                                 module_scope, need_all)
+                if rn.get("pattern"):
+                    # proximity of a raw corroborating pattern (e.g. an LLM call)
+                    sat = any(mp == path and (module_scope or abs(ml - line) <= window)
+                              for (mp, ml) in nearby_matches.get(rid, set()))
+                else:
+                    required = rn.get("rules") or ([rn["rule"]] if rn.get("rule") else [])
+                    need_all = "rules" in rn and rn.get("scope") != "module"
+                    sat = _satisfied(matches_by_rule, required, path, line, window,
+                                     module_scope, need_all)
                 cs = COMPOUND_STATUS.get(rid, {"violation": "fail", "satisfied": "pass_signal"})
                 status = cs["satisfied"] if sat else cs["violation"]
+                if status == "drop":
+                    continue  # corroborating signal absent — not a finding
             findings.append({
                 "control": rule["control"],
                 "rule_id": rid,
@@ -469,16 +479,23 @@ def cmd_scan(args):
     files = discover_files(scoped_target, excludes)
     detected = detect_stack(rg, files, scan_root)
     matches_by_rule = {}
+    nearby_matches = {}
     try:
         for rule in rules:
             candidates = [f for f in files
                           if glob_match(f[1], rule["file_globs"])
                           and not glob_match(f[1], rule.get("exclude_globs") or [])]
             matches_by_rule[rule["id"]] = run_rule(rg, rule, candidates, scan_root)
+            rn = rule.get("requires_nearby") or {}
+            if rn.get("pattern"):
+                # Locate the corroborating pattern (always structural — a code
+                # shape like an LLM call, never a secret) for proximity checks.
+                probe = {"classification": "structural", "pcre": rn["pattern"]}
+                nearby_matches[rule["id"]] = run_rule(rg, probe, candidates, scan_root)
     except RuntimeError as exc:
         eprint(f"error: {exc}")
         return 2
-    findings = resolve_findings(rules, matches_by_rule, detected)
+    findings = resolve_findings(rules, matches_by_rule, detected, nearby_matches)
     controls = classify_controls(rules, findings, detected)
     checkpoint = build_checkpoint(ruleset, findings, controls, scope,
                                   args.obfuscation, args.target)
