@@ -187,15 +187,7 @@ For each CVE or advisory found across all sources:
 
 MITRE ATLAS documents AI-specific attack techniques (prompt injection, model evasion, training data poisoning). These are **not CVEs** and are tracked separately from Section 2's CVE Advisory. Render them in a dedicated subsection inside Section 1 ("AI Attack Techniques Relevant to This Stack").
 
-Query for techniques relevant to the detected AI stack:
-
-```
-site:atlas.mitre.org prompt injection
-site:atlas.mitre.org training data poisoning
-site:atlas.mitre.org <detected_framework_name>
-```
-
-Map each technique to its DSGAI risk and include the ATLAS ID (e.g. `AML.T0051`) and one-line description.
+**Use the static map at [`rules/atlas-map.yaml`](rules/atlas-map.yaml)** — do **not** run live `site:atlas.mitre.org` searches (the operator is unreliable across search backends, and the mapping barely changes between ATLAS releases). Select the techniques whose `controls:` intersect the DSGAI controls you found relevant for the detected stack, and render `ATLAS ID | Technique | Maps to DSGAI | one-line description`. Cite the `atlas_version` from the map.
 
 **Do not** count ATLAS techniques as CVEs in the Section 2 totals — they are advisory-only.
 
@@ -601,7 +593,7 @@ Whichever engine ran, the rest of the skill (Steps 3–5) is the same: you class
 
 ### Search Engine Prerequisite
 
-All patterns below use **PCRE / Perl-compatible regex syntax** — `\s`, `{n,m}`, character classes inside groups, alternation. Inside Claude Code, the Grep tool (ripgrep) supports this natively. Outside Claude Code, use `rg` (ripgrep) or `grep -P` (GNU grep with PCRE). Plain POSIX BRE/ERE will *not* match `\s`, `\d`, or `{n,m}` correctly and will produce false negatives.
+All patterns below use **PCRE / Perl-compatible regex syntax** — `\s`, `{n,m}`, character classes inside groups, alternation. Use `rg` (ripgrep, `--pcre2`) or `grep -P` (GNU grep with PCRE). Plain POSIX BRE/ERE will *not* match `\s`, `\d`, or `{n,m}` correctly and will produce false negatives.<!-- cc-only:start --> Inside Claude Code, the Grep tool wraps ripgrep with PCRE2 support natively.<!-- cc-only:end -->
 
 ### Parallel Execution
 

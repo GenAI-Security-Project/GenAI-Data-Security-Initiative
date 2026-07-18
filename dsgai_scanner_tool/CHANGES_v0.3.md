@@ -9,6 +9,19 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
 ## [Unreleased]
 
 ### Added
+- **Templated report, single-sourced prompt variant, static ATLAS map** (PR-14).
+  - `cli/dsgai_report.py` + `templates/report.css`: the HTML report is now rendered
+    **by code** from the checkpoint (deterministic, testable), with a golden structural
+    test. The LLM contributes only prose (executive summary / remediation) via `--prose`.
+    STRICT mode renders file IDs (`F07:12`) and writes `DSGAI-filemap.json`;
+    accessibility — every status carries a symbol + text label, not colour alone.
+  - **Sample PNG regenerated** from the fixture app via the new renderer + headless
+    Chrome (~45 KB, fully reproducible, zero real-repo disclosure).
+  - `build/generate_prompt_variant.py`: `dsgai_scanner_prompt.md` is now generated from
+    the skill (frontmatter + `cc-only` blocks stripped) — drift is a CI failure
+    (`--check`), single-sourced so the two variants can't diverge.
+  - `rules/atlas-map.yaml`: static MITRE ATLAS technique→control map; the skill's live
+    `site:atlas.mitre.org` searches are removed in favour of it.
 - **CVE pipeline, suppressions, baseline, incremental scanning** (PR-12).
   - CVE fetching moved into the CLI (`cli/dsgai_cve.py`, stdlib urllib): OSV
     `querybatch` is the per-version source, NVD enriches CVSS by `cveId` only (no
