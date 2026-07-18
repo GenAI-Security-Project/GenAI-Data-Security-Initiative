@@ -65,6 +65,16 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
   `dsgai-reports/`, checkpoint cache-invalidation, and `compatible_cli` frontmatter.
   (PR-07)
 
+- **Hardened GitHub Action** (`integrations/dsgai-scan.yml`): split into a **`scan`**
+  job (deterministic CLI only — no secrets, no LLM, no egress; runs on fork PRs; emits
+  SARIF + checkpoint) and an optional **`narrate`** job (Claude Code with a reduced
+  toolset `Read,Write,Edit,Bash` — no WebFetch/WebSearch — rendering from the checkpoint;
+  skipped on forks). Closes the exfiltration channel where untrusted PR content met an
+  agent holding both secrets and egress. All actions pinned by full SHA; scanner fetched
+  from a pinned upstream commit; SARIF uploaded via Code Scanning (guarded off forks).
+  Fixed the push-gate bug — gating is now driven by the `DSGAI_FAIL_ON` repo variable
+  (empty = report-only), not force-gated on every push. (PR-08)
+
 ### Changed
 - Honest-language pass across the skill: every "safe to share/commit/store" replaced
   with "designed to minimize disclosure" + a residual-risk note. (PR-07)
