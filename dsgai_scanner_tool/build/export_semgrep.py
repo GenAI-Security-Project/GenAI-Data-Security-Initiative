@@ -37,13 +37,19 @@ def render():
             continue
         sev = SEVERITY.get(r["signal"], "INFO")
         includes = ", ".join(yq(g) for g in r["file_globs"])
+        # Semgrep pattern-regex runs against whole-file text; force multiline so a
+        # line-anchored rule (e.g. P04.4's `^`) matches on any line, not just
+        # file start (audit L7).
+        pcre = r["pcre"]
+        if ("^" in pcre or "$" in pcre) and not pcre.startswith("(?m)"):
+            pcre = "(?m)" + pcre
         out += [
             f"  - id: dsgai-{r['id']}",
             f"    languages: [generic]",
             f"    severity: {sev}",
             f"    message: {yq(r['control'] + ' ' + r['id'] + ': ' + r['description'])}",
             f"    patterns:",
-            f"      - pattern-regex: {yq(r['pcre'])}",
+            f"      - pattern-regex: {yq(pcre)}",
             f"    paths:",
             f"      include: [{includes}]",
             f"    metadata:",
