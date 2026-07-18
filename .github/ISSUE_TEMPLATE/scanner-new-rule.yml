@@ -1,0 +1,58 @@
+name: "[scanner] Propose a new rule"
+description: Propose a new detection rule for a DSGAI control.
+title: "[scanner] New rule: "
+labels: ["scanner", "rules"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for extending DSGAI coverage. Accepted rules ship with your test snippets
+        as permanent fixture cases, with credit. Rules cannot be merged without at least
+        one positive and one negative test case.
+  - type: input
+    id: control
+    attributes:
+      label: Proposed control mapping
+      description: Which DSGAI control does this rule serve, e.g. `DSGAI17`.
+      placeholder: DSGAI17
+    validations:
+      required: true
+  - type: textarea
+    id: pcre
+    attributes:
+      label: Proposed PCRE pattern
+      description: The regex (PCRE2, ripgrep-compatible). Give it as a code block, not a table cell.
+      render: text
+    validations:
+      required: true
+  - type: dropdown
+    id: classification
+    attributes:
+      label: Classification
+      description: STRUCTURAL rules match code shape; VALUE-BEARING rules match around secret material and run in location-only mode.
+      options:
+        - STRUCTURAL
+        - VALUE-BEARING
+    validations:
+      required: true
+  - type: textarea
+    id: positive
+    attributes:
+      label: Positive test snippet(s)
+      description: Code that MUST match. Fake values only. Goes straight into the fixture app on acceptance.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: negative
+    attributes:
+      label: Negative test snippet(s)
+      description: Similar-looking code that MUST NOT match. Fake values only.
+      render: text
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        > Test snippets are added to the public test fixture corpus under the repo license.
+        > Never paste real credentials — use obviously fake values.

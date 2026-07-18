@@ -1,0 +1,73 @@
+name: "[scanner] False positive"
+description: The DSGAI scanner flagged something that is not actually a problem.
+title: "[scanner] False positive: "
+labels: ["scanner", "false-positive"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for improving the DSGAI scanner's precision. Every accepted false-positive
+        report becomes a permanent negative test case in the public fixture corpus, with credit.
+  - type: input
+    id: pattern-id
+    attributes:
+      label: Pattern ID
+      description: The rule that fired, e.g. `P12.1`. Find it in the report next to the finding.
+      placeholder: P12.1
+    validations:
+      required: true
+  - type: input
+    id: control
+    attributes:
+      label: DSGAI control
+      description: The control the rule maps to, e.g. `DSGAI12`.
+      placeholder: DSGAI12
+    validations:
+      required: false
+  - type: textarea
+    id: snippet
+    attributes:
+      label: Minimal reproducing snippet
+      description: The smallest code that triggers the false positive. MUST NOT contain real secrets — use obviously fake values.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: reported
+    attributes:
+      label: What the scanner reported
+      description: Paste the finding line(s) from the report or SARIF.
+    validations:
+      required: true
+  - type: textarea
+    id: why-wrong
+    attributes:
+      label: Why it's wrong
+      description: Explain why this code is safe / why the finding is incorrect.
+    validations:
+      required: true
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      description: How did you run the scanner?
+      options:
+        - Claude Code skill (dsgai_scanner_tool.md)
+        - Deterministic CLI (cli/dsgai_scan.py)
+        - GitHub Action
+        - Other tool (prompt variant)
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Skill / CLI version
+      description: e.g. `0.3.0`. See the report header or `dsgai_scan.py --version`.
+      placeholder: "0.3.0"
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        > Reproducing snippets are added to the public test fixture corpus under the repo license.
+        > Never paste real credentials — use obviously fake values.
