@@ -30,6 +30,14 @@ SCHEMA_VERSION = "1.0"
 SKILL_VERSION = "0.3.0"
 
 VALUE_BEARING_CONTROLS = {"DSGAI02", "DSGAI13", "DSGAI14", "DSGAI15"}
+# Fields that must never appear on a finding — the redaction guarantee, enforced
+# in code before the checkpoint is written (and by schemas/dsgai-scan.schema.json).
+BANNED_FINDING_FIELDS = {"match_text", "content", "value", "raw_grep_output"}
+CHECKPOINT_REQUIRED = {
+    "schema_version", "ruleset_version", "skill_version", "framework", "engine",
+    "git_commit", "scanned_at", "scan_scope", "obfuscation", "controls",
+    "findings", "cves", "file_map_ref",
+}
 SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "venv", "env",
              "dist", "build", ".mypy_cache", ".pytest_cache", ".tox", ".idea"}
 
@@ -349,6 +357,41 @@ def build_checkpoint(ruleset, findings, controls, scope, obfuscation, target):
     }
 
 
+def self_validate_checkpoint(cp):
+    """Stdlib self-check run before writing the checkpoint (no jsonschema at
+    runtime). Enforces required fields and the redaction guarantee."""
+    missing = CHECKPOINT_REQUIRED - set(cp)
+    if missing:
+        raise ValueError(f"checkpoint missing required fields: {sorted(missing)}")
+    for f in cp["findings"]:
+        leaked = BANNED_FINDING_FIELDS & set(f)
+        if leaked:
+            raise ValueError(f"finding would leak match content via {sorted(leaked)}: "
+                             f"{f.get('rule_id')} {f.get('path')}")
+    return True
+
+
+def checkpoint_is_valid(cp, target, current_ruleset_version):
+    """Cache invalidation: a checkpoint may be reused only if it was produced at
+    the current HEAD, on a clean working tree, with the current ruleset. Anything
+    else means the findings could be stale — delete and rescan. A compliance
+    artifact must never serve stale findings with a fresh date. (The skill's
+    resume logic calls this from PR-07 on.)"""
+    if cp.get("ruleset_version") != current_ruleset_version:
+        return False
+    head = git_commit(target)
+    if not head or cp.get("git_commit") != head:
+        return False
+    try:
+        r = subprocess.run(["git", "-C", os.path.abspath(target), "status", "--porcelain"],
+                           capture_output=True, text=True)
+        if r.returncode != 0 or r.stdout.strip():
+            return False  # dirty working tree
+    except Exception:
+        return False
+    return True
+
+
 SARIF_LEVEL = {"fail": "error", "warn": "warning", "pass_signal": "note",
                "count": "note", "info": "note"}
 
@@ -439,6 +482,12 @@ def cmd_scan(args):
     controls = classify_controls(rules, findings, detected)
     checkpoint = build_checkpoint(ruleset, findings, controls, scope,
                                   args.obfuscation, args.target)
+
+    try:
+        self_validate_checkpoint(checkpoint)
+    except ValueError as exc:
+        eprint(f"error: refusing to write an invalid checkpoint: {exc}")
+        return 2
 
     if args.format == "table":
         print_table(controls, findings)
