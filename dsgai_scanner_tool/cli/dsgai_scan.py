@@ -62,7 +62,9 @@ DETECT_SIGNALS = {
     "llm": [r"openai", r"anthropic", r"langchain", r"llama_index", r"llama-index",
             r"cohere", r"mistralai", r"litellm", r"api\.openai\.com",
             r"api\.anthropic\.com", r"generativelanguage\.googleapis\.com",
-            r"Microsoft\.SemanticKernel", r"Azure\.AI\.OpenAI"],
+            r"Microsoft\.SemanticKernel", r"Azure\.AI\.OpenAI",  # C# / NuGet
+            r"async-openai", r"async_openai",                    # Rust / crates.io
+            r"ruby-openai", r"ruby_openai", r"anthropic-rb"],     # Ruby / RubyGems
     "multimodal": [r"vision", r"image_url", r"ocr", r"whisper", r"audio",
                    r"detect_pii_in_image"],
     "synthetic_data": [r"\bSDV\b", r"gretel", r"synthetic_data_vault", r"smartnoise"],

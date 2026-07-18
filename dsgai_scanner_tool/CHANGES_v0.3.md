@@ -9,6 +9,14 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
 ## [Unreleased]
 
 ### Added
+- **Ecosystem expansion + rule-pack export** (PR-15).
+  - **C# / Rust / Ruby**: detection signals (Semantic Kernel/Azure.AI.OpenAI, async-openai,
+    ruby-openai); CVE manifest parsing for **NuGet** (`*.csproj`), **crates.io**
+    (`Cargo.lock`), **RubyGems** (`Gemfile.lock`) via OSV; credential coverage extended to
+    `*.cs`/`*.rs`/`*.rb`/`*.csproj` (13 DSGAI02/13 rules), with C#/Rust/Ruby fixture cases.
+  - **`build/export_semgrep.py` → `dist/dsgai.semgrep.yaml`**: exports the 85 STRUCTURAL
+    rules as a Semgrep pack (value-bearing excluded by design) so incumbent toolchains
+    carry the DSGAI framework. Generated from the rules YAML; drift is a CI failure.
 - **Templated report, single-sourced prompt variant, static ATLAS map** (PR-14).
   - `cli/dsgai_report.py` + `templates/report.css`: the HTML report is now rendered
     **by code** from the checkpoint (deterministic, testable), with a golden structural

@@ -19,6 +19,10 @@ findings:
   - {control: DSGAI02, rule_id: P02.9, path: config.py, line: 7, status: fail, classification: value_bearing}
   - {control: DSGAI02, rule_id: P02.7, path: good_config.py, line: 11, status: pass_signal, classification: value_bearing}
   - {control: DSGAI02, rule_id: P02.9, path: js-service/index.js, line: 11, status: fail, classification: value_bearing}
+  # Multi-language credential coverage (PR-15): P02.9 now scans *.cs/*.rs/*.rb
+  - {control: DSGAI02, rule_id: P02.9, path: polyglot/Config.cs, line: 5, status: fail, classification: value_bearing}
+  - {control: DSGAI02, rule_id: P02.9, path: polyglot/config.rb, line: 3, status: fail, classification: value_bearing}
+  - {control: DSGAI02, rule_id: P02.9, path: polyglot/config.rs, line: 3, status: fail, classification: value_bearing}
   # DSGAI04 — supply chain
   - {control: DSGAI04, rule_id: P04.1, path: loader.py, line: 10, status: fail}
   - {control: DSGAI04, rule_id: P04.4, path: requirements.txt, line: 6, status: warn}

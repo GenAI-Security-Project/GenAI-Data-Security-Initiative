@@ -33,6 +33,20 @@ ECOSYSTEMS = {
 }
 
 _REQ_RE = re.compile(r'^\s*([A-Za-z0-9_.\-]+)\s*==\s*([A-Za-z0-9_.\-]+)')
+_CSPROJ_RE = re.compile(r'<PackageReference\s+Include="([^"]+)"\s+Version="([^"]+)"')
+_GEMLOCK_RE = re.compile(r'^\s{4}([A-Za-z0-9_.\-]+) \(([0-9][A-Za-z0-9_.\-]*)\)\s*$')
+
+
+def _parse_cargo_lock(ap):
+    deps, name = [], None
+    for line in open(ap, encoding="utf-8", errors="replace"):
+        s = line.strip()
+        if s.startswith("name = "):
+            name = s.split('"')[1] if '"' in s else None
+        elif s.startswith("version = ") and name:
+            deps.append(("crates.io", name, s.split('"')[1]))
+            name = None
+    return deps
 
 
 def _cache_path(eco, pkg, ver):
@@ -66,23 +80,36 @@ def parse_dependencies(discovered):
     queried (OSV needs a concrete version).
     """
     deps, seen = [], set()
+
+    def add(eco, pkg, ver):
+        key = (eco, pkg.lower(), ver)
+        if key not in seen:
+            seen.add(key)
+            deps.append({"ecosystem": eco, "package": pkg, "version": ver})
+
     for ap, rel in discovered:
         base = os.path.basename(rel)
-        eco = ECOSYSTEMS.get(base)
-        if eco == "PyPI" and base.startswith("requirements"):
-            try:
+        try:
+            if base.startswith("requirements") and base.endswith(".txt"):
                 for line in open(ap, encoding="utf-8", errors="replace"):
                     if line.lstrip().startswith("#"):
                         continue
                     m = _REQ_RE.match(line)
                     if m:
-                        key = (eco, m.group(1).lower(), m.group(2))
-                        if key not in seen:
-                            seen.add(key)
-                            deps.append({"ecosystem": eco, "package": m.group(1),
-                                         "version": m.group(2)})
-            except OSError:
-                continue
+                        add("PyPI", m.group(1), m.group(2))
+            elif base == "Cargo.lock":
+                for eco, pkg, ver in _parse_cargo_lock(ap):
+                    add(eco, pkg, ver)
+            elif base == "Gemfile.lock":
+                for line in open(ap, encoding="utf-8", errors="replace"):
+                    m = _GEMLOCK_RE.match(line.rstrip("\n"))
+                    if m:
+                        add("RubyGems", m.group(1), m.group(2))
+            elif base.endswith(".csproj"):
+                for m in _CSPROJ_RE.finditer(open(ap, encoding="utf-8", errors="replace").read()):
+                    add("NuGet", m.group(1), m.group(2))
+        except OSError:
+            continue
     return deps
 
 
