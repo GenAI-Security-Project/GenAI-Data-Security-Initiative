@@ -1,0 +1,41 @@
+# Static MITRE ATLAS technique -> DSGAI control map.
+#
+# Replaces the unreliable live `site:atlas.mitre.org` searches (the operator is
+# inconsistent across search backends, and the mapping barely changes between
+# ATLAS releases). The skill selects relevant techniques from this map by the
+# stack it detected. Cite the ATLAS version below; refresh on major ATLAS
+# releases via a PR.
+atlas_version: "ATLAS v4.9.0 (2025)"
+
+# Each entry: an ATLAS technique and the DSGAI controls it most relates to.
+techniques:
+  - id: AML.T0051
+    name: LLM Prompt Injection
+    controls: [DSGAI15, DSGAI18, DSGAI12]
+  - id: AML.T0057
+    name: LLM Data Leakage
+    controls: [DSGAI02, DSGAI14, DSGAI15, DSGAI11]
+  - id: AML.T0024
+    name: Exfiltration via ML Inference API
+    controls: [DSGAI20, DSGAI03, DSGAI11]
+  - id: AML.T0020
+    name: Poison Training Data
+    controls: [DSGAI01, DSGAI19, DSGAI10]
+  - id: AML.T0018
+    name: Manipulate AI Model (supply chain)
+    controls: [DSGAI04]
+  - id: AML.T0025
+    name: Exfiltration via Cyber Means
+    controls: [DSGAI02, DSGAI06, DSGAI13]
+  - id: AML.T0053
+    name: LLM Plugin Compromise
+    controls: [DSGAI06, DSGAI16]
+  - id: AML.T0048
+    name: External Harms (data privacy)
+    controls: [DSGAI08, DSGAI07, DSGAI09]
+  - id: AML.T0035
+    name: ML Artifact Collection
+    controls: [DSGAI21, DSGAI05, DSGAI13]
+  - id: AML.T0056
+    name: Extract LLM System Prompt
+    controls: [DSGAI15]

@@ -314,7 +314,7 @@ All 17 remaining controls (DSGAI01, 03–12, 16–21) are **STRUCTURAL** — mat
 <p align="center">
   <img src="DSGAI-samplereport.png" alt="Sample DSGAI compliance report showing dashboard, findings cards, and CVE advisory panel" width="800">
   <br>
-  <em>Sample DSGAI report — Section 1 (Compliance) and Section 2 (CVE Advisory). This interim image will be regenerated from the public <a href="tests/fixtures/vulnerable-app/">fixture app</a> once the deterministic report template lands (v0.3.x), guaranteeing zero real-repo disclosure and a reproducible screenshot.</em>
+  <em>DSGAI report rendered deterministically (<code>cli/dsgai_report.py</code>) from a scan of the public <a href="tests/fixtures/vulnerable-app/">fixture app</a> — STRICT mode, file IDs + line numbers only, zero real-repo disclosure. Fully reproducible.</em>
 </p>
 
 The generated `DSGAI-report.html` contains:

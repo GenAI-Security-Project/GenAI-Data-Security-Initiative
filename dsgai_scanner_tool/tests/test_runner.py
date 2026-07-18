@@ -253,6 +253,44 @@ def test_cve_langchain_exploitable(tmp_path):
     assert dsgai_cve.enrich(disc, offline=True) == cves  # cache → deterministic
 
 
+@requires_rg
+def test_report_renders_without_leaking(scan, tmp_path):
+    """Golden structural test: the rendered report has the required sections,
+    uses file IDs in STRICT mode, and contains no fixture secret substring."""
+    sys.path.insert(0, os.path.join(SCANNER, "cli"))
+    import dsgai_report
+    cp_path = tmp_path / "cp.json"
+    cp_path.write_text(json.dumps(scan["json"]), encoding="utf-8")
+    out = tmp_path / "r.html"
+    dsgai_report.main([str(cp_path), "--out", str(out),
+                       "--filemap", str(tmp_path / "fm.json")])
+    html_out = out.read_text(encoding="utf-8")
+    for anchor in ("Compliance dashboard", "Findings", "CVE advisories",
+                   "Residual risk", "Guilherme"):
+        assert anchor in html_out, f"missing report section: {anchor}"
+    assert "FAKE" not in html_out, "report leaked a fixture secret"
+    # STRICT mode → file IDs, not raw fixture paths
+    assert "F0" in html_out and "system_prompt.py" not in html_out
+
+
+def test_prompt_variant_in_sync():
+    import subprocess
+    r = subprocess.run([sys.executable,
+                        os.path.join(SCANNER, "build", "generate_prompt_variant.py"),
+                        "--check"], capture_output=True, text=True)
+    assert r.returncode == 0, r.stderr
+
+
+def test_atlas_map_valid():
+    amap = yaml.safe_load(open(os.path.join(SCANNER, "rules", "atlas-map.yaml"),
+                               encoding="utf-8"))
+    assert amap["atlas_version"]
+    ctrl_re = __import__("re").compile(r"^DSGAI[0-9]{2}$")
+    for t in amap["techniques"]:
+        assert t["id"].startswith("AML.")
+        assert all(ctrl_re.match(c) for c in t["controls"])
+
+
 def test_rules_json_in_sync():
     from_yaml = yaml.safe_load(open(RULES_YAML, encoding="utf-8"))
     rebuilt = json.dumps(from_yaml, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
