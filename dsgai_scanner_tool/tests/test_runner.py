@@ -51,7 +51,7 @@ def scan(tmp_path_factory):
     env = dict(os.environ, SOURCE_DATE_EPOCH="1700000000")
     proc = subprocess.run(
         [sys.executable, CLI, "scan", FIXTURE, "--json-out", str(jpath),
-         "--sarif", str(spath), "--format", "none"],
+         "--sarif", str(spath), "--format", "none", "--no-cve"],  # deterministic (no network)
         capture_output=True, text=True, env=env)
     assert proc.returncode in (0, 1), proc.stderr
     return {"json": json.loads(jpath.read_text(encoding="utf-8")),
@@ -279,6 +279,29 @@ def test_prompt_variant_in_sync():
                         os.path.join(SCANNER, "build", "generate_prompt_variant.py"),
                         "--check"], capture_output=True, text=True)
     assert r.returncode == 0, r.stderr
+
+
+def test_semgrep_pack_in_sync():
+    r = subprocess.run([sys.executable,
+                        os.path.join(SCANNER, "build", "export_semgrep.py"), "--check"],
+                       capture_output=True, text=True)
+    assert r.returncode == 0, r.stderr
+
+
+def test_cve_multi_ecosystem_parse(tmp_path):
+    """Offline: manifest parsing recognises NuGet / crates.io / RubyGems deps."""
+    sys.path.insert(0, os.path.join(SCANNER, "cli"))
+    import dsgai_cve
+    (tmp_path / "Cargo.lock").write_text(
+        '[[package]]\nname = "async-openai"\nversion = "0.18.0"\n', encoding="utf-8")
+    (tmp_path / "Gemfile.lock").write_text(
+        "GEM\n  specs:\n    ruby-openai (6.3.1)\n", encoding="utf-8")
+    (tmp_path / "app.csproj").write_text(
+        '<Project><ItemGroup><PackageReference Include="Azure.AI.OpenAI" Version="1.0.0" />'
+        '</ItemGroup></Project>', encoding="utf-8")
+    disc = [(str(tmp_path / n), n) for n in ("Cargo.lock", "Gemfile.lock", "app.csproj")]
+    ecos = {d["ecosystem"] for d in dsgai_cve.parse_dependencies(disc)}
+    assert {"crates.io", "RubyGems", "NuGet"} <= ecos
 
 
 def test_atlas_map_valid():

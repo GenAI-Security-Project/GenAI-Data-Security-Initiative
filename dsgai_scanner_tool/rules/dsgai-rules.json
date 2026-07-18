@@ -129,7 +129,11 @@
         "*.yml",
         "*.json",
         "*.toml",
-        "*.cfg"
+        "*.cfg",
+        "*.cs",
+        "*.rs",
+        "*.rb",
+        "*.csproj"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P02.1",
@@ -155,7 +159,11 @@
         "*.yml",
         "*.json",
         "*.toml",
-        "*.cfg"
+        "*.cfg",
+        "*.cs",
+        "*.rs",
+        "*.rb",
+        "*.csproj"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P02.2",
@@ -181,7 +189,11 @@
         "*.yml",
         "*.json",
         "*.toml",
-        "*.cfg"
+        "*.cfg",
+        "*.cs",
+        "*.rs",
+        "*.rb",
+        "*.csproj"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P02.3",
@@ -207,7 +219,11 @@
         "*.yml",
         "*.json",
         "*.toml",
-        "*.cfg"
+        "*.cfg",
+        "*.cs",
+        "*.rs",
+        "*.rb",
+        "*.csproj"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P02.4",
@@ -233,7 +249,11 @@
         "*.yml",
         "*.json",
         "*.toml",
-        "*.cfg"
+        "*.cfg",
+        "*.cs",
+        "*.rs",
+        "*.rb",
+        "*.csproj"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P02.5",
@@ -259,7 +279,11 @@
         "*.yml",
         "*.json",
         "*.toml",
-        "*.cfg"
+        "*.cfg",
+        "*.cs",
+        "*.rs",
+        "*.rb",
+        "*.csproj"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P02.6",
@@ -285,7 +309,11 @@
         "*.yml",
         "*.json",
         "*.toml",
-        "*.cfg"
+        "*.cfg",
+        "*.cs",
+        "*.rs",
+        "*.rb",
+        "*.csproj"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P02.7",
@@ -311,7 +339,11 @@
         "*.yml",
         "*.json",
         "*.toml",
-        "*.cfg"
+        "*.cfg",
+        "*.cs",
+        "*.rs",
+        "*.rb",
+        "*.csproj"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P02.8",
@@ -343,7 +375,11 @@
         "*.yml",
         "*.json",
         "*.toml",
-        "*.cfg"
+        "*.cfg",
+        "*.cs",
+        "*.rs",
+        "*.rb",
+        "*.csproj"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P02.9",
@@ -1451,7 +1487,11 @@
         "*.kt",
         "*.go",
         "*.yaml",
-        "*.env*"
+        "*.env*",
+        "*.cs",
+        "*.rs",
+        "*.rb",
+        "*.csproj"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P13.1",
@@ -1472,7 +1512,11 @@
         "*.kt",
         "*.go",
         "*.yaml",
-        "*.env*"
+        "*.env*",
+        "*.cs",
+        "*.rs",
+        "*.rb",
+        "*.csproj"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P13.2",
@@ -1493,7 +1537,11 @@
         "*.kt",
         "*.go",
         "*.yaml",
-        "*.env*"
+        "*.env*",
+        "*.cs",
+        "*.rs",
+        "*.rb",
+        "*.csproj"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P13.3",
@@ -1514,7 +1562,11 @@
         "*.kt",
         "*.go",
         "*.yaml",
-        "*.env*"
+        "*.env*",
+        "*.cs",
+        "*.rs",
+        "*.rb",
+        "*.csproj"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P13.4",
