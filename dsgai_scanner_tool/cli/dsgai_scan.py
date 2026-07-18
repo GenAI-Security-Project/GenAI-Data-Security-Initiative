@@ -200,6 +200,41 @@ def glob_match(rel, globs):
 # --------------------------------------------------------------------------- #
 # Rule execution
 # --------------------------------------------------------------------------- #
+# Keep each rg command line well under the Windows CreateProcess cap (32767);
+# other platforms allow far more, but one conservative budget is simplest.
+_ARG_BUDGET = 24000
+
+
+def _batches(files):
+    """Yield lists of files whose joined path lengths stay under _ARG_BUDGET, so
+    a single rg invocation can never exceed the OS command-line limit (audit H4)."""
+    batch, size = [], 0
+    for f in files:
+        n = len(f[0]) + 1
+        if batch and size + n > _ARG_BUDGET:
+            yield batch
+            batch, size = [], 0
+        batch.append(f)
+        size += n
+    if batch:
+        yield batch
+
+
+def _run_rg(rg, base_cmd, files, scan_root, rid):
+    """Run rg over `files` in as many batches as needed; return stdout lines."""
+    lines = []
+    for batch in _batches(files):
+        cmd = base_cmd + [f[0] for f in batch]
+        try:
+            proc = subprocess.run(cmd, capture_output=True, text=True, cwd=scan_root)
+        except OSError as exc:  # e.g. arg list too long on a pathological path
+            raise RuntimeError(f"rg invocation failed for {rid}: {exc}")
+        if proc.returncode >= 2:
+            raise RuntimeError(f"rg failed on {rid}: {proc.stderr.strip()[:200]}")
+        lines.extend(proc.stdout.splitlines())
+    return lines
+
+
 def run_rule(rg, rule, files, scan_root):
     """Return a set of (rel_path, line) matches for one rule.
 
@@ -208,22 +243,14 @@ def run_rule(rg, rule, files, scan_root):
     """
     if not files:
         return set()
-    cmd = [rg, "--pcre2", "--no-config", "--with-filename", "--line-number"]
+    base = [rg, "--pcre2", "--no-config", "--with-filename", "--line-number"]
     if rule["classification"] == "value_bearing":
         # LOCATION-ONLY: rg erases the matched text before emitting anything.
-        cmd += ["--only-matching", "--replace", ""]
-    cmd += ["-e", rule["pcre"], "--"]
-    cmd += [f[0] for f in files]
-    proc = subprocess.run(cmd, capture_output=True, text=True, cwd=scan_root)
-    if proc.returncode >= 2:
-        raise RuntimeError(f"rg failed on {rule['id']}: {proc.stderr.strip()[:200]}")
+        base += ["--only-matching", "--replace", ""]
+    base += ["-e", rule["pcre"], "--"]
     matches = set()
     abs_to_rel = {f[0]: f[1] for f in files}
-    for line in proc.stdout.splitlines():
-        # Format: <path>:<line>:<rest>. Path is an absolute path we passed in;
-        # split off the trailing :line:rest without touching a drive colon.
-        rest = line
-        # find ':<digits>:' anchor from the path we know
+    for line in _run_rg(rg, base, files, scan_root, rule.get("id", "?")):
         parsed = _parse_rg_line(line, abs_to_rel)
         if parsed:
             matches.add(parsed)
@@ -245,15 +272,13 @@ def _parse_rg_line(line, abs_to_rel):
 def detect_stack(rg, files, scan_root):
     """Return the set of detected signal categories for NOT APPLICABLE gating."""
     detected = set()
-    paths = [f[0] for f in files]
-    if not paths:
+    if not files:
         return detected
     for cat, patterns in DETECT_SIGNALS.items():
         pat = "|".join(patterns)
-        proc = subprocess.run(
-            [rg, "--pcre2", "--no-config", "-l", "-i", "-e", pat, "--"] + paths,
-            capture_output=True, text=True, cwd=scan_root)
-        if proc.returncode == 0 and proc.stdout.strip():
+        base = [rg, "--pcre2", "--no-config", "-l", "-i", "-e", pat, "--"]
+        # Batched so a large repo can't blow the OS arg limit (audit H4).
+        if _run_rg(rg, base, files, scan_root, f"detect:{cat}"):
             detected.add(cat)
     return detected
 

@@ -363,6 +363,18 @@ def test_gitignored_env_is_still_scanned(tmp_path):
     assert cp["controls"]["DSGAI02"] == "FAIL"
 
 
+def test_rg_arg_batching():
+    """Files are split into batches under the command-line budget so a large
+    repo can't blow the OS arg limit (audit H4)."""
+    ds = _import_cli()
+    files = [("/some/long/abs/path/module_%04d.py" % i, "m%d.py" % i) for i in range(5000)]
+    batches = list(ds._batches(files))
+    assert len(batches) > 1, "5000 files should split into multiple rg batches"
+    for b in batches:
+        assert sum(len(f[0]) + 1 for f in b) <= ds._ARG_BUDGET or len(b) == 1
+    assert sum(len(b) for b in batches) == len(files)  # no file dropped
+
+
 def test_rules_json_in_sync():
     from_yaml = yaml.safe_load(open(RULES_YAML, encoding="utf-8"))
     rebuilt = json.dumps(from_yaml, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
