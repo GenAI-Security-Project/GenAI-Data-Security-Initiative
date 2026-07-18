@@ -1,0 +1,10 @@
+blank_issues_enabled: true
+contact_links:
+  # TODO(maintainer): replace the OWASP Slack invite URL below with the direct
+  # invite link to the initiative's channel (e.g. #genai-data-security) once known.
+  - name: OWASP GenAI Slack (DSGAI scanner discussion)
+    url: https://owasp.org/slack/invite
+    about: >-
+      Questions, scan reports, or general discussion? Join the OWASP Slack and find
+      the GenAI Data Security Initiative channel. For wrong scanner results, please
+      still file a [scanner] false-positive / false-negative issue so it becomes a test case.

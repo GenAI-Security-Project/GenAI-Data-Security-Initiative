@@ -1,0 +1,53 @@
+name: "[scanner] Bug"
+description: A general behavior bug in the DSGAI scanner (report rendering, CI, flags, CLI).
+title: "[scanner] Bug: "
+labels: ["scanner", "bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For wrong findings, prefer the false-positive / false-negative templates.
+        Use this one for everything else: crashes, rendering, CI, flag handling.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: Describe the bug and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Exact commands / actions. MUST NOT contain real secrets.
+      render: text
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Report rendering (HTML)
+        - CLI (dsgai_scan.py)
+        - Claude Code skill
+        - GitHub Action / CI
+        - Flags / arguments
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Skill / CLI version
+      placeholder: "0.3.0"
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Logs / additional context
+      description: Paste relevant output. Redact anything sensitive.
+      render: text
+    validations:
+      required: false

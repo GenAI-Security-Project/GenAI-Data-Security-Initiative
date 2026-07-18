@@ -1,0 +1,56 @@
+name: "[scanner] False negative"
+description: The DSGAI scanner missed something it should have flagged.
+title: "[scanner] False negative: "
+labels: ["scanner", "false-negative"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for improving the DSGAI scanner's coverage. Every accepted false-negative
+        report becomes a permanent positive test case in the public fixture corpus, with credit.
+  - type: textarea
+    id: what-missed
+    attributes:
+      label: What should have been flagged
+      description: Describe the issue the scanner failed to detect.
+    validations:
+      required: true
+  - type: textarea
+    id: snippet
+    attributes:
+      label: Minimal reproducing snippet
+      description: The smallest code that should have triggered a finding. MUST NOT contain real secrets — use obviously fake values.
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: expected-control
+    attributes:
+      label: Expected control
+      description: Which DSGAI control should this map to, e.g. `DSGAI02`.
+      placeholder: DSGAI02
+    validations:
+      required: true
+  - type: dropdown
+    id: expected-severity
+    attributes:
+      label: Expected severity
+      options:
+        - FAIL
+        - WARN
+        - PASS signal
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Skill / CLI version
+      description: e.g. `0.3.0`. See the report header or `dsgai_scan.py --version`.
+      placeholder: "0.3.0"
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        > Reproducing snippets are added to the public test fixture corpus under the repo license.
+        > Never paste real credentials — use obviously fake values.
