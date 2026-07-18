@@ -90,7 +90,7 @@ def find_rg():
 
 def rg_supports_pcre2(rg):
     try:
-        out = subprocess.run([rg, "--pcre2-version"], capture_output=True, text=True)
+        out = subprocess.run([rg, "--pcre2-version"], capture_output=True, text=True, encoding="utf-8", errors="replace")
         return out.returncode == 0
     except Exception:
         return False
@@ -156,13 +156,13 @@ def _sensitive_walk_files(target):
 def _git_files(target):
     try:
         top = subprocess.run(["git", "-C", target, "rev-parse", "--show-toplevel"],
-                             capture_output=True, text=True)
+                             capture_output=True, text=True, encoding="utf-8", errors="replace")
         if top.returncode != 0:
             return None
         res = subprocess.run(
             ["git", "-C", target, "ls-files", "--cached", "--others",
              "--exclude-standard", "-z", "--", "."],
-            capture_output=True, text=True)
+            capture_output=True, text=True, encoding="utf-8", errors="replace")
         if res.returncode != 0:
             return None
         rels = [p for p in res.stdout.split("\0") if p]
@@ -225,7 +225,7 @@ def _run_rg(rg, base_cmd, files, scan_root, rid):
     for batch in _batches(files):
         cmd = base_cmd + [f[0] for f in batch]
         try:
-            proc = subprocess.run(cmd, capture_output=True, text=True, cwd=scan_root)
+            proc = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace", cwd=scan_root)
         except OSError as exc:  # e.g. arg list too long on a pathological path
             raise RuntimeError(f"rg invocation failed for {rid}: {exc}")
         if proc.returncode >= 2:
@@ -384,7 +384,7 @@ def now_iso():
 def git_commit(target):
     try:
         r = subprocess.run(["git", "-C", os.path.abspath(target), "rev-parse", "HEAD"],
-                           capture_output=True, text=True)
+                           capture_output=True, text=True, encoding="utf-8", errors="replace")
         return r.stdout.strip() if r.returncode == 0 else None
     except Exception:
         return None
@@ -437,7 +437,7 @@ def checkpoint_is_valid(cp, target, current_ruleset_version):
         return False
     try:
         r = subprocess.run(["git", "-C", os.path.abspath(target), "status", "--porcelain"],
-                           capture_output=True, text=True)
+                           capture_output=True, text=True, encoding="utf-8", errors="replace")
         if r.returncode != 0 or r.stdout.strip():
             return False  # dirty working tree
     except Exception:
@@ -565,7 +565,7 @@ def diff_files(target, ref):
     """Return the set of rel paths changed vs `ref` (git). None if unavailable."""
     try:
         r = subprocess.run(["git", "-C", os.path.abspath(target), "diff",
-                            "--name-only", ref], capture_output=True, text=True)
+                            "--name-only", ref], capture_output=True, text=True, encoding="utf-8", errors="replace")
         if r.returncode != 0:
             return None
         return {p.strip().replace("/", os.sep) for p in r.stdout.splitlines() if p.strip()}
@@ -709,7 +709,7 @@ def cmd_doctor(args):
     rg = find_rg()
     print(f"ripgrep: {'found at ' + rg if rg else 'NOT FOUND'}")
     if rg:
-        v = subprocess.run([rg, "--version"], capture_output=True, text=True)
+        v = subprocess.run([rg, "--version"], capture_output=True, text=True, encoding="utf-8", errors="replace")
         print("  " + v.stdout.splitlines()[0])
         pcre = rg_supports_pcre2(rg)
         print(f"  PCRE2 support: {'yes' if pcre else 'NO'}")
