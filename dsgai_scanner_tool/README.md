@@ -408,6 +408,24 @@ When proposing new scan patterns:
 2. Validate the PCRE pattern with `rg --pcre2 'pattern' .` against a real repo
 3. For VALUE-BEARING patterns, prove the value never escapes by inspecting `DSGAI-scan.json` after a test run
 
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full contributor guide and the
+[`ROADMAP.md`](ROADMAP.md) for what's planned.
+
+## Non-goals
+
+To keep the scanner maintainable and trustworthy, some things are deliberately out of scope:
+
+- **We will not reimplement general-purpose secret scanning.** We ship a gitleaks rule
+  pack instead (see `integrations/gitleaks/`) and lean on battle-tested tooling for
+  entropy-based detection.
+- **We will not become a general-purpose SAST tool.** Scope is the 21 DSGAI controls and
+  the GenAI-specific patterns behind them — not every code smell in a repo.
+- **We will not add rules without fixture test cases.** A rule with no positive *and*
+  negative test has no defined precision, so it doesn't merge.
+- **We will not accept changes that weaken the redaction guarantees.** Value-bearing
+  matches never enter a report, checkpoint, or persisted tool call — that property is
+  non-negotiable.
+
 ---
 
 ## License
