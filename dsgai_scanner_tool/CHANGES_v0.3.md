@@ -25,6 +25,16 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
   encoded. `rules/README.md` documents the format. Skill Step 2 now marks the YAML as
   canonical. (PR-03)
 
+- **Fixture app + known-answer sheet**: `tests/fixtures/vulnerable-app/` — a small,
+  intentionally-vulnerable multi-language GenAI app (Python + JS), all secrets fake and
+  canonical. `tests/expected-findings.yaml` pins every finding to an exact line (25
+  findings, resolved through `subtract`/`requires_nearby`), plus `must_not_flag` negative
+  cases and `known_false_negatives` (unquoted `.env`, `xoxb-` token, JS endpoint) with
+  the PR that fixes each. Includes the confirmed P02.1 false negative and P12.1 false
+  positive as tracked `known_bug`s, and an adversarial `docs/NOTES.md` prompt-injection
+  fixture. `tests/regen_expected.py` regenerates/verifies line-pins;
+  `.github/secret_scanning.yml` ignores the fixture fakes. (PR-04)
+
 ### Changed
 - `DSGAI-samplereport.png` compressed from ~5.0 MB to ~0.35 MB (14×) as an interim fix;
   full regeneration from the fixture app lands in PR-09. (PR-02)

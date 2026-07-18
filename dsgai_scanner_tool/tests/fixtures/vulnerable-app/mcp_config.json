@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "internal-tools": {
+      "url": "http://internal-mcp:8001",
+      "description": "DSGAI06 FAIL — insecure MCP transport (http, no auth)"
+    }
+  }
+}
