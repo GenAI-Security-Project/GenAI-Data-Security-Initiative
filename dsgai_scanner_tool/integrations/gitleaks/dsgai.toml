@@ -1,0 +1,53 @@
+# DSGAI credential rule pack for gitleaks.
+# Covers the DSGAI02 credential set with quote-optional assignments and raw
+# token prefixes. Generated to mirror the P02.x / P02.9 rules in
+# dsgai_scanner_tool/rules/dsgai-rules.yaml.
+#
+# Usage:
+#   gitleaks detect  --config integrations/gitleaks/dsgai.toml --source . --no-git
+#   gitleaks protect --config integrations/gitleaks/dsgai.toml --staged   # pre-commit
+#
+# Note: gitleaks uses Go RE2 (no lookaround/backreferences). Patterns here are
+# RE2-safe. `title` matters for report grouping.
+
+title = "DSGAI credential rules"
+
+[[rules]]
+id = "dsgai-openai-key"
+description = "DSGAI02 — OpenAI API key (project or legacy), quote-optional"
+regex = '''(?i)(openai[._-]?api[._-]?key)\s*[:=]\s*["']?sk-[A-Za-z0-9_\-]{20,}'''
+keywords = ["openai", "sk-"]
+
+[[rules]]
+id = "dsgai-anthropic-key"
+description = "DSGAI02 — Anthropic API key, quote-optional"
+regex = '''(?i)(anthropic[._-]?api[._-]?key)\s*[:=]\s*["']?sk-ant-[A-Za-z0-9_\-]{20,}'''
+keywords = ["anthropic", "sk-ant-"]
+
+[[rules]]
+id = "dsgai-named-credential"
+description = "DSGAI02 — named LLM/cloud/vector-store credential assignment, quote-optional"
+regex = '''(?i)(COHERE_API_KEY|GOOGLE_API_KEY|HF_TOKEN|HUGGINGFACE_TOKEN|AWS_ACCESS_KEY_ID|AZURE_OPENAI_KEY|GCP_SERVICE_ACCOUNT_KEY|QDRANT_API_KEY|PINECONE_API_KEY|WEAVIATE_API_KEY|MILVUS_TOKEN|LANGSMITH_API_KEY|LANGFUSE_PUBLIC_KEY|LANGFUSE_SECRET_KEY)\s*[:=]\s*["']?[A-Za-z0-9_\-]{16,}'''
+keywords = ["api_key", "token", "qdrant", "pinecone", "weaviate", "langfuse", "langsmith"]
+
+[[rules]]
+id = "dsgai-token-prefix"
+description = "DSGAI02 — raw token literal by prefix (Slack/GitHub/Google/AWS/Anthropic/OpenAI)"
+regex = '''\b(sk-ant-[A-Za-z0-9_\-]{20,}|sk-proj-[A-Za-z0-9_\-]{20,}|ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{22,}|xox[baprs]-[A-Za-z0-9-]{10,}|AIza[0-9A-Za-z_\-]{35}|AKIA[0-9A-Z]{16})\b'''
+keywords = ["sk-ant-", "sk-proj-", "ghp_", "github_pat_", "xoxb-", "xoxp-", "AIza", "AKIA"]
+
+[[rules]]
+id = "dsgai-jwt"
+description = "DSGAI02 — JWT triple-segment token (low confidence; noisy in bundles)"
+regex = '''\beyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\b'''
+keywords = ["eyJ"]
+
+[allowlist]
+description = "Fixtures and lockfiles carry intentional fake values; JWTs are noisy in bundles."
+paths = [
+  '''dsgai_scanner_tool/tests/fixtures/.*''',
+  '''.*\.min\.js$''',
+  '''.*\.lock$''',
+  '''.*\.map$''',
+  '''.*/__snapshots__/.*''',
+]
