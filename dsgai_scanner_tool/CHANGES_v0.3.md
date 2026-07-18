@@ -9,6 +9,12 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
 ## [Unreleased]
 
 ### Added
+- **Benchmark methodology + announcement drafts** (PR-16 hand-off). `docs/BENCHMARK.md`
+  (corpus selection, deterministic run steps, a labeling-sheet template, a per-rule
+  precision snippet, and the responsible-disclosure rule for live findings) and
+  `docs/ANNOUNCEMENT-DRAFTS.md` (Slack / mailing-list / call-for-reports / lightning-talk).
+  The benchmark **execution + labeling** and the `scanner-v0.4.0` release remain
+  maintainer tasks.
 - **Ecosystem expansion + rule-pack export** (PR-15).
   - **C# / Rust / Ruby**: detection signals (Semantic Kernel/Azure.AI.OpenAI, async-openai,
     ruby-openai); CVE manifest parsing for **NuGet** (`*.csproj`), **crates.io**
