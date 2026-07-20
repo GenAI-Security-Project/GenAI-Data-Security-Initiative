@@ -29,7 +29,6 @@ VERSION_FILE = os.path.join(SCANNER_ROOT, "VERSION")
 SCHEMA_VERSION = "1.0"
 SKILL_VERSION = "0.3.0"
 
-VALUE_BEARING_CONTROLS = {"DSGAI02", "DSGAI13", "DSGAI14", "DSGAI15"}
 # Fields that must never appear on a finding — the redaction guarantee, enforced
 # in code before the checkpoint is written (and by schemas/dsgai-scan.schema.json).
 BANNED_FINDING_FIELDS = {"match_text", "content", "value", "raw_grep_output"}
@@ -40,6 +39,10 @@ CHECKPOINT_REQUIRED = {
 }
 SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "venv", "env",
              "dist", "build", ".mypy_cache", ".pytest_cache", ".tox", ".idea"}
+# Credential-bearing files that MUST be scanned even when gitignored — a secret
+# scanner's whole job is to catch keys in exactly these, and they are almost
+# always gitignored (so `git ls-files` would drop them). Matched by basename.
+ALWAYS_SCAN_GLOBS = ["*.env", "*.env.*", ".env", ".env.*", "*.envrc"]
 
 # requires_nearby resolution: status when the requirement is violated (required
 # rule absent) vs satisfied (present). Read the require list / window from the
@@ -87,7 +90,7 @@ def find_rg():
 
 def rg_supports_pcre2(rg):
     try:
-        out = subprocess.run([rg, "--pcre2-version"], capture_output=True, text=True)
+        out = subprocess.run([rg, "--pcre2-version"], capture_output=True, text=True, encoding="utf-8", errors="replace")
         return out.returncode == 0
     except Exception:
         return False
@@ -109,16 +112,25 @@ def read_version():
 # File discovery
 # --------------------------------------------------------------------------- #
 def discover_files(target, excludes):
-    """Return files under target as (abs_path, rel_path) honoring .gitignore.
+    """Return files under target as (abs_path, rel_path).
 
-    Uses `git ls-files` (tracked + untracked-not-ignored) when target is inside
-    a repo — this respects .gitignore yet still includes tracked files such as a
-    committed fixture .env. Falls back to a filtered os.walk otherwise.
+    Uses `git ls-files` (tracked + untracked-not-ignored) when target is inside a
+    repo, so general noise/build output respects .gitignore. BUT credential
+    files matching ALWAYS_SCAN_GLOBS (e.g. `.env`) are ALWAYS included even when
+    gitignored — a secret scanner must scan exactly those. Falls back to a
+    filtered os.walk (which already sees everything) outside a repo.
     """
     target = os.path.abspath(target)
     files = _git_files(target)
     if files is None:
         files = _walk_files(target)
+    else:
+        # Union in gitignored credential files git would otherwise drop.
+        seen = set(files)
+        for ap in _sensitive_walk_files(target):
+            if ap not in seen:
+                seen.add(ap)
+                files.append(ap)
     out = []
     for ap in files:
         rel = os.path.relpath(ap, target).replace(os.sep, "/")
@@ -129,16 +141,28 @@ def discover_files(target, excludes):
     return out
 
 
+def _sensitive_walk_files(target):
+    """Files under target whose basename matches ALWAYS_SCAN_GLOBS (skips noise
+    dirs). Used to re-include gitignored credential files like .env."""
+    hits = []
+    for dp, dirs, fns in os.walk(target):
+        dirs[:] = [d for d in dirs if d not in SKIP_DIRS]
+        for fn in fns:
+            if any(fnmatch.fnmatch(fn, g) for g in ALWAYS_SCAN_GLOBS):
+                hits.append(os.path.join(dp, fn))
+    return hits
+
+
 def _git_files(target):
     try:
         top = subprocess.run(["git", "-C", target, "rev-parse", "--show-toplevel"],
-                             capture_output=True, text=True)
+                             capture_output=True, text=True, encoding="utf-8", errors="replace")
         if top.returncode != 0:
             return None
         res = subprocess.run(
             ["git", "-C", target, "ls-files", "--cached", "--others",
              "--exclude-standard", "-z", "--", "."],
-            capture_output=True, text=True)
+            capture_output=True, text=True, encoding="utf-8", errors="replace")
         if res.returncode != 0:
             return None
         rels = [p for p in res.stdout.split("\0") if p]
@@ -175,6 +199,41 @@ def glob_match(rel, globs):
 # --------------------------------------------------------------------------- #
 # Rule execution
 # --------------------------------------------------------------------------- #
+# Keep each rg command line well under the Windows CreateProcess cap (32767);
+# other platforms allow far more, but one conservative budget is simplest.
+_ARG_BUDGET = 24000
+
+
+def _batches(files):
+    """Yield lists of files whose joined path lengths stay under _ARG_BUDGET, so
+    a single rg invocation can never exceed the OS command-line limit (audit H4)."""
+    batch, size = [], 0
+    for f in files:
+        n = len(f[0]) + 1
+        if batch and size + n > _ARG_BUDGET:
+            yield batch
+            batch, size = [], 0
+        batch.append(f)
+        size += n
+    if batch:
+        yield batch
+
+
+def _run_rg(rg, base_cmd, files, scan_root, rid):
+    """Run rg over `files` in as many batches as needed; return stdout lines."""
+    lines = []
+    for batch in _batches(files):
+        cmd = base_cmd + [f[0] for f in batch]
+        try:
+            proc = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace", cwd=scan_root)
+        except OSError as exc:  # e.g. arg list too long on a pathological path
+            raise RuntimeError(f"rg invocation failed for {rid}: {exc}")
+        if proc.returncode >= 2:
+            raise RuntimeError(f"rg failed on {rid}: {proc.stderr.strip()[:200]}")
+        lines.extend(proc.stdout.splitlines())
+    return lines
+
+
 def run_rule(rg, rule, files, scan_root):
     """Return a set of (rel_path, line) matches for one rule.
 
@@ -183,22 +242,14 @@ def run_rule(rg, rule, files, scan_root):
     """
     if not files:
         return set()
-    cmd = [rg, "--pcre2", "--no-config", "--with-filename", "--line-number"]
+    base = [rg, "--pcre2", "--no-config", "--with-filename", "--line-number"]
     if rule["classification"] == "value_bearing":
         # LOCATION-ONLY: rg erases the matched text before emitting anything.
-        cmd += ["--only-matching", "--replace", ""]
-    cmd += ["-e", rule["pcre"], "--"]
-    cmd += [f[0] for f in files]
-    proc = subprocess.run(cmd, capture_output=True, text=True, cwd=scan_root)
-    if proc.returncode >= 2:
-        raise RuntimeError(f"rg failed on {rule['id']}: {proc.stderr.strip()[:200]}")
+        base += ["--only-matching", "--replace", ""]
+    base += ["-e", rule["pcre"], "--"]
     matches = set()
     abs_to_rel = {f[0]: f[1] for f in files}
-    for line in proc.stdout.splitlines():
-        # Format: <path>:<line>:<rest>. Path is an absolute path we passed in;
-        # split off the trailing :line:rest without touching a drive colon.
-        rest = line
-        # find ':<digits>:' anchor from the path we know
+    for line in _run_rg(rg, base, files, scan_root, rule.get("id", "?")):
         parsed = _parse_rg_line(line, abs_to_rel)
         if parsed:
             matches.add(parsed)
@@ -220,27 +271,15 @@ def _parse_rg_line(line, abs_to_rel):
 def detect_stack(rg, files, scan_root):
     """Return the set of detected signal categories for NOT APPLICABLE gating."""
     detected = set()
-    paths = [f[0] for f in files]
-    if not paths:
+    if not files:
         return detected
     for cat, patterns in DETECT_SIGNALS.items():
         pat = "|".join(patterns)
-        proc = subprocess.run(
-            [rg, "--pcre2", "--no-config", "-l", "-i", "-e", pat, "--"] + paths,
-            capture_output=True, text=True, cwd=scan_root)
-        if proc.returncode == 0 and proc.stdout.strip():
+        base = [rg, "--pcre2", "--no-config", "-l", "-i", "-e", pat, "--"]
+        # Batched so a large repo can't blow the OS arg limit (audit H4).
+        if _run_rg(rg, base, files, scan_root, f"detect:{cat}"):
             detected.add(cat)
     return detected
-
-
-def nearby(matches_by_rule, required_ids, path, line, window, module_scope):
-    for rid in required_ids:
-        for (mp, ml) in matches_by_rule.get(rid, ()):  # noqa: E501
-            if mp != path:
-                continue
-            if module_scope or abs(ml - line) <= window:
-                return True
-    return False
 
 
 def resolve_findings(rules, matches_by_rule, detected, nearby_matches=None):
@@ -345,7 +384,7 @@ def now_iso():
 def git_commit(target):
     try:
         r = subprocess.run(["git", "-C", os.path.abspath(target), "rev-parse", "HEAD"],
-                           capture_output=True, text=True)
+                           capture_output=True, text=True, encoding="utf-8", errors="replace")
         return r.stdout.strip() if r.returncode == 0 else None
     except Exception:
         return None
@@ -398,7 +437,7 @@ def checkpoint_is_valid(cp, target, current_ruleset_version):
         return False
     try:
         r = subprocess.run(["git", "-C", os.path.abspath(target), "status", "--porcelain"],
-                           capture_output=True, text=True)
+                           capture_output=True, text=True, encoding="utf-8", errors="replace")
         if r.returncode != 0 or r.stdout.strip():
             return False  # dirty working tree
     except Exception:
@@ -526,7 +565,7 @@ def diff_files(target, ref):
     """Return the set of rel paths changed vs `ref` (git). None if unavailable."""
     try:
         r = subprocess.run(["git", "-C", os.path.abspath(target), "diff",
-                            "--name-only", ref], capture_output=True, text=True)
+                            "--name-only", ref], capture_output=True, text=True, encoding="utf-8", errors="replace")
         if r.returncode != 0:
             return None
         return {p.strip().replace("/", os.sep) for p in r.stdout.splitlines() if p.strip()}
@@ -566,7 +605,12 @@ def cmd_scan(args):
             candidates = [f for f in files
                           if glob_match(f[1], rule["file_globs"])
                           and not glob_match(f[1], rule.get("exclude_globs") or [])]
-            matches_by_rule[rule["id"]] = run_rule(rg, rule, candidates, scan_root)
+            if rule.get("match") == "file_exists":
+                # Presence of a matching FILE is the signal (e.g. an AI-ignore
+                # file exists → PASS). No content grep. Anchor at line 1.
+                matches_by_rule[rule["id"]] = {(f[1], 1) for f in candidates}
+            else:
+                matches_by_rule[rule["id"]] = run_rule(rg, rule, candidates, scan_root)
             rn = rule.get("requires_nearby") or {}
             if rn.get("pattern"):
                 # Locate the corroborating pattern (always structural — a code
@@ -665,7 +709,7 @@ def cmd_doctor(args):
     rg = find_rg()
     print(f"ripgrep: {'found at ' + rg if rg else 'NOT FOUND'}")
     if rg:
-        v = subprocess.run([rg, "--version"], capture_output=True, text=True)
+        v = subprocess.run([rg, "--version"], capture_output=True, text=True, encoding="utf-8", errors="replace")
         print("  " + v.stdout.splitlines()[0])
         pcre = rg_supports_pcre2(rg)
         print(f"  PCRE2 support: {'yes' if pcre else 'NO'}")

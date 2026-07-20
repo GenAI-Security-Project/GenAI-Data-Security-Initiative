@@ -8,6 +8,26 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
 
 ## [Unreleased]
 
+### Fixed (hard-audit follow-up)
+- **CRITICAL — gitignored `.env` files are now scanned.** Discovery honored `.gitignore`,
+  so the flagship "hardcoded key in `.env`" detection silently didn't run on real repos.
+  Credential files (`.env*`) are now always scanned.
+- **Action exfiltration channel closed.** The narrate job no longer runs an LLM over the
+  raw untrusted repo with a secret + Bash egress — it renders deterministically via
+  `cli/dsgai_report.py` (no LLM, no API key in the workflow at all).
+- **CVE severity/coverage:** severity computed locally from OSV's CVSS vector (a 9.8 no
+  longer shows INFO when NVD is down; deterministic); go.mod + package-lock.json parsers
+  (Go/npm had zero coverage); failed fetches no longer poison the cache.
+- **Engine:** `rg` invocations are batched so large repos don't crash the arg limit
+  (a crash exited 1, masquerading as findings; now exits 2).
+- **Coverage:** P16.1 file-existence rule mode makes DSGAI16 PASS reachable; DSGAI20 now
+  scans `*.js` (unauthenticated JS `/chat` endpoint caught).
+- **Packs/docs:** gitleaks catches `AZURE_OPENAI_KEY`/`GCP_*`/`AWS_*` names; Semgrep
+  export forces `(?m)` for line-anchored rules; the tool-neutral prompt variant no longer
+  leaks Claude-Code-isms; the pre-commit hook probes for PCRE2 instead of failing open.
+- **Report/cleanup:** STRICT report never falls back to a real path on a filemap miss;
+  line numbers escaped; removed dead code; wired the `run_cve_enrichment` toggle.
+
 ### Added
 - **Benchmark methodology + announcement drafts** (PR-16 hand-off). `docs/BENCHMARK.md`
   (corpus selection, deterministic run steps, a labeling-sheet template, a per-rule

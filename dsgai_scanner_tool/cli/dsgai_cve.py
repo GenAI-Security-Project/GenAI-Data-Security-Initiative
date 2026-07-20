@@ -5,9 +5,13 @@ The CLI fetches CVE data so the LLM never transcribes it (hallucinated CVEs
 become impossible by construction — the model renders what this fetched).
 
 Sources:
-  - OSV (https://osv.dev) — the only per-version source, via POST /v1/querybatch.
-  - NVD — used SOLELY to enrich a known CVE id with CVSS via ?cveId= (never
-    keywordSearch, which returns junk for names like "ai"/"instructor").
+  - OSV (https://osv.dev) — the per-version source, via POST /v1/querybatch.
+    Severity/CVSS is computed locally from OSV's own CVSS vector (no network),
+    so classification is correct and deterministic even offline.
+  - NVD — a FALLBACK only, used to fetch a CVSS base score for a CVE id
+    (via ?cveId=, never keywordSearch) when OSV carried no CVSS vector.
+
+Supported manifests carry exact-pinned versions only (see SUPPORTED_MANIFESTS).
 
 Cache: ~/.dsgai/cve-cache/<ecosystem>/<package>@<version>.json, 24h TTL.
 `--refresh-cve` ignores the cache; `offline=True` uses cache only (no network).
@@ -25,16 +29,65 @@ NVD_CVE = "https://services.nvd.nist.gov/rest/json/cves/2.0"
 CACHE_TTL = 24 * 3600
 CACHE_DIR = os.path.join(os.path.expanduser("~"), ".dsgai", "cve-cache")
 
-# Minimal ecosystem detection from manifest filename → OSV ecosystem.
-ECOSYSTEMS = {
-    "requirements.txt": "PyPI", "requirements": "PyPI", "pyproject.toml": "PyPI",
-    "package.json": "npm", "go.mod": "Go", "Cargo.toml": "crates.io",
-    "Gemfile.lock": "RubyGems",
-}
+# Supported manifests → OSV ecosystem. Only formats carrying EXACT pinned
+# versions are queryable against OSV (ranges like npm `^1.2` in package.json or
+# poetry ranges in pyproject.toml can't be resolved to a concrete version, so
+# those are intentionally not listed — use the lockfile instead).
+SUPPORTED_MANIFESTS = (
+    "requirements*.txt (PyPI, == pins), go.mod (Go), package-lock.json (npm), "
+    "Cargo.lock (crates.io), Gemfile.lock (RubyGems), *.csproj (NuGet)"
+)
 
 _REQ_RE = re.compile(r'^\s*([A-Za-z0-9_.\-]+)\s*==\s*([A-Za-z0-9_.\-]+)')
-_CSPROJ_RE = re.compile(r'<PackageReference\s+Include="([^"]+)"\s+Version="([^"]+)"')
+_CSPROJ_ATTR_RE = re.compile(
+    r'<PackageReference\b[^>]*?\bInclude="([^"]+)"[^>]*?\bVersion="([^"]+)"', re.S)
+_CSPROJ_ATTR_REV_RE = re.compile(
+    r'<PackageReference\b[^>]*?\bVersion="([^"]+)"[^>]*?\bInclude="([^"]+)"', re.S)
+_CSPROJ_CHILD_RE = re.compile(
+    r'<PackageReference\b[^>]*?\bInclude="([^"]+)"[^>]*?>\s*<Version>([^<]+)</Version>', re.S)
 _GEMLOCK_RE = re.compile(r'^\s{4}([A-Za-z0-9_.\-]+) \(([0-9][A-Za-z0-9_.\-]*)\)\s*$')
+_GOMOD_RE = re.compile(r'^\s*([^\s/][^\s]+/[^\s]+)\s+v(\S+?)(?:\s+//.*)?\s*$')
+
+
+def _parse_go_mod(ap):
+    """go.mod `require` entries (exact versions). Handles single-line and block."""
+    deps, in_block = [], False
+    for line in open(ap, encoding="utf-8", errors="replace"):
+        s = line.strip()
+        if s.startswith("require ("):
+            in_block = True
+            continue
+        if in_block and s == ")":
+            in_block = False
+            continue
+        text = s[len("require "):].strip() if s.startswith("require ") and "(" not in s else (s if in_block else "")
+        m = _GOMOD_RE.match(text)
+        if m and not text.startswith("//"):
+            deps.append(("Go", m.group(1), m.group(2)))
+    return deps
+
+
+def _parse_package_lock(ap):
+    """npm package-lock.json (v1 `dependencies` or v2/v3 `packages`), exact versions."""
+    import json as _json
+    try:
+        data = _json.load(open(ap, encoding="utf-8", errors="replace"))
+    except (ValueError, OSError):
+        return []
+    out = []
+    for path, meta in (data.get("packages") or {}).items():
+        if path and isinstance(meta, dict) and meta.get("version"):
+            name = path.split("node_modules/")[-1]
+            if name:
+                out.append(("npm", name, meta["version"]))
+
+    def walk(deps):
+        for name, meta in (deps or {}).items():
+            if isinstance(meta, dict) and meta.get("version"):
+                out.append(("npm", name, meta["version"]))
+                walk(meta.get("dependencies"))
+    walk(data.get("dependencies"))
+    return out
 
 
 def _parse_cargo_lock(ap):
@@ -105,8 +158,19 @@ def parse_dependencies(discovered):
                     m = _GEMLOCK_RE.match(line.rstrip("\n"))
                     if m:
                         add("RubyGems", m.group(1), m.group(2))
+            elif base == "go.mod":
+                for eco, pkg, ver in _parse_go_mod(ap):
+                    add(eco, pkg, ver)
+            elif base == "package-lock.json":
+                for eco, pkg, ver in _parse_package_lock(ap):
+                    add(eco, pkg, ver)
             elif base.endswith(".csproj"):
-                for m in _CSPROJ_RE.finditer(open(ap, encoding="utf-8", errors="replace").read()):
+                text = open(ap, encoding="utf-8", errors="replace").read()
+                for m in _CSPROJ_ATTR_RE.finditer(text):
+                    add("NuGet", m.group(1), m.group(2))
+                for m in _CSPROJ_ATTR_REV_RE.finditer(text):
+                    add("NuGet", m.group(2), m.group(1))
+                for m in _CSPROJ_CHILD_RE.finditer(text):
                     add("NuGet", m.group(1), m.group(2))
         except OSError:
             continue
@@ -122,14 +186,58 @@ def _http_json(url, data=None, timeout=20):
         return json.loads(resp.read().decode())
 
 
+import math
+
+_CVSS3 = {
+    "AV": {"N": 0.85, "A": 0.62, "L": 0.55, "P": 0.2},
+    "AC": {"L": 0.77, "H": 0.44},
+    "UI": {"N": 0.85, "R": 0.62},
+    "C": {"H": 0.56, "L": 0.22, "N": 0.0},
+    "I": {"H": 0.56, "L": 0.22, "N": 0.0},
+    "A": {"H": 0.56, "L": 0.22, "N": 0.0},
+    "PR_U": {"N": 0.85, "L": 0.62, "H": 0.27},
+    "PR_C": {"N": 0.85, "L": 0.68, "H": 0.5},
+}
+
+
+def cvss3_base_score(vector):
+    """Compute the CVSS v3.0/3.1 base score (0.0–10.0) from a vector string.
+    Returns None if the vector is not a parseable CVSS v3 base vector.
+
+    Doing this locally means severity no longer depends on a live NVD lookup —
+    which is what caused critical advisories to collapse to INFO (audit H3) and
+    made online/offline runs diverge (audit M3)."""
+    if not vector or not vector.startswith("CVSS:3"):
+        return None
+    m = dict(p.split(":", 1) for p in vector.split("/")[1:] if ":" in p)
+    try:
+        scope_changed = m.get("S") == "C"
+        pr = _CVSS3["PR_C" if scope_changed else "PR_U"][m["PR"]]
+        exploit = 8.22 * _CVSS3["AV"][m["AV"]] * _CVSS3["AC"][m["AC"]] * pr * _CVSS3["UI"][m["UI"]]
+        iss = 1 - (1 - _CVSS3["C"][m["C"]]) * (1 - _CVSS3["I"][m["I"]]) * (1 - _CVSS3["A"][m["A"]])
+        if scope_changed:
+            impact = 7.52 * (iss - 0.029) - 3.25 * (iss - 0.02) ** 15
+        else:
+            impact = 6.42 * iss
+        if impact <= 0:
+            return 0.0
+        raw = min((impact + exploit) * (1.08 if scope_changed else 1.0), 10.0)
+        return math.ceil(raw * 10) / 10.0  # CVSS "roundup" to 1 decimal
+    except (KeyError, ValueError):
+        return None
+
+
 def _severity_of(detail):
-    """Extract a coarse severity + CVSS score from an OSV vuln detail."""
+    """Return (qualitative label, CVSS base score) from an OSV vuln detail.
+
+    Prefers the CVSS score computed locally from OSV's own vector (no network);
+    falls back to the GHSA database_specific label."""
     score = None
     for sev in detail.get("severity", []) or []:
         if sev.get("type", "").startswith("CVSS"):
-            # OSV gives a vector; we keep the label from DB-specific fields below.
-            score = sev.get("score")
-    # database_specific severity label (GHSA gives HIGH/CRITICAL/…)
+            score = cvss3_base_score(sev.get("score"))
+            if score is not None:
+                break
     label = (detail.get("database_specific", {}) or {}).get("severity")
     return label, score
 
@@ -184,22 +292,23 @@ def enrich(discovered, offline=False, refresh=False):
                         "version": d["version"]} for d in uncached]
             batch = _http_json(OSV_BATCH, {"queries": queries})
             for d, res in zip(uncached, batch.get("results", [])):
-                vulns = []
+                vulns, complete = [], True
                 for v in res.get("vulns", []) or []:
                     try:
                         detail = _http_json(OSV_VULN + v["id"])
                     except (urllib.error.URLError, ValueError, TimeoutError):
+                        complete = False  # don't cache a hollow record (audit M3)
                         detail = {"id": v["id"]}
                     aliases = sorted(detail.get("aliases", []) or [])
-                    label, _ = _severity_of(detail)
-                    # NVD enriches CVSS for known CVE ids; stored in cache so
-                    # offline re-runs are byte-identical to the online run.
-                    cvss = None
-                    for aid in [detail.get("id", v["id"])] + aliases:
-                        if aid.startswith("CVE-"):
-                            cvss = enrich_cvss_nvd(aid, offline=False)
-                            if cvss is not None:
-                                break
+                    # Severity from OSV's own CVSS vector (no network); NVD only
+                    # if OSV carried no score AND we have a CVE id to look up.
+                    label, cvss = _severity_of(detail)
+                    if cvss is None:
+                        for aid in [detail.get("id", v["id"])] + aliases:
+                            if aid.startswith("CVE-"):
+                                cvss = enrich_cvss_nvd(aid, offline=False)
+                                if cvss is not None:
+                                    break
                     vulns.append({
                         "id": detail.get("id", v["id"]),
                         "aliases": aliases,
@@ -208,10 +317,14 @@ def enrich(discovered, offline=False, refresh=False):
                         "status": classify(label, cvss),
                     })
                 data = {"vulns": vulns}
-                _cache_put(d["ecosystem"], d["package"], d["version"], data)
+                if complete:  # only cache a fully-resolved package
+                    _cache_put(d["ecosystem"], d["package"], d["version"], data)
                 fetched[(d["ecosystem"], d["package"].lower(), d["version"])] = data
-        except (urllib.error.URLError, ValueError, TimeoutError):
-            pass  # network failure → whatever is cached still renders
+        except (urllib.error.URLError, ValueError, TimeoutError) as exc:
+            # A total OSV failure must NOT read as "no advisories" (audit M3).
+            import sys
+            sys.stderr.write(f"note: CVE enrichment could not reach OSV ({exc}); "
+                             "results reflect cache only and may be incomplete.\n")
 
     merged = dict(cache_map)
     merged.update(fetched)

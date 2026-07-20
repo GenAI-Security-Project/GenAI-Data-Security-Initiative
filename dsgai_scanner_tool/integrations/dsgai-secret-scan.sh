@@ -17,6 +17,15 @@ if ! command -v rg >/dev/null 2>&1; then
   exit 0
 fi
 
+# The patterns need PCRE2. Without it, `rg --pcre2` errors on every file and the
+# check would silently pass (fail-open on a security gate). Probe once and skip
+# loudly instead.
+if ! printf 'x' | rg --pcre2 -q 'x' 2>/dev/null; then
+  echo "warning: this ripgrep lacks PCRE2 support; skipping DSGAI02 pre-commit check"
+  echo "         install a PCRE2-enabled ripgrep, or use the gitleaks pack instead"
+  exit 0
+fi
+
 # Collect staged files with a NUL-delimited read loop (bash-3.2 safe — no
 # mapfile). Filter extensions with a case statement (no `grep -z`, which BSD
 # grep lacks). Paths with spaces or newlines are handled correctly.

@@ -1765,6 +1765,7 @@
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P16.1",
+      "match": "file_exists",
       "name": "ai-ignore-file-present",
       "notes": "Filename-existence check (not content grep). Absence in a repo with .env or secrets/ = WARN.",
       "pcre": "(\\.(copilot|ai|cursor|continue|codeium)ignore)",
@@ -2138,7 +2139,8 @@
         "*.ts",
         "*.java",
         "*.kt",
-        "*.go"
+        "*.go",
+        "*.js"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P20.1",
@@ -2157,7 +2159,8 @@
         "*.ts",
         "*.java",
         "*.kt",
-        "*.go"
+        "*.go",
+        "*.js"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P20.2",
@@ -2176,7 +2179,8 @@
         "*.ts",
         "*.java",
         "*.kt",
-        "*.go"
+        "*.go",
+        "*.js"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P20.3",
@@ -2195,7 +2199,8 @@
         "*.ts",
         "*.java",
         "*.kt",
-        "*.go"
+        "*.go",
+        "*.js"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P20.4",
@@ -2214,7 +2219,8 @@
         "*.ts",
         "*.java",
         "*.kt",
-        "*.go"
+        "*.go",
+        "*.js"
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P20.5",

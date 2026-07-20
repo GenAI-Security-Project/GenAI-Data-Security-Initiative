@@ -289,7 +289,8 @@ def test_semgrep_pack_in_sync():
 
 
 def test_cve_multi_ecosystem_parse(tmp_path):
-    """Offline: manifest parsing recognises NuGet / crates.io / RubyGems deps."""
+    """Offline: manifest parsing recognises every supported ecosystem, including
+    go.mod / package-lock.json (audit H2) and awkward .csproj layouts."""
     sys.path.insert(0, os.path.join(SCANNER, "cli"))
     import dsgai_cve
     (tmp_path / "Cargo.lock").write_text(
@@ -297,11 +298,34 @@ def test_cve_multi_ecosystem_parse(tmp_path):
     (tmp_path / "Gemfile.lock").write_text(
         "GEM\n  specs:\n    ruby-openai (6.3.1)\n", encoding="utf-8")
     (tmp_path / "app.csproj").write_text(
-        '<Project><ItemGroup><PackageReference Include="Azure.AI.OpenAI" Version="1.0.0" />'
+        '<Project><ItemGroup>'
+        '<PackageReference Version="1.0.0" Include="Azure.AI.OpenAI" />'          # reversed attrs
+        '<PackageReference Include="Child.Pkg"><Version>2.0.0</Version></PackageReference>'
         '</ItemGroup></Project>', encoding="utf-8")
-    disc = [(str(tmp_path / n), n) for n in ("Cargo.lock", "Gemfile.lock", "app.csproj")]
-    ecos = {d["ecosystem"] for d in dsgai_cve.parse_dependencies(disc)}
-    assert {"crates.io", "RubyGems", "NuGet"} <= ecos
+    (tmp_path / "go.mod").write_text(
+        "module x\nrequire (\n\tgithub.com/foo/bar v1.2.3\n)\n", encoding="utf-8")
+    (tmp_path / "package-lock.json").write_text(
+        '{"packages":{"node_modules/axios":{"version":"0.21.0"}}}', encoding="utf-8")
+    names = ("Cargo.lock", "Gemfile.lock", "app.csproj", "go.mod", "package-lock.json")
+    disc = [(str(tmp_path / n), n) for n in names]
+    deps = dsgai_cve.parse_dependencies(disc)
+    ecos = {d["ecosystem"] for d in deps}
+    assert {"crates.io", "RubyGems", "NuGet", "Go", "npm"} <= ecos
+    # both awkward .csproj forms parsed
+    nuget = {d["package"] for d in deps if d["ecosystem"] == "NuGet"}
+    assert {"Azure.AI.OpenAI", "Child.Pkg"} <= nuget
+
+
+def test_cvss3_base_score():
+    """CVSS v3.1 base scores computed locally from the OSV vector (audit H3)."""
+    sys.path.insert(0, os.path.join(SCANNER, "cli"))
+    import dsgai_cve
+    assert dsgai_cve.cvss3_base_score("CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H") == 9.8
+    assert dsgai_cve.cvss3_base_score("CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N") == 5.3
+    assert dsgai_cve.cvss3_base_score("not-a-vector") is None
+    # a critical advisory with only an OSV vector (NVD unavailable) is EXPLOITABLE,
+    # not INFO — the bug this fixes.
+    assert dsgai_cve.classify(None, 9.8) == "EXPLOITABLE"
 
 
 def test_atlas_map_valid():
@@ -312,6 +336,93 @@ def test_atlas_map_valid():
     for t in amap["techniques"]:
         assert t["id"].startswith("AML.")
         assert all(ctrl_re.match(c) for c in t["controls"])
+
+
+@requires_rg
+def test_gitignored_env_is_still_scanned(tmp_path):
+    """Real-world layout: a `.env` is gitignored + untracked. A secret scanner
+    MUST still scan it — regression test for the discovery bug where git
+    ls-files silently dropped it (the committed fixture .env masked this)."""
+    repo = tmp_path / "realrepo"
+    repo.mkdir()
+    subprocess.run(["git", "init", "-q"], cwd=repo, check=True)
+    (repo / ".gitignore").write_text(".env\n", encoding="utf-8")
+    (repo / ".env").write_text(
+        "OPENAI_API_KEY=sk-proj-FAKE00000000000000000000000000\n", encoding="utf-8")
+    (repo / "app.py").write_text("x = 1\n", encoding="utf-8")
+    env = dict(os.environ)
+    subprocess.run(["git", "add", ".gitignore", "app.py"], cwd=repo, check=True)
+    subprocess.run(["git", "-c", "user.email=a@b.c", "-c", "user.name=t",
+                    "commit", "-qm", "init"], cwd=repo, check=True)
+    out = tmp_path / "s.json"
+    subprocess.run([sys.executable, CLI, "scan", str(repo), "--no-cve",
+                    "--json-out", str(out), "--format", "none"], env=env)
+    cp = json.loads(out.read_text(encoding="utf-8"))
+    env_findings = [f for f in cp["findings"] if ".env" in f["path"]]
+    assert env_findings, "gitignored .env credential was not scanned"
+    assert cp["controls"]["DSGAI02"] == "FAIL"
+
+
+def test_rg_arg_batching():
+    """Files are split into batches under the command-line budget so a large
+    repo can't blow the OS arg limit (audit H4)."""
+    ds = _import_cli()
+    files = [("/some/long/abs/path/module_%04d.py" % i, "m%d.py" % i) for i in range(5000)]
+    batches = list(ds._batches(files))
+    assert len(batches) > 1, "5000 files should split into multiple rg batches"
+    for b in batches:
+        assert sum(len(f[0]) + 1 for f in b) <= ds._ARG_BUDGET or len(b) == 1
+    assert sum(len(b) for b in batches) == len(files)  # no file dropped
+
+
+def test_checkpoint_is_valid_logic(tmp_path):
+    """Exercise the cache-invalidation helper (a stale ruleset invalidates)."""
+    ds = _import_cli()
+    repo = tmp_path / "r"
+    repo.mkdir()
+    subprocess.run(["git", "init", "-q"], cwd=repo, check=True)
+    (repo / "a.txt").write_text("x", encoding="utf-8")
+    subprocess.run(["git", "add", "."], cwd=repo, check=True)
+    subprocess.run(["git", "-c", "user.email=a@b.c", "-c", "user.name=t",
+                    "commit", "-qm", "i"], cwd=repo, check=True)
+    head = subprocess.run(["git", "-C", str(repo), "rev-parse", "HEAD"],
+                          capture_output=True, text=True).stdout.strip()
+    cp = {"git_commit": head, "ruleset_version": "0.3.0"}
+    assert ds.checkpoint_is_valid(cp, str(repo), "0.3.0") is True
+    assert ds.checkpoint_is_valid(cp, str(repo), "9.9.9") is False   # ruleset drift
+    assert ds.checkpoint_is_valid({"git_commit": "deadbeef", "ruleset_version": "0.3.0"},
+                                  str(repo), "0.3.0") is False        # HEAD mismatch
+
+
+def test_report_no_path_leak_on_filemap_miss(tmp_path):
+    """STRICT report must never fall back to a real path, and must escape the
+    line number (audit L3)."""
+    sys.path.insert(0, os.path.join(SCANNER, "cli"))
+    import dsgai_report
+    # a finding whose path is NOT in the (empty) filemap, with a malicious line
+    f = {"path": "app/secret/config.py", "line": "1<script>",
+         "classification": "structural"}
+    rendered = dsgai_report.loc(f, {}, internal=False)
+    assert "app/secret/config.py" not in rendered   # no real-path leak
+    assert "unmapped" in rendered                    # placeholder (HTML-escaped)
+    assert "<script>" not in rendered               # line escaped
+
+
+@requires_rg
+def test_scan_survives_non_utf8_bytes(tmp_path):
+    """A repo file with bytes not decodable as the platform default must not
+    crash the scanner (found by the benchmark; the ASCII fixture never hit it)."""
+    repo = tmp_path / "r"
+    repo.mkdir()
+    # P13.3 (host ... 0.0.0.0) matches this line; -o will emit the 0x8f byte.
+    (repo / "x.py").write_bytes(b'host = "\x8f\x9f-bad-bytes" 0.0.0.0\n')
+    out = tmp_path / "s.json"
+    proc = subprocess.run([sys.executable, CLI, "scan", str(repo), "--no-cve",
+                           "--json-out", str(out), "--format", "none"],
+                          capture_output=True, text=True, encoding="utf-8",
+                          errors="replace")
+    assert proc.returncode in (0, 1), f"scanner crashed on non-UTF-8 input: {proc.stderr}"
+    assert out.exists()
 
 
 def test_rules_json_in_sync():

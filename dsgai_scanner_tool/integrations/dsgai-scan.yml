@@ -8,10 +8,12 @@
 #     * Job 1 `scan`   — the DETERMINISTIC CLI only. No LLM, no API key, no
 #                        WebFetch. Safe to run on fork PRs. Produces SARIF +
 #                        the checkpoint. This is where untrusted code is read.
-#     * Job 2 `narrate`— optional. Runs Claude Code with a REDUCED toolset
-#                        (Read,Write,Edit,Bash — no WebFetch/WebSearch) to render
-#                        the HTML report FROM the checkpoint. Skipped on forks.
-#   CVE data comes from the CLI (PR-12), so the narrate job never needs egress.
+#     * Job 2 `narrate`— renders the HTML report DETERMINISTICALLY from the
+#                        checkpoint via cli/dsgai_report.py. No LLM, no API key,
+#                        no repo re-read, so it holds no secret and cannot
+#                        exfiltrate — safe on forks. (LLM prose stays a local
+#                        skill feature; CI reports are deterministic.)
+#   CVE data comes from the CLI, so no job ever needs network egress with a secret.
 #
 # All third-party actions are pinned by full commit SHA (dependabot keeps them
 # fresh). The scanner is fetched from a pinned commit of the upstream repo;
@@ -71,7 +73,7 @@ jobs:
 
       - name: Fetch the DSGAI scanner (pinned commit)
         run: |
-          mkdir -p dsgai-tool/cli dsgai-tool/rules dsgai-tool/schemas
+          mkdir -p dsgai-tool/cli dsgai-tool/rules
           base="https://raw.githubusercontent.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/${DSGAI_PIN}/dsgai_scanner_tool"
           curl -fsSL "$base/cli/dsgai_scan.py"        -o dsgai-tool/cli/dsgai_scan.py
           curl -fsSL "$base/cli/dsgai_cve.py"          -o dsgai-tool/cli/dsgai_cve.py
@@ -80,7 +82,10 @@ jobs:
 
       - name: Run deterministic scan (SARIF + checkpoint)
         run: |
-          python dsgai-tool/cli/dsgai_scan.py scan . \
+          # Honor the run_cve_enrichment toggle (empty on push/PR events → CVE on).
+          NOCVE=""
+          if [ "${{ inputs.run_cve_enrichment }}" = "false" ]; then NOCVE="--no-cve"; fi
+          python dsgai-tool/cli/dsgai_scan.py scan . $NOCVE \
             --json-out DSGAI-scan.json \
             --sarif DSGAI-scan.sarif \
             --format table || true   # never let the exit code abort artifact upload
@@ -123,60 +128,43 @@ jobs:
           echo "threshold '$THRESH' satisfied"
 
   # ---------------------------------------------------------------------------
-  # Job 2 — narrate the HTML report from the checkpoint. Reduced toolset, no
-  # WebFetch/WebSearch. Skipped on fork PRs (needs the API key secret).
+  # Job 2 — render the HTML report DETERMINISTICALLY from the checkpoint, by code
+  # (cli/dsgai_report.py). No LLM, no ANTHROPIC_API_KEY, no repo re-read — so this
+  # job holds no secret and cannot exfiltrate. It is safe on fork PRs too.
+  # (LLM-authored prose remains available for local/interactive skill use.)
   # ---------------------------------------------------------------------------
   narrate:
     name: Render HTML report
     needs: scan
-    if: >-
-      github.event_name != 'pull_request' ||
-      github.event.pull_request.head.repo.fork != true
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
     permissions:
       contents: read
       pull-requests: write   # secrets-free PR summary via GITHUB_TOKEN
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          fetch-depth: 1
-
       - name: Download scan checkpoint
         uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
         with:
           name: dsgai-scan
 
-      - name: Set up Node.js
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+      - name: Set up Python
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
-          node-version: "20"
+          python-version: '3.11'
 
-      - name: Install Claude Code CLI
-        run: npm install -g @anthropic-ai/claude-code
-
-      - name: Fetch the DSGAI skill (pinned commit)
+      - name: Fetch the deterministic renderer (pinned commit)
         run: |
-          mkdir -p "$HOME/.claude/commands"
-          curl -fsSL \
-            "https://raw.githubusercontent.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/${DSGAI_PIN}/dsgai_scanner_tool/dsgai_scanner_tool.md" \
-            -o "$HOME/.claude/commands/dsgai_scanner_tool.md"
+          mkdir -p dsgai-tool/cli dsgai-tool/templates
+          base="https://raw.githubusercontent.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/${DSGAI_PIN}/dsgai_scanner_tool"
+          curl -fsSL "$base/cli/dsgai_report.py"       -o dsgai-tool/cli/dsgai_report.py
+          curl -fsSL "$base/templates/report.css"       -o dsgai-tool/templates/report.css
 
-      - name: Render report from the checkpoint
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Render report from the checkpoint (no LLM, no secret)
         run: |
-          # --dangerously-skip-permissions survives ONLY here, with a reduced
-          # toolset: Read,Write,Edit,Bash — NO WebFetch/WebSearch. The agent sees
-          # the checkpoint (already redacted), not the raw repo, and has no egress,
-          # so it cannot exfiltrate. CVE data was fetched deterministically in Job 1.
-          claude -p "/dsgai_scanner_tool" \
-            --dangerously-skip-permissions \
-            --output-format text \
-            --tools "Read,Write,Edit,Bash" \
-            2>&1 | tee dsgai-narrate.log || true
+          mkdir -p dsgai-reports
+          python dsgai-tool/cli/dsgai_report.py DSGAI-scan.json \
+            --out dsgai-reports/DSGAI-report.html \
+            --filemap DSGAI-filemap.json
 
       - name: Upload rendered report
         if: always()
@@ -185,7 +173,6 @@ jobs:
           name: dsgai-report
           path: |
             dsgai-reports/**
-            dsgai-narrate.log
           retention-days: 30
 
       - name: Comment summary on PR (secrets-free)

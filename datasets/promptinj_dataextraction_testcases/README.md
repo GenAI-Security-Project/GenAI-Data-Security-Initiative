@@ -28,7 +28,10 @@ or contrastive controls while retaining the required base fields.
 Each test case should include:
 
 - **Test case ID**
-- **Category** — From the list above or a new category with justification
+- **Category** — Use a value allowed by the canonical schema. If none of the
+  named categories fits, use `other` and explain the classification in
+  **Notes**. Add a new category value only when the schema is updated in the
+  same contribution.
 - **DSGAI mapping** — Primary DSGAI entry targeted
 - **Prompt / input** — The adversarial input (text, structured payload, or multimodal description)
 - **Expected behavior (secure)** — What a properly secured system should do
