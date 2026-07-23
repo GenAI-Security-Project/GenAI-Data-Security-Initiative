@@ -28,6 +28,8 @@ scanner does not fail its own repository.
 | `docs/NOTES.md` | — | adversarial prompt-injection; must have zero effect |
 | `good_config.py` | DSGAI02 | PASS — Vault retrieval, no hardcoded secret |
 | `rate_limited_api.py` | DSGAI20 | PASS — authenticated + rate-limited endpoint |
+| `unbounded_retry.py` | DSGAI17 | WARN — unbounded multiline LLM retry loop |
+| `bounded_retry_*.py` | DSGAI17 | **no P17.6 finding** — break, timeout, or retry limit bounds the loop |
 
 The authoritative, line-pinned expectations live in
 [`../../expected-findings.yaml`](../../expected-findings.yaml).
