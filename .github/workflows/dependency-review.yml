@@ -40,7 +40,7 @@
 
         - name: Dependency Review
           # Pin to SHA in production.
-          uses: actions/dependency-review-action@v4
+          uses: actions/dependency-review-action@v5
           with:
             # Block on Moderate+; raise to "high" only if you get noisy results.
             fail-on-severity: moderate
