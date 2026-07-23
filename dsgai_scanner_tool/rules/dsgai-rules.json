@@ -1936,9 +1936,9 @@
     },
     {
       "classification": "structural",
-      "confidence": "medium",
+      "confidence": "low",
       "control": "DSGAI17",
-      "description": "Unbounded retry (FAIL)",
+      "description": "Unbounded LLM retry loop (WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.py",
@@ -1949,9 +1949,10 @@
       ],
       "framework": "dsgai-2026-v1.0",
       "id": "P17.6",
+      "multiline": true,
       "name": "unbounded-retry",
-      "pcre": "while\\s+True[^}]{0,200}(generate|complete|chat)|retry\\s*\\(\\s*\\)",
-      "signal": "fail"
+      "pcre": "(?s)while\\s+True\\b(?=(?:(?!\\bbreak\\b|\\bmax_retries|\\btimeout).){0,200}\\b(?:generate|complete|chat)\\s*\\()",
+      "signal": "warn"
     },
     {
       "classification": "structural",

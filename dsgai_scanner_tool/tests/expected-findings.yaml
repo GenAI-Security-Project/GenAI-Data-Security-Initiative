@@ -54,8 +54,11 @@ findings:
   - {control: DSGAI15, rule_id: P15.1, path: system_prompt.py, line: 8, status: fail, classification: value_bearing}
   # DSGAI14 — telemetry content capture
   - {control: DSGAI14, rule_id: P14.2, path: telemetry.py, line: 11, status: warn, classification: value_bearing}
-  # DSGAI17 / DSGAI20 — PASS signals on the rate-limited endpoint
+  # DSGAI17 — bounded-loop PASS signal and low-confidence unbounded-loop WARN
+  - {control: DSGAI17, rule_id: P17.3, path: bounded_retry_timeout.py, line: 6, status: pass_signal}
   - {control: DSGAI17, rule_id: P17.4, path: rate_limited_api.py, line: 8, status: pass_signal}
+  - {control: DSGAI17, rule_id: P17.6, path: unbounded_retry.py, line: 5, status: warn}
+  # DSGAI20 — PASS signals on the rate-limited endpoint
   - {control: DSGAI20, rule_id: P20.2, path: rate_limited_api.py, line: 8, status: pass_signal}
   - {control: DSGAI20, rule_id: P20.5, path: rate_limited_api.py, line: 19, status: pass_signal}
   - {control: DSGAI20, rule_id: P20.2, path: rate_limited_api.py, line: 20, status: pass_signal}
@@ -67,6 +70,9 @@ must_not_flag:
   - {rule_id: P02.9, path: good_config.py, reason: "no raw token literal — Vault retrieval"}
   - {rule_id: P20.5, path: rate_limited_api.py, reason: "endpoint is authenticated and rate limited"}
   - {rule_id: P12.1, path: webhook.py, reason: "innocent webhook — no LLM call nearby"}
+  - {rule_id: P17.6, path: bounded_retry_break.py, reason: "explicit break condition bounds the loop"}
+  - {rule_id: P17.6, path: bounded_retry_timeout.py, reason: "model call has an explicit timeout"}
+  - {rule_id: P17.6, path: bounded_retry_limit.py, reason: "configured retry limit bounds attempts"}
 
 # No known false negatives remain (the JS /chat endpoint is now caught by P20.5).
 known_false_negatives: []

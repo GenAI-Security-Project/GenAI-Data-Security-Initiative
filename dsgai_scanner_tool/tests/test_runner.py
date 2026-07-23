@@ -67,7 +67,10 @@ def test_all_pcres_compile():
     rg = _rg()
     bad = []
     for r in _rules():
-        p = subprocess.run([rg, "--pcre2", "-q", "-e", r["pcre"]],
+        cmd = [rg, "--pcre2", "-q"]
+        if r.get("multiline"):
+            cmd.append("--multiline")
+        p = subprocess.run(cmd + ["-e", r["pcre"]],
                            input="x\n", capture_output=True, text=True)
         # rg exit codes: 0 match, 1 no match, >=2 error (incl. any regex/PCRE2
         # compile failure — the message differs between engines, so key on the
@@ -85,6 +88,13 @@ def test_compile_check_catches_a_broken_pattern():
     p = subprocess.run([rg, "--pcre2", "-q", "-e", "(unterminated[class"],
                        input="x\n", capture_output=True, text=True)
     assert p.returncode >= 2
+
+
+def test_p17_6_remains_a_low_confidence_multiline_warning():
+    rule = next(r for r in _rules() if r["id"] == "P17.6")
+    assert rule["signal"] == "warn"
+    assert rule["confidence"] == "low"
+    assert rule["multiline"] is True
 
 
 @requires_rg
