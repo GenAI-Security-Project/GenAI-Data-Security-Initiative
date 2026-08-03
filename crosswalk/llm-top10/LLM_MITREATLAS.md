@@ -658,7 +658,7 @@ in denial of service or runaway cost.
 
 | Technique | ID | Tactic | Description |
 |---|---|---|---|
-| Denial of ML Service | [AML.T0029](https://atlas.mitre.org/techniques/AML.T0029) | Impact | Overloading AI systems with computationally expensive inputs to cause service degradation |
+| Denial of AI Service | [AML.T0029](https://atlas.mitre.org/techniques/AML.T0029) | Impact | Overloading AI systems with computationally expensive inputs to cause service degradation |
 | Cost Harvesting | [AML.T0034](https://atlas.mitre.org/techniques/AML.T0034) | Impact | Crafting inputs that maximise token usage or API costs per request |
 
 #### Mitigations by tier
