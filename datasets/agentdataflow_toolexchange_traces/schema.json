@@ -1,0 +1,435 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://owasp.org/dsgai/datasets/agentdataflow_toolexchange_traces/schema.json",
+  "title": "DSGAI Agent Data Flow & Tool Exchange Trace",
+  "description": "Schema for a single trace entry in the OWASP DSGAI agentdataflow_toolexchange_traces dataset. Each entry documents one data flow through an agentic AI system as an ordered span sequence, with an explicit provenance tier and a machine-checkable sanitization attestation. One JSON file per entry, validated against this schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "trace_id",
+    "title",
+    "description",
+    "category",
+    "disposition",
+    "dsgai_mapping",
+    "provenance",
+    "sanitization",
+    "spans",
+    "security_observations",
+    "date_added"
+  ],
+  "properties": {
+    "$schema": {
+      "description": "Optional pointer to the schema file for editor tooling. Ignored by validators.",
+      "type": "string"
+    },
+
+    "trace_id": {
+      "description": "Internal identifier. 'DSGAI-TRACE-<slug>', lowercase kebab-case slug.",
+      "type": "string",
+      "pattern": "^DSGAI-TRACE-[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+
+    "title": {
+      "description": "Short human-readable name of the data flow this trace captures.",
+      "type": "string",
+      "minLength": 4,
+      "maxLength": 200
+    },
+
+    "description": {
+      "description": "What flows through this trace, and what makes it security-relevant. 2-6 sentences.",
+      "type": "string",
+      "minLength": 40
+    },
+
+    "category": {
+      "description": "Primary trace category, from the categories listed in this dataset's README.",
+      "type": "string",
+      "enum": [
+        "tool_call",
+        "multi_agent_delegation",
+        "plugin_data_exchange",
+        "credential_flow",
+        "context_accumulation",
+        "memory_read_write"
+      ]
+    },
+
+    "disposition": {
+      "description": "What kind of run this is. 'benign' = a normal workflow with no security failure. 'adversarial' = an attacker is present and acting. 'unintentional_failure' = no adversary, but data is exposed, over-shared, or mis-scoped anyway.",
+      "type": "string",
+      "enum": ["benign", "adversarial", "unintentional_failure"]
+    },
+
+    "dsgai_mapping": {
+      "description": "DSGAI risk entries this trace illustrates. First entry should be the primary risk.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "DSGAI01", "DSGAI02", "DSGAI03", "DSGAI04", "DSGAI05",
+          "DSGAI06", "DSGAI07", "DSGAI08", "DSGAI09", "DSGAI10",
+          "DSGAI11", "DSGAI12", "DSGAI13", "DSGAI14", "DSGAI15",
+          "DSGAI16", "DSGAI17", "DSGAI18", "DSGAI19", "DSGAI20", "DSGAI21"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+
+    "owasp_llm_top10_mapping": {
+      "description": "OWASP Top 10 for LLM Applications 2025 entries this trace aligns with.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "LLM01:2025", "LLM02:2025", "LLM03:2025", "LLM04:2025", "LLM05:2025",
+          "LLM06:2025", "LLM07:2025", "LLM08:2025", "LLM09:2025", "LLM10:2025"
+        ]
+      },
+      "uniqueItems": true
+    },
+
+    "mitre_atlas_mapping": {
+      "description": "MITRE ATLAS alignment. Release-pinned by construction: ATLAS identifiers and their names have both moved across releases, so an entry must record which release it was verified against and the name the identifier carried in that release. Omit the property entirely rather than guess.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["atlas_release", "techniques"],
+      "properties": {
+        "atlas_release": {
+          "description": "ATLAS data release the identifiers and names below were verified against, e.g. '4.9.0'.",
+          "type": "string",
+          "minLength": 1
+        },
+        "techniques": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "name_at_release"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^AML\\.T[0-9]{4}(\\.[0-9]{3})?$"
+              },
+              "name_at_release": {
+                "description": "The technique name verbatim in the pinned release. Verified, not remembered.",
+                "type": "string",
+                "minLength": 3
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "agent": {
+      "description": "The agentic system the trace was taken from or models.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "framework": {
+          "description": "LangGraph, CrewAI, AutoGen, OpenAI Agents SDK, custom, undisclosed, etc.",
+          "type": "string",
+          "minLength": 2
+        },
+        "tool_protocol": {
+          "description": "Protocol carrying the tool exchange.",
+          "type": "string",
+          "enum": ["mcp", "openai_tools", "anthropic_tools", "a2a", "openapi_plugin", "custom", "undisclosed"]
+        },
+        "topology": {
+          "description": "Agent topology, e.g. 'single agent + tools', 'planner delegating to two workers'.",
+          "type": "string",
+          "minLength": 4
+        },
+        "autonomy": {
+          "description": "How much the system acts without a human in the loop for the actions in this trace.",
+          "type": "string",
+          "enum": ["human_approves_each_action", "human_approves_flagged_actions", "fully_autonomous", "undisclosed"]
+        }
+      }
+    },
+
+    "provenance": {
+      "description": "Where this trace came from. The tier is the load-bearing field: it lets consumers filter, and it lets contributors who cannot publish production telemetry still contribute without disguising extrapolation as observation.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tier", "collection_method"],
+      "properties": {
+        "tier": {
+          "description": "observed_production = sanitized telemetry from a real deployed system. observed_lab = sandbox, test environment, CTF, or red-team exercise. derived_from_public_observation = the mechanism is rendered as a trace, and its precondition is a documented public fact carried in `evidence`. hypothetical = illustrative only, no empirical backing; excluded from any dataset statistic.",
+          "type": "string",
+          "enum": [
+            "observed_production",
+            "observed_lab",
+            "derived_from_public_observation",
+            "hypothetical"
+          ]
+        },
+        "collection_method": {
+          "description": "How the trace was produced: exporter, harness, corpus, or construction method. One or two sentences.",
+          "type": "string",
+          "minLength": 8
+        },
+        "evidence": {
+          "description": "Citable public backing. Required for every tier except 'hypothetical' (enforced by validate.py).",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "citation"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["doi", "url", "cve", "ghsa", "advisory", "publication", "dataset", "registry_record", "vendor_changelog"]
+              },
+              "citation": {
+                "description": "The identifier or URL. For DOIs use the concept DOI, not a versioned one.",
+                "type": "string",
+                "minLength": 4
+              },
+              "locator": {
+                "description": "Where inside the source the supporting fact sits, e.g. a file and field, a section, a table.",
+                "type": "string",
+                "minLength": 2
+              },
+              "supports": {
+                "description": "The specific claim in this trace that this source backs. Keep it narrow.",
+                "type": "string",
+                "minLength": 8
+              }
+            }
+          }
+        },
+        "observation_window": {
+          "description": "For observed and derived tiers: the period the underlying observation covers.",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "start": { "type": "string", "format": "date" },
+            "end": { "type": "string", "format": "date" },
+            "note": { "type": "string", "minLength": 4 }
+          }
+        }
+      }
+    },
+
+    "sanitization": {
+      "description": "Machine-checkable form of the CONTRIBUTING.md anonymization rule. The attestation is a hard `true`, so an entry cannot be merged with the box silently unticked, and validate.py scans payloads for secret-shaped and PII-shaped strings independently of it.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["attestation", "techniques"],
+      "properties": {
+        "attestation": {
+          "description": "Contributor attests that no real credentials, tokens, PII, PHI, proprietary data, internal hostnames, or internal IP addresses remain in this entry.",
+          "const": true
+        },
+        "techniques": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "synthetic_substitution",
+              "redaction_placeholder",
+              "shape_only_payloads",
+              "name_generalization",
+              "hash_truncation",
+              "field_dropped",
+              "not_applicable_fully_synthetic"
+            ]
+          }
+        },
+        "notes": {
+          "description": "Anything a reviewer should know about what was removed and why.",
+          "type": "string",
+          "minLength": 4
+        }
+      }
+    },
+
+    "spans": {
+      "description": "The trace itself: an ordered sequence of events. OpenTelemetry-compatible in shape without requiring an OTel pipeline to produce it.",
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["span_id", "actor", "operation"],
+        "properties": {
+          "span_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._-]*$"
+          },
+          "parent_span_id": {
+            "type": ["string", "null"],
+            "pattern": "^[a-z0-9][a-z0-9._-]*$"
+          },
+          "t_offset_ms": {
+            "description": "Milliseconds from the first span. Preferred over wall-clock: it carries the ordering that matters without inventing precision or leaking when a system was running.",
+            "type": "integer",
+            "minimum": 0
+          },
+          "timestamp": {
+            "description": "Wall-clock time, for observed traces where the absolute date is part of the finding.",
+            "type": "string",
+            "format": "date-time"
+          },
+          "actor": {
+            "type": "string",
+            "enum": [
+              "user",
+              "orchestrator",
+              "agent",
+              "model",
+              "tool",
+              "memory_store",
+              "policy_engine",
+              "human_approver",
+              "external_service",
+              "adversary"
+            ]
+          },
+          "actor_id": {
+            "description": "Stable synthetic identifier, e.g. 'agent://planner' or 'tool://server-a/lookup_record'. Generalize anything that would identify a real deployment.",
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "type": "string",
+            "enum": [
+              "tool.discover",
+              "tool.bind",
+              "tool.call",
+              "tool.result",
+              "tool.error",
+              "contract.change",
+              "model.prompt",
+              "model.completion",
+              "context.append",
+              "memory.read",
+              "memory.write",
+              "delegation.handoff",
+              "policy.decision",
+              "approval.request",
+              "approval.grant",
+              "approval.deny",
+              "credential.issue",
+              "credential.use",
+              "egress"
+            ]
+          },
+          "summary": {
+            "description": "One line, plain language: what happened in this span.",
+            "type": "string",
+            "minLength": 4
+          },
+          "payload": {
+            "description": "The SHAPE of the data moving, not its content. String values should be typed placeholders such as '<synthetic:email>', '<redacted:bearer-token>', or '<shape:string,len=2400>'. Literal content is acceptable only where the literal is itself the published research artifact. validate.py scans the whole entry, this object included, for secret-shaped and PII-shaped strings.",
+            "type": "object"
+          },
+          "data_classes": {
+            "description": "Classes of data present in this span.",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "none",
+                "system_prompt",
+                "user_prompt",
+                "tool_schema",
+                "tool_output",
+                "source_code",
+                "file_path",
+                "credential",
+                "token",
+                "pii",
+                "phi",
+                "financial",
+                "proprietary",
+                "telemetry",
+                "memory_state",
+                "retrieved_document"
+              ]
+            }
+          },
+          "sensitivity": {
+            "description": "Sensitivity of the data in this span, in the contributor's judgement.",
+            "type": "string",
+            "enum": ["none", "low", "moderate", "high"]
+          },
+          "finding": {
+            "description": "Attach the risk to the exact span where it materializes, rather than only to the trace as a whole.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["dsgai_id", "note"],
+            "properties": {
+              "dsgai_id": {
+                "type": "string",
+                "pattern": "^DSGAI(0[1-9]|1[0-9]|2[01])$"
+              },
+              "note": { "type": "string", "minLength": 8 },
+              "severity": {
+                "type": "string",
+                "enum": ["Critical", "High", "Medium", "Low", "Informational"]
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "security_observations": {
+      "description": "What this trace demonstrates. One claim per item; keep each falsifiable.",
+      "type": "array",
+      "items": { "type": "string", "minLength": 12 },
+      "minItems": 1
+    },
+
+    "mitigations": {
+      "description": "Controls that would break this flow, stated concretely enough to implement.",
+      "type": "array",
+      "items": { "type": "string", "minLength": 8 }
+    },
+
+    "contributor": {
+      "description": "Optional attribution, for research datasets that need a citable creator.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 2 },
+        "orcid": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$" },
+        "affiliation": { "type": "string", "minLength": 2 }
+      }
+    },
+
+    "date_observed": {
+      "description": "Date the underlying flow was observed (ISO 8601 date). Omit for hypothetical traces.",
+      "type": "string",
+      "format": "date"
+    },
+
+    "date_added": {
+      "description": "Date this entry was added to the dataset (ISO 8601 date).",
+      "type": "string",
+      "format": "date"
+    },
+
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 2 },
+      "uniqueItems": true
+    },
+
+    "notes": {
+      "description": "Scope caveats, what this trace deliberately does not claim, and what a follow-up entry would need to cover.",
+      "type": "string"
+    }
+  }
+}

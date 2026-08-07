@@ -1,0 +1,261 @@
+{
+  "$schema": "../schema.json",
+  "trace_id": "DSGAI-TRACE-mcp-declared-effect-flip-stale-autoapproval",
+  "title": "Tool re-declares itself destructive after an agent has already auto-approved it",
+  "description": "An agent binds a tool whose contract declares destructiveHint false, and an approval policy uses that declaration to place the tool in an auto-approve class. The server later re-publishes the same tool with destructiveHint true, without changing its declared server version. Because the approval decision was made once at bind time and keyed to the tool name, the next call runs a destructive operation under a classification the tool no longer satisfies, and no human approval is ever requested. The trace captures the full sequence including the contract change itself.",
+  "category": "tool_call",
+  "disposition": "unintentional_failure",
+
+  "dsgai_mapping": ["DSGAI06", "DSGAI05", "DSGAI07"],
+  "owasp_llm_top10_mapping": ["LLM06:2025", "LLM03:2025"],
+
+  "agent": {
+    "framework": "custom",
+    "tool_protocol": "mcp",
+    "topology": "single agent with an orchestrator-side approval policy over remote tools",
+    "autonomy": "human_approves_flagged_actions"
+  },
+
+  "provenance": {
+    "tier": "derived_from_public_observation",
+    "collection_method": "Constructed as a minimal agent session around a change class measured in the wild. The precondition - a tool contract re-declaring destructiveHint true after previously declaring it false, with the server's declared version unchanged - is a counted category in a public contract-drift corpus; the agent, orchestrator, policy engine, and all payloads around it are synthetic.",
+    "evidence": [
+      {
+        "type": "doi",
+        "citation": "10.5281/zenodo.21449149",
+        "locator": "aggregates.json -> aggregates.incidents_by_kind['annotation-flip-to-destructive'] = 123; unstable.headline_excluding_unstable.incidents_by_kind['annotation-flip-to-destructive'] = 117",
+        "supports": "Tool contracts re-declaring themselves destructive is an observed change class, not a hypothetical one: 123 deduped safety-relevant incidents across the observation window, 117 after excluding the unstable-tool class."
+      },
+      {
+        "type": "doi",
+        "citation": "10.5281/zenodo.21449149",
+        "locator": "aggregates.json -> aggregates.flip_segmentation['guarantee-change|same'] = 25",
+        "supports": "The specific case this trace models - a previously-declared guarantee changing while the server's declared version stayed the same - accounts for 25 of those incidents. The remaining flips were first-time labeling of a tool that had never declared the field."
+      },
+      {
+        "type": "url",
+        "citation": "https://mcpindex.ai/drift-report",
+        "supports": "Live counterpart of the corpus, including the method by which contract changes are classified and deduplicated."
+      }
+    ],
+    "observation_window": {
+      "start": "2026-06-09",
+      "end": "2026-07-19",
+      "note": "23 snapshots across 22 consecutive pairs of the reachable remote population of the official MCP registry (approximately 2,090 servers and 44,000+ tool contracts per snapshot). The window includes one disclosed 21.1-day crawler outage; accumulated diff across the gap is attributed to the gap's endpoints rather than dated inside it."
+    }
+  },
+
+  "sanitization": {
+    "attestation": true,
+    "techniques": ["not_applicable_fully_synthetic", "name_generalization", "shape_only_payloads"],
+    "notes": "No real server, tool, operator, or tenant is named. The corpus this derives from publishes per-server incident counts, but attributing a security failure mechanism to a named third party is a disclosure act rather than a dataset contribution, so the trace uses a generic server identity."
+  },
+
+  "spans": [
+    {
+      "span_id": "s1",
+      "parent_span_id": null,
+      "t_offset_ms": 0,
+      "actor": "orchestrator",
+      "actor_id": "orchestrator://session-1",
+      "operation": "tool.discover",
+      "summary": "Client lists tools from a remote server and reads the declared effect annotations.",
+      "payload": {
+        "server": "tool://server-a",
+        "tool": "remove_from_roster",
+        "declared_server_version": "<synthetic:semver>",
+        "annotations": { "readOnlyHint": false, "destructiveHint": false, "idempotentHint": false },
+        "input_schema_digest": "<shape:sha256-truncated,len=12>"
+      },
+      "data_classes": ["tool_schema"],
+      "sensitivity": "none"
+    },
+    {
+      "span_id": "s2",
+      "parent_span_id": "s1",
+      "t_offset_ms": 40,
+      "actor": "policy_engine",
+      "actor_id": "policy://approval",
+      "operation": "policy.decision",
+      "summary": "Approval policy reads destructiveHint false and places the tool in the auto-approve class. The decision is cached against the tool name.",
+      "payload": {
+        "rule": "write tools may auto-approve when annotations.destructiveHint is not true",
+        "decision": "auto_approve",
+        "decision_key": "server-a/remove_from_roster",
+        "cache_ttl": "session",
+        "revalidate_on_contract_change": false
+      },
+      "data_classes": ["tool_schema"],
+      "sensitivity": "none",
+      "finding": {
+        "dsgai_id": "DSGAI07",
+        "note": "The authorization decision is derived from a mutable, self-declared attribute of the counterparty and is then cached with no binding to the contract it was derived from. Nothing in the record ties the decision to the specific contract that justified it.",
+        "severity": "Medium"
+      }
+    },
+    {
+      "span_id": "s3",
+      "parent_span_id": "s2",
+      "t_offset_ms": 900,
+      "actor": "agent",
+      "actor_id": "agent://roster-assistant",
+      "operation": "tool.call",
+      "summary": "First call. Runs without a human approval prompt, correctly, under the contract as declared at bind time.",
+      "payload": {
+        "tool": "server-a/remove_from_roster",
+        "arguments": { "roster_id": "<synthetic:uuid>", "member_id": "<synthetic:uuid>", "dry_run": true }
+      },
+      "data_classes": ["tool_schema"],
+      "sensitivity": "low"
+    },
+    {
+      "span_id": "s4",
+      "parent_span_id": "s3",
+      "t_offset_ms": 1480,
+      "actor": "tool",
+      "actor_id": "tool://server-a/remove_from_roster",
+      "operation": "tool.result",
+      "summary": "Tool returns a preview of the change. No data is removed.",
+      "payload": { "status": "ok", "would_remove": 1, "removed": 0 },
+      "data_classes": ["tool_output"],
+      "sensitivity": "low"
+    },
+    {
+      "span_id": "s5",
+      "parent_span_id": null,
+      "t_offset_ms": 86400000,
+      "actor": "external_service",
+      "actor_id": "tool://server-a",
+      "operation": "contract.change",
+      "summary": "Server re-publishes the same tool with destructiveHint true. The declared server version is unchanged, so nothing downstream of a version check observes the change.",
+      "payload": {
+        "tool": "server-a/remove_from_roster",
+        "path": "annotations.destructiveHint",
+        "change_kind": "annotation-flip-to-destructive",
+        "before": false,
+        "after": true,
+        "declared_server_version_before": "<synthetic:semver>",
+        "declared_server_version_after": "<synthetic:semver>",
+        "version_delta": "same"
+      },
+      "data_classes": ["tool_schema"],
+      "sensitivity": "none",
+      "finding": {
+        "dsgai_id": "DSGAI05",
+        "note": "The counterparty's declared effect changed while every integrity signal available to the client - declared version, tool name, endpoint - held steady. A client that validates on version alone cannot detect this transition.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s6",
+      "parent_span_id": null,
+      "t_offset_ms": 90000000,
+      "actor": "orchestrator",
+      "actor_id": "orchestrator://session-2",
+      "operation": "tool.bind",
+      "summary": "A later session resumes from the cached binding. No re-discovery is performed, so the new contract is never fetched.",
+      "payload": {
+        "bound_from": "cache",
+        "decision_key": "server-a/remove_from_roster",
+        "contract_refetched": false
+      },
+      "data_classes": ["tool_schema"],
+      "sensitivity": "none",
+      "finding": {
+        "dsgai_id": "DSGAI06",
+        "note": "The binding is keyed by tool name, so it survives a change to everything the name refers to. This is the step that converts a supplier-side change into a client-side authorization failure.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s7",
+      "parent_span_id": "s6",
+      "t_offset_ms": 90000600,
+      "actor": "agent",
+      "actor_id": "agent://roster-assistant",
+      "operation": "tool.call",
+      "summary": "Second call, this time for real. The tool now declares itself destructive; the agent does not know that.",
+      "payload": {
+        "tool": "server-a/remove_from_roster",
+        "arguments": { "roster_id": "<synthetic:uuid>", "member_id": "<synthetic:uuid>", "dry_run": false }
+      },
+      "data_classes": ["tool_schema"],
+      "sensitivity": "moderate"
+    },
+    {
+      "span_id": "s8",
+      "parent_span_id": "s7",
+      "t_offset_ms": 90000610,
+      "actor": "policy_engine",
+      "actor_id": "policy://approval",
+      "operation": "policy.decision",
+      "summary": "Policy hits the cached auto-approve decision from s2. No approval request is emitted to the human approver.",
+      "payload": {
+        "decision": "auto_approve",
+        "decision_source": "cache",
+        "decision_derived_from_contract": "s1",
+        "contract_in_effect": "s5",
+        "approval_requested": false
+      },
+      "data_classes": ["tool_schema"],
+      "sensitivity": "high",
+      "finding": {
+        "dsgai_id": "DSGAI06",
+        "note": "The auto-approve class was earned by a contract that is no longer in force. The gap between decision_derived_from_contract and contract_in_effect is the whole defect, and it is invisible to every party at runtime.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s9",
+      "parent_span_id": "s7",
+      "t_offset_ms": 90001250,
+      "actor": "tool",
+      "actor_id": "tool://server-a/remove_from_roster",
+      "operation": "tool.result",
+      "summary": "Destructive operation executes. Records are removed with no human in the loop.",
+      "payload": { "status": "ok", "removed": 1, "reversible": false },
+      "data_classes": ["tool_output"],
+      "sensitivity": "high"
+    },
+    {
+      "span_id": "s10",
+      "parent_span_id": "s9",
+      "t_offset_ms": 90001300,
+      "actor": "orchestrator",
+      "actor_id": "orchestrator://session-2",
+      "operation": "context.append",
+      "summary": "Result is appended to the model context and summarized back to the user as a completed action.",
+      "payload": { "appended_bytes": "<shape:int,approx=180>", "presented_as": "completed action" },
+      "data_classes": ["tool_output"],
+      "sensitivity": "low"
+    }
+  ],
+
+  "security_observations": [
+    "An approval decision derived from a self-declared, mutable attribute of a third party inherits that attribute's mutability, but caching hides the inheritance.",
+    "A declared version is not an integrity signal for a tool contract. In the source corpus the majority of safety-relevant contract changes carried no version change at all (62.4% of deduped incidents across the window).",
+    "Name-keyed tool bindings are the failure amplifier: they let a supplier-side change silently inherit a client-side authorization grant.",
+    "The failure is fully invisible in the trace as most systems record it. Without the contract.change span at s5, spans s6 through s9 look like a correct, policy-compliant run.",
+    "No adversary is required. This flow is what ordinary supplier maintenance does to a client that trusts declared effects."
+  ],
+
+  "mitigations": [
+    "Bind approval decisions to a contract digest, not a tool name. Re-derive the decision whenever the digest changes.",
+    "Re-fetch and re-diff tool contracts at session start rather than restoring a cached binding, and treat any change to declared effect annotations as an approval-invalidating event.",
+    "Escalate to human approval on the transition itself, independent of the destination state: a tool that becomes destructive is a stronger signal than one that always was.",
+    "Do not treat a declared server version as evidence that a contract is unchanged; compare the contract.",
+    "Record, in the action log, which contract version justified each authorization decision, so the gap at s8 is auditable after the fact."
+  ],
+
+  "contributor": {
+    "name": "Bharti, Gautam",
+    "orcid": "0009-0001-4448-1438",
+    "affiliation": "Independent researcher"
+  },
+
+  "date_added": "2026-08-07",
+
+  "tags": ["mcp", "tool-contract-drift", "declared-effect", "approval-bypass", "excessive-agency", "supply-chain"],
+
+  "notes": "MITRE ATLAS mapping is deliberately omitted. Repository issues #59 and #60 show ATLAS identifiers and their names have both moved across releases, and asserting an unverified pair here would add to that debt. The schema supports a release-pinned mapping; this entry should gain one once the repository settles on a pinned release. This entry also does not claim intent on the part of any tool supplier: a contract diff is an observation about declared effect, not a safety verdict."
+}

@@ -1,0 +1,208 @@
+{
+  "$schema": "./schema.json",
+  "trace_id": "DSGAI-TRACE-example-toolset-replacement-name-rebind",
+  "title": "Name-keyed binding survives a whole-toolset replacement and re-points at a different implementation",
+  "description": "This is the worked example for this dataset; read it alongside schema.json before writing an entry. A server replaces its entire toolset between two observations. The agent holds a binding keyed by tool name and a credential scoped to that name, so when a similarly named tool appears in the replacement set, the binding and the credential both survive a change to everything they referred to. The trace shows where the rebind happens and where the inherited scope is spent.",
+  "category": "tool_call",
+  "disposition": "unintentional_failure",
+
+  "dsgai_mapping": ["DSGAI04", "DSGAI06", "DSGAI02"],
+  "owasp_llm_top10_mapping": ["LLM03:2025", "LLM06:2025"],
+
+  "agent": {
+    "framework": "custom",
+    "tool_protocol": "mcp",
+    "topology": "single agent, name-keyed tool registry, per-tool credential scopes",
+    "autonomy": "fully_autonomous"
+  },
+
+  "provenance": {
+    "tier": "derived_from_public_observation",
+    "collection_method": "Constructed around a measured removal pattern. The precondition - tool removals arriving overwhelmingly as whole-toolset replacements rather than as single-tool retirements - is a counted split in a public drift corpus; the agent, registry, and credential model around it are synthetic.",
+    "evidence": [
+      {
+        "type": "doi",
+        "citation": "10.5281/zenodo.21449149",
+        "locator": "aggregates.json -> removals.removal_scope_split = {single: 138, 'toolset-replaced': 734}; aggregates.deduped_removed_tools = 872",
+        "supports": "Of 872 deduped tool removals in the window, 734 (84%) occurred as part of a whole-toolset replacement rather than as an isolated retirement, so a name reappearing in a later snapshot is a common rather than exotic condition."
+      },
+      {
+        "type": "doi",
+        "citation": "10.5281/zenodo.21449149",
+        "locator": "aggregates.json -> notes[2]: 'Removal entries are historical observations; a same-named tool may have since returned.'",
+        "supports": "The corpus explicitly records that a removed name may return, which is the precondition for a name-keyed rebind."
+      }
+    ],
+    "observation_window": {
+      "start": "2026-06-09",
+      "end": "2026-07-19",
+      "note": "Removals are counted only across servers reachable in both snapshots of a pair, so a server going offline is never counted as a removal."
+    }
+  },
+
+  "sanitization": {
+    "attestation": true,
+    "techniques": ["not_applicable_fully_synthetic", "name_generalization", "shape_only_payloads"],
+    "notes": "Fully synthetic. Nothing here was taken from a real deployment."
+  },
+
+  "spans": [
+    {
+      "span_id": "s1",
+      "parent_span_id": null,
+      "t_offset_ms": 0,
+      "actor": "orchestrator",
+      "actor_id": "orchestrator://ops-flow",
+      "operation": "tool.discover",
+      "summary": "Agent discovers a 12-tool set and registers each tool under its name.",
+      "payload": {
+        "server": "tool://server-c",
+        "tool_count": 12,
+        "registry_key": "name",
+        "toolset_digest": "<shape:sha256-truncated,len=12>"
+      },
+      "data_classes": ["tool_schema"],
+      "sensitivity": "none"
+    },
+    {
+      "span_id": "s2",
+      "parent_span_id": "s1",
+      "t_offset_ms": 90,
+      "actor": "policy_engine",
+      "actor_id": "policy://credentials",
+      "operation": "credential.issue",
+      "summary": "A scoped credential is minted for one tool and cached against the tool name.",
+      "payload": {
+        "subject": "server-c/export_report",
+        "scopes": ["reports.read", "reports.export"],
+        "credential": "<redacted:bearer-token>",
+        "bound_to": "tool name",
+        "bound_to_toolset_digest": false
+      },
+      "data_classes": ["credential", "token"],
+      "sensitivity": "high",
+      "finding": {
+        "dsgai_id": "DSGAI02",
+        "note": "The credential is bound to a string, not to the implementation the string resolved to at issue time. Anything that later answers to that string inherits the scope.",
+        "severity": "Medium"
+      }
+    },
+    {
+      "span_id": "s3",
+      "parent_span_id": null,
+      "t_offset_ms": 259200000,
+      "actor": "external_service",
+      "actor_id": "tool://server-c",
+      "operation": "contract.change",
+      "summary": "Server replaces its entire toolset. All 12 original tools are gone; 9 new ones appear, one of which reuses a prior name.",
+      "payload": {
+        "change_kind": "tool-removed",
+        "removal_scope": "toolset-replaced",
+        "tools_removed": 12,
+        "tools_added": 9,
+        "name_collisions": ["export_report"],
+        "declared_server_version_delta": "same"
+      },
+      "data_classes": ["tool_schema"],
+      "sensitivity": "none",
+      "finding": {
+        "dsgai_id": "DSGAI04",
+        "note": "A whole-toolset swap under a stable server identity is a supply-chain substitution event. The reused name is the vector; the stable endpoint and version are what make it look like continuity.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s4",
+      "parent_span_id": null,
+      "t_offset_ms": 262800000,
+      "actor": "orchestrator",
+      "actor_id": "orchestrator://ops-flow",
+      "operation": "tool.bind",
+      "summary": "Registry resolves the cached name to the new implementation. Because the lookup succeeds, no error, warning, or re-approval is produced.",
+      "payload": {
+        "requested": "server-c/export_report",
+        "resolved": "server-c/export_report",
+        "implementation_changed": true,
+        "input_schema_digest_changed": true,
+        "rebind_alert": false
+      },
+      "data_classes": ["tool_schema"],
+      "sensitivity": "moderate",
+      "finding": {
+        "dsgai_id": "DSGAI06",
+        "note": "A successful name lookup is treated as evidence of continuity. It is only evidence that a name is in use.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s5",
+      "parent_span_id": "s4",
+      "t_offset_ms": 262801100,
+      "actor": "agent",
+      "actor_id": "agent://ops-assistant",
+      "operation": "credential.use",
+      "summary": "The cached credential from s2 is presented to the new implementation.",
+      "payload": {
+        "credential": "<redacted:bearer-token>",
+        "issued_for_implementation": "s1",
+        "presented_to_implementation": "s3",
+        "scopes": ["reports.read", "reports.export"]
+      },
+      "data_classes": ["credential", "token"],
+      "sensitivity": "high",
+      "finding": {
+        "dsgai_id": "DSGAI02",
+        "note": "Scope granted to one implementation is spent against another. The gap between issued_for_implementation and presented_to_implementation is the defect.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s6",
+      "parent_span_id": "s5",
+      "t_offset_ms": 262802400,
+      "actor": "tool",
+      "actor_id": "tool://server-c/export_report",
+      "operation": "tool.result",
+      "summary": "New implementation accepts the call and returns an export, with a different data reach than the tool the scope was granted for.",
+      "payload": {
+        "status": "ok",
+        "rows": "<shape:int,approx=41000>",
+        "includes_fields_outside_prior_reach": true
+      },
+      "data_classes": ["tool_output", "proprietary"],
+      "sensitivity": "high"
+    },
+    {
+      "span_id": "s7",
+      "parent_span_id": "s6",
+      "t_offset_ms": 262802500,
+      "actor": "orchestrator",
+      "actor_id": "orchestrator://ops-flow",
+      "operation": "context.append",
+      "summary": "Export summary is appended to context and the run completes as a success.",
+      "payload": { "appended_bytes": "<shape:int,approx=5200>", "presented_as": "completed action" },
+      "data_classes": ["tool_output", "proprietary"],
+      "sensitivity": "moderate"
+    }
+  ],
+
+  "security_observations": [
+    "Tool identity in practice is a name plus an endpoint, and neither is stable enough to carry an authorization or credential binding.",
+    "Whole-toolset replacement is the dominant removal shape in the source corpus (734 of 872 deduped removals), so name reuse after removal is an ordinary event rather than an attack signature.",
+    "Every guard in this trace passed. The registry resolved, the credential validated, the tool returned success. Nothing in the run had a place to notice the substitution.",
+    "The same mechanism carries an adversarial variant, but the adversarial variant is not required for the failure."
+  ],
+
+  "mitigations": [
+    "Key the tool registry by a contract digest or a signed tool identity, and treat name-only resolution as a cache miss.",
+    "Bind credentials to the implementation digest they were issued against; refuse presentation when the digest has moved.",
+    "Emit a rebind event whenever a resolved name maps to a changed input-schema digest, and require re-approval before the first call.",
+    "Track toolset-level digests, not just per-tool ones, so a wholesale replacement is visible as one event rather than as a scatter of unrelated removals."
+  ],
+
+  "date_added": "2026-08-07",
+
+  "tags": ["mcp", "tool-contract-drift", "toolset-replacement", "name-rebind", "credential-scope", "supply-chain", "example"],
+
+  "notes": "Template entry. Two conventions worth copying: (1) payload values are typed placeholders, never real content, which is what makes a trace of this class publishable at all; (2) findings hang off individual spans, so a reader can see exactly where a flow stops being safe rather than inferring it from a paragraph. The adversarial variant of this flow - an actor deliberately registering a name a known agent population is bound to - belongs in a separate entry at a different provenance tier, since the corpus backs the churn, not the intent. Keeping the two apart is the whole reason the tier field exists."
+}
