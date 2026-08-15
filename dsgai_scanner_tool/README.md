@@ -1,455 +1,340 @@
-# GenAI Data Security Risks (DSGAI) Tool — OWASP GenAI Data Security Compliance Report
+<div align="center">
 
-[![OWASP](https://img.shields.io/badge/OWASP-GenAI%20Data%20Security-blue)](https://genai.owasp.org/initiative/data-security/)
-[![Framework](https://img.shields.io/badge/Framework-DSGAI%202026%20v1.0-purple)](https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/)
-[![Skill Version](https://img.shields.io/badge/Skill-v0.3-green)](./CHANGES_v0.3.md)
-[![License](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey)](https://creativecommons.org/licenses/by-sa/4.0/)
+# 🛡️ DSGAI Scanner
 
-Scans GenAI and agentic codebases against the **OWASP GenAI Data Security Risks and Mitigations 2026 (v1.0)** — all 21 DSGAI risk controls across the GenAI data lifecycle. A **deterministic CLI** (`cli/dsgai_scan.py`) owns pattern matching so results are reproducible; the **Claude Code skill** orchestrates and writes the report. The report is **strict-by-default redacted** (file IDs + line numbers only, value-bearing matches never shown) — designed to minimize disclosure. It is not automatically public-safe: the existence and location of failing controls is itself information, so handle it like any security assessment.
+**OWASP GenAI Data Security compliance scanning for AI &amp; agentic codebases**
 
-Part of the [OWASP GenAI Data Security Initiative](https://genai.owasp.org/initiative/data-security/).
+Audits your GenAI app against all **21 controls** of the [OWASP GenAI Data Security Risks &amp; Mitigations 2026](https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/) framework. A **deterministic engine** owns the pattern matching, so results are reproducible and secrets never leave your machine — the LLM only orchestrates and writes prose.
+
+[![OWASP](https://img.shields.io/badge/OWASP-GenAI%20Data%20Security-1a4b8c?logo=owasp&logoColor=white)](https://genai.owasp.org/initiative/data-security/)
+[![Framework](https://img.shields.io/badge/Framework-DSGAI%202026%20v1.0-6d28d9)](https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/)
+[![Version](https://img.shields.io/badge/version-0.3.0-16a34a)](./CHANGES_v0.3.md)
+[![Self-test](https://img.shields.io/github/actions/workflow/status/GenAI-Security-Project/GenAI-Data-Security-Initiative/scanner-selftest.yml?branch=main&label=self-test)](../.github/workflows/scanner-selftest.yml)
+[![SARIF](https://img.shields.io/badge/output-SARIF%202.1.0-0b7285)](#cicd-and-code-scanning)
+[![License](https://img.shields.io/badge/license-CC%20BY--SA%204.0-lightgrey)](#license)
+
+[Quick start](#quick-start) · [How it works](#how-it-works) · [Features](#features) · [Usage](#usage) · [CI/CD](#cicd-and-code-scanning) · [The report](#the-report) · [Contributing](#contributing)
+
+</div>
 
 ---
 
-## How It Works
+Most scanners either miss GenAI-specific risk (generic SAST) or hand the judgment to an LLM that produces a different answer every run. **DSGAI Scanner splits the job:** a single-file, dependency-free Python CLI (`cli/dsgai_scan.py`) runs 107 PCRE rules over your code via [ripgrep](https://github.com/BurntSushi/ripgrep) and emits identical findings every time; the [Claude Code](https://www.anthropic.com/claude-code) skill orchestrates the run, classifies ambiguous cases, and renders the report. You get a **reproducible compliance artifact** — and, if you want it, a $0 LLM-free path that drops straight into CI as SARIF.
+
+<details>
+<summary><b>Table of contents</b></summary>
+
+- [Quick start](#quick-start)
+- [How it works](#how-it-works)
+- [Features](#features)
+- [The 21 DSGAI controls](#the-21-dsgai-controls)
+- [Usage](#usage)
+- [CI/CD &amp; Code Scanning](#cicd-and-code-scanning)
+- [The report](#the-report)
+- [How redaction works](#how-redaction-works)
+- [Reference](#reference) — checkpoint file · PDF export · scope annotation · remediation tiers
+- [Cost &amp; runtime](#cost-and-runtime)
+- [Contributing](#contributing) · [Non-goals](#non-goals)
+- [License &amp; attribution](#license)
+
+</details>
+
+## Quick start
+
+**Deterministic CLI — $0, no LLM, no account.** Reproducible findings + SARIF in seconds. Needs only Python 3.10+ and ripgrep with PCRE2.
+
+```bash
+git clone --depth 1 https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative
+python GenAI-Data-Security-Initiative/dsgai_scanner_tool/cli/dsgai_scan.py scan . \
+  --sarif DSGAI-scan.sarif --json-out DSGAI-scan.json
+```
+
+**Claude Code skill — full report with narrative + remediation.**
+
+```bash
+# 1. Install the skill
+curl -fsSL https://raw.githubusercontent.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/main/dsgai_scanner_tool/dsgai_scanner_tool.md \
+  -o ~/.claude/commands/dsgai_scanner_tool.md
+
+# 2. Scan your repo
+cd ~/my-genai-app && claude
+/dsgai_scanner_tool
+
+# 3. Open the timestamped report
+open dsgai-reports/DSGAI-report-*.html        # macOS  (xdg-open on Linux, start on Windows)
+```
+
+> [!TIP]
+> Check your environment first with `python cli/dsgai_scan.py doctor` — it verifies Python, ripgrep + PCRE2, and that the ruleset loads.
+
+## How it works
+
+The deterministic CLI does all pattern matching and CVE lookups; the skill (or the CI's report renderer) turns the checkpoint into a report. Nothing but package names + versions ever leaves your machine.
 
 ```mermaid
-flowchart LR
-    Dev([Developer]) -->|/dsgai_scanner_tool| Skill[DSGAI Skill]
-    Repo[(Your GenAI Repo)] --> Skill
+flowchart TD
+    Repo[(Your GenAI repo)] --> Detect{"GenAI / agentic<br/>code detected?"}
+    Detect -->|No| NA["Minimal report<br/>21 × NOT APPLICABLE"]
 
-    Skill --> Detect{Step 0<br/>GenAI signals?}
-    Detect -->|No| Minimal[Minimal report<br/>21 × NOT APPLICABLE]
-    Detect -->|Yes| CVE[Step 0.5<br/>Live CVE enrichment]
+    Detect -->|Yes| Engine
+    subgraph Engine["Deterministic CLI — cli/dsgai_scan.py · stdlib + ripgrep · no LLM"]
+        direction TB
+        Scan[Scan 21 DSGAI controls<br/>107 PCRE rules]
+        CVE[CVE enrichment<br/>6 ecosystems · cached]
+        Scan --> Out[DSGAI-scan.json<br/>+ SARIF 2.1.0]
+        CVE --> Out
+    end
+    CVE -. package + version only .-> Sources((OSV · NVD))
 
-    CVE -.->|package + version<br/>only| Sources((OSV · NVD<br/>GitHub Advisory<br/>AVID))
-
-    CVE --> Scan[Step 2<br/>21 parallel scans]
-    Scan --> Class{Step 3<br/>Classify}
-    Class --> Report[DSGAI-report.html<br/>self-contained<br/>STRICT-redacted by default]
+    Out --> Skill[Claude Code skill<br/>classify · judge · prose]
+    Skill --> Report[Timestamped HTML report<br/>STRICT-redacted]
+    Out --> Renderer[cli/dsgai_report.py<br/>deterministic HTML]
+    Renderer --> Report
+    Out --> CodeScan[GitHub Code Scanning]
 
     Report --> Auditor([Auditor / GRC])
-    Report --> Ticket([Jira / Backlog])
-    Report --> CICD([CI/CD artifact])
+    Report --> Ticket([Jira / backlog])
+    CodeScan --> PR([PR annotations])
 
+    style Engine fill:#0f172a,color:#fff
     style Skill fill:#7c3aed,color:#fff
     style Report fill:#16a34a,color:#fff
-    style Minimal fill:#6b7280,color:#fff
+    style CodeScan fill:#0b7285,color:#fff
+    style NA fill:#6b7280,color:#fff
     style Sources fill:#e0e7ff,color:#1e1b4b
 ```
 
-The whole thing runs on your local machine. Source code never leaves it — only public package names + pinned versions go to public CVE databases (and only if you haven't passed `--no-cve`).
+**Value-bearing rules never surface the secret.** Credential/PII patterns run through ripgrep in erase-the-match mode (`rg -o --replace ''`), so the matched value is destroyed *inside ripgrep* before anything is emitted — it cannot reach the report, the checkpoint, or a tool call. See [How redaction works](#how-redaction-works).
 
----
+## Features
 
-## Quick Start (60 seconds)
-
-```bash
-# 1. Install the skill into Claude Code
-curl -fsSL https://raw.githubusercontent.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/main/dsgai_scanner_tool/dsgai_scanner_tool.md \
-  -o ~/.claude/commands/dsgai_scanner_tool.md   # macOS/Linux
-
-# 2. cd into your GenAI repo and launch Claude Code
-cd ~/my-genai-app
-claude
-
-# 3. Run the scan (the skill prefers the deterministic CLI if bundled)
-/dsgai_scanner_tool
-
-# 4. Open the timestamped report from dsgai-reports/
-open dsgai-reports/DSGAI-report-*.html      # macOS
-xdg-open dsgai-reports/DSGAI-report-*.html  # Linux
-start dsgai-reports\DSGAI-report-<ts>.html  # Windows
-```
-
-**Deterministic, LLM-free option ($0):** run the CLI directly for reproducible findings + SARIF, no API cost:
-
-```bash
-python dsgai_scanner_tool/cli/dsgai_scan.py scan . --sarif DSGAI-scan.sarif
-```
-
-That's it. Full installation, flags, and CI integration are documented below.
-
----
-
-## What It Does
-
-When you run `/dsgai_scanner_tool` inside a repository, the skill:
-
-1. **Detects** whether the repo contains GenAI/agentic patterns (LangChain, LlamaIndex, OpenAI SDK, vector stores, MCP servers, etc.) — bails out gracefully if none are found.
-2. **Enriches live CVEs** by querying OSV, NVD, GitHub Advisory Database, and AVID against the exact package versions pinned in the repo (Python, JS/TS, Java, **Go**).
-3. **Scans source code** for all 21 DSGAI risk indicators across all 21 controls — credentials, SQL injection via LLM output, vector store auth, telemetry logging, RAG access controls, MCP transport security, resilience, multimodal handling, synthetic data, labeling pipelines, IDE plugin scoping, and more.
-4. **Generates a timestamped `dsgai-reports/DSGAI-report-<ts>.html`** — a self-contained, print-ready HTML report with findings, file locations, line numbers, remediation steps, MITRE ATLAS technique mapping, and a CVE advisory panel — **strict-by-default obfuscation designed to minimize disclosure** (share under security-assessment handling; see *Residual risk*).
-
-**Performance:** All 21 control scans and all CVE source queries run as parallel tool calls — the skill fires multiple grep scans and API requests simultaneously rather than sequentially. Typical scan time: 2–5 minutes (in Claude Code; other AI tools may run sequentially and take longer).
-
----
-
-## Privacy, Obfuscation & Data Handling
-
-The skill runs **entirely on your local machine**. Your source code is never uploaded.
-
-### What stays local
-- All source code files scanned for security patterns
-- Configuration files, secrets, environment variables
-- Dependency manifests and build files
-
-### What is sent to the internet (optional, CVE lookups only)
-- Package names and version numbers (e.g. `langchain==0.1.0`) sent to public vulnerability databases
-- Only these public databases: [OSV](https://osv.dev), [NVD](https://nvd.nist.gov), [GitHub Advisory Database](https://github.com/advisories), [AVID](https://avidml.org)
-- No actual code, secrets, file contents, or identifying information leaves your machine
-- Pass `--no-cve` to skip all network traffic — the scan falls back to the embedded CVE database
-
-### Report obfuscation — strict by default
-
-The report **defaults to strict mode**. The default exists because OWASP-aligned compliance reports are routinely shared with auditors, attached to tickets, and stored in public repos — and a leaked secret in a "compliance report" is worse than no report at all.
-
-| Mode | How to invoke | What evidence shows | When to use |
-|---|---|---|---|
-| **🛡️ STRICT** (default) | `/dsgai_scanner_tool` | Filename + line only (`config.py:12`). Intermediate directories dropped. Value-bearing matches (credentials, tokens, PII in logs) NEVER displayed, even with `--internal`. | Sharing with auditors, attaching to a Jira ticket, committing the report to git, posting in Slack, archiving as compliance evidence. |
-| **🔓 INTERNAL** | `/dsgai_scanner_tool --internal` | Full relative path (`app/services/agent/config.py:12`). Value-bearing matches still NEVER displayed. | Your team's working copy on a private dev machine when you want to click straight to the file. |
-
-Value-bearing scans (DSGAI02 credentials, DSGAI13 vector store tokens, DSGAI14 telemetry PII, DSGAI15 system prompt secrets) use a six-step protocol that **never lets the matched secret value enter the report, the on-disk checkpoint, or any persistent tool call** — regardless of mode.
-
----
-
-## Prerequisites
-
-- A repository containing GenAI or agentic code (Python, TypeScript, Java, Go)
-- An AI coding tool with **file reading access** to your codebase
-- **Web access** for live CVE lookups (optional — pass `--no-cve` for fully offline operation)
-
-No Python packages or external tools required to generate the HTML report.
-
----
-
-## Running with Claude Code (Native)
-
-Claude Code has first-class support for this skill via its slash command system.
-
-**Install — macOS / Linux:**
-```bash
-cp dsgai_scanner_tool.md ~/.claude/commands/
-```
-
-**Install — Windows (PowerShell):**
-```powershell
-Copy-Item dsgai_scanner_tool.md $env:USERPROFILE\.claude\commands\
-```
-
-**Install — Windows (cmd):**
-```
-copy dsgai_scanner_tool.md %USERPROFILE%\.claude\commands\
-```
-
-**Usage — all flags combinable:**
-
-| Command | What it does |
+| | |
 |---|---|
-| `/dsgai_scanner_tool` | Default scan. STRICT obfuscation. Live CVE enrichment. Full repo. |
-| `/dsgai_scanner_tool --internal` | Full file paths (team-internal report) |
-| `/dsgai_scanner_tool --no-cve` | Skip live CVE lookups (air-gapped / offline) |
-| `/dsgai_scanner_tool --scope app/agents/` | Only scan this sub-directory (large monorepos) |
-| `/dsgai_scanner_tool --internal --no-cve --scope services/` | All three combined |
+| 🎯 **Deterministic engine** | 107 PCRE rules, run via `rg --pcre2`. Identical findings on identical input — a compliance report you can diff, not an LLM opinion. |
+| 🔒 **Redaction by construction** | Value-bearing matches are erased inside ripgrep; the checkpoint schema *forbids* content fields (machine-checked). |
+| 🧾 **SARIF 2.1.0 → Code Scanning** | Native GitHub Code Scanning annotations on changed lines, plus a portable artifact. |
+| 🐛 **CVE enrichment, no hallucination** | The CLI queries OSV (+ NVD for CVSS) per pinned version across **6 ecosystems**; the LLM never transcribes CVE data. Cached, offline-capable. |
+| 🌐 **Multi-language** | Python, JS/TS, Java, Kotlin, Go, and credential coverage for **C#, Rust, Ruby**. |
+| 🧰 **Ships with the ecosystem** | A [gitleaks](integrations/gitleaks/dsgai.toml) rule pack and a [Semgrep](dist/dsgai.semgrep.yaml) export so incumbent toolchains carry the framework. |
+| 🎚️ **Team-scale controls** | Inline `# dsgai-ignore` suppressions (with reasons), a **baseline** so CI gates only on new findings, and incremental `--diff` scans. |
+| ✅ **Tested & gated** | A public [vulnerable fixture app](tests/fixtures/vulnerable-app/) with a line-pinned answer sheet and a CI self-test that makes external rule PRs safe to merge. |
+| 🗣️ **Honest reporting** | STRICT mode renders stable file IDs, never the secret; the report declares its own residual risk instead of implying it can be published as-is. |
 
-Claude scans the codebase — typically 2–5 minutes depending on repo size. A `DSGAI-report.html` file is saved at the repository root.
+### The 21 DSGAI controls
 
-**Open the report:**
-```bash
-# macOS
-open DSGAI-report.html
-# Linux
-xdg-open DSGAI-report.html
-# Windows
-start DSGAI-report.html
-```
+<details>
+<summary>Every control is rated <b>PASS / WARN / FAIL / NOT VALIDATED / NOT APPLICABLE / VENDOR ATTESTATION REQUIRED</b> — click to expand the full list.</summary>
 
----
-
-## Running with Other AI Coding Tools
-
-The skill file is plain Markdown. Any AI tool with file reading access to your codebase can run it — paste the contents as your prompt.
-
-| Tool | How to run |
-|---|---|
-| **Cursor** | Open `dsgai_scanner_prompt.md` (the plain-prompt variant), copy contents, paste into Cursor's AI chat |
-| **GitHub Copilot Chat** | Open `dsgai_scanner_prompt.md`, copy contents, paste into Copilot Chat in VS Code with repo files as context |
-| **ChatGPT / GPT-5** | Paste `dsgai_scanner_prompt.md` as the system prompt, then upload or paste the relevant source files |
-| **Google Gemini** | Paste `dsgai_scanner_prompt.md` as instructions, attach source files for analysis |
-
-> **Why a separate `dsgai_scanner_prompt.md`?** The Claude Code skill assumes specific tools (Grep with output modes, parallel tool calls, Write/Edit). The plain-prompt variant strips those assumptions so it works in tools that just ingest text + files.
-
-These tools generally cannot run scans in parallel, so total runtime can be 10–20 minutes for large repos.
-
----
-
-## CI/CD Integrations
-
-### GitHub Action
-
-A drop-in workflow that runs the scan on every PR, posts a summary comment, and uploads the report as a build artifact:
-
-- Triggers on PRs, pushes to `main`/`master`, and manual dispatch
-- Installs Claude Code via `npm install -g @anthropic-ai/claude-code`
-- Runs the scan in STRICT mode (artifacts can end up in build logs visible to anyone with repo read access)
-- Posts a PR comment with FAIL / WARN / PASS / Vendor Attestation / Exploitable CVE counts
-- Optionally fails the build on any FAIL-class finding
-
-Required repo secret: `ANTHROPIC_API_KEY`. Optional: `NVD_API_KEY` (raises rate limit). `GITHUB_TOKEN` is auto-provided by Actions.
-
-```yaml
-# .github/workflows/dsgai-scan.yml
-name: OWASP DSGAI Compliance Scan
-on:
-  pull_request: { branches: [main] }
-  workflow_dispatch:
-# ... full workflow body in ./integrations/dsgai-scan.yml
-```
-
-See [`integrations/dsgai-scan.yml`](integrations/dsgai-scan.yml) for the complete workflow.
-
-### Pre-commit Hook (fast secret scan only)
-
-A pre-commit hook that runs a fast subset (DSGAI02 hardcoded LLM API key scan) to block secrets before commit. See [`integrations/pre-commit-hook.md`](integrations/pre-commit-hook.md) for the recipe.
-
----
-
-## What Gets Scanned
-
-All 21 DSGAI risks from the OWASP GenAI Data Security framework:
-
-| Risk | Control Area | Scope |
+| Risk | Control | Responsibility |
 |---|---|---|
 | DSGAI01 | Training Data Privacy | BOTH |
-| DSGAI02 | Agentic Identity & Credential Management | BUILD |
-| DSGAI03 | Shadow AI & Unauthorized Data Flows | BOTH |
+| DSGAI02 | Agentic Identity &amp; Credential Management | BUILD |
+| DSGAI03 | Shadow AI &amp; Unauthorized Data Flows | BOTH |
 | DSGAI04 | AI Supply Chain Security | BUILD |
 | DSGAI05 | RAG Data Security | BUILD |
-| DSGAI06 | MCP & Plugin Security | BUILD |
+| DSGAI06 | MCP &amp; Plugin Security | BUILD |
 | DSGAI07 | Data Lifecycle Management | BUILD |
-| DSGAI08 | Regulatory & Privacy Compliance | BOTH |
+| DSGAI08 | Regulatory &amp; Privacy Compliance | BOTH |
 | DSGAI09 | Multimodal AI Data Security | BOTH |
 | DSGAI10 | Synthetic Data Security | BUILD |
 | DSGAI11 | Multi-Tenant Data Isolation | BUILD |
 | DSGAI12 | Database Agent Security | BUILD |
 | DSGAI13 | Vector Store Security | BUILD |
-| DSGAI14 | AI Telemetry & Observability Security | BUILD |
+| DSGAI14 | AI Telemetry &amp; Observability Security | BUILD |
 | DSGAI15 | Context Window Data Security | BUILD |
-| DSGAI16 | AI IDE Plugin & Extension Security | BUILD |
-| DSGAI17 | AI System Resilience & Availability | BUILD |
+| DSGAI16 | AI IDE Plugin &amp; Extension Security | BUILD |
+| DSGAI17 | AI System Resilience &amp; Availability | BUILD |
 | DSGAI18 | Model Output Data Security | BUILD |
 | DSGAI19 | AI Data Labeling Security | BUILD |
 | DSGAI20 | Inference API Security | BOTH |
 | DSGAI21 | Knowledge Store Security | BUILD |
 
-Each control is rated: **PASS** / **WARN** / **FAIL** / **NOT VALIDATED** / **NOT APPLICABLE** / **VENDOR ATTESTATION REQUIRED**.
+**[BUILD]** you implement (scanned mechanically) · **[BUY]** the vendor is responsible (emits a *Vendor Attestation Required* callout) · **[BOTH]** shared. See the **Reference → Scope annotation** section below.
 
-> **VENDOR ATTESTATION REQUIRED** is new in v0.2. For BUY-tagged controls and the BUY portions of BOTH-tagged controls, the code scan cannot determine compliance — the report lists exactly which vendor attestations to request (e.g. SOC 2 report, training data retention policy, rate-limit documentation).
+</details>
 
-### Remediation Tiers
+## Usage
 
-Each finding in the Recommendations section is tagged with one of three tiers so teams can sequence work:
+### Deterministic CLI
 
-| Tier | Colour | Meaning | Example |
-|---|---|---|---|
-| **Tier 1** | 🔴 Red | Fix today. FAIL items + exploitable CVEs affecting your repo. | Hardcoded `sk-` API key; unauthenticated vector store; `torch.load()` unsafe pickle. |
-| **Tier 2** | 🟡 Yellow | Architecture backlog. WARN items + structural improvements. | Add circuit breaker; centralize PII redaction middleware; replace third-party LLM call with internal gateway. |
-| **Tier 3** | 🔵 Blue | Maturity program. NOT VALIDATED items needing process evidence. | Run quarterly red-team exercise; complete DPIA; commission AppSec architecture review. |
+`cli/dsgai_scan.py` is a single stdlib-only file that shells out to ripgrep. Subcommands:
 
-Vendor attestations to request from BUY/BOTH controls render as a separate 🟣 purple card.
-
----
-
-## Evidence Safety — Structural vs Value-Bearing Patterns
-
-When the skill scans your codebase and finds a match, it needs to include that evidence in the report. Not all matches are equal — some show *architectural gaps* (safe to display), others target *credential and PII-bearing lines* (must never appear in a shareable report).
-
-### Structural Patterns [STRUCTURAL]
-
-The match shows a code *pattern* — a missing import, an absent decorator, a function call without a required argument. The matched line contains no runtime secret or PII. It is reproduced in the evidence block because it proves the finding without exposing anything sensitive.
-
-**Examples (safe to show):**
-```
-# DSGAI04 — torch.load() without weights_only=True
-loader.py:22 — model = torch.load(model_path)
-
-# DSGAI06 — MCP server binding all interfaces with no auth middleware
-server.py:42 — uvicorn.run(app, host="0.0.0.0", port=8001)
-
-# DSGAI20 — FastAPI endpoint missing rate-limiting decorator
-main.py:55 — @app.post("/chat")  # no @limiter.limit decorator
-
-# DSGAI05 — similarity_search() missing access-control filter
-retriever.py:41 — results = vectorstore.similarity_search(query, k=5)
-```
-
-### Value-Bearing Patterns [VALUE-BEARING ⚠️]
-
-The match specifically targets lines where the *content IS the sensitive value* — a credential assignment, a secret key, a connection string, or a log statement that may contain PII. Reproducing this in a shareable report would leak the actual value.
-
-The skill applies a **six-step protocol** (V1–V6, defined in the skill file) that guarantees the matched value never enters the report, the on-disk checkpoint file, or any persistent tool call. Additionally, every STRUCTURAL match is swept for accidental secret patterns before display.
-
-**What the report shows for value-bearing findings:**
-```
-config.py:12 — hardcoded OpenAI API key pattern detected (value redacted — review file directly)
-config.py:18 — hardcoded vector store auth token pattern detected (value redacted — review file directly)
-logging.py:28 — prompt logging statement detected (content redacted — review file directly)
-```
-
-The four DSGAI controls whose scans are classified VALUE-BEARING:
-
-| Control | Why value-bearing |
+| Command | What it does |
 |---|---|
-| **DSGAI02** — Agentic Credential Management | Matches lines containing actual API keys, database passwords, JWT secrets, cloud credentials |
-| **DSGAI13** — Vector Store Security | May match lines where vector store auth tokens are hardcoded as literal values |
-| **DSGAI14** — AI Telemetry Security | Matches log statements whose format strings reference PII fields or contain inline test data |
-| **DSGAI15** — Context Window Security | Matches system prompt construction that may embed credential strings or sensitive config |
+| `scan [path]` | Run the ruleset; emit `DSGAI-scan.json`, SARIF, and/or a table. |
+| `detect [path]` | Exit 0 if the repo contains GenAI/agentic signals, 1 otherwise. |
+| `doctor` | Check Python, ripgrep + PCRE2, and that the ruleset loads. |
+| `baseline [path]` | Snapshot current findings to a baseline file. |
+| `cve [path]` | CVE enrichment only, from dependency manifests. |
 
-All 17 remaining controls (DSGAI01, 03–12, 16–21) are **STRUCTURAL** — matched content is always safe to show (after defense-in-depth secret sweep).
+Key `scan` flags (all combinable):
 
----
+| Flag | Effect |
+|---|---|
+| `--sarif FILE` | Write SARIF 2.1.0 for GitHub Code Scanning. |
+| `--json-out FILE` | Write the `DSGAI-scan.json` checkpoint. |
+| `--internal` | Render full paths (default STRICT renders file IDs). |
+| `--scope PATH` | Restrict the scan to a sub-directory. |
+| `--exclude PATH` | Exclude a path/glob (repeatable). |
+| `--diff REF` | Incremental: only files changed vs `REF`. |
+| `--baseline FILE` | Gate only on findings **not** in the baseline. |
+| `--no-cve` / `--offline` / `--refresh-cve` | Control CVE enrichment &amp; caching. |
+| `--fail-on {fail,warn}` | Exit non-zero at this threshold (CI gating). |
 
-## Report Output
+Suppress a finding inline (a reason is required, and it stays visible in a *Suppressed* section):
+
+```python
+db.execute(query)  # dsgai-ignore: P12.1 reason="reviewed 2026-07 — ORM param binding"
+```
+
+### Claude Code skill
+
+The skill prefers the bundled CLI and falls back to an in-context scan if it isn't present; the report header names which engine ran.
+
+| Command | What it does |
+|---|---|
+| `/dsgai_scanner_tool` | Full scan. STRICT redaction, CVE enrichment, whole repo. |
+| `/dsgai_scanner_tool --internal` | Full file paths (team-internal report). |
+| `/dsgai_scanner_tool --no-cve` | Skip CVE lookups (air-gapped / offline). |
+| `/dsgai_scanner_tool --scope app/agents/` | Scan one sub-directory (monorepos). |
+| `/dsgai_scanner_tool --diff main --baseline dsgai-baseline.json` | Incremental, gated on new findings. |
+
+### Other AI coding tools
+
+The tool-neutral variant [`dsgai_scanner_prompt.md`](dsgai_scanner_prompt.md) is generated from the skill (so the two never drift) and works with any assistant that can run shell commands — Cursor, Copilot Chat, ChatGPT, Gemini. Paste it as instructions and give the model access to your files and a shell.
+
+## CI/CD and Code Scanning
+
+### GitHub Action — [`integrations/dsgai-scan.yml`](integrations/dsgai-scan.yml)
+
+A hardened, **two-job** workflow. The design keeps secrets away from any job that reads untrusted code:
+
+- **`scan`** — runs the **deterministic CLI only**: no LLM, no API key, no network egress with a secret. Safe on fork PRs. Uploads **SARIF to Code Scanning** (same-repo) and the checkpoint as an artifact.
+- **`narrate`** — renders the HTML report **deterministically** (`cli/dsgai_report.py`); no LLM, no secret either.
+
+All third-party actions are **pinned by commit SHA**. Gating is **report-only by default** — set the repo variable `DSGAI_FAIL_ON` to `fail` or `warn` to break the build. No `ANTHROPIC_API_KEY` is required.
+
+> [!IMPORTANT]
+> CI always scans in STRICT mode (file IDs, never full paths or values). Don't pass `--internal` in a workflow whose artifacts or logs are visible beyond your team.
+
+### Pre-commit — gitleaks pack + portable fallback
+
+Block hardcoded credentials before they land. Recommended path is the [gitleaks rule pack](integrations/gitleaks/dsgai.toml) (entropy-aware, cross-platform); a zero-dependency [ripgrep script](integrations/dsgai-secret-scan.sh) is provided as a bash-3.2-safe fallback. See [`integrations/pre-commit-hook.md`](integrations/pre-commit-hook.md).
+
+### Semgrep pack
+
+[`dist/dsgai.semgrep.yaml`](dist/dsgai.semgrep.yaml) exports the STRUCTURAL rules as a Semgrep pack — run the DSGAI framework inside a toolchain you already have.
+
+## Why this scanner
+
+It's built to *complement* the tools you already run, not replace them — it even ships packs for them.
+
+- **Framework-native.** The reference implementation of the OWASP GenAI Data Security 2026 framework, maintained inside the initiative that authors it. Findings map 1:1 to the 21 controls, so the report reads as compliance evidence, not generic lint output.
+- **Deterministic where it matters.** Pattern matching, CVE lookup, and report structure are code (stdlib CLI + ripgrep) — not model output. Identical input yields byte-identical findings, and every rule is data pinned to a known-answer fixture corpus. The optional LLM layer only adds prose; it never decides what was found.
+- **Redaction by construction, not by policy.** Value-bearing rules erase the match inside ripgrep, and the checkpoint schema formally forbids content fields — so the guarantee is machine-checked in CI, not left to discipline.
+- **GenAI-specific depth, not SAST breadth.** Vector-store auth, RAG access control, MCP transport, prompt-logging PII, unsafe model deserialization, agentic credential handling — patterns general rulesets don't carry.
+- **Feeds your toolchain.** SARIF into GitHub Code Scanning; exported Semgrep and gitleaks packs so the framework rides tools you already operate.
+
+## The report
 
 <p align="center">
-  <img src="DSGAI-samplereport.png" alt="Sample DSGAI compliance report showing dashboard, findings cards, and CVE advisory panel" width="800">
+  <img src="DSGAI-samplereport.png" alt="Sample DSGAI compliance report showing the dashboard, finding cards, and CVE advisory panel" width="820">
   <br>
-  <em>DSGAI report rendered deterministically (<code>cli/dsgai_report.py</code>) from a scan of the public <a href="tests/fixtures/vulnerable-app/">fixture app</a> — STRICT mode, file IDs + line numbers only, zero real-repo disclosure. Fully reproducible.</em>
+  <em>Rendered deterministically by <code>cli/dsgai_report.py</code> from a scan of the public <a href="tests/fixtures/vulnerable-app/">fixture app</a> — STRICT mode, file IDs + line numbers only, zero real-repo disclosure. Fully reproducible.</em>
 </p>
 
-The generated `DSGAI-report.html` contains:
+The self-contained HTML report (no CDN, no external fonts; prints cleanly to PDF) contains:
 
-- **Executive Summary** — overall posture and key FAIL findings
-- **Obfuscation Mode badge** — STRICT 🛡️ or INTERNAL 🔓
-- **Dashboard** — counts of PASS / WARN / FAIL / NOT VALIDATED / NOT APPLICABLE / VENDOR ATTESTATION across all 21 controls
-- **AI Component Inventory** — detected frameworks, vector stores, LLM providers, MCP servers
-- **MITRE ATLAS Techniques** — AI attack techniques relevant to the detected stack
-- **Summary Table** — all 21 risks at a glance with status and key evidence
-- **Detailed Findings** — one card per risk with file locations, line numbers, remediation steps
-- **Recommendations** — tiered action plan (fix today / architecture backlog / maturity / vendor attestations)
-- **CVE Advisory Panel** — live CVEs for your exact dependency versions, grouped by DSGAI risk
-- **Compliance Artifacts Checklist** — 15-item checklist mappable to GDPR, EU AI Act, SOC 2, ISO 42001
+- **Executive summary** &amp; an **obfuscation-mode badge** (🛡️ STRICT / 🔓 INTERNAL)
+- **Compliance dashboard** — counts across all 21 controls; every status carries a symbol + text label, not colour alone
+- **AI component inventory** — detected frameworks, vector stores, LLM providers, MCP servers
+- **MITRE ATLAS techniques** relevant to the detected stack (from a versioned [static map](rules/atlas-map.yaml))
+- **Findings** — one card per risk with locations, line numbers, and tiered remediation
+- **CVE advisory panel** — advisories for your exact dependency versions, grouped by DSGAI risk
+- **Compliance checklist** mappable to GDPR, EU AI Act, SOC 2, ISO 42001
 
-The report is fully self-contained (no CDN, no external fonts) and renders correctly when saved as PDF.
+> [!WARNING]
+> **Residual risk.** STRICT mode is designed to *minimize* disclosure — file IDs + line numbers only, value-bearing matches never shown. It does **not** make the report public-safe: the existence and location of failing controls is itself information. Handle it like any security assessment.
 
----
+## How redaction works
 
-## Scan Checkpoint File (`DSGAI-scan.json`)
+The redaction guarantee is **structural**, not a matter of remembering to be careful:
 
-When the skill runs, it writes a local checkpoint file called `DSGAI-scan.json` to the repository root after each major scan phase.
+1. **Location-only matching.** Value-bearing rules (DSGAI02/13/14/15 — credentials, vector-store tokens, telemetry PII, system-prompt secrets) run `rg -o --replace ''`. Ripgrep erases the matched text *before it emits anything*, so the output is `path:line:` — the secret never leaves the ripgrep process.
+2. **Stable file IDs in STRICT mode.** Findings render as `F07:12`; the `F## → path` map is written to a **gitignored** `DSGAI-filemap.json` that is never embedded in the report.
+3. **A schema that forbids leakage.** [`schemas/dsgai-scan.schema.json`](schemas/dsgai-scan.schema.json) rejects any finding carrying `match_text`, `content`, `value`, or `raw_grep_output`, and the CLI self-validates before writing. The guarantee is machine-checked by CI.
 
-### Why it exists
+## Reference
 
-The scan involves three time-consuming phases: repository detection, live CVE enrichment, and 21-control grep scanning. If the session times out before the HTML report is written, everything is lost and the scan restarts from zero. The checkpoint prevents this — on the next run the skill skips already-completed phases.
+<details>
+<summary><b>Checkpoint file</b> — <code>DSGAI-scan.json</code></summary>
 
-### What it stores — and what it doesn't
+The CLI writes a schema-validated checkpoint alongside the report: framework/ruleset versions, per-control statuses, findings (control, rule ID, rendered path, line, status), suppressed findings, and CVEs. It carries **no** match content by construction. In STRICT mode it holds file IDs, not full paths — but it still records which controls fail and where, so treat it as a security artifact (commit only if your threat model allows, or `.gitignore` it).
 
-The file contains only **structural scan metadata**: detected framework versions, DSGAI control findings (status, rendered file paths, line numbers, pattern IDs), and CVE query results.
+</details>
 
-The same redaction rules that apply to the HTML report apply here:
-- VALUE-BEARING findings store only `{control, path_rendered, line, pattern_id, status}` — never `match_text`, `raw_grep_output`, or `value`
-- In STRICT mode, the `path_internal` field is omitted entirely — keeping full paths out of the checkpoint, which minimizes disclosure without making the checkpoint public-safe
-- In INTERNAL mode, both `path_rendered` and `path_internal` are present for team convenience
+<details>
+<summary><b>Export to PDF</b></summary>
 
-### Lifecycle
+**Browser:** open the report in Chrome/Edge → `Ctrl/Cmd+P` → Save as PDF (cards expand for print).
 
-In STRICT mode it contains no secrets and no full paths, but it still records which controls fail and where — treat it as a security artifact (commit only if your repo's threat model allows, or `.gitignore` it). Regenerated on each full scan.
-
----
-
-## Exporting to PDF
-
-**Option 1 — Browser print (simplest):**
-Open `DSGAI-report.html` in Chrome or Edge → `Ctrl+P` / `Cmd+P` → Save as PDF. All cards expand automatically for print.
-
-**Option 2 — Chrome headless (scriptable):**
-
+**Headless:**
 ```bash
-# macOS
-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
-  --headless=new --print-to-pdf=DSGAI-report.pdf \
-  --print-to-pdf-no-header "file://$(pwd)/DSGAI-report.html"
-
-# Linux
 google-chrome --headless=new --print-to-pdf=DSGAI-report.pdf \
-  --print-to-pdf-no-header "file://$(pwd)/DSGAI-report.html"
+  --print-to-pdf-no-header "file://$(pwd)/dsgai-reports/DSGAI-report-<timestamp>.html"
 ```
 
-```powershell
-# Windows (PowerShell)
-& "C:\Program Files\Google\Chrome\Application\chrome.exe" `
-  --headless=new --print-to-pdf=DSGAI-report.pdf `
-  --print-to-pdf-no-header "file:///$((Get-Location).Path)/DSGAI-report.html"
-```
+</details>
 
----
+<details>
+<summary><b>Scope annotation</b> — BUILD / BUY / BOTH</summary>
 
-## Scope Annotation
+Each control is tagged by responsibility. **[BUILD]** controls are scanned mechanically. **[BUY]** controls (the vendor's responsibility) emit a `VENDOR ATTESTATION REQUIRED` callout listing exactly what to request (e.g. SOC 2 report, data-retention policy, rate-limit documentation). **[BOTH]** controls scan the BUILD portion and emit an attestation callout for the BUY portion. Controls with BUY aspects (DSGAI01, 08, 09, 20) consolidate into one *Vendor Attestations to Request* card.
 
-Each DSGAI control is tagged by responsibility:
+</details>
 
-- **[BUILD]** — your team implements this in the codebase. Scanned mechanically.
-- **[BUY]** — the LLM provider / SaaS vendor is responsible. Emits a `VENDOR ATTESTATION REQUIRED` callout listing what to request.
-- **[BOTH]** — shared responsibility. The BUILD portion is scanned; the BUY portion emits a vendor attestation callout.
+<details>
+<summary><b>Remediation tiers</b></summary>
 
-Controls with BUY-side aspects (DSGAI01, 08, 09, 20) generate a consolidated "Vendor Attestations to Request" recommendation card.
+| Tier | Meaning | Example |
+|---|---|---|
+| 🔴 **Tier 1** — fix today | FAIL items + exploitable CVEs | Hardcoded `sk-` key; unauthenticated vector store; unsafe `torch.load()` |
+| 🟡 **Tier 2** — architecture backlog | WARN + structural gaps | Add a circuit breaker; centralize PII redaction; route via an internal LLM gateway |
+| 🔵 **Tier 3** — maturity program | NOT VALIDATED (process evidence) | Quarterly red-team; complete a DPIA; commission an AppSec review |
 
----
+</details>
 
-## Based On
+## Cost and runtime
 
-**OWASP GenAI Data Security Risks and Mitigations 2026 (v1.0, March 2026)**
-[https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/](https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/)
-
-[OWASP GenAI Data Security Initiative](https://genai.owasp.org/initiative/data-security/) — led by [Emmanuel Guilherme Junior](https://www.linkedin.com/in/emmanuelgjr/).
-
----
-
-## Cost & runtime
-
-- **CLI-only mode: $0.** `python cli/dsgai_scan.py scan .` uses no LLM — just ripgrep. Reproducible findings + SARIF in seconds. This is what the hardened GitHub Action runs on every PR (including fork PRs, since it needs no secrets).
-- **Skill mode (LLM orchestration):** a full scan of the public fixture app renders in roughly **1–3 minutes** in Claude Code; token cost depends on repo size and the report prose. The deterministic engine does the matching; the model only classifies, writes remediation prose, and renders the report — so cost scales with findings, not lines of code.
-- **Fork PRs:** the Action's scan job runs on forks and uploads the SARIF as an artifact (Code Scanning upload is skipped — fork tokens can't write security events); the LLM narration job is skipped on forks by design.
-- Incremental `--diff` scans (seconds, near-zero cost) are planned for **v0.4**.
+- **CLI-only mode: $0.** `python cli/dsgai_scan.py scan .` uses no LLM — just ripgrep. Reproducible findings + SARIF in seconds. This is what the Action runs on every PR (including forks, since it needs no secrets).
+- **Skill mode:** a full scan of the fixture app renders in ~1–3 minutes in Claude Code; token cost scales with findings and report prose, not lines of code — the deterministic engine does the matching.
+- Everything runs **locally**. Only package names + pinned versions go to public CVE databases, and only if you don't pass `--no-cve`.
 
 ## Contributing
 
+> [!TIP]
 > **Found a wrong result? That's a contribution.** Run the scan on your repo and file a
-> [false-positive](../.github/ISSUE_TEMPLATE/scanner-false-positive.yml) or
-> [false-negative](../.github/ISSUE_TEMPLATE/scanner-false-negative.yml) issue — every
-> accepted report becomes a permanent, credited test case. No code required.
+> [false-positive](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/issues/new?template=scanner-false-positive.yml) or
+> [false-negative](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/issues/new?template=scanner-false-negative.yml) issue — every accepted
+> report becomes a permanent, credited test case in the fixture corpus. No code required.
 
-This is an OWASP project. Contributions welcome — open an issue or PR against [GenAI-Security-Project/GenAI-Data-Security-Initiative](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative).
+Detection rules live as data in [`rules/dsgai-rules.yaml`](rules/dsgai-rules.yaml) (schema-validated, compiled to JSON). To add or fix a rule, see [`rules/README.md`](rules/README.md) and the full guide in [`CONTRIBUTING.md`](CONTRIBUTING.md); the [`ROADMAP.md`](ROADMAP.md) tracks what's planned. Every rule ships with positive **and** negative fixture cases — the CI self-test is the gate.
 
-When proposing new scan patterns:
-1. Classify them as STRUCTURAL or VALUE-BEARING (use the table in the skill's Step 2)
-2. Validate the PCRE pattern with `rg --pcre2 'pattern' .` against a real repo
-3. For VALUE-BEARING patterns, prove the value never escapes by inspecting `DSGAI-scan.json` after a test run
+### Non-goals
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full contributor guide and the
-[`ROADMAP.md`](ROADMAP.md) for what's planned.
+To stay maintainable and trustworthy, some things are deliberately out of scope:
 
-## Non-goals
-
-To keep the scanner maintainable and trustworthy, some things are deliberately out of scope:
-
-- **We will not reimplement general-purpose secret scanning.** We ship a gitleaks rule
-  pack instead (see `integrations/gitleaks/`) and lean on battle-tested tooling for
-  entropy-based detection.
-- **We will not become a general-purpose SAST tool.** Scope is the 21 DSGAI controls and
-  the GenAI-specific patterns behind them — not every code smell in a repo.
-- **We will not add rules without fixture test cases.** A rule with no positive *and*
-  negative test has no defined precision, so it doesn't merge.
-- **We will not accept changes that weaken the redaction guarantees.** Value-bearing
-  matches never enter a report, checkpoint, or persisted tool call — that property is
-  non-negotiable.
-
----
+- **No general-purpose secret scanning** — we ship a gitleaks pack and lean on battle-tested tooling instead.
+- **No general SAST** — scope is the 21 DSGAI controls, not every code smell.
+- **No rules without fixture tests** — a rule with no positive *and* negative case has no defined precision.
+- **No changes that weaken the redaction guarantee** — that property is non-negotiable.
 
 ## License
 
-This skill is based on materials licensed under [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/legalcode).
+Based on the **OWASP GenAI Data Security Risks and Mitigations 2026 (v1.0, March 2026)**, licensed under [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/legalcode). *(A split that keeps framework text under CC BY-SA 4.0 while re-licensing the executable code under Apache-2.0 is under review with OWASP leadership.)*
 
-**Original work:** OWASP GenAI Data Security Risks and Mitigations 2026 (v1.0, March 2026) by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org/initiative/data-security/), led by [Emmanuel Guilherme Junior](https://www.linkedin.com/in/emmanuelgjr/).
+**Framework &amp; scanner** by the [OWASP GenAI Data Security Initiative](https://genai.owasp.org/initiative/data-security/), led by [Emmanuel Guilherme Junior](https://www.linkedin.com/in/emmanuelgjr/). v0.1 groundwork by Harish Ramachandran.
 
-**This adaptation:** Created by [Harish Ramachandran](https://www.linkedin.com/in/harish-ramachandran-a8026443/). You are free to share and adapt this skill for any purpose, including commercial use, under the same CC BY-SA 4.0 terms.
+<div align="center">
+<sub>Part of the OWASP GenAI Data Security Initiative · <a href="https://genai.owasp.org/initiative/data-security/">genai.owasp.org</a></sub>
+</div>

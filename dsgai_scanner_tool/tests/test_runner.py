@@ -408,6 +408,23 @@ def test_report_no_path_leak_on_filemap_miss(tmp_path):
     assert "<script>" not in rendered               # line escaped
 
 
+@requires_rg
+def test_scan_survives_non_utf8_bytes(tmp_path):
+    """A repo file with bytes not decodable as the platform default must not
+    crash the scanner (found by the benchmark; the ASCII fixture never hit it)."""
+    repo = tmp_path / "r"
+    repo.mkdir()
+    # P13.3 (host ... 0.0.0.0) matches this line; -o will emit the 0x8f byte.
+    (repo / "x.py").write_bytes(b'host = "\x8f\x9f-bad-bytes" 0.0.0.0\n')
+    out = tmp_path / "s.json"
+    proc = subprocess.run([sys.executable, CLI, "scan", str(repo), "--no-cve",
+                           "--json-out", str(out), "--format", "none"],
+                          capture_output=True, text=True, encoding="utf-8",
+                          errors="replace")
+    assert proc.returncode in (0, 1), f"scanner crashed on non-UTF-8 input: {proc.stderr}"
+    assert out.exists()
+
+
 def test_rules_json_in_sync():
     from_yaml = yaml.safe_load(open(RULES_YAML, encoding="utf-8"))
     rebuilt = json.dumps(from_yaml, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
