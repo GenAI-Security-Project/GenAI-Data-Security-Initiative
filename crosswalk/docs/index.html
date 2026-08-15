@@ -1497,6 +1497,14 @@ input, select { font-family: inherit; }
     return div.innerHTML;
   }
 
+  // Only a real DOM node may be appended. Anything else — most importantly a
+  // string that reached here from the URL — becomes a text node, so it is
+  // rendered as text and can never be parsed as markup.
+  function toNode(value) {
+    if (value && typeof value.nodeType === 'number') return value;
+    return document.createTextNode(String(value));
+  }
+
   function el(tag, attrs, children) {
     var node = document.createElement(tag);
     if (attrs) {
@@ -1509,8 +1517,8 @@ input, select { font-family: inherit; }
     }
     if (children) {
       if (typeof children === 'string') node.textContent = children;
-      else if (Array.isArray(children)) children.forEach(function(c) { if (c) node.appendChild(c); });
-      else node.appendChild(children);
+      else if (Array.isArray(children)) children.forEach(function(c) { if (c) node.appendChild(toNode(c)); });
+      else node.appendChild(toNode(children));
     }
     return node;
   }
@@ -1634,6 +1642,16 @@ input, select { font-family: inherit; }
     '/review': renderReview
   };
 
+  // Control ids are drawn from 25 separate framework registries and are
+  // punctuation-heavy ("GV-1.7", "Art. 24-27", "A.5.1"), so this bounds the
+  // length and rejects markup delimiters rather than allow-listing a shape
+  // that would reject legitimate ids.
+  function isPlausibleControlId(value) {
+    return typeof value === 'string' &&
+      value.length > 0 && value.length <= 200 &&
+      !/[<>]/.test(value);
+  }
+
   function getRoute() {
     var hash = window.location.hash || '#/';
     // Extract the path part (before any query params)
@@ -1669,9 +1687,15 @@ input, select { font-family: inherit; }
     if (fwControlMatch) {
       var fwNameCtrl = decodeURIComponent(fwControlMatch[1]);
       var ctrlId = decodeURIComponent(fwControlMatch[2]);
-      renderControlDetail(app, fwNameCtrl, ctrlId);
-      window.scrollTo(0, 0);
-      return;
+      // Apply the same allow-list the plain framework route uses below. An
+      // unknown framework name has no registry entry and no mappings, so it
+      // could only ever render an empty page echoing the URL back; fall
+      // through to the frameworks index instead.
+      if (FRAMEWORKS.indexOf(fwNameCtrl) !== -1 && isPlausibleControlId(ctrlId)) {
+        renderControlDetail(app, fwNameCtrl, ctrlId);
+        window.scrollTo(0, 0);
+        return;
+      }
     }
     // Framework detail is a full page, not a modal
     if (frameworkMatch) {
