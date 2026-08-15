@@ -1497,6 +1497,14 @@ input, select { font-family: inherit; }
     return div.innerHTML;
   }
 
+  // Only a real DOM node may be appended. Anything else — most importantly a
+  // string that reached here from the URL — becomes a text node, so it is
+  // rendered as text and can never be parsed as markup.
+  function toNode(value) {
+    if (value && typeof value.nodeType === 'number') return value;
+    return document.createTextNode(String(value));
+  }
+
   function el(tag, attrs, children) {
     var node = document.createElement(tag);
     if (attrs) {
@@ -1509,8 +1517,8 @@ input, select { font-family: inherit; }
     }
     if (children) {
       if (typeof children === 'string') node.textContent = children;
-      else if (Array.isArray(children)) children.forEach(function(c) { if (c) node.appendChild(c); });
-      else node.appendChild(children);
+      else if (Array.isArray(children)) children.forEach(function(c) { if (c) node.appendChild(toNode(c)); });
+      else node.appendChild(toNode(children));
     }
     return node;
   }
@@ -1634,6 +1642,30 @@ input, select { font-family: inherit; }
     '/review': renderReview
   };
 
+  // Resolve a control id supplied in the URL to the canonical string held in
+  // our own data, searching the same three places renderControlDetail reads:
+  // the framework registry, the backlink index, then the mappings in DATA.
+  // Returns null when nothing matches. Callers render the returned value
+  // rather than the URL, so nothing user-supplied is ever put on the page —
+  // a control id that matches nothing could only have produced an empty page
+  // echoing the URL back anyway.
+  function resolveControlId(fwName, controlId) {
+    var regFw = FW_REGISTRY_MAP[fwName];
+    if (regFw) {
+      var regControl = (regFw.controls || []).find(function(c) { return c.control_id === controlId; });
+      if (regControl) return regControl.control_id;
+    }
+    var bl = BACKLINK_MAP[fwName + '::' + controlId];
+    if (bl) return bl.control_id;
+    var found = null;
+    DATA.forEach(function(e) {
+      (e.mappings || []).forEach(function(m) {
+        if (found === null && m.framework === fwName && m.control_id === controlId) found = m.control_id;
+      });
+    });
+    return found;
+  }
+
   function getRoute() {
     var hash = window.location.hash || '#/';
     // Extract the path part (before any query params)
@@ -1669,9 +1701,20 @@ input, select { font-family: inherit; }
     if (fwControlMatch) {
       var fwNameCtrl = decodeURIComponent(fwControlMatch[1]);
       var ctrlId = decodeURIComponent(fwControlMatch[2]);
-      renderControlDetail(app, fwNameCtrl, ctrlId);
-      window.scrollTo(0, 0);
-      return;
+      // Resolve both halves of the deep link against our own data and render
+      // the resolved values, never the URL text. The framework name gets the
+      // same allow-list the plain framework route uses below; an unknown
+      // framework or control falls through to the frameworks index.
+      var fwIdx = FRAMEWORKS.indexOf(fwNameCtrl);
+      if (fwIdx !== -1) {
+        var knownFw = FRAMEWORKS[fwIdx];
+        var knownCtrl = resolveControlId(knownFw, ctrlId);
+        if (knownCtrl !== null) {
+          renderControlDetail(app, knownFw, knownCtrl);
+          window.scrollTo(0, 0);
+          return;
+        }
+      }
     }
     // Framework detail is a full page, not a modal
     if (frameworkMatch) {
