@@ -43,7 +43,7 @@ deterministic CLI loads with the standard library only — no PyYAML at runtime)
 | `remediation` | no | fix guidance |
 | `references` | no | CVE IDs / links |
 | `subtract` | no | rule IDs whose match on the same line cancels this hit (e.g. `torch.load(` minus `weights_only=True`) |
-| `requires_nearby` | no | compound proximity logic: `{rule\|rules, lines\|scope, absent}` |
+| `requires_nearby` | no | compound proximity logic: `{rule\|rules\|pattern, lines\|scope, absent}` — `pattern` is a raw corroborating regex (e.g. P12.1 requires an LLM call within 30 lines) |
 | `gated_on` | no | only evaluated when the stack is detected: `multimodal`, `synthetic_data`, `labeling` |
 | `notes` | no | control-level prose that isn't yet fully formalized |
 

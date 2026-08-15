@@ -55,6 +55,9 @@ def raw_matches(rg):
             rel = os.path.relpath(f, FIXTURE).replace(os.sep, "/")
             if not glob_match(rel, r["file_globs"]):
                 continue
+            if r.get("match") == "file_exists":
+                out.add((r["id"], rel, 1))   # presence of the file is the signal
+                continue
             p = subprocess.run([rg, "--pcre2", "-n", "-o", "-e", r["pcre"], f],
                                capture_output=True, text=True)
             for line in p.stdout.splitlines():

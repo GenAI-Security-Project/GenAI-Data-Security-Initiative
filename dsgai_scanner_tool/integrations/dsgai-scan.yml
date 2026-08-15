@@ -2,22 +2,24 @@
 #
 # Copy this file to `.github/workflows/dsgai-scan.yml` in your repo.
 #
-# This Action runs the DSGAI scan on every PR and on pushes to main,
-# uploads the report as an artifact, and (optionally) fails the build
-# on FAIL-class findings.
+# THREAT MODEL — why this workflow is split into two jobs:
+#   Untrusted PR content must never meet an agent that has both secrets and
+#   network egress (that is an exfiltration channel). So:
+#     * Job 1 `scan`   — the DETERMINISTIC CLI only. No LLM, no API key, no
+#                        WebFetch. Safe to run on fork PRs. Produces SARIF +
+#                        the checkpoint. This is where untrusted code is read.
+#     * Job 2 `narrate`— renders the HTML report DETERMINISTICALLY from the
+#                        checkpoint via cli/dsgai_report.py. No LLM, no API key,
+#                        no repo re-read, so it holds no secret and cannot
+#                        exfiltrate — safe on forks. (LLM prose stays a local
+#                        skill feature; CI reports are deterministic.)
+#   CVE data comes from the CLI, so no job ever needs network egress with a secret.
 #
-# Requirements:
-#   1. Repository secret ANTHROPIC_API_KEY — your Anthropic API key for Claude Code.
-#      (Or use Bedrock/Vertex creds via the appropriate env vars.)
-#   2. (Optional) Repository secret NVD_API_KEY — raises NVD rate limit from
-#      5 req/30s to 50 req/30s. Request one at:
-#      https://nvd.nist.gov/developers/request-an-api-key
-#   3. GITHUB_TOKEN is automatically provided by Actions and raises the
-#      GitHub Advisory API rate limit to 5000 req/hour.
+# All third-party actions are pinned by full commit SHA (dependabot keeps them
+# fresh). The scanner is fetched from a pinned commit of the upstream repo;
+# switching that pin to the scanner-v0.3.0 tag is a release-checklist item.
 #
-# The scan ALWAYS runs in STRICT obfuscation mode in CI — the artifact
-# may end up in build logs viewable by anyone with repo read access.
-# Never pass --internal here.
+# The scan ALWAYS runs in STRICT obfuscation mode in CI. Never pass --internal.
 
 name: OWASP DSGAI Compliance Scan
 
@@ -28,169 +30,183 @@ on:
     branches: [main, master]
   workflow_dispatch:
     inputs:
-      fail_on_findings:
-        description: "Fail the build on any FAIL-class finding"
-        type: boolean
-        default: false
       run_cve_enrichment:
-        description: "Query live CVE databases (uncheck for offline scan)"
+        description: "Query CVE databases via the CLI (uncheck for offline scan)"
         type: boolean
         default: true
 
+# Report-only by default. To gate merges, set repository variable DSGAI_FAIL_ON
+# to "fail" (fail on FAIL-class) or "warn" (fail on WARN or worse). Empty = never
+# fail the build. This replaces the old bug that force-gated every push.
+env:
+  DSGAI_PIN: "21f466383712bc13752d6361eefb3cbd3501fd70"  # upstream commit to fetch the scanner from
+
 permissions:
   contents: read
-  pull-requests: write  # for posting the summary comment
 
 jobs:
-  dsgai-scan:
-    name: Scan against OWASP DSGAI 2026
+  # ---------------------------------------------------------------------------
+  # Job 1 — deterministic scan. No secrets, no LLM, no egress. Runs on forks.
+  # ---------------------------------------------------------------------------
+  scan:
+    name: Deterministic DSGAI scan
     runs-on: ubuntu-latest
-    timeout-minutes: 20
-
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      # Needed only to upload SARIF to Code Scanning; fork-PR tokens never get
+      # it, so the upload step is guarded and skipped on forks.
+      security-events: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 1
 
-      - name: Set up Node.js (for Claude Code)
-        uses: actions/setup-node@v4
+      - name: Install ripgrep (with PCRE2)
+        run: sudo apt-get update -qq && sudo apt-get install -y ripgrep
+
+      - name: Set up Python
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
-          node-version: "20"
+          python-version: '3.11'
 
-      - name: Install Claude Code CLI
-        run: npm install -g @anthropic-ai/claude-code
-
-      - name: Install jq (for parsing scan results)
+      - name: Fetch the DSGAI scanner (pinned commit)
         run: |
-          if ! command -v jq >/dev/null; then
-            sudo apt-get update && sudo apt-get install -y jq
-          fi
+          mkdir -p dsgai-tool/cli dsgai-tool/rules
+          base="https://raw.githubusercontent.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/${DSGAI_PIN}/dsgai_scanner_tool"
+          curl -fsSL "$base/cli/dsgai_scan.py"        -o dsgai-tool/cli/dsgai_scan.py
+          curl -fsSL "$base/cli/dsgai_cve.py"          -o dsgai-tool/cli/dsgai_cve.py
+          curl -fsSL "$base/rules/dsgai-rules.json"    -o dsgai-tool/rules/dsgai-rules.json
+          curl -fsSL "$base/VERSION"                   -o dsgai-tool/VERSION
 
-      - name: Install DSGAI scanner skill
+      - name: Run deterministic scan (SARIF + checkpoint)
         run: |
-          mkdir -p "$HOME/.claude/commands"
-          # Always fetch from upstream — guarantees the latest pattern set.
-          # Pin to a release tag in production (e.g. v0.2.0) for reproducibility.
-          curl -fsSL \
-            "https://raw.githubusercontent.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/main/dsgai_scanner_tool/dsgai_scanner_tool.md" \
-            -o "$HOME/.claude/commands/dsgai_scanner_tool.md"
+          # Honor the run_cve_enrichment toggle (empty on push/PR events → CVE on).
+          NOCVE=""
+          if [ "${{ inputs.run_cve_enrichment }}" = "false" ]; then NOCVE="--no-cve"; fi
+          python dsgai-tool/cli/dsgai_scan.py scan . $NOCVE \
+            --json-out DSGAI-scan.json \
+            --sarif DSGAI-scan.sarif \
+            --format table || true   # never let the exit code abort artifact upload
 
-      - name: Determine scan flags
-        id: flags
-        run: |
-          FLAGS=""
-          if [ "${{ inputs.run_cve_enrichment }}" = "false" ]; then
-            FLAGS="$FLAGS --no-cve"
-          fi
-          echo "scan_flags=$FLAGS" >> "$GITHUB_OUTPUT"
+      - name: Upload SARIF to Code Scanning (same-repo only)
+        # security-events: write is never granted to fork-PR tokens.
+        if: >-
+          always() &&
+          (github.event_name != 'pull_request' ||
+           github.event.pull_request.head.repo.fork != true)
+        uses: github/codeql-action/upload-sarif@6825d5659bf007b85a0866e2d0f434aacf50de94 # v3.27.5
+        with:
+          sarif_file: DSGAI-scan.sarif
+          category: dsgai
 
-      - name: Run DSGAI scan
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # -p                              non-interactive print mode
-          # --dangerously-skip-permissions  no user available to approve tool calls in CI
-          # --output-format text            human-readable log
-          # --tools                         restrict tools to exactly what the skill needs
-          # The slash command itself enforces STRICT obfuscation (the default).
-          claude -p "/dsgai_scanner_tool ${{ steps.flags.outputs.scan_flags }}" \
-            --dangerously-skip-permissions \
-            --output-format text \
-            --tools "Read,Grep,Glob,Bash,Write,Edit,WebFetch,WebSearch" \
-            2>&1 | tee dsgai-scan.log
-
-      - name: Verify report was generated
-        run: |
-          if [ ! -f DSGAI-report.html ]; then
-            echo "::error::DSGAI-report.html was not generated. Check dsgai-scan.log."
-            exit 1
-          fi
-          size=$(stat -c%s DSGAI-report.html)
-          echo "Report size: $size bytes"
-          if [ "$size" -lt 5000 ]; then
-            echo "::warning::Report is unusually small ($size bytes) — scan may have aborted early."
-          fi
-
-      - name: Parse scan results
-        id: parse
-        run: |
-          # Tolerant parser — the checkpoint schema may evolve.
-          if [ -f DSGAI-scan.json ]; then
-            FAIL_COUNT=$(jq '[.findings[]? | select(.status=="FAIL")] | length' DSGAI-scan.json 2>/dev/null || echo 0)
-            WARN_COUNT=$(jq '[.findings[]? | select(.status=="WARN")] | length' DSGAI-scan.json 2>/dev/null || echo 0)
-            PASS_COUNT=$(jq '[.findings[]? | select(.status=="PASS")] | length' DSGAI-scan.json 2>/dev/null || echo 0)
-            VENDOR_COUNT=$(jq '[.findings[]? | select(.status=="VENDOR ATTESTATION REQUIRED")] | length' DSGAI-scan.json 2>/dev/null || echo 0)
-            EXPLOITABLE_CVE=$(jq '[.cves[]? | select(.status=="EXPLOITABLE")] | length' DSGAI-scan.json 2>/dev/null || echo 0)
-          else
-            echo "::warning::DSGAI-scan.json not produced — summary will report zeros."
-            FAIL_COUNT=0; WARN_COUNT=0; PASS_COUNT=0; VENDOR_COUNT=0; EXPLOITABLE_CVE=0
-          fi
-          {
-            echo "fail_count=$FAIL_COUNT"
-            echo "warn_count=$WARN_COUNT"
-            echo "pass_count=$PASS_COUNT"
-            echo "vendor_count=$VENDOR_COUNT"
-            echo "exploitable_cve=$EXPLOITABLE_CVE"
-          } >> "$GITHUB_OUTPUT"
-
-      - name: Upload report artifact
+      - name: Upload scan artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
         with:
-          name: dsgai-compliance-report
+          name: dsgai-scan
           path: |
-            DSGAI-report.html
             DSGAI-scan.json
-            dsgai-scan.log
+            DSGAI-scan.sarif
           retention-days: 30
-          # The report is STRICT-mode redacted, but the scan log may contain
-          # paths and grep output. Keep retention short.
 
-      - name: Comment summary on PR
+      - name: Enforce threshold (DSGAI_FAIL_ON)
+        env:
+          DSGAI_FAIL_ON: ${{ vars.DSGAI_FAIL_ON }}
+        run: |
+          THRESH="${DSGAI_FAIL_ON:-}"
+          [ -z "$THRESH" ] && { echo "report-only (DSGAI_FAIL_ON unset)"; exit 0; }
+          FAIL=$(python -c "import json;d=json.load(open('DSGAI-scan.json'));print(sum(1 for f in d['findings'] if f['status']=='fail'))")
+          WARN=$(python -c "import json;d=json.load(open('DSGAI-scan.json'));print(sum(1 for f in d['findings'] if f['status']=='warn'))")
+          if [ "$THRESH" = "fail" ] && [ "$FAIL" -gt 0 ]; then
+            echo "::error::DSGAI: $FAIL FAIL-class findings (DSGAI_FAIL_ON=fail)"; exit 1
+          fi
+          if [ "$THRESH" = "warn" ] && { [ "$FAIL" -gt 0 ] || [ "$WARN" -gt 0 ]; }; then
+            echo "::error::DSGAI: $FAIL fail / $WARN warn (DSGAI_FAIL_ON=warn)"; exit 1
+          fi
+          echo "threshold '$THRESH' satisfied"
+
+  # ---------------------------------------------------------------------------
+  # Job 2 — render the HTML report DETERMINISTICALLY from the checkpoint, by code
+  # (cli/dsgai_report.py). No LLM, no ANTHROPIC_API_KEY, no repo re-read — so this
+  # job holds no secret and cannot exfiltrate. It is safe on fork PRs too.
+  # (LLM-authored prose remains available for local/interactive skill use.)
+  # ---------------------------------------------------------------------------
+  narrate:
+    name: Render HTML report
+    needs: scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: write   # secrets-free PR summary via GITHUB_TOKEN
+    steps:
+      - name: Download scan checkpoint
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        with:
+          name: dsgai-scan
+
+      - name: Set up Python
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+        with:
+          python-version: '3.11'
+
+      - name: Fetch the deterministic renderer (pinned commit)
+        run: |
+          mkdir -p dsgai-tool/cli dsgai-tool/templates
+          base="https://raw.githubusercontent.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/${DSGAI_PIN}/dsgai_scanner_tool"
+          curl -fsSL "$base/cli/dsgai_report.py"       -o dsgai-tool/cli/dsgai_report.py
+          curl -fsSL "$base/templates/report.css"       -o dsgai-tool/templates/report.css
+
+      - name: Render report from the checkpoint (no LLM, no secret)
+        run: |
+          mkdir -p dsgai-reports
+          python dsgai-tool/cli/dsgai_report.py DSGAI-scan.json \
+            --out dsgai-reports/DSGAI-report.html \
+            --filemap DSGAI-filemap.json
+
+      - name: Upload rendered report
+        if: always()
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        with:
+          name: dsgai-report
+          path: |
+            dsgai-reports/**
+          retention-days: 30
+
+      - name: Comment summary on PR (secrets-free)
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
-            const fail = '${{ steps.parse.outputs.fail_count }}';
-            const warn = '${{ steps.parse.outputs.warn_count }}';
-            const pass = '${{ steps.parse.outputs.pass_count }}';
-            const vendor = '${{ steps.parse.outputs.vendor_count }}';
-            const cve = '${{ steps.parse.outputs.exploitable_cve }}';
-            const emoji = (parseInt(fail) > 0 || parseInt(cve) > 0) ? '🔴'
-                        : (parseInt(warn) > 0 ? '🟡' : '🟢');
+            const fs = require('fs');
+            let fail = 0, warn = 0, pass = 0;
+            try {
+              const cp = JSON.parse(fs.readFileSync('DSGAI-scan.json', 'utf8'));
+              for (const f of cp.findings || []) {
+                if (f.status === 'fail') fail++;
+                else if (f.status === 'warn') warn++;
+                else if (f.status === 'pass_signal') pass++;
+              }
+            } catch (e) { core.warning('no checkpoint to summarize'); }
+            const emoji = fail > 0 ? '🔴' : (warn > 0 ? '🟡' : '🟢');
             const body = [
               `## ${emoji} OWASP DSGAI Compliance Scan`,
               ``,
               `| Result | Count |`,
               `|---|---|`,
-              `| ❌ FAIL | ${fail} |`,
-              `| ⚠️ WARN | ${warn} |`,
-              `| ✅ PASS | ${pass} |`,
-              `| 🏢 Vendor Attestation Required | ${vendor} |`,
-              `| 🔴 Exploitable CVEs | ${cve} |`,
+              `| ❌ fail | ${fail} |`,
+              `| ⚠️ warn | ${warn} |`,
+              `| ✅ pass signals | ${pass} |`,
               ``,
-              `Download the full report from the **Artifacts** section of [this workflow run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}).`,
+              `Native **Code Scanning** annotations show findings inline on changed lines. Full checkpoint + SARIF are in the workflow **Artifacts**.`,
               ``,
-              `<sub>Scanned against [OWASP GenAI Data Security Risks and Mitigations 2026 (v1.0)](https://genai.owasp.org/initiative/data-security/) in STRICT obfuscation mode. Report contains filename + line numbers only — value-bearing matches (credentials, tokens, PII in logs) are never displayed.</sub>`
+              `<sub>STRICT mode — file IDs + line numbers only; value-bearing matches are never displayed. Deterministic engine: reproducible on identical input.</sub>`
             ].join('\n');
-
-            github.rest.issues.createComment({
+            await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: body
+              body,
             });
-
-      - name: Fail on FAIL-class findings (opt-in)
-        if: inputs.fail_on_findings == true || github.event_name == 'push'
-        run: |
-          FAIL=${{ steps.parse.outputs.fail_count }}
-          CVE=${{ steps.parse.outputs.exploitable_cve }}
-          if [ "$FAIL" -gt "0" ] || [ "$CVE" -gt "0" ]; then
-            echo "::error::DSGAI scan found $FAIL FAIL-class findings and $CVE exploitable CVEs."
-            echo "::error::Download the dsgai-compliance-report artifact for full details."
-            exit 1
-          fi

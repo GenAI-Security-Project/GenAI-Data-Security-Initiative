@@ -1,0 +1,1096 @@
+# DSGAI STRUCTURAL rules as a Semgrep pack.
+# GENERATED from rules/dsgai-rules.yaml by build/export_semgrep.py — do not edit.
+# Value-bearing rules are excluded by design (their matches must never surface).
+rules:
+  - id: dsgai-P01.1
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI01 P01.1: PII scrubbing imports'
+    patterns:
+      - pattern-regex: '(anonymize|redact|scrub_pii|piiDetect|mask_pii|presidio)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json', '*.env*']
+    metadata:
+      dsgai_control: DSGAI01
+      dsgai_rule: P01.1
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P01.2
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI01 P01.2: No-train flags'
+    patterns:
+      - pattern-regex: '(allow_training|training_opt_out|X-Training-Data|no_train)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json', '*.env*']
+    metadata:
+      dsgai_control: DSGAI01
+      dsgai_rule: P01.2
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P01.3
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI01 P01.3: Output PII filter'
+    patterns:
+      - pattern-regex: '(filter_pii|remove_pii|output_sanitize|output_filter)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json', '*.env*']
+    metadata:
+      dsgai_control: DSGAI01
+      dsgai_rule: P01.3
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P01.4
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI01 P01.4: Differential privacy lib'
+    patterns:
+      - pattern-regex: '(opacus|tensorflow\.privacy|dp-accounting|differential\.privacy)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json', '*.env*']
+    metadata:
+      dsgai_control: DSGAI01
+      dsgai_rule: P01.4
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P01.5
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI01 P01.5: Consent / GDPR check'
+    patterns:
+      - pattern-regex: '(consent_capture|gdpr|ccpa|data_subject|lawful_basis)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json', '*.env*']
+    metadata:
+      dsgai_control: DSGAI01
+      dsgai_rule: P01.5
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P03.1
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI03 P03.1: Third-party LLM endpoints'
+    patterns:
+      - pattern-regex: '(api\.openai\.com|api\.anthropic\.com|generativelanguage\.googleapis\.com|api\.cohere\.com|api\.together\.xyz|api\.mistral\.ai|api\.groq\.com)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.go', '*.yaml', '*.json', '*.env*']
+    metadata:
+      dsgai_control: DSGAI03
+      dsgai_rule: P03.1
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P03.2
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI03 P03.2: Internal LLM gateway (PASS)'
+    patterns:
+      - pattern-regex: '(llm[._-]?gateway|ai[._-]?proxy|model[._-]?gateway|llm[._-]?proxy)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.go', '*.yaml', '*.json', '*.env*']
+    metadata:
+      dsgai_control: DSGAI03
+      dsgai_rule: P03.2
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P03.3
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI03 P03.3: DLP / classification check'
+    patterns:
+      - pattern-regex: '(dlp|data_classification|classify_data|sensitivity_check)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.go', '*.yaml', '*.json', '*.env*']
+    metadata:
+      dsgai_control: DSGAI03
+      dsgai_rule: P03.3
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P04.1
+    languages: [generic]
+    severity: ERROR
+    message: 'DSGAI04 P04.1: Unsafe pickle (FAIL)'
+    patterns:
+      - pattern-regex: 'torch\.load\s*\('
+    paths:
+      include: ['*.py', '*.sh', '*.yml', '*.yaml', 'Dockerfile', 'requirements*.txt', 'pyproject.toml', 'setup.py']
+    metadata:
+      dsgai_control: DSGAI04
+      dsgai_rule: P04.1
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P04.2
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI04 P04.2: Safe pickle (PASS counter)'
+    patterns:
+      - pattern-regex: '(?m)torch\.load\s*\([^)]*weights_only\s*=\s*True'
+    paths:
+      include: ['*.py', '*.sh', '*.yml', '*.yaml', 'Dockerfile', 'requirements*.txt', 'pyproject.toml', 'setup.py']
+    metadata:
+      dsgai_control: DSGAI04
+      dsgai_rule: P04.2
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P04.3
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI04 P04.3: Artifact verification (PASS)'
+    patterns:
+      - pattern-regex: '(sha256|verify_signature|model_hash|check_integrity)'
+    paths:
+      include: ['*.py', '*.sh', '*.yml', '*.yaml', 'Dockerfile', 'requirements*.txt', 'pyproject.toml', 'setup.py']
+    metadata:
+      dsgai_control: DSGAI04
+      dsgai_rule: P04.3
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P04.4
+    languages: [generic]
+    severity: WARNING
+    message: 'DSGAI04 P04.4: Unpinned ML deps (WARN)'
+    patterns:
+      - pattern-regex: '(?m)^(torch|transformers|tensorflow|langchain|openai|anthropic|llama-index)\s*(>=|~=|\^|>|<|<=|\*|latest)'
+    paths:
+      include: ['*.py', '*.sh', '*.yml', '*.yaml', 'Dockerfile', 'requirements*.txt', 'pyproject.toml', 'setup.py']
+    metadata:
+      dsgai_control: DSGAI04
+      dsgai_rule: P04.4
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P04.5
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI04 P04.5: SBOM in CI (PASS)'
+    patterns:
+      - pattern-regex: '(syft|cyclonedx|spdx|sbom)'
+    paths:
+      include: ['*.py', '*.sh', '*.yml', '*.yaml', 'Dockerfile', 'requirements*.txt', 'pyproject.toml', 'setup.py']
+    metadata:
+      dsgai_control: DSGAI04
+      dsgai_rule: P04.5
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P04.6
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI04 P04.6: Trusted registry (PASS)'
+    patterns:
+      - pattern-regex: '(index-url|extra-index-url|artifactory|jfrog|verdaccio)'
+    paths:
+      include: ['*.py', '*.sh', '*.yml', '*.yaml', 'Dockerfile', 'requirements*.txt', 'pyproject.toml', 'setup.py']
+    metadata:
+      dsgai_control: DSGAI04
+      dsgai_rule: P04.6
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P04.7
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI04 P04.7: Hash-pinned install (PASS)'
+    patterns:
+      - pattern-regex: '(--require-hashes|integrity\s*:\s*sha)'
+    paths:
+      include: ['*.py', '*.sh', '*.yml', '*.yaml', 'Dockerfile', 'requirements*.txt', 'pyproject.toml', 'setup.py']
+    metadata:
+      dsgai_control: DSGAI04
+      dsgai_rule: P04.7
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P05.1
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI05 P05.1: Document ingestion calls'
+    patterns:
+      - pattern-regex: '(loader\.load\(|ingest_document\(|add_documents\(|index_document\(|UnstructuredFileLoader|PyPDFLoader|DirectoryLoader)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt']
+    metadata:
+      dsgai_control: DSGAI05
+      dsgai_rule: P05.1
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P05.2
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI05 P05.2: Access control (PASS)'
+    patterns:
+      - pattern-regex: '(acl_filter|access_check|permitted_docs|filter\s*=.*tenant|namespace\s*=.*tenant)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt']
+    metadata:
+      dsgai_control: DSGAI05
+      dsgai_rule: P05.2
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P05.3
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI05 P05.3: Tenant filter on search (PASS)'
+    patterns:
+      - pattern-regex: '(?m)(similarity_search|vector_search)[^)]{0,100}(filter|namespace|where)[^)]{0,40}tenant'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt']
+    metadata:
+      dsgai_control: DSGAI05
+      dsgai_rule: P05.3
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P05.4
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI05 P05.4: Integrity check on docs (PASS)'
+    patterns:
+      - pattern-regex: '(?m)(hashlib|sha256[^\n]{0,40}doc|integrity[._-]check|verify[._-]document)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt']
+    metadata:
+      dsgai_control: DSGAI05
+      dsgai_rule: P05.4
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P05.5
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI05 P05.5: Chunk size limits (PASS)'
+    patterns:
+      - pattern-regex: '(max_chunk_size|chunk_size\s*=|max_doc_size|content_limit)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt']
+    metadata:
+      dsgai_control: DSGAI05
+      dsgai_rule: P05.5
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P05.6
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI05 P05.6: Path traversal risk'
+    patterns:
+      - pattern-regex: '(open\(.*\.\.|os\.path\.join\(.*request\.|Path\(.*request\.)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt']
+    metadata:
+      dsgai_control: DSGAI05
+      dsgai_rule: P05.6
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P06.1
+    languages: [generic]
+    severity: ERROR
+    message: 'DSGAI06 P06.1: Insecure MCP transport (FAIL)'
+    patterns:
+      - pattern-regex: '(?m)("url"\s*:\s*"http://|transport[^\n]{0,20}http://|"command"[^}]{0,200}--http(?!s))'
+    paths:
+      include: ['*.json', '*.yaml', '*.toml', '*.py', '*.ts', 'mcp.json', 'claude_desktop_config.json']
+    metadata:
+      dsgai_control: DSGAI06
+      dsgai_rule: P06.1
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P06.2
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI06 P06.2: MCP auth (PASS)'
+    patterns:
+      - pattern-regex: '(?m)(mcp[^\n]{0,30}(api_key|auth|bearer)|x-api-key[^\n]{0,20}mcp)'
+    paths:
+      include: ['*.json', '*.yaml', '*.toml', '*.py', '*.ts', 'mcp.json', 'claude_desktop_config.json']
+    metadata:
+      dsgai_control: DSGAI06
+      dsgai_rule: P06.2
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P06.3
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI06 P06.3: Tool schema validation (PASS)'
+    patterns:
+      - pattern-regex: '(?m)(jsonschema|pydantic[^\n]{0,30}validate|zod|schema[^\n]{0,20}tool|input_schema)'
+    paths:
+      include: ['*.json', '*.yaml', '*.toml', '*.py', '*.ts', 'mcp.json', 'claude_desktop_config.json']
+    metadata:
+      dsgai_control: DSGAI06
+      dsgai_rule: P06.3
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P06.4
+    languages: [generic]
+    severity: WARNING
+    message: 'DSGAI06 P06.4: Wildcard tool perms (WARN)'
+    patterns:
+      - pattern-regex: '(tools\s*[:=]\s*\*|"tools"\s*:\s*"\*"|allow_all_tools)'
+    paths:
+      include: ['*.json', '*.yaml', '*.toml', '*.py', '*.ts', 'mcp.json', 'claude_desktop_config.json']
+    metadata:
+      dsgai_control: DSGAI06
+      dsgai_rule: P06.4
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P06.5
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI06 P06.5: uvicorn bind-all + no auth'
+    patterns:
+      - pattern-regex: '(?m)uvicorn\.run\([^)]*host\s*=\s*["'']0\.0\.0\.0'
+    paths:
+      include: ['*.json', '*.yaml', '*.toml', '*.py', '*.ts', 'mcp.json', 'claude_desktop_config.json']
+    metadata:
+      dsgai_control: DSGAI06
+      dsgai_rule: P06.5
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P07.1
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI07 P07.1: TTL config'
+    patterns:
+      - pattern-regex: '(ttl\s*=|expires_in\s*=|max_age\s*=|RETENTION_DAYS|DATA_TTL|HISTORY_TTL)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json']
+    metadata:
+      dsgai_control: DSGAI07
+      dsgai_rule: P07.1
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P07.2
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI07 P07.2: Session cleanup (PASS)'
+    patterns:
+      - pattern-regex: '(delete_session|clear_history|purge_conversation|clear_memory|delete_conversation)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json']
+    metadata:
+      dsgai_control: DSGAI07
+      dsgai_rule: P07.2
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P07.3
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI07 P07.3: Vector delete (PASS)'
+    patterns:
+      - pattern-regex: '(delete_namespace|delete_collection|drop_index|delete_index|reset_collection)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json']
+    metadata:
+      dsgai_control: DSGAI07
+      dsgai_rule: P07.3
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P07.4
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI07 P07.4: Right-to-erasure (PASS)'
+    patterns:
+      - pattern-regex: '(gdpr_delete|erase_user_data|handle_deletion|right_to_erasure|forget_user)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json']
+    metadata:
+      dsgai_control: DSGAI07
+      dsgai_rule: P07.4
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P08.1
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI08 P08.1: DPIA / privacy assessment doc'
+    patterns:
+      - pattern-regex: '(DPIA|PIA|privacy_assessment|privacy[._-]impact)'
+    paths:
+      include: ['*.md', '*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json', 'docs/**', 'appsec/**', 'security-review/**']
+    metadata:
+      dsgai_control: DSGAI08
+      dsgai_rule: P08.1
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P08.2
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI08 P08.2: Data processing agreement ref'
+    patterns:
+      - pattern-regex: '(data_processing_agreement|DPA|sub_processor)'
+    paths:
+      include: ['*.md', '*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json', 'docs/**', 'appsec/**', 'security-review/**']
+    metadata:
+      dsgai_control: DSGAI08
+      dsgai_rule: P08.2
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P08.3
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI08 P08.3: Consent capture'
+    patterns:
+      - pattern-regex: '(consent_capture|capture_consent|consent_record|lawful_basis)'
+    paths:
+      include: ['*.md', '*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json', 'docs/**', 'appsec/**', 'security-review/**']
+    metadata:
+      dsgai_control: DSGAI08
+      dsgai_rule: P08.3
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P08.4
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI08 P08.4: EU AI Act annotation'
+    patterns:
+      - pattern-regex: '(ai_act_risk_level|high_risk_ai|limited_risk|minimal_risk)'
+    paths:
+      include: ['*.md', '*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json', 'docs/**', 'appsec/**', 'security-review/**']
+    metadata:
+      dsgai_control: DSGAI08
+      dsgai_rule: P08.4
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P08.5
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI08 P08.5: Audit logging'
+    patterns:
+      - pattern-regex: '(audit_log|decision_log|audit_trail)'
+    paths:
+      include: ['*.md', '*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json', 'docs/**', 'appsec/**', 'security-review/**']
+    metadata:
+      dsgai_control: DSGAI08
+      dsgai_rule: P08.5
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P08.6
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI08 P08.6: Do-not-track honored'
+    patterns:
+      - pattern-regex: '(do_not_track|opt_out|DNT)'
+    paths:
+      include: ['*.md', '*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json', 'docs/**', 'appsec/**', 'security-review/**']
+    metadata:
+      dsgai_control: DSGAI08
+      dsgai_rule: P08.6
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P09.1
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI09 P09.1: EXIF / metadata strip'
+    patterns:
+      - pattern-regex: '(strip_exif|remove_metadata|PIL\.Image|exifread|piexif)'
+    paths:
+      include: ['*.py', '*.ts', '*.java']
+    metadata:
+      dsgai_control: DSGAI09
+      dsgai_rule: P09.1
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P09.2
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI09 P09.2: Image PII / moderation'
+    patterns:
+      - pattern-regex: '(detect_pii_in_image|content_filter|nsfw_detect|moderate_image)'
+    paths:
+      include: ['*.py', '*.ts', '*.java']
+    metadata:
+      dsgai_control: DSGAI09
+      dsgai_rule: P09.2
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P09.3
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI09 P09.3: MIME / file type validation'
+    patterns:
+      - pattern-regex: '(allowed_types|mime_type_check|magic\.from_buffer|filetype\.guess)'
+    paths:
+      include: ['*.py', '*.ts', '*.java']
+    metadata:
+      dsgai_control: DSGAI09
+      dsgai_rule: P09.3
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P09.4
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI09 P09.4: Size limit on upload'
+    patterns:
+      - pattern-regex: '(max_upload_size|MAX_FILE_SIZE|content[._-]length[._-]limit)'
+    paths:
+      include: ['*.py', '*.ts', '*.java']
+    metadata:
+      dsgai_control: DSGAI09
+      dsgai_rule: P09.4
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P09.5
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI09 P09.5: Steganography detection'
+    patterns:
+      - pattern-regex: '(stego|steganography|stegano|lsb_detect)'
+    paths:
+      include: ['*.py', '*.ts', '*.java']
+    metadata:
+      dsgai_control: DSGAI09
+      dsgai_rule: P09.5
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P10.1
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI10 P10.1: Membership inference test'
+    patterns:
+      - pattern-regex: '(membership_inference|mia_test|mia_attack)'
+    paths:
+      include: ['*.py', '*.ipynb', '*.r']
+    metadata:
+      dsgai_control: DSGAI10
+      dsgai_rule: P10.1
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P10.2
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI10 P10.2: Anonymity validation'
+    patterns:
+      - pattern-regex: '(k_anonymity|l_diversity|t_closeness|anonymization_check)'
+    paths:
+      include: ['*.py', '*.ipynb', '*.r']
+    metadata:
+      dsgai_control: DSGAI10
+      dsgai_rule: P10.2
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P10.3
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI10 P10.3: Privacy-preserving lib'
+    patterns:
+      - pattern-regex: '(SDV|gretel|synthetic_data_vault|smartnoise)'
+    paths:
+      include: ['*.py', '*.ipynb', '*.r']
+    metadata:
+      dsgai_control: DSGAI10
+      dsgai_rule: P10.3
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P10.4
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI10 P10.4: DP noise in generation'
+    patterns:
+      - pattern-regex: '(epsilon\s*=|noise_multiplier\s*=|dp_noise|laplace_noise|gaussian_noise)'
+    paths:
+      include: ['*.py', '*.ipynb', '*.r']
+    metadata:
+      dsgai_control: DSGAI10
+      dsgai_rule: P10.4
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P10.5
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI10 P10.5: Re-identification risk note'
+    patterns:
+      - pattern-regex: '(reidentification_risk|reid_check|disclosure_risk)'
+    paths:
+      include: ['*.py', '*.ipynb', '*.r']
+    metadata:
+      dsgai_control: DSGAI10
+      dsgai_rule: P10.5
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P11.1
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI11 P11.1: Vector query call sites'
+    patterns:
+      - pattern-regex: '(similarity_search|max_marginal_relevance_search|as_retriever|(vectorstore|vector_store|retriever|index|collection|client)\.(query|search)\()'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI11
+      dsgai_rule: P11.1
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P11.2
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI11 P11.2: Tenant filter present (PASS)'
+    patterns:
+      - pattern-regex: '(?m)(namespace\s*=[^,)]{0,40}tenant|collection[^=]{0,20}=\s*f?["''][^"'']*\{?tenant|filter\s*=\s*\{[^}]*tenant)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI11
+      dsgai_rule: P11.2
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P11.3
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI11 P11.3: Tenant verification (PASS)'
+    patterns:
+      - pattern-regex: '(tenant_id\s*in\s*session|verify_tenant|assert_tenant|check_tenant|require_tenant)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI11
+      dsgai_rule: P11.3
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P11.4
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI11 P11.4: Cross-tenant cache risk'
+    patterns:
+      - pattern-regex: '(global[._-]cache|shared[._-]prompt[._-]cache|@cache(?!\s*\(.*tenant))'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI11
+      dsgai_rule: P11.4
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P12.1
+    languages: [generic]
+    severity: ERROR
+    message: 'DSGAI12 P12.1: Raw LLM-output execution (FAIL)'
+    patterns:
+      - pattern-regex: '(?m)(?:\.execute|\.run_query|executemany)\(\s*(?:f["'']|[^),]*\b(llm_\w*|completion\w*|generated_sql|generated_query|\w*\.content)\b)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI12
+      dsgai_rule: P12.1
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P12.2
+    languages: [generic]
+    severity: ERROR
+    message: 'DSGAI12 P12.2: LangChain SQL agent (FAIL signal)'
+    patterns:
+      - pattern-regex: '(SQLDatabaseChain|create_sql_agent|SQLDatabaseToolkit)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI12
+      dsgai_rule: P12.2
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P12.3
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI12 P12.3: Parameterized query (PASS)'
+    patterns:
+      - pattern-regex: '(?m)(cursor\.execute\([^)]+,\s*[\[\(]|prepareStatement|bindValue|:param)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI12
+      dsgai_rule: P12.3
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P12.4
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI12 P12.4: Read-only conn (PASS)'
+    patterns:
+      - pattern-regex: '(read_only\s*=\s*True|readonly\s*=\s*True|read_only_connection|default_transaction_read_only)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI12
+      dsgai_rule: P12.4
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P12.5
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI12 P12.5: Query validator (PASS)'
+    patterns:
+      - pattern-regex: '(validate_query|query_validator|safe_sql|sql_guard|sanitize_sql)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI12
+      dsgai_rule: P12.5
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P12.6
+    languages: [generic]
+    severity: ERROR
+    message: 'DSGAI12 P12.6: DDL from agent (FAIL)'
+    patterns:
+      - pattern-regex: '\b(DROP\s+TABLE|TRUNCATE|ALTER\s+TABLE|DELETE\s+FROM)\b'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI12
+      dsgai_rule: P12.6
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P12.7
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI12 P12.7: Row limit (PASS)'
+    patterns:
+      - pattern-regex: '(LIMIT\s+\d+|max_rows\s*=|fetch_limit\s*=)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI12
+      dsgai_rule: P12.7
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P16.2
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI16 P16.2: Sensitive paths excluded'
+    patterns:
+      - pattern-regex: '(\.env|secrets|credentials|\.aws|\.ssh|private_key)'
+    paths:
+      include: ['.copilotignore', '.aiignore', '.cursorignore', '.continueignore', '.codeiumignore', '.vscode/settings.json', 'cursor.json', 'continue.json']
+    metadata:
+      dsgai_control: DSGAI16
+      dsgai_rule: P16.2
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P16.3
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI16 P16.3: Telemetry off (PASS)'
+    patterns:
+      - pattern-regex: '(?m)(telemetry[^\n]{0,10}(off|false|disabled)|share_data\s*[:=]\s*false)'
+    paths:
+      include: ['.copilotignore', '.aiignore', '.cursorignore', '.continueignore', '.codeiumignore', '.vscode/settings.json', 'cursor.json', 'continue.json']
+    metadata:
+      dsgai_control: DSGAI16
+      dsgai_rule: P16.3
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P16.4
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI16 P16.4: Context scope limits'
+    patterns:
+      - pattern-regex: '(contextWindow|ignorePaths|excludeFiles|maxContextLines)'
+    paths:
+      include: ['.copilotignore', '.aiignore', '.cursorignore', '.continueignore', '.codeiumignore', '.vscode/settings.json', 'cursor.json', 'continue.json']
+    metadata:
+      dsgai_control: DSGAI16
+      dsgai_rule: P16.4
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P17.1
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI17 P17.1: Circuit breaker (PASS)'
+    patterns:
+      - pattern-regex: '(CircuitBreaker|@circuit|tenacity|resilience4j|pybreaker)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI17
+      dsgai_rule: P17.1
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P17.2
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI17 P17.2: Retry with backoff (PASS)'
+    patterns:
+      - pattern-regex: '(retry\s*\(|@retry|exponential_backoff|max_retries\s*=|backoff_factor\s*=|retry_with_backoff)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI17
+      dsgai_rule: P17.2
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P17.3
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI17 P17.3: Timeout on LLM call (PASS)'
+    patterns:
+      - pattern-regex: '(?m)(timeout\s*=\s*\d|request_timeout\s*=|httpx\.[^\n]{0,30}timeout)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI17
+      dsgai_rule: P17.3
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P17.4
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI17 P17.4: Rate limit incoming (PASS)'
+    patterns:
+      - pattern-regex: '(rate_limit|@throttle|RateLimiter|slowapi|flask_limiter|express-rate-limit)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI17
+      dsgai_rule: P17.4
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P17.5
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI17 P17.5: Fallback response (PASS)'
+    patterns:
+      - pattern-regex: '(fallback_response|default_response|graceful_degradation|on_failure_return)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI17
+      dsgai_rule: P17.5
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P17.6
+    languages: [generic]
+    severity: ERROR
+    message: 'DSGAI17 P17.6: Unbounded retry (FAIL)'
+    patterns:
+      - pattern-regex: '(?m)while\s+True[^}]{0,200}(generate|complete|chat)|retry\s*\(\s*\)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI17
+      dsgai_rule: P17.6
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P18.1
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI18 P18.1: Output guardrails (PASS)'
+    patterns:
+      - pattern-regex: '(guardrails|nemo[._-]guardrails|llm_guard|output_guard|filter_output|sanitize_response|moderation)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI18
+      dsgai_rule: P18.1
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P18.2
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI18 P18.2: PII detection on output'
+    patterns:
+      - pattern-regex: '(?m)(detect_pii[^\n]{0,20}output|output[^\n]{0,20}detect_pii|presidio[^\n]{0,20}output|scan_output)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI18
+      dsgai_rule: P18.2
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P18.3
+    languages: [generic]
+    severity: WARNING
+    message: 'DSGAI18 P18.3: Logprobs exposed (WARN)'
+    patterns:
+      - pattern-regex: '(logprobs\s*=\s*True|return_logprobs\s*=\s*True|include_logprobs\s*=\s*True|top_logprobs\s*=\s*\d)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI18
+      dsgai_rule: P18.3
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P18.4
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI18 P18.4: LLM call sites (count)'
+    patterns:
+      - pattern-regex: '(\.chat\.completions\.create|client\.messages\.create|openai\.ChatCompletion|anthropic\.messages|generate_content|chat\.complete)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI18
+      dsgai_rule: P18.4
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P18.5
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI18 P18.5: max_tokens set (PASS)'
+    patterns:
+      - pattern-regex: 'max_tokens\s*=\s*\d+'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
+    metadata:
+      dsgai_control: DSGAI18
+      dsgai_rule: P18.5
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P19.1
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI19 P19.1: Anonymization before export'
+    patterns:
+      - pattern-regex: '(anonymize_for_labeling|pseudonymize|redact_before_export|mask_for_labeling)'
+    paths:
+      include: ['*.py', '*.ipynb', '*.ts', '*.yaml']
+    metadata:
+      dsgai_control: DSGAI19
+      dsgai_rule: P19.1
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P19.2
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI19 P19.2: Labeling SDK auth from vault'
+    patterns:
+      - pattern-regex: '(?m)(label_studio[^\n]{0,30}vault|labelbox[^\n]{0,30}secret|scale_api_key[^\n]{0,30}(vault|env))'
+    paths:
+      include: ['*.py', '*.ipynb', '*.ts', '*.yaml']
+    metadata:
+      dsgai_control: DSGAI19
+      dsgai_rule: P19.2
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P19.3
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI19 P19.3: Labeling access audit'
+    patterns:
+      - pattern-regex: '(label[._-]audit|labeling_access_log|annotator_audit)'
+    paths:
+      include: ['*.py', '*.ipynb', '*.ts', '*.yaml']
+    metadata:
+      dsgai_control: DSGAI19
+      dsgai_rule: P19.3
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P19.4
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI19 P19.4: Re-identification post-label'
+    patterns:
+      - pattern-regex: '(reid_check_post_label|labeling_reidentification|post_label_validation)'
+    paths:
+      include: ['*.py', '*.ipynb', '*.ts', '*.yaml']
+    metadata:
+      dsgai_control: DSGAI19
+      dsgai_rule: P19.4
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P20.1
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI20 P20.1: API auth required (PASS)'
+    patterns:
+      - pattern-regex: '(?m)(api_key[^\n]{0,15}(verify|validate)|bearer_token[^\n]{0,15}validate|Authorization[^\n]{0,15}required|@require_auth|auth_middleware|Depends\(.*auth)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
+    metadata:
+      dsgai_control: DSGAI20
+      dsgai_rule: P20.1
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P20.2
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI20 P20.2: Rate limit (PASS)'
+    patterns:
+      - pattern-regex: '(rate_limit|RateLimiter|@throttle|slowapi|flask_limiter|express-rate-limit|@limiter\.limit)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
+    metadata:
+      dsgai_control: DSGAI20
+      dsgai_rule: P20.2
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P20.3
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI20 P20.3: Input length validation (PASS)'
+    patterns:
+      - pattern-regex: '(max_input_length\s*=|max_input_tokens\s*=|input[._-]truncat|validate[._-]length)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
+    metadata:
+      dsgai_control: DSGAI20
+      dsgai_rule: P20.3
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P20.4
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI20 P20.4: Prompt injection detect (PASS)'
+    patterns:
+      - pattern-regex: '(prompt_injection_detect|detect_injection|llm_guard|rebuff|input_guard|nemo[._-]guard)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
+    metadata:
+      dsgai_control: DSGAI20
+      dsgai_rule: P20.4
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P20.5
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI20 P20.5: Inference endpoint (count)'
+    patterns:
+      - pattern-regex: '(?m)(@app\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict)|@router\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict)|app\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict))'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
+    metadata:
+      dsgai_control: DSGAI20
+      dsgai_rule: P20.5
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P21.1
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI21 P21.1: Read-only retrieval (PASS)'
+    patterns:
+      - pattern-regex: '(?m)(read_only\s*=\s*True|readonly\s*=\s*True|HttpMethod\.GET|http_method[^\n]{0,10}get)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt']
+    metadata:
+      dsgai_control: DSGAI21
+      dsgai_rule: P21.1
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P21.2
+    languages: [generic]
+    severity: WARNING
+    message: 'DSGAI21 P21.2: KB write from agent (WARN)'
+    patterns:
+      - pattern-regex: '(?m)(chromadb|qdrant|pinecone|weaviate|knowledge_base|kb_client)[^\n]{0,40}\.(upsert|insert|update|delete|add_documents|write)\('
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt']
+    metadata:
+      dsgai_control: DSGAI21
+      dsgai_rule: P21.2
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P21.3
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI21 P21.3: Write content validation'
+    patterns:
+      - pattern-regex: '(validate_content|sanitize[._-]write|verify[._-]knowledge|content[._-]check[._-]write)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt']
+    metadata:
+      dsgai_control: DSGAI21
+      dsgai_rule: P21.3
+      confidence: low
+      framework: 'dsgai-2026-v1.0'
+  - id: dsgai-P21.4
+    languages: [generic]
+    severity: INFO
+    message: 'DSGAI21 P21.4: KB versioning (PASS)'
+    patterns:
+      - pattern-regex: '(versioned\s*=\s*True|audit_writes|version_id|kb_audit|knowledge[._-]audit)'
+    paths:
+      include: ['*.py', '*.ts', '*.java', '*.kt']
+    metadata:
+      dsgai_control: DSGAI21
+      dsgai_rule: P21.4
+      confidence: medium
+      framework: 'dsgai-2026-v1.0'
