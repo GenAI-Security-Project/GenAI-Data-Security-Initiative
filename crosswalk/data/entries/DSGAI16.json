@@ -579,6 +579,69 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Monitor for privacy degradation indicators; detect inference attacks, re-identification attempts, and memorisation in model outputs"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.1.3",
+      "control_name": "Verify that locally launched MCP servers run in a least-privilege sandbox with restricted file system, network, and system access.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c101-component-integrity",
+      "notes": "Level 2. Locally launched MCP servers run in a least-privilege sandbox with restricted file system, network and system access, the direct control for local assistant overreach"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.4.7",
+      "control_name": "Verify that MCP clients present users with explicit consent dialogue and cancellation options upon installation of a local MCP server.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c104-schema-message-and-input-validation",
+      "notes": "Level 2. MCP clients present users with explicit consent dialogue and cancellation options upon installation of a local MCP server"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.1",
+      "control_name": "Verify that each tool/plugin executes in a least-privilege sandbox or is otherwise isolated from model operations.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 1. Each tool or plugin executes in a least-privilege sandbox or is isolated from model operations"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "4.3.3",
+      "control_name": "Verify that inference runtimes enforce process, memory, and file access isolation.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C04-Infrastructure.md#c43-edge--distributed-ai-security",
+      "notes": "Level 3. Inference runtimes enforce process, memory and file access isolation"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.2.1",
+      "control_name": "Verify that the agent runtime blocks execution of privileged, high-impact, or irreversible actions until explicit human approval is received and ve...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c92-high-impact-action-approval-and-irreversibility-controls",
+      "notes": "Level 1. Agent runtime blocks privileged, high-impact or irreversible actions until explicit human approval is received and verified"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "7.3.3",
+      "control_name": "Verify that model-generated output is prevented from triggering outbound requests.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C07-Model-Behavior.md#c73-output-safety",
+      "notes": "Level 2. Model-generated output prevented from triggering outbound requests, the exfiltration-to-provider path"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "4.3.1",
+      "control_name": "Verify that edge AI devices authenticate to central infrastructure using strong authentication mechanisms.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C04-Infrastructure.md#c43-edge--distributed-ai-security",
+      "notes": "Level 1. Edge AI devices authenticate to central infrastructure using strong authentication mechanisms"
     }
   ],
   "tools": [

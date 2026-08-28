@@ -672,6 +672,60 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Include AI supply chain disruption scenarios in resilience testing; test fallback procedures for third-party AI service failures"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "7.1.1",
+      "control_name": "Verify that the application validates all model outputs against a defined schema and rejects any output that does not match.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C07-Model-Behavior.md#c71-output-format-enforcement",
+      "notes": "Level 1. All model outputs validated against a defined schema, non-matching output rejected"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "7.1.2",
+      "control_name": "Verify that model-generated output is bounded by length limits and termination controls.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C07-Model-Behavior.md#c71-output-format-enforcement",
+      "notes": "Level 1. Model-generated output bounded by length limits and termination controls"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "7.3.3",
+      "control_name": "Verify that model-generated output is prevented from triggering outbound requests.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C07-Model-Behavior.md#c73-output-safety",
+      "notes": "Level 2. Model-generated output prevented from triggering outbound requests"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.2",
+      "control_name": "Verify that tool outputs are validated against schemas.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 1. Tool outputs validated against schemas before the agent consumes them"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.6",
+      "control_name": "Verify that there is architectural separation between processing of untrusted tool outputs and agent operations.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 2. Architectural separation between processing of untrusted tool outputs and agent operations"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "7.3.4",
+      "control_name": "Verify that model outputs are checked for hidden, encoded, or misleading content created through homoglyphs, formatting, metadata, or structured fi...",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C07-Model-Behavior.md#c73-output-safety",
+      "notes": "Level 3. Outputs checked for hidden, encoded or misleading content via homoglyphs, formatting, metadata or structured fields"
     }
   ],
   "tools": [

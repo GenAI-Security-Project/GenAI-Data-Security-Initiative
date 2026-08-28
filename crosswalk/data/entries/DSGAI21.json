@@ -744,6 +744,78 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Map all AI data subject to regulatory requirements; ensure complete coverage in compliance programme"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "1.3.1",
+      "control_name": "Verify that training and fine-tuning pipelines implement poisoning detection techniques to identify potential data poisoning or unintentional corru...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C01-Training-Data-Integrity-and-Traceability.md#c13-training-data-quality-and-security-assurance",
+      "notes": "Level 2. Training and fine-tuning pipelines implement poisoning detection"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "1.3.4",
+      "control_name": "Verify that disallowed content is detected and removed before training.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C01-Training-Data-Integrity-and-Traceability.md#c13-training-data-quality-and-security-assurance",
+      "notes": "Level 2. Disallowed content detected and removed before training"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "1.1.2",
+      "control_name": "Verify that an up-to-date inventory is kept of every training-data source, including its origin, responsible party, license, collection method, int...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C01-Training-Data-Integrity-and-Traceability.md#c11-training-data-origin--data-security",
+      "notes": "Level 2. Current inventory of every training-data source with origin, responsible party and collection method, enabling attribution of an injected corpus"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.2.4",
+      "control_name": "Verify that content crafted to manipulate retrieval results is detected and rejected or quarantined before vectorization.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c82-embedding-sanitization--validation",
+      "notes": "Level 3. Content crafted to manipulate retrieval results detected and rejected or quarantined before vectorization, the RAG-corpus disinformation path"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "1.3.5",
+      "control_name": "Verify that defenses against clean-label poisoning attacks are implemented.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C01-Training-Data-Integrity-and-Traceability.md#c13-training-data-quality-and-security-assurance",
+      "notes": "Level 3. Clean-label poisoning defenses, which is the form targeted disinformation injection usually takes"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "7.4.1",
+      "control_name": "Verify that responses generated using retrieval-augmented generation (RAG) include attribution to the source documents.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C07-Model-Behavior.md#c74-source-attribution--citation-integrity",
+      "notes": "Level 1. RAG responses include attribution to the source documents, letting a reader check a poisoned claim against its source"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.3.2",
+      "control_name": "Verify that hallucination detection monitors identify and flag model outputs that contain factually incorrect, inconsistent, or fabricated informat...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c123-model-data-and-performance-drift-detection",
+      "notes": "Level 2. Hallucination detection monitors identify and flag factually incorrect, inconsistent or fabricated output"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "7.4.4",
+      "control_name": "Verify that generated media is watermarked to prove it was AI-generated.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C07-Model-Behavior.md#c74-source-attribution--citation-integrity",
+      "notes": "Level 3. Generated media watermarked to prove it was AI-generated"
     }
   ],
   "tools": [

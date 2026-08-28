@@ -676,6 +676,78 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Include cascading automation risk in ICT risk management; define acceptable multi-agent coupling thresholds and circuit breaker requirements"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.1.3",
+      "control_name": "Verify that a swarm-level kill-switch exists that can halt all active agent instances.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c91-execution-budgets-loop-control-and-circuit-breakers",
+      "notes": "Level 2. Swarm-level kill-switch able to halt all active agent instances, the direct containment control for a propagating failure"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.1.2",
+      "control_name": "Verify that per-execution budgets (e.g., max recursion depth, token use, and monetary spend) are configured and enforced by the runtime.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c91-execution-budgets-loop-control-and-circuit-breakers",
+      "notes": "Level 1. Per-execution budgets including max recursion depth bound runaway amplification"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.1.1",
+      "control_name": "Verify that per-tool quotas and timeouts (e.g., CPU, memory, disk, egress, and execution time) are enforced.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c91-execution-budgets-loop-control-and-circuit-breakers",
+      "notes": "Level 1. Per-tool quotas and timeouts contain a single failing component"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.6.1",
+      "control_name": "Verify that a manual kill-switch mechanism exists to immediately halt AI model inference and outputs.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c96-shutdown-and-graceful-degradation",
+      "notes": "Level 1. Manual kill-switch to immediately halt model inference and outputs"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.6.3",
+      "control_name": "Verify that kill-switch commands are implemented through an out-of-band channel that is isolated from the agent runtime.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c96-shutdown-and-graceful-degradation",
+      "notes": "Level 3. Kill-switch commands implemented through an out-of-band channel isolated from the agent runtime, so containment survives runtime compromise"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.2.10",
+      "control_name": "Verify that approval gates for multi-step or multi-agent action chains enforce the highest-impact reversibility classification present anywhere in ...",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c92-high-impact-action-approval-and-irreversibility-controls",
+      "notes": "Level 3. Approval gates for multi-step or multi-agent chains enforce the highest-impact reversibility classification present anywhere in the chain"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.8",
+      "control_name": "Verify that policy violations trigger automated tool containment.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 3. Policy violations trigger automated tool containment"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.3.4",
+      "control_name": "Verify that unexplained behavioral shifts are distinguished from gradual, expected operational drift.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c123-model-data-and-performance-drift-detection",
+      "notes": "Level 3. Unexplained behavioral shifts distinguished from gradual expected operational drift, detecting cascade onset"
     }
   ],
   "tools": [

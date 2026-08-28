@@ -648,6 +648,69 @@
       "tier": "Foundational",
       "scope": "Build",
       "notes": "Monitor embedding stores for unauthorised modifications, anomalous writes, and bulk access patterns indicative of extraction or poisoning"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.1.1",
+      "control_name": "Verify that vector identifiers and namespaces enforce uniqueness per tenant and prevent cross-tenant collisions.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c81-access-controls-on-memory--rag-indices",
+      "notes": "Level 1. Vector identifiers and namespaces enforce per-tenant uniqueness and prevent cross-tenant collisions"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.1.3",
+      "control_name": "Verify that retrieval operations enforce scope constraints.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c81-access-controls-on-memory--rag-indices",
+      "notes": "Level 2. Retrieval operations enforce scope constraints"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.2.1",
+      "control_name": "Verify that sensitive fields are detected before embedding and are masked, tokenized, or dropped.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c82-embedding-sanitization--validation",
+      "notes": "Level 1. Sensitive fields detected before embedding and masked, tokenized or dropped"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.1.2",
+      "control_name": "Verify that document metadata tags are immutable after the initial write.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c81-access-controls-on-memory--rag-indices",
+      "notes": "Level 2. Document metadata tags immutable after initial write, blocking post-hoc retrieval manipulation"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.2.2",
+      "control_name": "Verify that vectors that fall outside normal clustering patterns are flagged and quarantined before entering production indices.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c82-embedding-sanitization--validation",
+      "notes": "Level 2. Vectors outside normal clustering patterns flagged and quarantined before entering production indices"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.3.1",
+      "control_name": "Verify that expired vectors are excluded from retrieval results.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c83-memory-expiry--revocation",
+      "notes": "Level 2. Expired vectors excluded from retrieval results"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.2.4",
+      "control_name": "Verify that content crafted to manipulate retrieval results is detected and rejected or quarantined before vectorization.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c82-embedding-sanitization--validation",
+      "notes": "Level 3. Content crafted to manipulate retrieval results detected and rejected or quarantined before vectorization"
     }
   ],
   "tools": [

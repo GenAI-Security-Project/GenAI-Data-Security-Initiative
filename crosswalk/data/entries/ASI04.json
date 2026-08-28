@@ -683,6 +683,78 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Include agent supply chain disruption in resilience testing; test fallback procedures for third-party tool and service failures"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.1.1",
+      "control_name": "Verify that MCP components are obtained only from trusted sources and cryptographically verified.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c101-component-integrity",
+      "notes": "Level 1. MCP components obtained only from trusted sources and cryptographically verified"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.1.2",
+      "control_name": "Verify that only allow-listed MCP servers are permitted.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c101-component-integrity",
+      "notes": "Level 2. Only allow-listed MCP servers permitted"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "6.1.2",
+      "control_name": "Verify that model weights, datasets, and fine-tuning adapters are downloaded only from approved sources.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C06-Supply-Chain.md#c61-model-artifact-integrity",
+      "notes": "Level 1. Model weights, datasets and adapters downloaded only from approved sources"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "6.2.1",
+      "control_name": "Verify that every model artifact publishes a version-controlled, machine-readable AI BOM listing datasets, weights, licenses, and data-origin state...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C06-Supply-Chain.md#c62-ai-bom--supply-chain-monitoring",
+      "notes": "Level 1. Version-controlled machine-readable AI BOM per model artifact, giving the static inventory this risk says is usually missing"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.7",
+      "control_name": "Verify that external resources named in model output are verified against an approved allow-list or registry before the agent installs or invokes t...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 2. External resources named in model output verified against an approved allow-list or registry before the agent installs or invokes them, covering runtime-fetched components"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.1.3",
+      "control_name": "Verify that locally launched MCP servers run in a least-privilege sandbox with restricted file system, network, and system access.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c101-component-integrity",
+      "notes": "Level 2. Locally launched MCP servers run in a least-privilege sandbox with restricted file system, network and system access"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "6.1.3",
+      "control_name": "Verify that every third-party model artifact can be integrity-verified.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C06-Supply-Chain.md#c61-model-artifact-integrity",
+      "notes": "Level 2. Every third-party model artifact is integrity-verifiable"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.4.8",
+      "control_name": "Verify that MCP clients maintain a snapshot of tool definitions and that any change to a tool definition triggers re-approval before the modified t...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c104-schema-message-and-input-validation",
+      "notes": "Level 3. Tool definition snapshot maintained and any change triggers re-approval before the modified tool can be invoked, the rug-pull control"
     }
   ],
   "tools": [

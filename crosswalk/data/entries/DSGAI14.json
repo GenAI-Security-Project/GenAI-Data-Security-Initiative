@@ -569,6 +569,60 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Monitor for AI processing inconsistent with consent status; alert on violations"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.1.3",
+      "control_name": "Verify that log entries for AI inference events follow a structured, interoperable schema that includes at least the model identifier, token usage ...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c121-request--response-logging",
+      "notes": "Level 2. Log entries for inference events follow a structured, interoperable schema with a defined field set (model identifier, token usage, provider, operation type), bounding what telemetry carries"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.5.4",
+      "control_name": "Verify that secrets and credentials required by an agent at runtime are not exposed within the model's observable context, including the context wi...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c95-agent-authorization-delegation-and-continuous-enforcement",
+      "notes": "Level 2. Secrets and credentials not exposed within the model observable context including tool call parameters, which are a primary source of credentials reaching logs"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "5.2.7",
+      "control_name": "Verify that data classification labels propagate to downstream resources (embeddings, prompt caches, model outputs).",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C05-Access-Control-and-Identity.md#c52-ai-resource-authorization--classification",
+      "notes": "Level 3. Data classification labels propagate to downstream resources, so sensitive content retains its handling requirement when it reaches telemetry"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "1.2.3",
+      "control_name": "Verify that sensitive information in labels is redacted, anonymized, or encrypted before being used in any labeling artifact.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C01-Training-Data-Integrity-and-Traceability.md#c12-data-labeling-and-annotation-security",
+      "notes": "Level 2. Sensitive information redacted, anonymized or encrypted before being used in any labeling artifact"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.1.4",
+      "control_name": "Verify that RAG pipeline retrieval events are logged, including the query, documents retrieved, and knowledge source.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c121-request--response-logging",
+      "notes": "Level 2. RAG retrieval events logged with query, documents retrieved and knowledge source, which is exactly the high-value content this risk says logging infrastructure accumulates"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.1.2",
+      "control_name": "Verify that safety filtering and policy decisions are logged with sufficient detail to support audit, debugging, and forensic analysis of content m...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c121-request--response-logging",
+      "notes": "Level 2. Safety filtering and policy decisions logged with sufficient detail for audit, debugging and forensics, scoping moderation telemetry to a defined purpose"
     }
   ],
   "tools": [

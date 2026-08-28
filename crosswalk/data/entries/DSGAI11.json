@@ -554,6 +554,60 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Enforce retention policies through automated deletion and crypto-shredding; prevent retention beyond defined periods"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "5.3.1",
+      "control_name": "Verify that shared model serving infrastructure prevents one tenant's fine-tuning, inference, or embedding operations from influencing or observing...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C05-Access-Control-and-Identity.md#c53-multi-tenant-isolation",
+      "notes": "Level 2. Shared model serving infrastructure prevents one tenant fine-tuning, inference or embedding operations from influencing or observing another tenant, the direct control"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.1.1",
+      "control_name": "Verify that vector identifiers and namespaces enforce uniqueness per tenant and prevent cross-tenant collisions.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c81-access-controls-on-memory--rag-indices",
+      "notes": "Level 1. Vector identifiers and namespaces enforce per-tenant uniqueness and prevent cross-tenant collisions"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "3.3.3",
+      "control_name": "Verify that model versions running in parallel use isolated runtime state so that AI-specific shared resources are not shared across deployments.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C03-Model-Lifecycle-Management.md#c33-controlled-deployment--rollback",
+      "notes": "Level 2. Model versions running in parallel use isolated runtime state so AI-specific shared resources are not shared across deployments"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.2.6",
+      "control_name": "Verify that MCP servers ensure all session artifacts are removed when a session terminates.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c102-authentication--authorization",
+      "notes": "Level 2. MCP servers ensure all session artifacts are removed when a session terminates"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.3.2",
+      "control_name": "Verify that memory can be reset.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c83-memory-expiry--revocation",
+      "notes": "Level 2. Memory can be reset, so residual context from a prior session can be cleared rather than carried into the next"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "5.3.2",
+      "control_name": "Verify that one tenant cannot influence or observe another tenant's operations through shared compute resources. Satisfying this requirement typica...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C05-Access-Control-and-Identity.md#c53-multi-tenant-isolation",
+      "notes": "Level 3. Hardware partitioning, confidential computing or dedicated per-tenant compute so one tenant cannot influence or observe another through shared compute"
     }
   ],
   "tools": [

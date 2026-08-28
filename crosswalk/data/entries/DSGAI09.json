@@ -564,6 +564,51 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Deploy detection for IP exfiltration attempts; monitor model weight access and download patterns"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "2.2.3",
+      "control_name": "Verify that non-text inputs (image/video/audio) are checked for adversarial perturbations, steganographic payloads, hidden or embedded content, or ...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C02-Input-Validation.md#c22-content--policy-screening",
+      "notes": "Level 2. Non-text inputs including image, video and audio checked for adversarial perturbations, steganographic payloads, hidden or embedded content and known attack patterns, the direct control for the modality gap this risk names"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "2.2.4",
+      "control_name": "Verify that coordinated attacks spanning multiple input types (e.g., steganographic payloads in images combined with prompt injection in text) are ...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C02-Input-Validation.md#c22-content--policy-screening",
+      "notes": "Level 3. Coordinated attacks spanning multiple input types detected and blocked"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "7.3.4",
+      "control_name": "Verify that model outputs are checked for hidden, encoded, or misleading content created through homoglyphs, formatting, metadata, or structured fi...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C07-Model-Behavior.md#c73-output-safety",
+      "notes": "Level 3. Outputs checked for hidden, encoded or misleading content created through homoglyphs, formatting, metadata or structured fields"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.2.1",
+      "control_name": "Verify that sensitive fields are detected before embedding and are masked, tokenized, or dropped.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c82-embedding-sanitization--validation",
+      "notes": "Level 1. Sensitive fields detected before embedding and masked, tokenized or dropped, applied to extracted multimodal content"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "5.2.4",
+      "control_name": "Verify that post-inference filtering mechanisms prevent responses from including data that the requester is not authorized to receive.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C05-Access-Control-and-Identity.md#c52-ai-resource-authorization--classification",
+      "notes": "Level 2. Post-inference filtering prevents responses including data the requester is not authorized to receive"
     }
   ],
   "tools": [

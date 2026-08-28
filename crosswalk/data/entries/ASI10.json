@@ -698,6 +698,87 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Monitor agent dependency health in real time — API availability, response latency, error rates; alert on degradation and trigger fallback procedures"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.1.1",
+      "control_name": "Verify that AI interactions are logged with session context and AI-specific telemetry.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c121-request--response-logging",
+      "notes": "Level 1. AI interactions logged with session context and AI-specific telemetry, the foundational visibility control"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.2.2",
+      "control_name": "Verify that behavioral anomaly detection identifies unusual conversation patterns, excessive retry attempts, or probing behaviors.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c122-detection-and-alerting",
+      "notes": "Level 2. Behavioral anomaly detection identifies unusual conversation patterns, excessive retry attempts and probing behaviors"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.4.2",
+      "control_name": "Verify that agent-initiated actions are cryptographically bound to each step of the execution chain for non-repudiation.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c94-agent-and-orchestrator-identity",
+      "notes": "Level 2. Agent-initiated actions cryptographically bound to each step of the execution chain for non-repudiation"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.6.1",
+      "control_name": "Verify that a manual kill-switch mechanism exists to immediately halt AI model inference and outputs.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c96-shutdown-and-graceful-degradation",
+      "notes": "Level 1. Manual kill-switch to immediately halt inference and outputs"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.2.5",
+      "control_name": "Verify that any self-modification capability (e.g., prompt rewriting, tool-list changes, parameter updates) is restricted by enforceable boundaries.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c92-high-impact-action-approval-and-irreversibility-controls",
+      "notes": "Level 2. Self-modification capability restricted by enforceable boundaries, blocking a compromised agent from widening its own scope"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.4.1",
+      "control_name": "Verify that autonomous action triggers include proactive behavior-pattern analysis, security evaluation, and threat-landscape assessment.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c124-proactive-security-behavior-monitoring",
+      "notes": "Level 2. Autonomous action triggers include proactive behavior-pattern analysis, security evaluation and threat-landscape assessment"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.4.3",
+      "control_name": "Verify that kill-switch activations and override commands are logged.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c124-proactive-security-behavior-monitoring",
+      "notes": "Level 2. Kill-switch activations and override commands logged"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.2.6",
+      "control_name": "Verify that LLM API traffic is monitored for covert-channel indicators and communication signatures to identify malware and command-and-control (C2...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c122-detection-and-alerting",
+      "notes": "Level 3. LLM API traffic monitored for covert-channel indicators and C2 communication signatures"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.5.3",
+      "control_name": "Verify that all model changes generate immutable audit records.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c125-training-data--model-lifecycle-audit",
+      "notes": "Level 2. All model changes generate immutable audit records, so a silent substitution behind a compliant-looking agent is detectable"
     }
   ],
   "tools": [

@@ -593,6 +593,69 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Map ownership for all AI data assets; document rights, restrictions, and licensing for training data and outputs"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.5.3",
+      "control_name": "Verify that all access control decisions are enforced by application logic or a policy engine, never by the AI model itself.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c95-agent-authorization-delegation-and-continuous-enforcement",
+      "notes": "Level 2. All access control decisions enforced by application logic or a policy engine, never by the AI model itself, the direct answer to NL-to-query authorization bypass"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "5.2.2",
+      "control_name": "Verify that retrieval pipelines (e.g., RAG queries, embedding lookups) enforce the end-user's authorization context at each retrieval and assembly ...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C05-Access-Control-and-Identity.md#c52-ai-resource-authorization--classification",
+      "notes": "Level 2. Retrieval pipelines enforce the end-user authorization context at each retrieval and assembly stage rather than the service account permissions"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.5.1",
+      "control_name": "Verify that agent actions are authorized against fine-grained policies enforced by the runtime that restrict which tools an agent may invoke, and w...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c95-agent-authorization-delegation-and-continuous-enforcement",
+      "notes": "Level 2. Fine-grained runtime policy over which tools an agent may invoke and which parameter values it may supply, constraining generated queries"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "2.1.3",
+      "control_name": "Verify that all inputs that could steer model behavior are treated as untrusted and screened by a prompt injection detection ruleset or classifier,...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C02-Input-Validation.md#c21-prompt-injection-defenses",
+      "notes": "Level 1. All inputs able to steer model behavior screened by an injection ruleset or classifier"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.2",
+      "control_name": "Verify that tool outputs are validated against schemas.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 1. Tool outputs validated against schemas"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "5.2.4",
+      "control_name": "Verify that post-inference filtering mechanisms prevent responses from including data that the requester is not authorized to receive.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C05-Access-Control-and-Identity.md#c52-ai-resource-authorization--classification",
+      "notes": "Level 2. Post-inference filtering prevents responses including data the requester is not authorized to receive"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.2.3",
+      "control_name": "Verify that each high-impact action has a trusted reversibility classification, such as read-only, reversible, externally reversible, or irreversible.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c92-high-impact-action-approval-and-irreversibility-controls",
+      "notes": "Level 2. High-impact actions carry a trusted reversibility classification, distinguishing read queries from data-store mutations"
     }
   ],
   "tools": [

@@ -667,6 +667,69 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Include emerging agentic architecture security in resilience testing; assess novel patterns for resilience implications before production deployment"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.2.2",
+      "control_name": "Verify that approval requests display canonicalized and complete action parameters, such as diffs, commands, recipients, amounts, resources, and sc...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c92-high-impact-action-approval-and-irreversibility-controls",
+      "notes": "Level 2. Approval requests display canonicalized and complete action parameters including diffs, commands, recipients, amounts, resources and scopes, without truncation or unsafe transformation, so the approver sees what they are actually approving"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.6.2",
+      "control_name": "Verify that when a human-approval gate is not satisfied within the defined approval time, the system blocks the pending action.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c96-shutdown-and-graceful-degradation",
+      "notes": "Level 2. Pending action blocked when a human-approval gate is not satisfied within the defined approval time, removing approval-fatigue pressure"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.2.7",
+      "control_name": "Verify that the AI-augmented review mechanism is protected against manipulation by adversarial inputs, and cannot be overridden or bypassed through...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c92-high-impact-action-approval-and-irreversibility-controls",
+      "notes": "Level 2. AI-augmented review mechanism protected against adversarial manipulation and cannot be overridden through prompt injection"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "7.4.1",
+      "control_name": "Verify that responses generated using retrieval-augmented generation (RAG) include attribution to the source documents.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C07-Model-Behavior.md#c74-source-attribution--citation-integrity",
+      "notes": "Level 1. RAG responses carry source attribution so a persuasive answer can be checked against its source"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "7.2.1",
+      "control_name": "Verify that the system assesses the reliability of generated answers using a confidence estimation method.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C07-Model-Behavior.md#c72-hallucination-detection--mitigation",
+      "notes": "Level 2. Reliability of generated answers assessed with a confidence estimation method, surfacing uncertainty against fluency"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.4.2",
+      "control_name": "Verify that audit logs capture security-critical proactive actions, including approver identity, timestamp, action parameters, and decision outcomes.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c124-proactive-security-behavior-monitoring",
+      "notes": "Level 2. Audit logs capture approver identity, timestamp, action parameters and decision outcomes"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.2.8",
+      "control_name": "Verify that approvals are cryptographically bound to action parameters, requester identity, execution context, and a unique single-use nonce.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c92-high-impact-action-approval-and-irreversibility-controls",
+      "notes": "Level 3. Approvals cryptographically bound to action parameters, requester identity, execution context and a single-use nonce, so a displayed approval cannot be swapped for a different action"
     }
   ],
   "tools": [

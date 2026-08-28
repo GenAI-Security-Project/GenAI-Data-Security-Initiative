@@ -657,6 +657,60 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Define response and recovery procedures for AI consumption incidents; include automatic throttling, failover activation, and service restoration"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.1.2",
+      "control_name": "Verify that per-execution budgets (e.g., max recursion depth, token use, and monetary spend) are configured and enforced by the runtime.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c91-execution-budgets-loop-control-and-circuit-breakers",
+      "notes": "Level 1. Per-execution budgets for max recursion depth, token use and monetary spend enforced by the runtime"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.1.1",
+      "control_name": "Verify that per-tool quotas and timeouts (e.g., CPU, memory, disk, egress, and execution time) are enforced.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c91-execution-budgets-loop-control-and-circuit-breakers",
+      "notes": "Level 1. Per-tool quotas and timeouts for CPU, memory, disk, egress and execution time"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "2.1.4",
+      "control_name": "Verify that input length controls prevent content from exceeding the context window. The controls must reject inputs that exceed token limits rathe...",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C02-Input-Validation.md#c21-prompt-injection-defenses",
+      "notes": "Level 1. Input length controls reject inputs exceeding token limits rather than truncating them"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "11.2.2",
+      "control_name": "Verify that inference endpoints enforce per-principal and global rate limits sized to the extraction threat model, and not solely as a generic API ...",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C11-Adversarial-Robustness.md#c112-membership-inference-and-model-inversion-mitigation",
+      "notes": "Level 1. Per-principal and global rate limits sized to the threat model rather than as a generic API throttle"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "7.1.2",
+      "control_name": "Verify that model-generated output is bounded by length limits and termination controls.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C07-Model-Behavior.md#c71-output-format-enforcement",
+      "notes": "Level 1. Output bounded by length limits and termination controls, capping runaway generation"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.2.5",
+      "control_name": "Verify that token usage is tracked at granular attribution levels including per user, per session, per feature endpoint, and per team or workspace.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c122-detection-and-alerting",
+      "notes": "Level 2. Token usage tracked per user, session, feature endpoint and team so cost abuse is attributable"
     }
   ],
   "tools": [
