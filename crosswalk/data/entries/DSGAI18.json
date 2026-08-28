@@ -517,6 +517,69 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Map all AI systems subject to governance; ensure complete coverage of AI data assets in governance framework"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "11.2.5",
+      "control_name": "Verify that membership-inference attack simulations demonstrate that attack accuracy does not exceed random guessing on evaluated data.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C11-Adversarial-Robustness.md#c112-membership-inference-and-model-inversion-mitigation",
+      "notes": "Level 3. Membership-inference attack simulations demonstrate attack accuracy does not exceed random guessing on evaluated data"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "11.2.4",
+      "control_name": "Verify that training on sensitive datasets employs differentially-private optimization.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C11-Adversarial-Robustness.md#c112-membership-inference-and-model-inversion-mitigation",
+      "notes": "Level 2. Training on sensitive datasets employs differentially-private optimization"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "11.2.2",
+      "control_name": "Verify that inference endpoints enforce per-principal and global rate limits sized to the extraction threat model, and not solely as a generic API ...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C11-Adversarial-Robustness.md#c112-membership-inference-and-model-inversion-mitigation",
+      "notes": "Level 1. Inference endpoints enforce per-principal and global rate limits sized to the extraction threat model rather than as a generic API throttle"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "11.2.1",
+      "control_name": "Verify that model-inferred sensitive attributes are not directly returned in outputs.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C11-Adversarial-Robustness.md#c112-membership-inference-and-model-inversion-mitigation",
+      "notes": "Level 1. Model-inferred sensitive attributes not returned directly in outputs"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "11.2.3",
+      "control_name": "Verify that model outputs are calibrated to reduce overconfident predictions.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C11-Adversarial-Robustness.md#c112-membership-inference-and-model-inversion-mitigation",
+      "notes": "Level 2. Model outputs calibrated to reduce overconfident predictions, lowering the confidence signal reconstruction attacks exploit"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "11.3.2",
+      "control_name": "Verify that raw model outputs are not directly exposed beyond the application backend, and that externally visible responses are calibrated to the ...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C11-Adversarial-Robustness.md#c113-model-extraction-defense",
+      "notes": "Level 2. Raw model outputs not exposed beyond the application backend, with externally visible responses calibrated to the extraction risk level"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "1.1.1",
+      "control_name": "Verify that training data includes only features, attributes, and fields required for the model's stated purpose.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C01-Training-Data-Integrity-and-Traceability.md#c11-training-data-origin--data-security",
+      "notes": "Level 1. Training data includes only features required for the stated purpose, bounding what can be reconstructed"
     }
   ],
   "tools": [

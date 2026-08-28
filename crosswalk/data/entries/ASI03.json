@@ -747,6 +747,105 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Deploy detection mechanisms for agent privilege escalation; monitor for permission boundary violations and unexpected privilege accumulation"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.4.1",
+      "control_name": "Verify that each agent instance has a unique cryptographic identity and authenticates as a first-class principal to downstream systems.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c94-agent-and-orchestrator-identity",
+      "notes": "Level 2. Each agent instance has a unique cryptographic identity and authenticates as a first-class principal to downstream systems, removing inherited-credential ambiguity"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.5.2",
+      "control_name": "Verify that when an agent acts on a user's behalf, the runtime propagates an integrity-protected, scope-limited token that carries the user's autho...",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c95-agent-authorization-delegation-and-continuous-enforcement",
+      "notes": "Level 2. Integrity-protected scope-limited token carries the user authorization context and is enforced at every downstream call"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.5.4",
+      "control_name": "Verify that secrets and credentials required by an agent at runtime are not exposed within the model's observable context, including the context wi...",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c95-agent-authorization-delegation-and-continuous-enforcement",
+      "notes": "Level 2. Secrets and credentials required at runtime kept out of the model observable context"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "5.1.2",
+      "control_name": "Verify that AI agents in federated or multi-system deployments authenticate using short-lived, minimal-scoped, cryptographically signed tokens.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C05-Access-Control-and-Identity.md#c51-authentication",
+      "notes": "Level 3. Agents in federated or multi-system deployments authenticate with short-lived, minimal-scoped, cryptographically signed tokens"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "5.1.1",
+      "control_name": "Verify that high-risk AI operations (model deployment, weight export, training data access, production configuration changes) require step-up authe...",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C05-Access-Control-and-Identity.md#c51-authentication",
+      "notes": "Level 3. Step-up authentication for high-risk AI operations including model deployment, weight export, training data access and production configuration change"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.4.3",
+      "control_name": "Verify that agent identity credentials rotate on a defined schedule.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c94-agent-and-orchestrator-identity",
+      "notes": "Level 3. Agent identity credentials rotate on a defined schedule"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "5.2.6",
+      "control_name": "Verify that privileged access to model weights, training pipelines, and production AI configuration is granted just in time, with a defined maximum...",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C05-Access-Control-and-Identity.md#c52-ai-resource-authorization--classification",
+      "notes": "Level 3. Just-in-time privileged access to weights, training pipelines and production AI configuration with maximum session duration and automatic expiry"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.2.2",
+      "control_name": "Verify that MCP servers validate the presented access token's issuer, audience, expiration, and scope claims in accordance with OAuth 2.1.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c102-authentication--authorization",
+      "notes": "Level 1. MCP servers validate the presented token issuer, audience, expiration and scope claims per OAuth 2.1, the check that stops a valid credential being replayed beyond its intended scope"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.2.1",
+      "control_name": "Verify that MCP servers validate access tokens for each request and do not rely on transport security alone.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c102-authentication--authorization",
+      "notes": "Level 1. MCP servers validate access tokens on each request rather than relying on transport security alone"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "5.2.5",
+      "control_name": "Verify that the policy decision point for agent authorization is isolated from the agent's execution environment.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C05-Access-Control-and-Identity.md#c52-ai-resource-authorization--classification",
+      "notes": "Level 2. Policy decision point for agent authorization isolated from the agent execution environment, so a compromised agent cannot rewrite its own privilege boundary"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.5.6",
+      "control_name": "Verify that long-running agent sessions re-evaluate current backend authorization policy on every privileged action.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c95-agent-authorization-delegation-and-continuous-enforcement",
+      "notes": "Level 3. Long-running agent sessions re-evaluate current backend authorization policy on every privileged action, closing the stale-grant window"
     }
   ],
   "tools": [

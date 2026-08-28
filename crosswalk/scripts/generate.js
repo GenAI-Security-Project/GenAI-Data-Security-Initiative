@@ -111,6 +111,7 @@ const FRAMEWORK_FILES = [
   { rel: 'llm-top10/LLM_SP800218A.md',  framework: 'NIST SP 800-218A',         ids: LLM_IDS },
   { rel: 'llm-top10/LLM_FedRAMP.md',   framework: 'FedRAMP',                 ids: LLM_IDS },
   { rel: 'llm-top10/LLM_DORA.md',      framework: 'DORA',                    ids: LLM_IDS },
+  { rel: 'llm-top10/LLM_AISVS.md',     framework: 'OWASP AISVS 1.0',         ids: LLM_IDS },
 
   // Agentic Top 10
   { rel: 'agentic-top10/Agentic_MITREATLAS.md',   framework: 'MITRE ATLAS',              ids: ASI_IDS },
@@ -158,6 +159,8 @@ const FRAMEWORK_FILES = [
   { rel: 'dsgai-2026/DSGAI_SP800218A.md',  framework: 'NIST SP 800-218A',         ids: DSGAI_IDS },
   { rel: 'dsgai-2026/DSGAI_FedRAMP.md',   framework: 'FedRAMP',                 ids: DSGAI_IDS },
   { rel: 'dsgai-2026/DSGAI_DORA.md',      framework: 'DORA',                    ids: DSGAI_IDS },
+  { rel: 'agentic-top10/Agentic_AISVS.md', framework: 'OWASP AISVS 1.0',    ids: ASI_IDS },
+  { rel: 'dsgai-2026/DSGAI_AISVS.md',   framework: 'OWASP AISVS 1.0',        ids: DSGAI_IDS },
 ];
 
 // ─── Audience role mapping ────────────────────────────────────────────────────

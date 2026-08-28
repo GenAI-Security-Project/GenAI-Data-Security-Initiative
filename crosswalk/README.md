@@ -10,7 +10,7 @@
   <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-3.1.0-green" alt="Version"></a>
   <a href="README.md"><img src="https://img.shields.io/badge/frameworks-25-orange" alt="Frameworks"></a>
   <a href="README.md"><img src="https://img.shields.io/badge/controls-1,514-blueviolet" alt="Controls"></a>
-  <a href="README.md"><img src="https://img.shields.io/badge/mapping%20files-67-brightgreen" alt="Mapping Files"></a>
+  <a href="README.md"><img src="https://img.shields.io/badge/mapping%20files-70-brightgreen" alt="Mapping Files"></a>
   <a href="https://www.npmjs.com/package/genai-security-crosswalk"><img src="https://img.shields.io/npm/v/genai-security-crosswalk?color=red&label=npm" alt="npm"></a>
 </p>
 
@@ -125,7 +125,7 @@ Every file answers one question: **which controls from framework X address vulne
 |---|---|
 | **3** source lists | LLM Top 10 · Agentic Top 10 · DSGAI 2026 |
 | **25** frameworks | Compliance · Governance · Threat modeling · Testing · OT/ICS · Identity · Secure SDLC · Financial |
-| **67** mapping files | Every source list entry × every applicable framework |
+| **70** mapping files | Every source list entry × every applicable framework |
 | **21** implementation recipes | Production-ready Python patterns |
 | **70+** open-source tools | Catalogued and organised by function |
 | **25** eval profiles | Runnable Garak (13) + PyRIT (6) + LAAF (6) tests mapped to OWASP entries |

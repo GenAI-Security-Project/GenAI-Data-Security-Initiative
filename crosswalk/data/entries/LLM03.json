@@ -696,6 +696,78 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Conduct post-incident analysis for data poisoning events; identify root cause, trace poisoned records, and update protection controls"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "6.1.2",
+      "control_name": "Verify that model weights, datasets, and fine-tuning adapters are downloaded only from approved sources.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C06-Supply-Chain.md#c61-model-artifact-integrity",
+      "notes": "Level 1. Model weights, datasets and fine-tuning adapters downloaded only from approved sources"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "6.1.1",
+      "control_name": "Verify that models are scanned for malicious code before import.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C06-Supply-Chain.md#c61-model-artifact-integrity",
+      "notes": "Level 1. Models scanned for malicious code before import"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "4.1.2",
+      "control_name": "Verify that model artifact loading enforces an explicit allow-list of serialization formats that do not permit arbitrary code execution during dese...",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C04-Infrastructure.md#c41-ai-workload-sandboxing--validation",
+      "notes": "Level 1. Model artifact loading restricted to an allow-list of serialization formats that cannot execute code on deserialization, the pickle class of supply chain RCE"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "6.1.3",
+      "control_name": "Verify that every third-party model artifact can be integrity-verified.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C06-Supply-Chain.md#c61-model-artifact-integrity",
+      "notes": "Level 2. Every third-party model artifact is integrity-verifiable"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "6.2.1",
+      "control_name": "Verify that every model artifact publishes a version-controlled, machine-readable AI BOM listing datasets, weights, licenses, and data-origin state...",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C06-Supply-Chain.md#c62-ai-bom--supply-chain-monitoring",
+      "notes": "Level 1. Version-controlled machine-readable AI BOM listing datasets, weights, licenses and data-origin statements"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "6.2.2",
+      "control_name": "Verify that AI BOMs are cryptographically signed before deployment.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C06-Supply-Chain.md#c62-ai-bom--supply-chain-monitoring",
+      "notes": "Level 2. AI BOMs cryptographically signed before deployment"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "3.1.2",
+      "control_name": "Verify that all model artifacts (weights, configurations, tokenizers, base models, fine-tunes, adapters, and safety/policy models) are cryptographi...",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C03-Model-Lifecycle-Management.md#c31-model-authorization--integrity",
+      "notes": "Level 2. Weights, configurations, tokenizers, base models, fine-tunes, adapters and safety models signed by authorized entities"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "6.1.4",
+      "control_name": "Verify that models pass a behavioral acceptance test suite before being promoted to any non-development environment.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C06-Supply-Chain.md#c61-model-artifact-integrity",
+      "notes": "Level 2. Behavioral acceptance test suite passed before promotion beyond development, catching backdoors that signature checks cannot"
     }
   ],
   "tools": [
