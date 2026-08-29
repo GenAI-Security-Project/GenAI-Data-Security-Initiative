@@ -18,20 +18,20 @@
   "mappings": [
     {
       "framework": "MITRE ATLAS",
-      "control_id": "AML.T0022",
+      "control_id": "AML.T0012",
       "control_name": "Valid Accounts",
       "tier": "Foundational",
       "scope": "Both",
-      "url": "https://atlas.mitre.org/techniques/AML.T0022",
+      "url": "https://atlas.mitre.org/techniques/AML.T0012",
       "notes": "Exploiting legitimate agent credentials to access AI systems or data pipelines"
     },
     {
       "framework": "MITRE ATLAS",
-      "control_id": "AML.T0016",
+      "control_id": "AML.T0024",
       "control_name": "Exfiltration via AI Inference API",
       "tier": "Foundational",
       "scope": "Both",
-      "url": "https://atlas.mitre.org/techniques/AML.T0016",
+      "url": "https://atlas.mitre.org/techniques/AML.T0024",
       "notes": "Using compromised agent credentials to exfiltrate data through inference API"
     },
     {

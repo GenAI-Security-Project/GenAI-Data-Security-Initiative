@@ -28,14 +28,14 @@
     {
       "framework": "MITRE ATLAS",
       "control_id": "AML.T0024.000",
-      "control_name": "Membership Inference",
+      "control_name": "Infer Training Data Membership",
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Ungoverned training data status — adversary determines what sensitive data is in scope without classification barriers"
     },
     {
       "framework": "MITRE ATLAS",
-      "control_id": "AML.T0057",
+      "control_id": "AML.T0036",
       "control_name": "Data from Information Repositories",
       "tier": "Foundational",
       "scope": "Both",

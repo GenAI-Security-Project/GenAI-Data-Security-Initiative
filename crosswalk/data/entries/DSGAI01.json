@@ -28,7 +28,7 @@
     {
       "framework": "MITRE ATLAS",
       "control_id": "AML.T0024.000",
-      "control_name": "Membership Inference",
+      "control_name": "Infer Training Data Membership",
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Adversary determines whether specific sensitive records were used in training — confirms presence of target data"
@@ -36,7 +36,7 @@
     {
       "framework": "MITRE ATLAS",
       "control_id": "AML.T0025",
-      "control_name": "Exfiltrate via Cyber Means",
+      "control_name": "Exfiltration via Cyber Means",
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Sensitive content in LLM outputs, logs, or observability pipelines captured and transmitted to adversary"
