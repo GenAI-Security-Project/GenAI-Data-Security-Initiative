@@ -20,7 +20,7 @@
     {
       "framework": "MITRE ATLAS",
       "control_id": "AML.T0025",
-      "control_name": "Exfiltrate via Cyber Means",
+      "control_name": "Exfiltration via Cyber Means",
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Vector store content exfiltrated through unauthenticated access or RBAC bypass"
@@ -36,7 +36,7 @@
     {
       "framework": "MITRE ATLAS",
       "control_id": "AML.T0020",
-      "control_name": "Poison Training Data",
+      "control_name": "Training Data Poisoning",
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Vector store content poisoned through path traversal or unauthenticated write (CVE-2024-3584)"

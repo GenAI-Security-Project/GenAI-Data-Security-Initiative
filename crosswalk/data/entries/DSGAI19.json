@@ -27,7 +27,7 @@
     },
     {
       "framework": "MITRE ATLAS",
-      "control_id": "AML.T0057",
+      "control_id": "AML.T0036",
       "control_name": "Data from Information Repositories",
       "tier": "Foundational",
       "scope": "Both",
@@ -36,7 +36,7 @@
     {
       "framework": "MITRE ATLAS",
       "control_id": "AML.T0020",
-      "control_name": "Poison Training Data",
+      "control_name": "Training Data Poisoning",
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Adversary-controlled labelling vendor introduces biased or poisoned annotations into training data"

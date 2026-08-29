@@ -27,7 +27,7 @@
     },
     {
       "framework": "MITRE ATLAS",
-      "control_id": "AML.T0051",
+      "control_id": "AML.T0049",
       "control_name": "Exploit Public-Facing Application",
       "tier": "Foundational",
       "scope": "Both",
@@ -35,7 +35,7 @@
     },
     {
       "framework": "MITRE ATLAS",
-      "control_id": "AML.T0057",
+      "control_id": "AML.T0036",
       "control_name": "Data from Information Repositories",
       "tier": "Foundational",
       "scope": "Both",
