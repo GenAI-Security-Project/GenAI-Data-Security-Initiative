@@ -683,6 +683,24 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Include agent supply chain disruption in resilience testing; test fallback procedures for third-party tool and service failures"
+    },
+    {
+      "framework": "AVE",
+      "control_id": "AVE-2026-00062",
+      "control_name": "Supply Chain - Unpinned Dependency Substitution",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/aveproject/ave/blob/main/records/AVE-2026-00062.json",
+      "notes": "Mutable dependency reference (tag/range/unpinned name) lets the reviewed and executed artifact silently diverge; matches ASI04's own Pinning/Dependency-gatekeeping guidance."
+    },
+    {
+      "framework": "AVE",
+      "control_id": "AVE-2026-00074",
+      "control_name": "Supply Chain - Dead Anchor Reclamation (SkillJacking)",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/aveproject/ave/blob/main/records/AVE-2026-00074.json",
+      "notes": "A previously-legitimate external anchor (repo/package/domain) is reclaimed by an attacker after its original owner abandons it; matches ASI04's own Impersonation/typo-squatting example. Distinct from AVE-2026-00062: pinning does not help here since the reference was precise and stable when written."
     }
   ],
   "tools": [
@@ -856,6 +874,12 @@
       "version": "1.0.0",
       "change": "Initial entry — generated from OWASP GenAI Crosswalk v1.5.1 mapping files",
       "author": "emmanuelgjr"
+    },
+    {
+      "date": "2026-08-30",
+      "version": "1.0.1",
+      "change": "Add AVE (Agentic Vulnerability Enumeration) mapping — 4-record pilot, see agentic-top10/Agentic_AVE.md",
+      "author": "aveproject"
     }
   ]
 }

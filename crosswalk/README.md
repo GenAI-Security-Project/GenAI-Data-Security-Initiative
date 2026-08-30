@@ -10,7 +10,7 @@
   <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-3.1.0-green" alt="Version"></a>
   <a href="README.md"><img src="https://img.shields.io/badge/frameworks-25-orange" alt="Frameworks"></a>
   <a href="README.md"><img src="https://img.shields.io/badge/controls-1,514-blueviolet" alt="Controls"></a>
-  <a href="README.md"><img src="https://img.shields.io/badge/mapping%20files-67-brightgreen" alt="Mapping Files"></a>
+  <a href="README.md"><img src="https://img.shields.io/badge/mapping%20files-68-brightgreen" alt="Mapping Files"></a>
   <a href="https://www.npmjs.com/package/genai-security-crosswalk"><img src="https://img.shields.io/npm/v/genai-security-crosswalk?color=red&label=npm" alt="npm"></a>
 </p>
 
