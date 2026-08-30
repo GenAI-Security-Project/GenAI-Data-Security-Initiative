@@ -691,6 +691,15 @@
       "tier": "Foundational",
       "scope": "Build",
       "notes": "Include agent access control bypass in resilience testing; verify that agents cannot exceed defined permission boundaries under adversarial conditions"
+    },
+    {
+      "framework": "AVE",
+      "control_id": "AVE-2026-00068",
+      "control_name": "Tool Abuse - CLI Command Composition",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/aveproject/ave/blob/main/records/AVE-2026-00068.json",
+      "notes": "Agent-authorized commands compose through shared OS state into an unintended capability; matches ASI02's own scope (misuse of an already-authorized tool), not ASI05 (no code injection or sandbox breakout)."
     }
   ],
   "tools": [
@@ -941,6 +950,12 @@
       "version": "1.0.0",
       "change": "Initial entry — generated from OWASP GenAI Crosswalk v1.5.1 mapping files",
       "author": "emmanuelgjr"
+    },
+    {
+      "date": "2026-08-30",
+      "version": "1.0.1",
+      "change": "Add AVE (Agentic Vulnerability Enumeration) mapping — 4-record pilot, see agentic-top10/Agentic_AVE.md",
+      "author": "aveproject"
     }
   ]
 }

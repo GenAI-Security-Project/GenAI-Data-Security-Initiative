@@ -683,6 +683,15 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Monitor agent code execution for anomalous patterns — unexpected system calls, network access, filesystem operations; alert on detection"
+    },
+    {
+      "framework": "AVE",
+      "control_id": "AVE-2026-00054",
+      "control_name": "Execution Hijack - Code Execution Sandbox Escape",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/aveproject/ave/blob/main/records/AVE-2026-00054.json",
+      "notes": "Sandbox containment itself fails (not how malicious code got in) via JS prototype-chain traversal; OWASP's own ASI05 text uses 'sandbox escape' verbatim for this exact outcome class."
     }
   ],
   "tools": [
@@ -861,6 +870,12 @@
       "version": "1.0.0",
       "change": "Initial entry — generated from OWASP GenAI Crosswalk v1.5.1 mapping files",
       "author": "emmanuelgjr"
+    },
+    {
+      "date": "2026-08-30",
+      "version": "1.0.1",
+      "change": "Add AVE (Agentic Vulnerability Enumeration) mapping — 4-record pilot, see agentic-top10/Agentic_AVE.md",
+      "author": "aveproject"
     }
   ]
 }
