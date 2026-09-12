@@ -19,18 +19,60 @@ Categories include:
 
 ## Data Format
 
-<!-- TODO: Define schema once initial data is contributed -->
+Each trace is one JSON file validating against
+[data_validation/schemas/agentdataflow_trace.schema.json](../../data_validation/schemas/agentdataflow_trace.schema.json).
 
-Contributions should include:
+Required fields:
 
-- **Trace ID**
-- **Category** — From the list above
-- **DSGAI mapping** — Primary DSGAI entries relevant to this trace
-- **Agent framework** — LangGraph, AutoGPT, CrewAI, custom, etc. (if disclosable)
-- **Trace data** — The sequence of events, tool calls, and data exchanges in structured format (JSON, JSONL, or OpenTelemetry-compatible spans)
-- **Data sensitivity annotations** — Flag any steps where sensitive data is present, over-shared, or inadequately scoped
-- **Security observations** — What data security risks this trace illustrates
-- **Benign / adversarial** — Whether this is a normal workflow trace or one demonstrating a security failure
+| field | type | meaning |
+|---|---|---|
+| `trace_id` | string matching `TRACE-NNNN` | the trace's identifier, unique in this dataset |
+| `category` | one of `tool_call`, `multi_agent_delegation`, `plugin_data_exchange`, `credential_flow`, `context_accumulation`, `memory_read_write` | which of the categories above the trace illustrates |
+| `dsgai_mapping` | array of `DSGAI01` through `DSGAI21`, at least one | the DSGAI entries the trace is evidence for |
+| `trace_data` | array of objects, at least one | the ordered sequence of events |
+| `type` | `benign` or `adversarial` | whether the trace shows a normal workflow or a security failure |
+
+Optional fields: `agent_framework`, `sensitivity_annotations`, `security_observations`.
+
+### The shape of a step
+
+The schema constrains `trace_data` to an array of objects and does not constrain the objects.
+The convention proposed here, and used by the example in this directory, is:
+
+| key | meaning |
+|---|---|
+| `step` | integer, 1-based, the position in the sequence |
+| `actor` | who performed the step: an agent identifier, a tool name, or `user` |
+| `action` | what was done, in the vocabulary of the framework that produced the trace |
+| `data_out` | what left the actor at this step, sanitized |
+| `data_in` | what came back, sanitized |
+| `observed_by` | how this step was recorded: `agent_self_report` where the agent's own transcript is the source, or a named external source |
+
+`observed_by` is the field worth arguing about, and the reason it is proposed. Most agent traces are
+the agent's own account of what it did. For the benign categories that is fine. For the adversarial
+ones it is the crux: a trace that shows an agent over-sharing is evidence only if the record of the
+over-sharing did not come from the component that over-shared. Marking the source per step lets a
+reader tell a self-reported trace from a captured one without having to ask the contributor.
+
+### Sanitization
+
+Every requirement in the Sanitization Requirements section below applies to `trace_data` in full.
+A step's `data_out` and `data_in` carry placeholder values in place of any credential, token, key,
+identifier, hostname or personal datum. Where a trace's security point depends on the *shape* of a
+secret, use a placeholder of the same shape (`sk-REDACTED-32CHARS`). Never a real one.
+
+### Contributing a trace
+
+Add one JSON file per trace, named for its `trace_id` (`TRACE-0001.json`). Validate it against the
+schema before opening the pull request:
+
+```
+python -m jsonschema -i datasets/agentdataflow_toolexchange_traces/TRACE-0001.json \
+  data_validation/schemas/agentdataflow_trace.schema.json
+```
+
+State in the pull-request body which DSGAI entries the trace is evidence for and, for an adversarial
+trace, what a defence would have had to observe to catch it.
 
 ## Sanitization Requirements
 
