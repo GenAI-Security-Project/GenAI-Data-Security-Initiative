@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Report a problem with datasets, validation tools, or the crosswalk webapp
+about: Report a problem with datasets or validation tools (crosswalk issues go to GenAI-Security-Project/crosswalk)
 labels: bug
 ---
 
