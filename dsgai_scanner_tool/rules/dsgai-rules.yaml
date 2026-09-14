@@ -1002,13 +1002,14 @@ rules:
     control: DSGAI17
     name: unbounded-retry
     classification: structural
-    signal: fail
-    confidence: medium
-    pcre: 'while\s+True[^}]{0,200}(generate|complete|chat)|retry\s*\(\s*\)'
+    signal: warn
+    confidence: low
+    pcre: '(?s)while\s+True\b(?=(?:(?!\bbreak\b|\bmax_retries|\btimeout).){0,200}\b(?:generate|complete|chat)\s*\()'
+    multiline: true
     file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'Unbounded retry (FAIL)'
+    description: 'Unbounded LLM retry loop (WARN)'
   - id: P18.1
     control: DSGAI18
     name: output-guardrails
