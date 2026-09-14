@@ -676,6 +676,78 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Conduct post-incident analysis for memory poisoning events; trace poisoned content to source and assess impact on agent decisions"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.2.3",
+      "control_name": "Verify that agent outputs and tool outputs are not automatically written to trusted agent memory without explicit source validation.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c82-embedding-sanitization--validation",
+      "notes": "Level 2. Agent and tool outputs not automatically written to trusted agent memory without explicit source validation, the direct control"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.1.2",
+      "control_name": "Verify that document metadata tags are immutable after the initial write.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c81-access-controls-on-memory--rag-indices",
+      "notes": "Level 2. Document metadata tags immutable after initial write"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.5.4",
+      "control_name": "Verify that every ingested document is tagged at write time with source, writer identity, and timestamp.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c125-training-data--model-lifecycle-audit",
+      "notes": "Level 2. Every ingested document tagged at write time with source, writer identity and timestamp, making poisoned entries attributable"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.2.4",
+      "control_name": "Verify that content crafted to manipulate retrieval results is detected and rejected or quarantined before vectorization.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c82-embedding-sanitization--validation",
+      "notes": "Level 3. Content crafted to manipulate retrieval results detected and rejected or quarantined before vectorization"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.2.5",
+      "control_name": "Verify that new content written to memory is checked for contradictions with what is already stored and that conflicts trigger alerts.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c82-embedding-sanitization--validation",
+      "notes": "Level 3. New content written to memory checked for contradictions with what is already stored, with conflicts alerting"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.3.2",
+      "control_name": "Verify that memory can be reset.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c83-memory-expiry--revocation",
+      "notes": "Level 2. Memory can be reset, giving a recovery path once poisoning is confirmed"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.3.3",
+      "control_name": "Verify that quarantined content is retained but excluded from all retrieval results.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c83-memory-expiry--revocation",
+      "notes": "Level 3. Quarantined content retained but excluded from all retrieval results, preserving evidence without re-exposure"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.4.4",
+      "control_name": "Verify that agent state persisted between invocations is integrity-protected.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c94-agent-and-orchestrator-identity",
+      "notes": "Level 3. Agent state persisted between invocations is integrity-protected"
     }
   ],
   "tools": [

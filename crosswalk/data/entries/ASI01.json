@@ -707,6 +707,78 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Share agent goal hijacking threat intelligence with sector peers through DORA information sharing arrangements"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "2.1.3",
+      "control_name": "Verify that all inputs that could steer model behavior are treated as untrusted and screened by a prompt injection detection ruleset or classifier,...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C02-Input-Validation.md#c21-prompt-injection-defenses",
+      "notes": "Level 1. All inputs able to steer model behavior treated as untrusted and screened by an injection classifier, the primary hijack vector"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "2.1.6",
+      "control_name": "Verify that the system enforces an instruction hierarchy in which system and developer messages override user instructions and other untrusted inpu...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C02-Input-Validation.md#c21-prompt-injection-defenses",
+      "notes": "Level 2. Instruction hierarchy keeps the operator goal authoritative over injected instructions"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.4.2",
+      "control_name": "Verify that MCP tools/list and tools/call responses are screened for indirect prompt injection before being injected into the model context.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c104-schema-message-and-input-validation",
+      "notes": "Level 1. MCP tool responses screened for indirect injection before entering model context, the tool-output hijack path"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.2.3",
+      "control_name": "Verify that agent outputs and tool outputs are not automatically written to trusted agent memory without explicit source validation.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c82-embedding-sanitization--validation",
+      "notes": "Level 2. Agent and tool outputs not written to trusted agent memory without explicit source validation, blocking hijack persistence"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.5",
+      "control_name": "Verify that components processing untrusted data are isolated from tool-calling capabilities, ensuring that compromised data processing cannot trig...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 2. Components processing untrusted data isolated from tool-calling capability so a hijacked reasoning step cannot act"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.2.5",
+      "control_name": "Verify that any self-modification capability (e.g., prompt rewriting, tool-list changes, parameter updates) is restricted by enforceable boundaries.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c92-high-impact-action-approval-and-irreversibility-controls",
+      "notes": "Level 2. Self-modification capability such as prompt rewriting, tool-list changes and parameter updates restricted by enforceable boundaries"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.2.6",
+      "control_name": "Verify that agentic systems include an AI-augmented review of planned high-risk actions before execution that adds to, and does not replace, the de...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c92-high-impact-action-approval-and-irreversibility-controls",
+      "notes": "Level 2. AI-augmented review of planned high-risk actions, added to and not replacing the deterministic policy gate"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.2.1",
+      "control_name": "Verify that the system detects and alerts on known jailbreak patterns, prompt injection attempts, and adversarial inputs.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c122-detection-and-alerting",
+      "notes": "Level 1. Detection and alerting on jailbreak patterns, injection attempts and adversarial inputs"
     }
   ],
   "tools": [

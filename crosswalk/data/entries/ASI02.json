@@ -691,6 +691,78 @@
       "tier": "Foundational",
       "scope": "Build",
       "notes": "Include agent access control bypass in resilience testing; verify that agents cannot exceed defined permission boundaries under adversarial conditions"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.5.1",
+      "control_name": "Verify that agent actions are authorized against fine-grained policies enforced by the runtime that restrict which tools an agent may invoke, and w...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c95-agent-authorization-delegation-and-continuous-enforcement",
+      "notes": "Level 2. Fine-grained runtime policy over which tools may be invoked and which parameter values may be supplied, the direct control for destructive-parameter misuse"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.1",
+      "control_name": "Verify that each tool/plugin executes in a least-privilege sandbox or is otherwise isolated from model operations.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 1. Each tool or plugin executes in a least-privilege sandbox or is isolated from model operations"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.2",
+      "control_name": "Verify that tool outputs are validated against schemas.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 1. Tool outputs validated against schemas"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.3",
+      "control_name": "Verify that tool manifests declare required privileges, resource limits, and output validation requirements.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 2. Tool manifests declare required privileges, resource limits and output validation requirements"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.4",
+      "control_name": "Verify that the runtime enforces the privileges, resource limits, and output-validation requirements declared in tool manifests.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 2. Runtime enforces the privileges, resource limits and output validation declared in tool manifests"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.7",
+      "control_name": "Verify that external resources named in model output are verified against an approved allow-list or registry before the agent installs or invokes t...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 2. External resources named in model output verified against an approved allow-list or registry before install or invocation"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.2.5",
+      "control_name": "Verify that MCP servers enforce access control on every tool invocation, validating that the user's access token authorizes both the requested tool...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c102-authentication--authorization",
+      "notes": "Level 2. MCP servers enforce access control on every tool invocation, validating both the tool and the specific argument values"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.8",
+      "control_name": "Verify that policy violations trigger automated tool containment.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 3. Policy violations trigger automated tool containment"
     }
   ],
   "tools": [

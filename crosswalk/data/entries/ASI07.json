@@ -676,6 +676,78 @@
       "tier": "Foundational",
       "scope": "Build",
       "notes": "Monitor agent tool invocation sequences for anomalous patterns; alert on novel tool combinations or sequences that cross security boundaries"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.3.1",
+      "control_name": "Verify that authenticated, encrypted streamable HTTP is used for MCP transport for remote services.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c103-secure-transport",
+      "notes": "Level 1. Authenticated, encrypted streamable HTTP required for remote MCP transport"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.4.1",
+      "control_name": "Verify that each agent instance has a unique cryptographic identity and authenticates as a first-class principal to downstream systems.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c94-agent-and-orchestrator-identity",
+      "notes": "Level 2. Each agent instance has a unique cryptographic identity and authenticates as a first-class principal, the anti-spoofing base control"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.4.2",
+      "control_name": "Verify that agent-initiated actions are cryptographically bound to each step of the execution chain for non-repudiation.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c94-agent-and-orchestrator-identity",
+      "notes": "Level 2. Agent-initiated actions cryptographically bound to each step of the execution chain for non-repudiation"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.3.3",
+      "control_name": "Verify that MCP servers validate both the Origin header and the Host header independently on all HTTP-based transports to prevent DNS rebinding att...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c103-secure-transport",
+      "notes": "Level 2. Origin and Host headers validated independently on all HTTP-based transports to prevent DNS rebinding"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.3.4",
+      "control_name": "Verify that MCP clients enforce a minimum acceptable protocol version and reject initialize responses that propose a version below that minimum.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c103-secure-transport",
+      "notes": "Level 2. Clients enforce a minimum acceptable protocol version and reject initialize responses below it, blocking downgrade"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.4.6",
+      "control_name": "Verify that MCP servers sign tool responses with a unique nonce and timestamp so MCP clients can detect replay attempts.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c104-schema-message-and-input-validation",
+      "notes": "Level 2. Tool responses signed with a unique nonce and timestamp so clients can detect replay"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.5.5",
+      "control_name": "Verify that inter-agent task delegation is restricted by an explicit authorization policy.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c95-agent-authorization-delegation-and-continuous-enforcement",
+      "notes": "Level 2. Inter-agent task delegation restricted by an explicit authorization policy"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.3.5",
+      "control_name": "Verify that access tokens between the MCP client and server are sender-constrained using mTLS or DPoP.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c103-secure-transport",
+      "notes": "Level 3. Access tokens between client and server sender-constrained using mTLS or DPoP, defeating agent-in-the-middle token replay"
     }
   ],
   "tools": [

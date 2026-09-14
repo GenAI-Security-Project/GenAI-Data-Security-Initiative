@@ -555,6 +555,51 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Participate in information sharing arrangements for third-party AI data risks; share threat intelligence on data provider compromises"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "1.2.3",
+      "control_name": "Verify that sensitive information in labels is redacted, anonymized, or encrypted before being used in any labeling artifact.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C01-Training-Data-Integrity-and-Traceability.md#c12-data-labeling-and-annotation-security",
+      "notes": "Level 2. Sensitive information in labels redacted, anonymized or encrypted before being used in any labeling artifact, the direct control for annotator exposure"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "1.2.1",
+      "control_name": "Verify that labeling platforms enforce access controls that restrict who can create, modify, or approve annotations.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C01-Training-Data-Integrity-and-Traceability.md#c12-data-labeling-and-annotation-security",
+      "notes": "Level 1. Labeling platforms enforce access controls restricting who can create, modify or approve annotations"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "1.3.4",
+      "control_name": "Verify that disallowed content is detected and removed before training.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C01-Training-Data-Integrity-and-Traceability.md#c13-training-data-quality-and-security-assurance",
+      "notes": "Level 2. Disallowed content detected and removed before training, reducing harmful content reaching human reviewers"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "1.2.2",
+      "control_name": "Verify that cryptographic integrity is applied to labeling artifacts.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C01-Training-Data-Integrity-and-Traceability.md#c12-data-labeling-and-annotation-security",
+      "notes": "Level 2. Cryptographic integrity applied to labeling artifacts"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.5.2",
+      "control_name": "Verify that all labeling activities are recorded in logs.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c125-training-data--model-lifecycle-audit",
+      "notes": "Level 1. All labeling activities recorded in logs"
     }
   ],
   "tools": [

@@ -571,6 +571,69 @@
       "tier": "Foundational",
       "scope": "Build",
       "notes": "Include data lineage requirements in ICT risk management; define minimum lineage completeness per data sensitivity"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.2",
+      "control_name": "Verify that tool outputs are validated against schemas.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 1. Tool outputs validated against schemas"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.3",
+      "control_name": "Verify that tool manifests declare required privileges, resource limits, and output validation requirements.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 2. Tool manifests declare required privileges, resource limits and output validation requirements"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.4",
+      "control_name": "Verify that the runtime enforces the privileges, resource limits, and output-validation requirements declared in tool manifests.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 2. Runtime enforces the privileges, resource limits and output validation declared in manifests"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.4.1",
+      "control_name": "Verify that MCP tools/list and tools/call responses are validated against their declared schemas before being injected into the model context.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c104-schema-message-and-input-validation",
+      "notes": "Level 1. MCP tools/list and tools/call responses validated against declared schemas before injection into model context"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.4.3",
+      "control_name": "Verify that MCP servers reject unrecognized or oversized parameters in function calls.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c104-schema-message-and-input-validation",
+      "notes": "Level 1. MCP servers reject unrecognized or oversized parameters in function calls"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.2.4",
+      "control_name": "Verify that MCP tools/list returns only tools permitted by resource owners' authorized scopes.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c102-authentication--authorization",
+      "notes": "Level 2. MCP tools/list returns only tools permitted by the resource owner authorized scopes"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.6",
+      "control_name": "Verify that there is architectural separation between processing of untrusted tool outputs and agent operations.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 2. Architectural separation between processing of untrusted tool outputs and agent operations"
     }
   ],
   "tools": [

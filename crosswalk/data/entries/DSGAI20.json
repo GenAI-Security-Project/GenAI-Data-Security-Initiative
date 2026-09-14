@@ -563,6 +563,78 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Map physical and logical locations of all AI data; document processing jurisdictions for training, inference, and storage"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "11.3.1",
+      "control_name": "Verify that query-pattern analysis feeds an extraction-attempt detector.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C11-Adversarial-Robustness.md#c113-model-extraction-defense",
+      "notes": "Level 1. Query-pattern analysis feeds an extraction-attempt detector"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "11.2.2",
+      "control_name": "Verify that inference endpoints enforce per-principal and global rate limits sized to the extraction threat model, and not solely as a generic API ...",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C11-Adversarial-Robustness.md#c112-membership-inference-and-model-inversion-mitigation",
+      "notes": "Level 1. Inference endpoints enforce per-principal and global rate limits sized to the extraction threat model"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "11.3.2",
+      "control_name": "Verify that raw model outputs are not directly exposed beyond the application backend, and that externally visible responses are calibrated to the ...",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C11-Adversarial-Robustness.md#c113-model-extraction-defense",
+      "notes": "Level 2. Raw model outputs not exposed beyond the application backend, with externally visible responses calibrated to the extraction risk level"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "11.3.4",
+      "control_name": "Verify that detection of suspected extraction triggers response measures.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C11-Adversarial-Robustness.md#c113-model-extraction-defense",
+      "notes": "Level 3. Detection of suspected extraction triggers response measures"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "11.3.3",
+      "control_name": "Verify that model watermarking or fingerprinting techniques are applied so that unauthorized copies can be identified.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C11-Adversarial-Robustness.md#c113-model-extraction-defense",
+      "notes": "Level 3. Model watermarking or fingerprinting so unauthorized copies can be identified"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "4.1.4",
+      "control_name": "Verify that confidential inference services protect model weights during runtime through isolated execution environments.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C04-Infrastructure.md#c41-ai-workload-sandboxing--validation",
+      "notes": "Level 3. Confidential inference services protect model weights during runtime through isolated execution environments"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "4.3.4",
+      "control_name": "Verify that model weights and sensitive parameters stored locally are encrypted using hardware-backed key stores or secure enclaves.",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C04-Infrastructure.md#c43-edge--distributed-ai-security",
+      "notes": "Level 3. Model weights and sensitive parameters stored locally encrypted using hardware-backed key stores or secure enclaves"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "5.2.6",
+      "control_name": "Verify that privileged access to model weights, training pipelines, and production AI configuration is granted just in time, with a defined maximum...",
+      "tier": "Advanced",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C05-Access-Control-and-Identity.md#c52-ai-resource-authorization--classification",
+      "notes": "Level 3. Just-in-time privileged access to model weights with maximum session duration and automatic expiry"
     }
   ],
   "tools": [

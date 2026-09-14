@@ -565,6 +565,87 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Include external data sources in third-party risk management; assess data quality, provenance practices, and licensing compliance"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "1.1.3",
+      "control_name": "Verify that data integrity is provided when training data is stored and transferred.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C01-Training-Data-Integrity-and-Traceability.md#c11-training-data-origin--data-security",
+      "notes": "Level 2. Data integrity provided when training data is stored and transferred"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "7.1.1",
+      "control_name": "Verify that the application validates all model outputs against a defined schema and rejects any output that does not match.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C07-Model-Behavior.md#c71-output-format-enforcement",
+      "notes": "Level 1. All model outputs validated against a defined schema and rejected when they do not match"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.2",
+      "control_name": "Verify that tool outputs are validated against schemas.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 1. Tool outputs validated against schemas"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.4.4",
+      "control_name": "Verify that all MCP servers enforce strict schema validation.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c104-schema-message-and-input-validation",
+      "notes": "Level 2. All MCP servers enforce strict schema validation"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.4.3",
+      "control_name": "Verify that MCP servers reject unrecognized or oversized parameters in function calls.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c104-schema-message-and-input-validation",
+      "notes": "Level 1. MCP servers reject unrecognized or oversized parameters in function calls"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "1.3.2",
+      "control_name": "Verify that automatically generated labels are subject to confidence thresholds and consistency checks to detect misleading or low-confidence labels.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C01-Training-Data-Integrity-and-Traceability.md#c13-training-data-quality-and-security-assurance",
+      "notes": "Level 2. Automatically generated labels subject to confidence thresholds and consistency checks"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "6.2.3",
+      "control_name": "Verify that AI BOM completeness checks fail the build if any component metadata is missing.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C06-Supply-Chain.md#c62-ai-bom--supply-chain-monitoring",
+      "notes": "Level 2. AI BOM completeness checks fail the build if any component metadata is missing, turning silent pipeline gaps into build failures"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.3.1",
+      "control_name": "Verify that data drift detection monitors input distribution changes that may impact model performance, using statistically validated methods match...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c123-model-data-and-performance-drift-detection",
+      "notes": "Level 1. Data drift detection monitors input distribution changes using statistically validated methods matched to the data type, catching silent pipeline corruption"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "3.5.3",
+      "control_name": "Verify that in multi-stage fine-tuning pipelines, each stage's output is integrity-verified before it is consumed by the next stage.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C03-Model-Lifecycle-Management.md#c35-pipeline-fine-tuning",
+      "notes": "Level 3. Each fine-tuning stage output integrity-verified before the next stage consumes it"
     }
   ],
   "tools": [

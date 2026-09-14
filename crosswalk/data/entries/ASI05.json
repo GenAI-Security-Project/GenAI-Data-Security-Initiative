@@ -683,6 +683,78 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Monitor agent code execution for anomalous patterns — unexpected system calls, network access, filesystem operations; alert on detection"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.1",
+      "control_name": "Verify that each tool/plugin executes in a least-privilege sandbox or is otherwise isolated from model operations.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 1. Each tool or plugin executes in a least-privilege sandbox or is isolated from model operations"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "4.1.1",
+      "control_name": "Verify that AI models execute in isolated sandboxes.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C04-Infrastructure.md#c41-ai-workload-sandboxing--validation",
+      "notes": "Level 1. AI models execute in isolated sandboxes"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "4.1.2",
+      "control_name": "Verify that model artifact loading enforces an explicit allow-list of serialization formats that do not permit arbitrary code execution during dese...",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C04-Infrastructure.md#c41-ai-workload-sandboxing--validation",
+      "notes": "Level 1. Model artifact loading restricted to serialization formats that cannot execute code during deserialization"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.2",
+      "control_name": "Verify that tool outputs are validated against schemas.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 1. Tool outputs validated against schemas before consumption"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "7.1.1",
+      "control_name": "Verify that the application validates all model outputs against a defined schema and rejects any output that does not match.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C07-Model-Behavior.md#c71-output-format-enforcement",
+      "notes": "Level 1. Model output validated against a defined schema and rejected when it does not match, applied to generated code before it reaches an interpreter"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.1.1",
+      "control_name": "Verify that per-tool quotas and timeouts (e.g., CPU, memory, disk, egress, and execution time) are enforced.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c91-execution-budgets-loop-control-and-circuit-breakers",
+      "notes": "Level 1. Per-tool quotas and timeouts for CPU, memory, disk, egress and execution time bound the blast radius of executed code"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "3.4.1",
+      "control_name": "Verify that AI-specific runtime components are not shared across environment boundaries (e.g., development, staging, production).",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C03-Model-Lifecycle-Management.md#c34-secure-development-practices",
+      "notes": "Level 1. AI-specific runtime components not shared across development, staging and production boundaries, so code executed in a lower environment cannot reach production"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.6",
+      "control_name": "Verify that there is architectural separation between processing of untrusted tool outputs and agent operations.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 2. Architectural separation between processing of untrusted tool outputs and agent operations"
     }
   ],
   "tools": [

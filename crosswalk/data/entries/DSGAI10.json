@@ -510,6 +510,51 @@
       "tier": "Foundational",
       "scope": "Build",
       "notes": "Apply lessons learned from synthetic data privacy failures; update generation processes and validation controls"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "11.2.5",
+      "control_name": "Verify that membership-inference attack simulations demonstrate that attack accuracy does not exceed random guessing on evaluated data.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C11-Adversarial-Robustness.md#c112-membership-inference-and-model-inversion-mitigation",
+      "notes": "Level 3. Membership-inference attack simulations demonstrate attack accuracy does not exceed random guessing, the direct re-identification test"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "11.2.4",
+      "control_name": "Verify that training on sensitive datasets employs differentially-private optimization.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C11-Adversarial-Robustness.md#c112-membership-inference-and-model-inversion-mitigation",
+      "notes": "Level 2. Training on sensitive datasets employs differentially-private optimization, the formal guarantee ad hoc anonymisation lacks"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "11.2.3",
+      "control_name": "Verify that model outputs are calibrated to reduce overconfident predictions.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C11-Adversarial-Robustness.md#c112-membership-inference-and-model-inversion-mitigation",
+      "notes": "Level 2. Model outputs calibrated to reduce overconfident predictions, lowering the signal linkage attacks exploit"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "1.2.3",
+      "control_name": "Verify that sensitive information in labels is redacted, anonymized, or encrypted before being used in any labeling artifact.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C01-Training-Data-Integrity-and-Traceability.md#c12-data-labeling-and-annotation-security",
+      "notes": "Level 2. Sensitive information in labels redacted, anonymized or encrypted before use in any labeling artifact"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "8.2.1",
+      "control_name": "Verify that sensitive fields are detected before embedding and are masked, tokenized, or dropped.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C08-Memory-Embeddings-and-Vector-Database.md#c82-embedding-sanitization--validation",
+      "notes": "Level 1. Sensitive fields detected before embedding and masked, tokenized or dropped"
     }
   ],
   "tools": [

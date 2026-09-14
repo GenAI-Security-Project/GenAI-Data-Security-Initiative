@@ -641,6 +641,51 @@
       "tier": "Foundational",
       "scope": "Build",
       "notes": "Deploy detection mechanisms for system prompt extraction attempts; monitor inference requests for extraction technique patterns"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "7.3.2",
+      "control_name": "Verify that output filters detect and block responses that disclose system prompt content or backend data.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C07-Model-Behavior.md#c73-output-safety",
+      "notes": "Level 2. Output filters detect and block responses that disclose system prompt content or backend data"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "2.1.6",
+      "control_name": "Verify that the system enforces an instruction hierarchy in which system and developer messages override user instructions and other untrusted inpu...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C02-Input-Validation.md#c21-prompt-injection-defenses",
+      "notes": "Level 2. Instruction hierarchy resists the override-then-reveal extraction pattern"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.5.4",
+      "control_name": "Verify that secrets and credentials required by an agent at runtime are not exposed within the model's observable context, including the context wi...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c95-agent-authorization-delegation-and-continuous-enforcement",
+      "notes": "Level 2. Secrets and credentials kept out of the model observable context including context window, system prompts and tool call parameters, so a leaked prompt is not a leaked credential"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.2.3",
+      "control_name": "Verify that custom rules detect AI-specific threat patterns for coordinated jailbreak attempts, prompt injection, and system prompt extraction atte...",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c122-detection-and-alerting",
+      "notes": "Level 2. Custom rules detect coordinated jailbreak attempts, injection and system prompt extraction attempts"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "11.3.1",
+      "control_name": "Verify that query-pattern analysis feeds an extraction-attempt detector.",
+      "tier": "Hardening",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C11-Adversarial-Robustness.md#c113-model-extraction-defense",
+      "notes": "Level 1. Query-pattern analysis feeds an extraction-attempt detector, covering iterative prompt reconstruction"
     }
   ],
   "tools": [
