@@ -20,7 +20,7 @@
     {
       "framework": "MITRE ATLAS",
       "control_id": "AML.T0029",
-      "control_name": "Denial of ML Service",
+      "control_name": "Denial of AI Service",
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Adversary saturates GenAI pipeline — vector store, RAG retrieval, or inference endpoint rendered unavailable"
@@ -35,7 +35,7 @@
     },
     {
       "framework": "MITRE ATLAS",
-      "control_id": "AML.T0057",
+      "control_id": "AML.T0036",
       "control_name": "Data from Information Repositories",
       "tier": "Foundational",
       "scope": "Both",

@@ -28,14 +28,14 @@
     {
       "framework": "MITRE ATLAS",
       "control_id": "AML.T0020",
-      "control_name": "Poison Training Data",
+      "control_name": "Training Data Poisoning",
       "tier": "Hardening",
       "scope": "Both",
       "notes": "Adversary introduces false content into RAG corpus through ingestion path — no public publication required"
     },
     {
       "framework": "MITRE ATLAS",
-      "control_id": "AML.T0031",
+      "control_id": "AML.T0043",
       "control_name": "Craft Adversarial Data",
       "tier": "Hardening",
       "scope": "Both",

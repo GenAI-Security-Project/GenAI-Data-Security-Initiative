@@ -28,11 +28,11 @@ the severity of a technique beyond its baseline LLM rating.
 |---|---|---|---|---|---|
 | ASI01 | Agent Goal Hijack | Critical | AML.T0051.000, AML.T0051.001, AML.T0054 | Autonomy turns single injection into multi-step attack chain | Foundational–Advanced |
 | ASI02 | Tool Misuse & Exploitation | Critical | AML.T0037, AML.T0015, AML.T0068 | Tool access converts prompt manipulation into real-world action | Foundational–Advanced |
-| ASI03 | Identity & Privilege Abuse | Critical | AML.T0022, AML.T0016, AML.T0024 | Cached credentials give attacker persistent access beyond session | Foundational–Advanced |
+| ASI03 | Identity & Privilege Abuse | Critical | AML.T0012, AML.T0024 | Cached credentials give attacker persistent access beyond session | Foundational–Advanced |
 | ASI04 | Agentic Supply Chain | High | AML.T0056, AML.T0048, AML.T0010 | Runtime dynamic loading means poisoned components affect all consumers | Hardening–Advanced |
 | ASI05 | Unexpected Code Execution | Critical | AML.T0040, AML.T0054, AML.T0037 | Code generation + execution capability creates RCE gateway | Foundational–Advanced |
 | ASI06 | Memory & Context Poisoning | High | AML.T0032, AML.T0063, AML.T0020 | Persistence across sessions amplifies impact of single injection | Hardening–Advanced |
-| ASI07 | Insecure Inter-Agent Comms | High | AML.T0043, AML.T0022, AML.T0016 | A2A spoofing misdirects entire agent clusters | Hardening–Advanced |
+| ASI07 | Insecure Inter-Agent Comms | High | AML.T0043, AML.T0012, AML.T0024 | A2A spoofing misdirects entire agent clusters | Hardening–Advanced |
 | ASI08 | Cascading Agent Failures | High | AML.T0029, AML.T0034, AML.T0057 | Single fault fans out across all downstream agents | Foundational–Advanced |
 | ASI09 | Human-Agent Trust Exploitation | Medium | AML.T0045, AML.T0047, AML.T0049 | Agent fluency makes manipulation invisible to audit logs | Foundational–Hardening |
 | ASI10 | Rogue Agents | Critical | AML.T0054, AML.T0015, AML.T0057 | Compliant surface masks persistent hidden goal pursuit | Hardening–Advanced |
@@ -204,8 +204,8 @@ the original session ends.
 
 | Technique | ID | Tactic | Agentic context |
 |---|---|---|---|
-| Valid Accounts | [AML.T0022](https://atlas.mitre.org/techniques/AML.T0022) | Initial Access / Persistence | Exploiting legitimate agent credentials to access AI systems or data pipelines |
-| Exfiltration via AI Inference API | [AML.T0016](https://atlas.mitre.org/techniques/AML.T0016) | Exfiltration | Using compromised agent credentials to exfiltrate data through inference API |
+| Valid Accounts | [AML.T0012](https://atlas.mitre.org/techniques/AML.T0012) | Initial Access / Persistence | Exploiting legitimate agent credentials to access AI systems or data pipelines |
+| Exfiltration via AI Inference API | [AML.T0024](https://atlas.mitre.org/techniques/AML.T0024) | Exfiltration | Using compromised agent credentials to exfiltrate data through inference API |
 | Model Inversion | [AML.T0024](https://atlas.mitre.org/techniques/AML.T0024) | Collection | Reconstructing sensitive data accessible to the agent through credential abuse |
 
 #### Mitigations by tier
@@ -460,8 +460,8 @@ cluster.
 | Technique | ID | Tactic | Agentic context |
 |---|---|---|---|
 | Network Service Scanning | [AML.T0043](https://atlas.mitre.org/techniques/AML.T0043) | Discovery | Identifying and mapping inter-agent communication endpoints for targeting |
-| Valid Accounts | [AML.T0022](https://atlas.mitre.org/techniques/AML.T0022) | Persistence | Using compromised agent credentials to impersonate trusted agents in A2A channels |
-| Exfiltration via AI Inference API | [AML.T0016](https://atlas.mitre.org/techniques/AML.T0016) | Exfiltration | Intercepting inter-agent messages to exfiltrate sensitive context passed between agents |
+| Valid Accounts | [AML.T0012](https://atlas.mitre.org/techniques/AML.T0012) | Persistence | Using compromised agent credentials to impersonate trusted agents in A2A channels |
+| Exfiltration via AI Inference API | [AML.T0024](https://atlas.mitre.org/techniques/AML.T0024) | Exfiltration | Intercepting inter-agent messages to exfiltrate sensitive context passed between agents |
 
 #### Mitigations by tier
 
@@ -526,7 +526,7 @@ crosswalks for OT-specific controls.
 
 | Technique | ID | Tactic | Agentic context |
 |---|---|---|---|
-| Denial of ML Service | [AML.T0029](https://atlas.mitre.org/techniques/AML.T0029) | Impact | Triggering cascading failure propagation to exhaust system resources or degrade service |
+| Denial of AI Service | [AML.T0029](https://atlas.mitre.org/techniques/AML.T0029) | Impact | Triggering cascading failure propagation to exhaust system resources or degrade service |
 | Cost Harvesting | [AML.T0034](https://atlas.mitre.org/techniques/AML.T0034) | Impact | Crafting inputs that trigger runaway agent loops generating unbounded costs |
 | Exploit Public-Facing ML Application | [AML.T0057](https://atlas.mitre.org/techniques/AML.T0057) | Initial Access | Exploiting an exposed agent endpoint to introduce a fault that cascades internally |
 
@@ -717,6 +717,7 @@ to visualise agentic attack coverage across your threat model.
 | Date | Version | Change | Author |
 |---|---|---|---|
 | 2026-03-24 | 2026-Q1 | Initial mapping — ASI01–ASI10 full entries | OWASP GenAI Data Security Initiative |
+| 2026-08-29 | 2026-Q1 | Corrected three ATLAS technique citations against ATLAS 2026.07 | OWASP GenAI Data Security Initiative |
 
 ---
 

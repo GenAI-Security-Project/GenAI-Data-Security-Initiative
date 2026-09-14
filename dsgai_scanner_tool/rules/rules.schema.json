@@ -33,6 +33,7 @@
         "signal": { "enum": ["fail", "warn", "pass_signal", "count", "info"] },
         "confidence": { "enum": ["high", "medium", "low"] },
         "pcre": { "type": "string", "minLength": 1 },
+        "multiline": { "type": "boolean" },
         "file_globs": {
           "type": "array",
           "items": { "type": "string", "minLength": 1 }

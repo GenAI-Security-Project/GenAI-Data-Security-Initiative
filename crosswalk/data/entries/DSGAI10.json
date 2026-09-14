@@ -20,7 +20,7 @@
     {
       "framework": "MITRE ATLAS",
       "control_id": "AML.T0024.000",
-      "control_name": "Membership Inference",
+      "control_name": "Infer Training Data Membership",
       "tier": "Hardening",
       "scope": "Both",
       "notes": "Adversary probes synthetic dataset to determine whether specific individuals are re-identifiable"
@@ -28,7 +28,7 @@
     {
       "framework": "MITRE ATLAS",
       "control_id": "AML.T0025",
-      "control_name": "Exfiltrate via Cyber Means",
+      "control_name": "Exfiltration via Cyber Means",
       "tier": "Hardening",
       "scope": "Both",
       "notes": "Re-identified individuals from synthetic data extracted via standard exfiltration paths"
