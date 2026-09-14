@@ -20,14 +20,14 @@
     {
       "framework": "MITRE ATLAS",
       "control_id": "AML.T0013",
-      "control_name": "Discover ML Model Ontology",
+      "control_name": "Discover AI Model Ontology",
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Adversary learns what data the browser assistant can access across open applications"
     },
     {
       "framework": "MITRE ATLAS",
-      "control_id": "AML.T0057",
+      "control_id": "AML.T0036",
       "control_name": "Data from Information Repositories",
       "tier": "Foundational",
       "scope": "Both",

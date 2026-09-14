@@ -27,20 +27,20 @@
     },
     {
       "framework": "MITRE ATLAS",
-      "control_id": "AML.T0022",
+      "control_id": "AML.T0012",
       "control_name": "Valid Accounts",
       "tier": "Hardening",
       "scope": "Both",
-      "url": "https://atlas.mitre.org/techniques/AML.T0022",
+      "url": "https://atlas.mitre.org/techniques/AML.T0012",
       "notes": "Using compromised agent credentials to impersonate trusted agents in A2A channels"
     },
     {
       "framework": "MITRE ATLAS",
-      "control_id": "AML.T0016",
+      "control_id": "AML.T0024",
       "control_name": "Exfiltration via AI Inference API",
       "tier": "Hardening",
       "scope": "Both",
-      "url": "https://atlas.mitre.org/techniques/AML.T0016",
+      "url": "https://atlas.mitre.org/techniques/AML.T0024",
       "notes": "Intercepting inter-agent messages to exfiltrate sensitive context passed between agents"
     },
     {

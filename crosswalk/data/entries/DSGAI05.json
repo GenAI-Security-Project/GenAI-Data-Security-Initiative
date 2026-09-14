@@ -20,7 +20,7 @@
     {
       "framework": "MITRE ATLAS",
       "control_id": "AML.T0020",
-      "control_name": "Poison Training Data",
+      "control_name": "Training Data Poisoning",
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Adversarially crafted payloads bypass ingestion validation to corrupt training or RAG data"
@@ -28,14 +28,14 @@
     {
       "framework": "MITRE ATLAS",
       "control_id": "AML.T0018",
-      "control_name": "Backdoor ML Model",
+      "control_name": "Manipulate AI Model",
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Path traversal in snapshot imports (CVE-2024-3584) enables write to model host — backdoor installation path"
     },
     {
       "framework": "MITRE ATLAS",
-      "control_id": "AML.T0031",
+      "control_id": "AML.T0043",
       "control_name": "Craft Adversarial Data",
       "tier": "Foundational",
       "scope": "Both",

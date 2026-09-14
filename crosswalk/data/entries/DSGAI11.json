@@ -28,14 +28,14 @@
     {
       "framework": "MITRE ATLAS",
       "control_id": "AML.T0025",
-      "control_name": "Exfiltrate via Cyber Means",
+      "control_name": "Exfiltration via Cyber Means",
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Cross-session data captured and transmitted to adversary through inference API"
     },
     {
       "framework": "MITRE ATLAS",
-      "control_id": "AML.T0051",
+      "control_id": "AML.T0049",
       "control_name": "Exploit Public-Facing Application",
       "tier": "Foundational",
       "scope": "Both",

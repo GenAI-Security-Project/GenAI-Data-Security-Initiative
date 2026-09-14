@@ -19,7 +19,7 @@
     {
       "framework": "MITRE ATLAS",
       "control_id": "AML.T0029",
-      "control_name": "Denial of ML Service",
+      "control_name": "Denial of AI Service",
       "tier": "Foundational",
       "scope": "Both",
       "url": "https://atlas.mitre.org/techniques/AML.T0029",
