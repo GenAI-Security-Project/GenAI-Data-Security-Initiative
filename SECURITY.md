@@ -6,7 +6,7 @@ The **OWASP GenAI Data Security Initiative** publishes security research, guidan
 
 This policy applies to content in the repository:
 
-- **Code** — Python validators, the `dsgai_scanner_tool`, JavaScript crosswalk explorer, HTML resources, and CI/build scripts
+- **Code** — Python validators, the `dsgai_scanner_tool`, HTML resources, and CI/build scripts (the crosswalk explorer now lives in [GenAI-Security-Project/crosswalk](https://github.com/GenAI-Security-Project/crosswalk))
 - **Datasets** — `dsgai-bench`, validation datasets, and community-contributed data
 - **Frameworks & documentation** — risk taxonomies, best-practices guides, and framework crosswalk content where errors could materially mislead readers
 

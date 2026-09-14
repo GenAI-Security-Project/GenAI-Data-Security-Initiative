@@ -1,4 +1,0 @@
-# Binary artifacts — regenerate with: python -m classifier.index_builder
-index/
-__pycache__/
-*.pyc
