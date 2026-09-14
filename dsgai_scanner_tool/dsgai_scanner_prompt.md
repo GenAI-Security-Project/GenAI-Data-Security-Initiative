@@ -38,8 +38,7 @@
 
 **Outputs:** `dsgai-reports/DSGAI-report-<timestamp>.html` (the deliverable) + `DSGAI-scan.json` (checkpoint at repo root). STRICT mode is designed to minimize disclosure, but a findings report still reveals that controls fail and where — handle it like any security assessment (see *Residual risk* below).
 
-**Time:** 2–5 minutes for a typical repo in Claude Code (parallel scans). Longer outside Claude Code.
-
+**Time:** a few minutes for a typical repo.
 ---
 
 ## Argument Handling
@@ -648,7 +647,7 @@ Run value-bearing patterns exclusively via Bash with ripgrep's `--replace ''`, w
 rg -n -o --replace '' --pcre2 'PATTERN' <files>
 ```
 
-The output stream is `path:line:` only — there is no matched content to leak, because rg never emitted it. Do **not** use the Grep tool's `output_mode="content"` on value-bearing patterns; do **not** pipe rg output through a second process that could re-expose the line. The guarantee is now *structural* (rg erased it), not *behavioral* (you remembered not to write it).
+The output stream is `path:line:` only — there is no matched content to leak, because rg never emitted it. Do **not** pipe rg output through a second process that could re-expose the line.The guarantee is now *structural* (rg erased it), not *behavioral* (you remembered not to write it).
 
 **V2 — Render evidence:**
 ```

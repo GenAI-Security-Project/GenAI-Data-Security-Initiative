@@ -695,6 +695,78 @@
       "tier": "Foundational",
       "scope": "Build",
       "notes": "Monitor AI agent actions for unauthorised tool invocations, scope violations, and anomalous behaviour patterns; alert on detection"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.2.1",
+      "control_name": "Verify that the agent runtime blocks execution of privileged, high-impact, or irreversible actions until explicit human approval is received and ve...",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c92-high-impact-action-approval-and-irreversibility-controls",
+      "notes": "Level 1. Agent runtime blocks privileged, high-impact or irreversible actions until explicit human approval is received and verified"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.1.2",
+      "control_name": "Verify that per-execution budgets (e.g., max recursion depth, token use, and monetary spend) are configured and enforced by the runtime.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c91-execution-budgets-loop-control-and-circuit-breakers",
+      "notes": "Level 1. Per-execution budgets for recursion depth, token use and monetary spend configured and enforced by the runtime"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.3.1",
+      "control_name": "Verify that each tool/plugin executes in a least-privilege sandbox or is otherwise isolated from model operations.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c93-component-isolation-and-tool-authorization",
+      "notes": "Level 1. Each tool or plugin executes in a least-privilege sandbox or is otherwise isolated from model operations"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.5.3",
+      "control_name": "Verify that all access control decisions are enforced by application logic or a policy engine, never by the AI model itself.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c95-agent-authorization-delegation-and-continuous-enforcement",
+      "notes": "Level 2. All access control decisions enforced by application logic or a policy engine, never by the model itself"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.6.1",
+      "control_name": "Verify that a manual kill-switch mechanism exists to immediately halt AI model inference and outputs.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c96-shutdown-and-graceful-degradation",
+      "notes": "Level 1. Manual kill-switch to immediately halt model inference and outputs"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.5.1",
+      "control_name": "Verify that agent actions are authorized against fine-grained policies enforced by the runtime that restrict which tools an agent may invoke, and w...",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c95-agent-authorization-delegation-and-continuous-enforcement",
+      "notes": "Level 2. Fine-grained runtime policy restricting which tools an agent may invoke and which parameter values it may supply"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.2.3",
+      "control_name": "Verify that each high-impact action has a trusted reversibility classification, such as read-only, reversible, externally reversible, or irreversible.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c92-high-impact-action-approval-and-irreversibility-controls",
+      "notes": "Level 2. Each high-impact action carries a trusted reversibility classification"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "9.2.4",
+      "control_name": "Verify that the agent runtime enforces reversibility classifications by blocking, requiring approval, or restricting actions based on their impact ...",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C09-Orchestration-and-Agentic-Action.md#c92-high-impact-action-approval-and-irreversibility-controls",
+      "notes": "Level 2. Runtime enforces reversibility classifications by blocking, requiring approval or restricting the action"
     }
   ],
   "tools": [

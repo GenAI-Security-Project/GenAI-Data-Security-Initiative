@@ -19,6 +19,7 @@ deterministic CLI loads with the standard library only — no PyYAML at runtime)
   signal: fail                   # fail | warn | pass_signal | count | info
   confidence: high               # high | medium | low
   pcre: '(?i)(OPENAI_API_KEY|...)\s*[:=]\s*["'']?sk-[A-Za-z0-9_\-]{20,}'
+  multiline: false               # optional: allow matches to inspect across lines
   file_globs: ['*.py', '*.env*'] # which files the rule runs against
   exclude_globs: []              # paths excluded from this rule
   framework: dsgai-2026-v1.0     # framework version binding
@@ -36,6 +37,7 @@ deterministic CLI loads with the standard library only — no PyYAML at runtime)
 | `signal` | yes | how a hit is weighted: `fail`, `warn`, `pass_signal`, `count`, `info` |
 | `confidence` | yes | `high` / `medium` / `low` — feeds SARIF `level` and report rendering |
 | `pcre` | yes | PCRE2 pattern; must compile under `rg --pcre2` (checked in CI, not by the schema) |
+| `multiline` | no | run ripgrep with `--multiline`, allowing a PCRE such as `(?s)…` to inspect across line boundaries |
 | `file_globs` | yes | globs the rule scans |
 | `exclude_globs` | no | globs excluded from the rule (e.g. migrations/tests) |
 | `framework` | yes | `dsgai-YYYY-vX.Y` binding |
@@ -43,7 +45,7 @@ deterministic CLI loads with the standard library only — no PyYAML at runtime)
 | `remediation` | no | fix guidance |
 | `references` | no | CVE IDs / links |
 | `subtract` | no | rule IDs whose match on the same line cancels this hit (e.g. `torch.load(` minus `weights_only=True`) |
-| `requires_nearby` | no | compound proximity logic: `{rule\|rules, lines\|scope, absent}` |
+| `requires_nearby` | no | compound proximity logic: `{rule\|rules\|pattern, lines\|scope, absent}` — `pattern` is a raw corroborating regex (e.g. P12.1 requires an LLM call within 30 lines) |
 | `gated_on` | no | only evaluated when the stack is detected: `multimodal`, `synthetic_data`, `labeling` |
 | `notes` | no | control-level prose that isn't yet fully formalized |
 

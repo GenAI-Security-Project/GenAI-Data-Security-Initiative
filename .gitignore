@@ -13,3 +13,6 @@ DSGAI-scan.sarif
 DSGAI-filemap.json
 dsgai-baseline.json
 dsgai-reports/
+
+# Private benchmark holdback — responsible disclosure, never commit
+dsgai_scanner_tool/benchmark/SENSITIVE-holdback.md

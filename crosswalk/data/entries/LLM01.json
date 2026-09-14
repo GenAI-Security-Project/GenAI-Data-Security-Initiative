@@ -728,6 +728,87 @@
       "tier": "Foundational",
       "scope": "Both",
       "notes": "Share prompt injection threat intelligence with sector peers through DORA information sharing arrangements"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "2.1.3",
+      "control_name": "Verify that all inputs that could steer model behavior are treated as untrusted and screened by a prompt injection detection ruleset or classifier,...",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C02-Input-Validation.md#c21-prompt-injection-defenses",
+      "notes": "Level 1. Direct control: all inputs able to steer model behavior are treated as untrusted and screened by an injection ruleset or classifier, with flagged inputs blocked"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "2.1.6",
+      "control_name": "Verify that the system enforces an instruction hierarchy in which system and developer messages override user instructions and other untrusted inpu...",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C02-Input-Validation.md#c21-prompt-injection-defenses",
+      "notes": "Level 2. Instruction hierarchy so system and developer messages keep precedence over user and other untrusted input, including after user text is processed"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "2.1.2",
+      "control_name": "Verify that encoding and representation smuggling in inputs is detected and mitigated. Approved mitigations include canonicalization, strict schema...",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C02-Input-Validation.md#c21-prompt-injection-defenses",
+      "notes": "Level 1. Encoding and representation smuggling defeated by canonicalization, strict schema validation, policy rejection or explicit marking"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "2.1.1",
+      "control_name": "Verify that input normalization is applied before tokenization or embedding.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C02-Input-Validation.md#c21-prompt-injection-defenses",
+      "notes": "Level 1. Input normalization applied before tokenization or embedding, closing the pre-tokenizer bypass class"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "2.1.7",
+      "control_name": "Verify that reserved special tokens are encoded as literal characters and cannot be injected into the model context.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C02-Input-Validation.md#c21-prompt-injection-defenses",
+      "notes": "Level 2. Reserved special tokens encoded as literals so control tokens cannot be injected into the model context"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "2.1.5",
+      "control_name": "Verify that the system implements a character set restriction for all inputs. The restriction must use an allow-list approach that permits only cha...",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C02-Input-Validation.md#c21-prompt-injection-defenses",
+      "notes": "Level 1. Character set restricted by allow-list to only explicitly required characters, removing the exotic-codepoint smuggling surface"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "2.1.8",
+      "control_name": "Verify that the system can detect many-shot jailbreaking patterns.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C02-Input-Validation.md#c21-prompt-injection-defenses",
+      "notes": "Level 3. Many-shot jailbreaking pattern detection for long-context in-context-learning attacks"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "10.4.2",
+      "control_name": "Verify that MCP tools/list and tools/call responses are screened for indirect prompt injection before being injected into the model context.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C10-MCP-Security.md#c104-schema-message-and-input-validation",
+      "notes": "Level 1. Indirect injection path: MCP tools/list and tools/call responses screened before entering model context"
+    },
+    {
+      "framework": "OWASP AISVS 1.0",
+      "control_id": "12.2.1",
+      "control_name": "Verify that the system detects and alerts on known jailbreak patterns, prompt injection attempts, and adversarial inputs.",
+      "tier": "Foundational",
+      "scope": "Both",
+      "url": "https://github.com/OWASP/AISVS/blob/main/1.0/en/0x10-C12-Monitoring-and-Logging.md#c122-detection-and-alerting",
+      "notes": "Level 1. Detection layer: known jailbreak patterns, injection attempts and adversarial inputs alerted on"
     }
   ],
   "tools": [
