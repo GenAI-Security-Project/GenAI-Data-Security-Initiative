@@ -63,11 +63,11 @@ secret, use a placeholder of the same shape (`sk-REDACTED-32CHARS`). Never a rea
 
 ### Contributing a trace
 
-Add one JSON file per trace, named for its `trace_id` (`TRACE-0001.json`). Validate it against the
+Add one JSON file per trace under `entries/`, named for its `trace_id` (`entries/TRACE-0001.json`), the one-entry-per-file layout `exploit_dataset` uses. Validate it against the
 schema before opening the pull request:
 
 ```
-python -m jsonschema -i datasets/agentdataflow_toolexchange_traces/TRACE-0001.json \
+python -m jsonschema -i datasets/agentdataflow_toolexchange_traces/entries/TRACE-0001.json \
   data_validation/schemas/agentdataflow_trace.schema.json
 ```
 
