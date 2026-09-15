@@ -1,16 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Agent Data Flow and Tool Exchange Trace",
-  "type": "object",
-  "required": ["trace_id", "category", "dsgai_mapping", "trace_data", "type"],
-  "properties": {
-    "trace_id": { "type": "string", "pattern": "^TRACE-\\d{4}$" },
-    "category": { "type": "string", "enum": ["tool_call", "multi_agent_delegation", "plugin_data_exchange", "credential_flow", "context_accumulation", "memory_read_write"] },
-    "dsgai_mapping": { "type": "array", "items": { "type": "string", "pattern": "^DSGAI(0[1-9]|1[0-9]|2[01])$" }, "minItems": 1 },
-    "agent_framework": { "type": "string" },
-    "trace_data": { "type": "array", "items": { "type": "object" }, "minItems": 1 },
-    "sensitivity_annotations": { "type": "array", "items": { "type": "string" } },
-    "security_observations": { "type": "string" },
-    "type": { "type": "string", "enum": ["benign", "adversarial"] }
-  }
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Historical stub, superseded. datasets/agentdataflow_toolexchange_traces/schema.json is authoritative for this dataset: it is the schema its entries are actually validated against (datasets/agentdataflow_toolexchange_traces/validate.py), and it diverged from this file deliberately - trace_id shape, typed spans instead of an untyped trace_data array, a disposition enum that admits an unintentional failure alongside benign/adversarial, and a provenance tier with required evidence. See PR #62 for the reasoning behind each divergence. This file is kept only so a $ref into it does not break; do not hand-edit it without also updating the dataset-local schema, and prefer editing the dataset-local one.",
+  "$ref": "../../datasets/agentdataflow_toolexchange_traces/schema.json"
 }
