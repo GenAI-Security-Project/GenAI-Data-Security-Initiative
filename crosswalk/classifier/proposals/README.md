@@ -1,1 +1,0 @@
-# Classifier-proposed mappings\n\nThis directory contains auto-generated mapping proposals from the classifier pipeline.\nFiles are created by the GitHub Action when a framework submission is processed.

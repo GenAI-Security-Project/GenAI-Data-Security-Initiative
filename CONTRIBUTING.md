@@ -39,7 +39,7 @@ Start with: [`datasets/incident_dataset/README.md`](datasets/incident_dataset/RE
 
 The **mapping workstream** needs people who understand frameworks deeply enough to map DSGAI risks to specific controls. If you work with NIST CSF, ISO 27001, ISO 42001, SOC 2, PCI DSS, or EU AI Act compliance, you can contribute machine-readable mappings.
 
-Start with: [`datasets/crossframework_mapping_dataset/README.md`](datasets/crossframework_mapping_dataset/README.md) and the [`/crosswalk`](crosswalk/) directory
+Start with: [`datasets/crossframework_mapping_dataset/README.md`](datasets/crossframework_mapping_dataset/README.md) and the dedicated [crosswalk repository](https://github.com/GenAI-Security-Project/crosswalk), where framework mappings are contributed
 
 ### "I'm a developer / AI engineer"
 
