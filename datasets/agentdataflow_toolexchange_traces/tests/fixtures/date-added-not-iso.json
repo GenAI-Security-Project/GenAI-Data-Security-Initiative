@@ -1,0 +1,42 @@
+{
+  "trace_id": "DSGAI-TRACE-fixture-date-added-not-iso",
+  "title": "Minimal valid trace, used as the base every broken fixture mutates",
+  "description": "Not a real security finding. Exists only so each broken fixture in this directory differs from a passing trace by exactly one thing, and so a future contributor changing the schema has something small to update instead of hand-writing a new minimal trace from scratch.",
+  "category": "tool_call",
+  "disposition": "benign",
+  "dsgai_mapping": [
+    "DSGAI06"
+  ],
+  "provenance": {
+    "tier": "hypothetical",
+    "collection_method": "Constructed by hand as a schema-validity fixture; models nothing."
+  },
+  "sanitization": {
+    "attestation": true,
+    "techniques": [
+      "not_applicable_fully_synthetic"
+    ]
+  },
+  "spans": [
+    {
+      "span_id": "s1",
+      "parent_span_id": null,
+      "t_offset_ms": 0,
+      "actor": "agent",
+      "operation": "tool.call",
+      "summary": "Placeholder span with no finding."
+    },
+    {
+      "span_id": "s2",
+      "parent_span_id": "s1",
+      "t_offset_ms": 10,
+      "actor": "tool",
+      "operation": "tool.result",
+      "summary": "Placeholder span with no finding."
+    }
+  ],
+  "security_observations": [
+    "This fixture demonstrates nothing; it exists to validate cleanly."
+  ],
+  "date_added": "15-09-2026"
+}
