@@ -849,16 +849,16 @@ rules:
       framework: 'dsgai-2026-v1.0'
   - id: dsgai-P17.6
     languages: [generic]
-    severity: ERROR
-    message: 'DSGAI17 P17.6: Unbounded retry (FAIL)'
+    severity: WARNING
+    message: 'DSGAI17 P17.6: Unbounded LLM retry loop (WARN)'
     patterns:
-      - pattern-regex: '(?m)while\s+True[^}]{0,200}(generate|complete|chat)|retry\s*\(\s*\)'
+      - pattern-regex: '(?s)while\s+True\b(?=(?:(?!\bbreak\b|\bmax_retries|\btimeout).){0,200}\b(?:generate|complete|chat)\s*\()'
     paths:
       include: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     metadata:
       dsgai_control: DSGAI17
       dsgai_rule: P17.6
-      confidence: medium
+      confidence: low
       framework: 'dsgai-2026-v1.0'
   - id: dsgai-P18.1
     languages: [generic]

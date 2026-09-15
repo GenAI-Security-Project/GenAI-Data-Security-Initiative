@@ -243,6 +243,8 @@ def run_rule(rg, rule, files, scan_root):
     if not files:
         return set()
     base = [rg, "--pcre2", "--no-config", "--with-filename", "--line-number"]
+    if rule.get("multiline"):
+        base.append("--multiline")
     if rule["classification"] == "value_bearing":
         # LOCATION-ONLY: rg erases the matched text before emitting anything.
         base += ["--only-matching", "--replace", ""]
