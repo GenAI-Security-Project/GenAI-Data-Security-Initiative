@@ -31,12 +31,10 @@ from build_cases import (  # noqa: E402
     MANIFEST_FIELDNAMES,
     SOURCE_ATTRIBUTION,
     SOURCE_DATASET,
-    SOURCE_DISTRIBUTION_URL,
     SOURCE_DOI,
     SOURCE_FILE_SHA256,
     SOURCE_LICENSE,
     SOURCE_LICENSE_URL,
-    SOURCE_REPOSITORY,
     SOURCE_REVISION,
     SOURCE_VERSION,
     classify_case,
@@ -138,15 +136,10 @@ def find_external_testcase_ids(contribution_root: Path) -> dict[str, list[str]]:
 
 def validate_attribution_readme(root: Path) -> None:
     readme = (root / "README.md").read_text(encoding="utf-8")
-    expected = "| Attribution | Enes Deniz, Copyright © 2026 |"
-    if expected not in readme:
-        raise ValueError("README source attribution row is missing or changed")
-    if readme.count("Enes Deniz") != 1:
-        raise ValueError("README must keep source attribution in one canonical location")
-    if "| Affiliation | AltaySec |" not in readme:
-        raise ValueError("README source affiliation row is missing or changed")
     if "## Source and attribution" not in readme:
         raise ValueError("README source attribution anchor is missing")
+    if "10.5281/zenodo.21379389" not in readme:
+        raise ValueError("README must carry the source dataset's canonical DOI")
 
 
 def check_pairwise_near_duplicates(
@@ -309,8 +302,6 @@ def main() -> None:
         expected_static_provenance = {
             "source_dataset": SOURCE_DATASET,
             "source_version": SOURCE_VERSION,
-            "source_repository": SOURCE_REPOSITORY,
-            "source_distribution_url": SOURCE_DISTRIBUTION_URL,
             "source_revision": SOURCE_REVISION,
             "source_release_doi": SOURCE_DOI,
             "source_license": SOURCE_LICENSE,
@@ -342,8 +333,7 @@ def main() -> None:
         if case["contrastive_control"]["source_record_id"] != expected_control_id:
             raise ValueError(f"{testcase_id}: contrastive control ID mismatch")
         expected_source = (
-            f"{SOURCE_DATASET} v{SOURCE_VERSION}, pair {pair_id}; "
-            f"CC BY 4.0; {SOURCE_DISTRIBUTION_URL}"
+            f"{SOURCE_DATASET} v{SOURCE_VERSION}, pair {pair_id}; CC BY 4.0"
         )
         if case["source"] != expected_source:
             raise ValueError(f"{testcase_id}: human-readable source citation mismatch")

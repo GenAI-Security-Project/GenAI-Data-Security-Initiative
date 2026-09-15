@@ -33,11 +33,8 @@ evaluators can report attack containment and benign-control handling together.
 | Field | Value |
 |---|---|
 | Source dataset | Turkish Conversation Prompt-Injection Dataset |
-| Source repository | [`3nesdeniz/turkish-conversation-prompt-injection`](https://github.com/3nesdeniz/turkish-conversation-prompt-injection) |
-| Published distribution | [Hugging Face](https://huggingface.co/datasets/3nesdeniz/turkish-conversation-prompt-injection) |
 | Release | v1.0.2 |
-| Attribution | Enes Deniz, Copyright © 2026 |
-| Affiliation | AltaySec |
+| Author | Enes Deniz |
 | DOI | [`10.5281/zenodo.21379389`](https://doi.org/10.5281/zenodo.21379389) |
 | Source revision | `9a2163b051237e3c15f842a3ef517cd029b1ccd4` |
 | Source license | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |

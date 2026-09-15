@@ -17,8 +17,6 @@ from typing import Any
 
 SOURCE_DATASET = "Turkish Conversation Prompt-Injection Dataset"
 SOURCE_VERSION = "1.0.2"
-SOURCE_REPOSITORY = "https://github.com/3nesdeniz/turkish-conversation-prompt-injection"
-SOURCE_DISTRIBUTION_URL = "https://huggingface.co/datasets/3nesdeniz/turkish-conversation-prompt-injection"
 SOURCE_REVISION = "9a2163b051237e3c15f842a3ef517cd029b1ccd4"
 SOURCE_DOI = "10.5281/zenodo.21379389"
 SOURCE_LICENSE = "Creative Commons Attribution 4.0 International (CC BY 4.0)"
@@ -430,8 +428,7 @@ def build_case(
         "prerequisites": prerequisites,
         "severity": severity,
         "source": (
-            f"{SOURCE_DATASET} v{SOURCE_VERSION}, pair {attack['pair_id']}; "
-            f"CC BY 4.0; {SOURCE_DISTRIBUTION_URL}"
+            f"{SOURCE_DATASET} v{SOURCE_VERSION}, pair {attack['pair_id']}; CC BY 4.0"
         ),
         "notes": (
             "Contrastive defensive test case. The paired benign control shares vocabulary or context "
@@ -458,8 +455,6 @@ def build_case(
         "provenance": {
             "source_dataset": SOURCE_DATASET,
             "source_version": SOURCE_VERSION,
-            "source_repository": SOURCE_REPOSITORY,
-            "source_distribution_url": SOURCE_DISTRIBUTION_URL,
             "source_revision": SOURCE_REVISION,
             "source_release_doi": SOURCE_DOI,
             "source_file": source_file,
