@@ -1,0 +1,46 @@
+name: dataset-agentdataflow-validate
+
+# Runs the dataset-local validator for agentdataflow_toolexchange_traces on
+# every change to it, so "enforced by validate.py" in that dataset's README
+# is true of the merged tree and not only of whoever remembered to run it
+# locally. Path-filtered to the dataset, same pattern as scanner-selftest.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'datasets/agentdataflow_toolexchange_traces/**'
+      - 'datasets/_shared/**'
+      - '.github/workflows/dataset-agentdataflow-validate.yml'
+  pull_request:
+    paths:
+      - 'datasets/agentdataflow_toolexchange_traces/**'
+      - 'datasets/_shared/**'
+      - '.github/workflows/dataset-agentdataflow-validate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up Python
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+        with:
+          python-version: '3.11'
+
+      - name: Install jsonschema
+        run: python -m pip install --quiet jsonschema
+
+      - name: Validate entries and example against schema.json
+        run: python validate.py
+        working-directory: datasets/agentdataflow_toolexchange_traces
+
+      - name: index.csv is up to date with entries/
+        run: |
+          python build_index.py
+          git diff --exit-code index.csv
+        working-directory: datasets/agentdataflow_toolexchange_traces
