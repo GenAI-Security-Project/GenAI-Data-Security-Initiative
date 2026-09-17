@@ -1,0 +1,273 @@
+{
+  "$schema": "../schema.json",
+  "trace_id": "DSGAI-TRACE-mcp-output-schema-expansion-context-overshare",
+  "title": "Tool output schema widens under a stable version, and the extra fields flow straight into model context",
+  "description": "An agent calls a lookup tool whose declared output schema returns a narrow projection of a record. The orchestrator appends whole tool results to the model context without projecting them against the schema it bound to. The server later widens the output schema to return the full record, without changing its declared version. The next identical call pulls contact, note, and billing fields into the context window, into the model's answer, and into the observability sink, with no change on the agent side and no error anywhere.",
+  "category": "context_accumulation",
+  "disposition": "unintentional_failure",
+
+  "dsgai_mapping": ["DSGAI15", "DSGAI01", "DSGAI14", "DSGAI05"],
+  "owasp_llm_top10_mapping": ["LLM02:2025", "LLM05:2025"],
+
+  "agent": {
+    "framework": "custom",
+    "tool_protocol": "mcp",
+    "topology": "single agent with schema-agnostic tool-result passthrough into context",
+    "autonomy": "fully_autonomous"
+  },
+
+  "provenance": {
+    "tier": "derived_from_public_documentation",
+    "collection_method": "Constructed as a minimal agent session around a change the Model Context Protocol permits without giving the client a signal it can rely on: a tool's declared output schema widening between two calls under a stable server identity. The agent, the record contents and the downstream sinks are synthetic.",
+    "evidence": [
+      {
+        "type": "url",
+        "citation": "https://modelcontextprotocol.io/specification/2025-06-18/server/tools",
+        "locator": "Data Types > Tool Result > Output Schema",
+        "supports": "outputSchema, where a server declares one, is the client's statement of what a tool returns, and both obligations attach to the current schema: 'Servers MUST provide structured results that conform to this schema' and 'Clients SHOULD validate structured results against this schema'. A client validating against the schema the server publishes now cannot detect that the schema is wider than the one the agent bound to."
+      },
+      {
+        "type": "url",
+        "citation": "https://modelcontextprotocol.io/specification/2025-06-18/server/tools",
+        "locator": "Capabilities; List Changed Notification; Data Types > Tool",
+        "supports": "outputSchema sits inside a tool definition that carries no version field and may change during a session, announced only by notifications/tools/list_changed, which servers that declared the listChanged capability SHOULD send. A version comparison is not an available trigger for re-inspecting an output schema."
+      }
+    ]
+  },
+
+  "sanitization": {
+    "attestation": true,
+    "techniques": ["not_applicable_fully_synthetic", "shape_only_payloads", "name_generalization"],
+    "notes": "Record contents are represented as typed placeholders rather than values, which is also the point being made: a trace of this class is publishable precisely because the payload shape, not the payload, carries the finding."
+  },
+
+  "spans": [
+    {
+      "span_id": "s1",
+      "parent_span_id": null,
+      "t_offset_ms": 0,
+      "actor": "orchestrator",
+      "actor_id": "orchestrator://support-flow",
+      "operation": "tool.discover",
+      "summary": "Agent binds a lookup tool. The declared output schema returns three fields.",
+      "payload": {
+        "tool": "server-b/lookup_record",
+        "declared_server_version": "<synthetic:semver>",
+        "output_schema_fields": ["record_id", "status", "updated_at"],
+        "output_schema_digest": "<shape:sha256-truncated,len=12>"
+      },
+      "data_classes": ["tool_schema"],
+      "sensitivity": "none"
+    },
+    {
+      "span_id": "s2",
+      "parent_span_id": "s1",
+      "t_offset_ms": 620,
+      "actor": "agent",
+      "actor_id": "agent://support-assistant",
+      "operation": "tool.call",
+      "summary": "Agent looks up a record on behalf of a tier-1 support user.",
+      "payload": {
+        "tool": "server-b/lookup_record",
+        "arguments": { "record_id": "<synthetic:uuid>" },
+        "caller_entitlements": ["record.status.read"]
+      },
+      "data_classes": ["user_prompt"],
+      "sensitivity": "low"
+    },
+    {
+      "span_id": "s3",
+      "parent_span_id": "s2",
+      "t_offset_ms": 1140,
+      "actor": "tool",
+      "actor_id": "tool://server-b/lookup_record",
+      "operation": "tool.result",
+      "summary": "Tool returns the narrow projection the agent bound to.",
+      "payload": {
+        "record_id": "<synthetic:uuid>",
+        "status": "open",
+        "updated_at": "<synthetic:iso8601>"
+      },
+      "data_classes": ["tool_output"],
+      "sensitivity": "low"
+    },
+    {
+      "span_id": "s4",
+      "parent_span_id": "s3",
+      "t_offset_ms": 1160,
+      "actor": "orchestrator",
+      "actor_id": "orchestrator://support-flow",
+      "operation": "context.append",
+      "summary": "Whole tool result is appended to context. No projection is applied against the bound schema; the result happens to be safe because the tool happens to be narrow.",
+      "payload": {
+        "projection_applied": false,
+        "fields_appended": 3,
+        "allowlist_configured": false
+      },
+      "data_classes": ["tool_output"],
+      "sensitivity": "low",
+      "finding": {
+        "dsgai_id": "DSGAI15",
+        "note": "The control that keeps this flow safe is the supplier's schema, not the client's policy. That is a control the client does not own and cannot see change.",
+        "severity": "Medium"
+      }
+    },
+    {
+      "span_id": "s5",
+      "parent_span_id": null,
+      "t_offset_ms": 172800000,
+      "actor": "external_service",
+      "actor_id": "tool://server-b",
+      "operation": "contract.change",
+      "summary": "Server widens the output schema from a projection to the full record. Declared server version is unchanged.",
+      "payload": {
+        "tool": "server-b/lookup_record",
+        "path": "outputSchema",
+        "change_kind": "output-schema-changed",
+        "fields_before": ["record_id", "status", "updated_at"],
+        "fields_after": ["record_id", "status", "updated_at", "contact_email", "internal_notes", "billing_account_ref"],
+        "declared_server_version_before": "<synthetic:semver>",
+        "declared_server_version_after": "<synthetic:semver>",
+        "version_delta": "same"
+      },
+      "data_classes": ["tool_schema"],
+      "sensitivity": "none",
+      "finding": {
+        "dsgai_id": "DSGAI05",
+        "note": "A widening output schema is a data-classification change disguised as a compatibility-preserving one. Nothing breaks, so nothing alerts.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s6",
+      "parent_span_id": null,
+      "t_offset_ms": 176400000,
+      "actor": "agent",
+      "actor_id": "agent://support-assistant",
+      "operation": "tool.call",
+      "summary": "Byte-identical call to s2. Same tier-1 caller, same entitlements, same arguments.",
+      "payload": {
+        "tool": "server-b/lookup_record",
+        "arguments": { "record_id": "<synthetic:uuid>" },
+        "caller_entitlements": ["record.status.read"]
+      },
+      "data_classes": ["user_prompt"],
+      "sensitivity": "low"
+    },
+    {
+      "span_id": "s7",
+      "parent_span_id": "s6",
+      "t_offset_ms": 176400910,
+      "actor": "tool",
+      "actor_id": "tool://server-b/lookup_record",
+      "operation": "tool.result",
+      "summary": "Tool returns the full record. Three of the six fields are data the caller has no entitlement to.",
+      "payload": {
+        "record_id": "<synthetic:uuid>",
+        "status": "open",
+        "updated_at": "<synthetic:iso8601>",
+        "contact_email": "<synthetic:email>",
+        "internal_notes": "<shape:string,len=1840>",
+        "billing_account_ref": "<synthetic:account-ref>"
+      },
+      "data_classes": ["tool_output", "pii", "proprietary", "financial"],
+      "sensitivity": "high",
+      "finding": {
+        "dsgai_id": "DSGAI01",
+        "note": "Entitlement was enforced at the caller, once, against a schema that has since changed. The tool now returns more than the caller is authorized to receive, and the authorization layer never re-runs.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s8",
+      "parent_span_id": "s7",
+      "t_offset_ms": 176400930,
+      "actor": "orchestrator",
+      "actor_id": "orchestrator://support-flow",
+      "operation": "context.append",
+      "summary": "Same schema-agnostic append as s4. Six fields now enter the context window instead of three.",
+      "payload": {
+        "projection_applied": false,
+        "fields_appended": 6,
+        "unexpected_fields": ["contact_email", "internal_notes", "billing_account_ref"],
+        "unexpected_field_alert": false
+      },
+      "data_classes": ["tool_output", "pii", "proprietary", "financial"],
+      "sensitivity": "high",
+      "finding": {
+        "dsgai_id": "DSGAI15",
+        "note": "The over-share happens here, in code that did not change, on a path that has no idea anything changed. A schema-agnostic passthrough turns a supplier's schema change into a context-window authorization failure.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s9",
+      "parent_span_id": "s7",
+      "t_offset_ms": 176400935,
+      "actor": "external_service",
+      "actor_id": "observability://trace-sink",
+      "operation": "egress",
+      "summary": "The same tool result is mirrored to the tracing backend as a span attribute, outside the AI security boundary.",
+      "payload": {
+        "sink": "third-party tracing backend",
+        "captured": "full tool result",
+        "retention_days": "<shape:int,approx=30>",
+        "redaction_rules_cover_new_fields": false
+      },
+      "data_classes": ["telemetry", "pii", "financial"],
+      "sensitivity": "high",
+      "finding": {
+        "dsgai_id": "DSGAI14",
+        "note": "Redaction rules in the observability pipeline were written against the fields that existed when the tool was integrated. New fields arrive unredacted by default, and persist for the retention window.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s10",
+      "parent_span_id": "s8",
+      "t_offset_ms": 176403200,
+      "actor": "model",
+      "actor_id": "model://assistant",
+      "operation": "model.completion",
+      "summary": "Model answers the tier-1 user's question and, being helpful, includes the contact address it now has in context.",
+      "payload": {
+        "answer_includes_fields": ["status", "updated_at", "contact_email"],
+        "user_entitled_to": ["status", "updated_at"]
+      },
+      "data_classes": ["pii"],
+      "sensitivity": "high",
+      "finding": {
+        "dsgai_id": "DSGAI01",
+        "note": "Disclosure completes here. The model is behaving correctly with respect to its context; the context is what is wrong.",
+        "severity": "High"
+      }
+    }
+  ],
+
+  "security_observations": [
+    "Where a tool result is appended to context without projection, the supplier's output schema is the de facto data-classification boundary for the agent.",
+    "Output-schema widening raises no error on either side of the call: the server still conforms to the schema it now publishes, and a client validating against that same schema passes. The only defined change signal, notifications/tools/list_changed, is a SHOULD a server can decline to send, so a widened schema can reach the client with nothing that forces it to look again.",
+    "A server version exists - it is returned in serverInfo at session start - but nothing binds it to any one tool's contract, so a client comparing that version across sessions learns nothing about whether a given tool's output schema changed.",
+    "One tool-result object reaches three sinks with different trust boundaries - model context, the user-facing answer, and the observability backend - and the redaction posture of each was set against a schema that no longer holds.",
+    "The client-side diff between the safe run and the unsafe run is zero lines of code and zero configuration changes."
+  ],
+
+  "mitigations": [
+    "Project tool results against an explicit client-side field allowlist before appending to context. Treat fields outside the allowlist as an alertable event, not as data to pass through.",
+    "Pin the bound output-schema digest and re-diff on each session; fail closed or re-approve when the digest moves.",
+    "Classify entitlements per field rather than per tool, so a widened result cannot inherit a narrower call's authorization.",
+    "Make observability redaction default-deny for tool-result attributes: allowlist the fields that may be captured rather than denylisting the ones that may not.",
+    "Alert on the arrival of previously unseen fields in a tool result, which is cheap, needs no schema fetch, and catches this class at s7."
+  ],
+
+  "contributor": {
+    "name": "Bharti, Gautam",
+    "orcid": "0009-0001-4448-1438"
+  },
+
+  "date_added": "2026-08-07",
+
+  "tags": ["mcp", "tool-contract-drift", "output-schema", "context-window", "over-sharing", "telemetry-leakage"],
+
+  "notes": "MITRE ATLAS mapping deliberately omitted pending a pinned ATLAS release in this repository; see issues #59 and #60. The trace asserts a mechanism and no prevalence claim: what is established here is that the protocol permits an output schema to widen without a reliable signal to the client, not how often that happens, and not that any specific agent handled it badly."
+}
