@@ -399,13 +399,13 @@
     },
 
     "contributor": {
-      "description": "Optional attribution, for research datasets that need a citable creator.",
+      "description": "Optional attribution, for research datasets that need a citable creator. Per repository policy, attribution is the person's name plus, optionally, one ORCID iD; no affiliation, organization, or URL fields.",
       "type": "object",
       "additionalProperties": false,
+      "required": ["name"],
       "properties": {
         "name": { "type": "string", "minLength": 2 },
-        "orcid": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$" },
-        "affiliation": { "type": "string", "minLength": 2 }
+        "orcid": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$" }
       }
     },
 
