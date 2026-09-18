@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: Apache-2.0
 # DSGAI02 — block hardcoded LLM, cloud, and vector-store credentials in staged files.
 # Part of the OWASP GenAI Data Security Initiative.
 # https://genai.owasp.org/initiative/data-security/

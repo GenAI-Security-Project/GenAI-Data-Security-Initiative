@@ -29,6 +29,10 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
   line numbers escaped; removed dead code; wired the `run_cve_enrichment` toggle.
 
 ### Added
+- **License split (Apache-2.0 code / CC BY-SA 4.0 content)** — _DRAFT, PR-13, awaiting
+  OWASP leadership sign-off; not yet released._ Adds `LICENSES/` (Apache-2.0 + CC-BY-SA-4.0),
+  `LICENSE-NOTES.md` (path→license map + reasoning, naming the `rules/dsgai-rules.yaml`
+  gray zone explicitly), and SPDX headers on 16 code files. Attribution unchanged.
 - **Benchmark methodology + announcement drafts** (PR-16 hand-off). `docs/BENCHMARK.md`
   (corpus selection, deterministic run steps, a labeling-sheet template, a per-rule
   precision snippet, and the responsible-disclosure rule for live findings) and

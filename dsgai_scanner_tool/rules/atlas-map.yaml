@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 # Static MITRE ATLAS technique -> DSGAI control map.
 #
 # Replaces the unreliable live `site:atlas.mitre.org` searches (the operator is

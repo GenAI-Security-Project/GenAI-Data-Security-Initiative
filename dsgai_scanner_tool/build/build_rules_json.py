@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Build rules/dsgai-rules.json from rules/dsgai-rules.yaml.
 
 This is the repeatable build step (unlike the one-time generate_rules.py). The

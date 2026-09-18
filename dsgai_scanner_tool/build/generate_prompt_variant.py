@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Generate the tool-neutral dsgai_scanner_prompt.md from dsgai_scanner_tool.md.
 
 Single-sources the two variants so they can't drift: the prompt variant is the

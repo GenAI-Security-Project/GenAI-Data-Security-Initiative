@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """Self-test for the DSGAI deterministic runner.
 
 Covers PR-05 acceptance:

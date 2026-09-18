@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Export the STRUCTURAL DSGAI rules as a Semgrep pack.
 
 Strategic point: this makes incumbent toolchains carriers of the DSGAI framework

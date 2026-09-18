@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Deterministic internal-link checker for the DSGAI scanner docs.
 
 Verifies that relative markdown links point at files that exist, and that
