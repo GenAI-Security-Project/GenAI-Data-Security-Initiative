@@ -733,7 +733,7 @@ P05.5  Chunk size limits (PASS):       (max_chunk_size|chunk_size\s*=|max_doc_si
 P05.6  Path traversal risk:            (open\(.*\.\.|os\.path\.join\(.*request\.|Path\(.*request\.)
 ```
 
-For P05.1, also check whether files in the same module contain P05.2 / P05.3 — absence = WARN; presence = PASS evidence.
+For P05.1, also check whether files in the same module contain P05.2 / P05.3 — absence = WARN (low confidence — access control is often enforced in another module or service); presence = PASS evidence.
 
 ### DSGAI06 Scan — MCP / Plugin Security [STRUCTURAL]
 
@@ -747,7 +747,7 @@ P06.4  Wildcard tool perms (WARN):     (tools\s*[:=]\s*\*|"tools"\s*:\s*"\*"|all
 P06.5  uvicorn bind-all + no auth:     uvicorn\.run\([^)]*host\s*=\s*["']0\.0\.0\.0
 ```
 
-P06.5 alone is informational; combined with absence of P06.2 in the same module = FAIL.
+P06.5 alone is informational; combined with absence of P06.2 in the same module = WARN (low confidence — auth is often enforced by a reverse proxy, gateway or middleware defined elsewhere).
 
 ### DSGAI07 Scan — Data Lifecycle / TTL [STRUCTURAL]
 
@@ -775,7 +775,7 @@ P08.5  Audit logging:                  (audit_log|decision_log|audit_trail)
 P08.6  Do-not-track honored:           (do_not_track|opt_out|DNT)
 ```
 
-Absence of all six in a production GenAI service = WARN (low confidence); absence in a high-risk EU AI Act use case = FAIL.
+Absence of all six in a production GenAI service = WARN (low confidence). Escalate to FAIL only when the operator has declared the system high-risk under the EU AI Act — the obligation is then confirmed, though the documents may still live outside the repo.
 
 ### DSGAI09 Scan — Multimodal AI Data Security [STRUCTURAL]
 
@@ -820,7 +820,7 @@ P11.3  Tenant verification (PASS):     (tenant_id\s*in\s*session|verify_tenant|a
 P11.4  Cross-tenant cache risk:        (global[._-]cache|shared[._-]prompt[._-]cache|@cache(?!\s*\(.*tenant))
 ```
 
-For every P11.1 match, verify P11.2 is present within ±15 lines in the same file. If absent, FAIL.
+For every P11.1 match, verify P11.2 is present within ±15 lines in the same file. If absent, WARN (low confidence — tenant filters are often applied in a retriever wrapper or query builder outside the window).
 
 ### DSGAI12 Scan — Database Agent Security [STRUCTURAL]
 
@@ -922,7 +922,7 @@ P18.4  LLM call sites (count):         (\.chat\.completions\.create|client\.mess
 P18.5  max_tokens set (PASS):          max_tokens\s*=\s*\d+
 ```
 
-For every P18.4 match, verify P18.5 is present in the same call expression (within ±10 lines). Absent max_tokens on a production LLM call = WARN.
+For every P18.4 match, verify P18.5 is present in the same call expression (within ±10 lines). Absent max_tokens on a production LLM call = WARN (low confidence — max_tokens is often set on a shared client, wrapper or config default).
 
 ### DSGAI19 Scan — AI Data Labeling Security [STRUCTURAL]
 

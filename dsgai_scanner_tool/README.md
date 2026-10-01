@@ -240,7 +240,7 @@ It's built to *complement* the tools you already run, not replace them — it ev
 <p align="center">
   <img src="DSGAI-samplereport.png" alt="Sample DSGAI compliance report showing the dashboard, finding cards, and CVE advisory panel" width="820">
   <br>
-  <em>Rendered deterministically by <code>cli/dsgai_report.py</code> from a scan of the public <a href="tests/fixtures/vulnerable-app/">fixture app</a> — STRICT mode, file IDs + line numbers only, zero real-repo disclosure. Fully reproducible.</em>
+  <em>Rendered deterministically by <code>cli/dsgai_report.py</code> from a scan of the public <a href="tests/fixtures/vulnerable-app/">fixture app</a> — STRICT mode, file IDs + line numbers only, zero real-repo disclosure. Fully reproducible: <code>dsgai_scan.py scan tests/fixtures/vulnerable-app</code>, then <code>dsgai_report.py</code>. Snapshot of 2026-10-01 (ruleset 0.3.0, after #83); later rule changes can move individual verdicts.</em>
 </p>
 
 The self-contained HTML report (no CDN, no external fonts; prints cleanly to PDF) contains:

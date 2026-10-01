@@ -35,7 +35,7 @@ deterministic CLI loads with the standard library only — no PyYAML at runtime)
 | `name` | yes | kebab-case identifier |
 | `classification` | yes | `structural` (match may be shown) or `value_bearing` (match content is a secret/PII — never shown; located in `--replace ''` mode) |
 | `signal` | yes | how a hit is weighted: `fail`, `warn`, `pass_signal`, `count`, `info` |
-| `confidence` | yes | `high` / `medium` / `low` — feeds SARIF `level` and report rendering |
+| `confidence` | yes | `high` / `medium` / `low` — recorded on each SARIF rule and result (`properties.confidence`) for consumers to filter or rank on. It does not set SARIF `level`, which follows the finding's status (`fail` → `error`, `warn` → `warning`, others → `note`). |
 | `pcre` | yes | PCRE2 pattern; must compile under `rg --pcre2` (checked in CI, not by the schema) |
 | `multiline` | no | run ripgrep with `--multiline`, allowing a PCRE such as `(?s)…` to inspect across line boundaries |
 | `file_globs` | yes | globs the rule scans |

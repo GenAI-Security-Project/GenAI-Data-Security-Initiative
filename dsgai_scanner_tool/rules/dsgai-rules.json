@@ -356,13 +356,7 @@
       "confidence": "high",
       "control": "DSGAI02",
       "description": "Raw token literal (Slack/GitHub/Google/AWS/Anthropic/OpenAI) assigned to any variable",
-      "exclude_globs": [
-        "*.min.js",
-        "dist/**",
-        "**/__snapshots__/**",
-        "*.lock",
-        "*.map"
-      ],
+      "exclude_globs": [],
       "file_globs": [
         "*.py",
         "*.ts",
@@ -384,7 +378,7 @@
       "framework": "dsgai-2026-v1.0",
       "id": "P02.9",
       "name": "raw-token-literal",
-      "notes": "The JWT branch was split out to P02.10 (low/warn) so it can carry its own confidence.",
+      "notes": "The JWT branch was split out to P02.10 (low/warn) so it can carry its own confidence. The bundle/snapshot excludes went with it (#83): they existed for JWT false positives, and a provider-prefixed key inside a minified bundle or snapshot is a real leak.",
       "pcre": "\\b(sk-ant-[A-Za-z0-9_\\-]{20,}|sk-proj-[A-Za-z0-9_\\-]{20,}|ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{22,}|xox[baprs]-[A-Za-z0-9-]{10,}|AIza[0-9A-Za-z_\\-]{35}|AKIA[0-9A-Z]{16})\\b",
       "signal": "fail"
     },
@@ -649,7 +643,7 @@
       "classification": "structural",
       "confidence": "low",
       "control": "DSGAI05",
-      "description": "Document ingestion calls",
+      "description": "Document ingestion calls (no access control or tenant filter in the module is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.py",
@@ -660,6 +654,7 @@
       "framework": "dsgai-2026-v1.0",
       "id": "P05.1",
       "name": "document-ingestion-calls",
+      "notes": "Absence-of-evidence branch: ingestion with neither P05.2 nor P05.3 in the same module is a WARN, confidence low — access control is often enforced in another module or service.",
       "pcre": "(loader\\.load\\(|ingest_document\\(|add_documents\\(|index_document\\(|UnstructuredFileLoader|PyPDFLoader|DirectoryLoader)",
       "requires_nearby": {
         "rules": [
@@ -848,7 +843,7 @@
       "classification": "structural",
       "confidence": "low",
       "control": "DSGAI06",
-      "description": "uvicorn bind-all + no auth",
+      "description": "uvicorn bind-all (no MCP auth in the module is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.json",
@@ -862,6 +857,7 @@
       "framework": "dsgai-2026-v1.0",
       "id": "P06.5",
       "name": "uvicorn-bind-all-no-auth",
+      "notes": "Absence-of-evidence branch: a 0.0.0.0 bind with no P06.2 in the same module is a WARN, confidence low — auth is often enforced by a reverse proxy, gateway or middleware defined elsewhere (#83).",
       "pcre": "uvicorn\\.run\\([^)]*host\\s*=\\s*[\"']0\\.0\\.0\\.0",
       "requires_nearby": {
         "absent": true,
@@ -977,7 +973,7 @@
       "framework": "dsgai-2026-v1.0",
       "id": "P08.1",
       "name": "dpia-privacy-assessment-doc",
-      "notes": "Absence of P08.1-P08.6 in a production GenAI service = WARN; absence in a high-risk EU AI Act use case = FAIL. Absence of evidence is a weak signal: confidence low.",
+      "notes": "Absence of P08.1-P08.6 in a production GenAI service = WARN; escalate to FAIL only when the operator has declared the system high-risk under the EU AI Act (the obligation is then confirmed, though the documents may still live outside the repo). Absence of evidence is a weak signal: confidence low (#83).",
       "pcre": "(DPIA|PIA|privacy_assessment|privacy[._-]impact)",
       "signal": "info"
     },
@@ -1292,7 +1288,7 @@
       "classification": "structural",
       "confidence": "low",
       "control": "DSGAI11",
-      "description": "Vector query call sites",
+      "description": "Vector query call sites (no tenant filter nearby is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.py",
@@ -1304,6 +1300,7 @@
       "framework": "dsgai-2026-v1.0",
       "id": "P11.1",
       "name": "vector-query-call-sites",
+      "notes": "Absence-of-evidence branch: a vector query with no P11.2 within 15 lines is a WARN, confidence low — tenant filters are often applied in a retriever wrapper or query builder outside the window (#83).",
       "pcre": "(similarity_search|max_marginal_relevance_search|as_retriever|(vectorstore|vector_store|retriever|index|collection|client)\\.(query|search)\\()",
       "requires_nearby": {
         "lines": 15,
@@ -2050,9 +2047,9 @@
     },
     {
       "classification": "structural",
-      "confidence": "medium",
+      "confidence": "low",
       "control": "DSGAI18",
-      "description": "LLM call sites (count)",
+      "description": "LLM call sites (count; no max_tokens nearby is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.py",
@@ -2064,6 +2061,7 @@
       "framework": "dsgai-2026-v1.0",
       "id": "P18.4",
       "name": "llm-call-sites",
+      "notes": "Absence-of-evidence branch: an LLM call with no P18.5 within 10 lines is a WARN, confidence low — max_tokens is often set on a shared client, wrapper or config default (#83).",
       "pcre": "(\\.chat\\.completions\\.create|client\\.messages\\.create|openai\\.ChatCompletion|anthropic\\.messages|generate_content|chat\\.complete)",
       "requires_nearby": {
         "lines": 10,

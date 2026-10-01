@@ -127,6 +127,25 @@ def test_absence_rules_are_low_confidence():
     assert ds.COMPOUND_STATUS["P20.5"]["violation"] == "warn"
 
 
+def test_every_absence_violation_is_a_low_confidence_warning():
+    """#83: no requires_nearby rule FAILs on absence of evidence alone. The
+    one corroborating-signal rule (P12.1) drops instead of resolving."""
+    rules = {r["id"]: r for r in _rules()}
+    ds = _import_cli()
+    for rid, cs in ds.COMPOUND_STATUS.items():
+        if cs["violation"] == "drop":
+            continue
+        assert cs["violation"] == "warn", rid
+        assert rules[rid]["confidence"] == "low", rid
+
+
+def test_raw_token_rule_scans_bundles():
+    """#83: the bundle/snapshot excludes left P02.9 with the JWT branch; a
+    provider-prefixed key in a minified bundle is a real leak."""
+    rules = {r["id"]: r for r in _rules()}
+    assert not rules["P02.9"].get("exclude_globs")
+
+
 @requires_rg
 def test_scan_matches_sheet_exactly(scan, sheet):
     def key(f):
@@ -184,6 +203,7 @@ def test_sarif_structure(scan):
     for res in run["results"]:
         assert res["ruleId"]
         assert res["level"] in ("error", "warning", "note")
+        assert res["properties"]["confidence"] in ("high", "medium", "low")
         loc = res["locations"][0]["physicalLocation"]
         assert loc["artifactLocation"]["uri"]
         assert loc["region"]["startLine"] >= 1

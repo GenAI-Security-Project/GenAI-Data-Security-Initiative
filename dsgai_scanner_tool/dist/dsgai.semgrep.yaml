@@ -200,7 +200,7 @@ rules:
   - id: dsgai-P05.1
     languages: [generic]
     severity: INFO
-    message: 'DSGAI05 P05.1: Document ingestion calls'
+    message: 'DSGAI05 P05.1: Document ingestion calls (no access control or tenant filter in the module is a low-confidence WARN)'
     patterns:
       - pattern-regex: '(loader\.load\(|ingest_document\(|add_documents\(|index_document\(|UnstructuredFileLoader|PyPDFLoader|DirectoryLoader)'
     paths:
@@ -330,7 +330,7 @@ rules:
   - id: dsgai-P06.5
     languages: [generic]
     severity: INFO
-    message: 'DSGAI06 P06.5: uvicorn bind-all + no auth'
+    message: 'DSGAI06 P06.5: uvicorn bind-all (no MCP auth in the module is a low-confidence WARN)'
     patterns:
       - pattern-regex: '(?m)uvicorn\.run\([^)]*host\s*=\s*["'']0\.0\.0\.0'
     paths:
@@ -603,7 +603,7 @@ rules:
   - id: dsgai-P11.1
     languages: [generic]
     severity: INFO
-    message: 'DSGAI11 P11.1: Vector query call sites'
+    message: 'DSGAI11 P11.1: Vector query call sites (no tenant filter nearby is a low-confidence WARN)'
     patterns:
       - pattern-regex: '(similarity_search|max_marginal_relevance_search|as_retriever|(vectorstore|vector_store|retriever|index|collection|client)\.(query|search)\()'
     paths:
@@ -902,7 +902,7 @@ rules:
   - id: dsgai-P18.4
     languages: [generic]
     severity: INFO
-    message: 'DSGAI18 P18.4: LLM call sites (count)'
+    message: 'DSGAI18 P18.4: LLM call sites (count; no max_tokens nearby is a low-confidence WARN)'
     patterns:
       - pattern-regex: '(\.chat\.completions\.create|client\.messages\.create|openai\.ChatCompletion|anthropic\.messages|generate_content|chat\.complete)'
     paths:
@@ -910,7 +910,7 @@ rules:
     metadata:
       dsgai_control: DSGAI18
       dsgai_rule: P18.4
-      confidence: medium
+      confidence: low
       framework: 'dsgai-2026-v1.0'
   - id: dsgai-P18.5
     languages: [generic]

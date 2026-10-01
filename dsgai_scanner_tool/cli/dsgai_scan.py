@@ -47,13 +47,14 @@ ALWAYS_SCAN_GLOBS = ["*.env", "*.env.*", ".env", ".env.*", "*.envrc"]
 # requires_nearby resolution: status when the requirement is violated (required
 # rule absent) vs satisfied (present). Read the require list / window from the
 # rule's requires_nearby; these two statuses are the only per-rule extra.
+# Every absence-of-evidence violation is a low-confidence WARN, never a FAIL:
+# the required control is often applied outside the module or line window the
+# scanner inspects (middleware, a gateway, a wrapper, a shared client) (#22, #83).
 COMPOUND_STATUS = {
     "P05.1": {"violation": "warn", "satisfied": "pass_signal"},
-    "P06.5": {"violation": "fail", "satisfied": "info"},
-    "P11.1": {"violation": "fail", "satisfied": "pass_signal"},
+    "P06.5": {"violation": "warn", "satisfied": "info"},
+    "P11.1": {"violation": "warn", "satisfied": "pass_signal"},
     "P18.4": {"violation": "warn", "satisfied": "pass_signal"},
-    # Absence of auth/rate limit near an endpoint is weak evidence (it is often
-    # applied globally), so the violation is a low-confidence WARN (#22).
     "P20.5": {"violation": "warn", "satisfied": "pass_signal"},
     # Corroborating-signal rules: fire only when the nearby signal is PRESENT
     # (drop the match otherwise). P12.1 is a FAIL only when an LLM call is nearby.
@@ -455,6 +456,7 @@ SARIF_LEVEL = {"fail": "error", "warn": "warning", "pass_signal": "note",
 
 def build_sarif(ruleset, rules, findings):
     rules_index = {r["id"]: i for i, r in enumerate(rules)}
+    confidence = {r["id"]: r["confidence"] for r in rules}
     sarif_rules = [{
         "id": r["id"],
         "name": r["name"],
@@ -467,8 +469,11 @@ def build_sarif(ruleset, rules, findings):
         results.append({
             "ruleId": f["rule_id"],
             "ruleIndex": rules_index[f["rule_id"]],
+            # level follows the finding's status; confidence is carried
+            # alongside it so consumers can filter or rank on it (#83).
             "level": SARIF_LEVEL.get(f["status"], "note"),
             "message": {"text": f"{f['control']} {f['rule_id']} ({f['status']})"},
+            "properties": {"confidence": confidence[f["rule_id"]], "status": f["status"]},
             "locations": [{"physicalLocation": {
                 "artifactLocation": {"uri": f["path"]},
                 "region": {"startLine": f["line"]},
