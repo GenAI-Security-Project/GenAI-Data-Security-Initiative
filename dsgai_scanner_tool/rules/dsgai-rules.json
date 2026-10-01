@@ -355,7 +355,7 @@
       "classification": "value_bearing",
       "confidence": "high",
       "control": "DSGAI02",
-      "description": "Raw token literal (Slack/GitHub/Google/AWS/Anthropic/OpenAI/JWT) assigned to any variable",
+      "description": "Raw token literal (Slack/GitHub/Google/AWS/Anthropic/OpenAI) assigned to any variable",
       "exclude_globs": [
         "*.min.js",
         "dist/**",
@@ -384,9 +384,46 @@
       "framework": "dsgai-2026-v1.0",
       "id": "P02.9",
       "name": "raw-token-literal",
-      "notes": "JWT branch is noisy in bundles/lockfiles (see exclude_globs); further split tracked as a good-first-issue.",
-      "pcre": "\\b(sk-ant-[A-Za-z0-9_\\-]{20,}|sk-proj-[A-Za-z0-9_\\-]{20,}|ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{22,}|xox[baprs]-[A-Za-z0-9-]{10,}|AIza[0-9A-Za-z_\\-]{35}|AKIA[0-9A-Z]{16}|eyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,})\\b",
+      "notes": "The JWT branch was split out to P02.10 (low/warn) so it can carry its own confidence.",
+      "pcre": "\\b(sk-ant-[A-Za-z0-9_\\-]{20,}|sk-proj-[A-Za-z0-9_\\-]{20,}|ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{22,}|xox[baprs]-[A-Za-z0-9-]{10,}|AIza[0-9A-Za-z_\\-]{35}|AKIA[0-9A-Z]{16})\\b",
       "signal": "fail"
+    },
+    {
+      "classification": "value_bearing",
+      "confidence": "low",
+      "control": "DSGAI02",
+      "description": "Raw JWT literal (WARN — low confidence)",
+      "exclude_globs": [
+        "*.min.js",
+        "dist/**",
+        "**/__snapshots__/**",
+        "*.lock",
+        "*.map"
+      ],
+      "file_globs": [
+        "*.py",
+        "*.ts",
+        "*.js",
+        "*.java",
+        "*.kt",
+        "*.go",
+        "*.env*",
+        "*.yaml",
+        "*.yml",
+        "*.json",
+        "*.toml",
+        "*.cfg",
+        "*.cs",
+        "*.rs",
+        "*.rb",
+        "*.csproj"
+      ],
+      "framework": "dsgai-2026-v1.0",
+      "id": "P02.10",
+      "name": "raw-jwt-literal",
+      "notes": "JWT-shaped strings are common in bundles, lockfiles and test snapshots (excluded via exclude_globs) and are often public test tokens, so a hit is a WARN, not a FAIL.",
+      "pcre": "\\beyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\b",
+      "signal": "warn"
     },
     {
       "classification": "structural",
@@ -837,7 +874,7 @@
       "classification": "structural",
       "confidence": "low",
       "control": "DSGAI07",
-      "description": "TTL config",
+      "description": "TTL config (absence is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.py",
@@ -851,7 +888,7 @@
       "framework": "dsgai-2026-v1.0",
       "id": "P07.1",
       "name": "ttl-config",
-      "notes": "Absence of P07.1-P07.4 in a multi-tenant or PII-handling repo = WARN.",
+      "notes": "Absence of P07.1-P07.4 in a multi-tenant or PII-handling repo = WARN. Absence of evidence is a weak signal: confidence low.",
       "pcre": "(ttl\\s*=|expires_in\\s*=|max_age\\s*=|RETENTION_DAYS|DATA_TTL|HISTORY_TTL)",
       "signal": "info"
     },
@@ -859,7 +896,7 @@
       "classification": "structural",
       "confidence": "medium",
       "control": "DSGAI07",
-      "description": "Session cleanup (PASS)",
+      "description": "Session cleanup (PASS; absence is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.py",
@@ -880,7 +917,7 @@
       "classification": "structural",
       "confidence": "medium",
       "control": "DSGAI07",
-      "description": "Vector delete (PASS)",
+      "description": "Vector delete (PASS; absence is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.py",
@@ -901,7 +938,7 @@
       "classification": "structural",
       "confidence": "medium",
       "control": "DSGAI07",
-      "description": "Right-to-erasure (PASS)",
+      "description": "Right-to-erasure (PASS; absence is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.py",
@@ -922,7 +959,7 @@
       "classification": "structural",
       "confidence": "low",
       "control": "DSGAI08",
-      "description": "DPIA / privacy assessment doc",
+      "description": "DPIA / privacy assessment doc (absence is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.md",
@@ -940,7 +977,7 @@
       "framework": "dsgai-2026-v1.0",
       "id": "P08.1",
       "name": "dpia-privacy-assessment-doc",
-      "notes": "Absence of P08.1-P08.6 in a production GenAI service = WARN; absence in a high-risk EU AI Act use case = FAIL.",
+      "notes": "Absence of P08.1-P08.6 in a production GenAI service = WARN; absence in a high-risk EU AI Act use case = FAIL. Absence of evidence is a weak signal: confidence low.",
       "pcre": "(DPIA|PIA|privacy_assessment|privacy[._-]impact)",
       "signal": "info"
     },
@@ -948,7 +985,7 @@
       "classification": "structural",
       "confidence": "low",
       "control": "DSGAI08",
-      "description": "Data processing agreement ref",
+      "description": "Data processing agreement ref (absence is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.md",
@@ -973,7 +1010,7 @@
       "classification": "structural",
       "confidence": "low",
       "control": "DSGAI08",
-      "description": "Consent capture",
+      "description": "Consent capture (absence is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.md",
@@ -998,7 +1035,7 @@
       "classification": "structural",
       "confidence": "low",
       "control": "DSGAI08",
-      "description": "EU AI Act annotation",
+      "description": "EU AI Act annotation (absence is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.md",
@@ -1023,7 +1060,7 @@
       "classification": "structural",
       "confidence": "low",
       "control": "DSGAI08",
-      "description": "Audit logging",
+      "description": "Audit logging (absence is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.md",
@@ -1048,7 +1085,7 @@
       "classification": "structural",
       "confidence": "low",
       "control": "DSGAI08",
-      "description": "Do-not-track honored",
+      "description": "Do-not-track honored (absence is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.md",
@@ -1751,7 +1788,7 @@
       "classification": "structural",
       "confidence": "medium",
       "control": "DSGAI16",
-      "description": "AI-ignore file present (PASS)",
+      "description": "AI-ignore file present (PASS; absence is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         ".copilotignore",
@@ -1767,7 +1804,7 @@
       "id": "P16.1",
       "match": "file_exists",
       "name": "ai-ignore-file-present",
-      "notes": "Filename-existence check (not content grep). Absence in a repo with .env or secrets/ = WARN.",
+      "notes": "Filename-existence check (not content grep). Absence in a repo with .env or secrets/ = WARN. Absence of evidence is a weak signal: confidence low.",
       "pcre": "(\\.(copilot|ai|cursor|continue|codeium)ignore)",
       "signal": "pass_signal"
     },
@@ -1842,7 +1879,7 @@
       "classification": "structural",
       "confidence": "medium",
       "control": "DSGAI17",
-      "description": "Circuit breaker (PASS)",
+      "description": "Circuit breaker (PASS; absence is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.py",
@@ -1854,7 +1891,7 @@
       "framework": "dsgai-2026-v1.0",
       "id": "P17.1",
       "name": "circuit-breaker",
-      "notes": "LLM-calling module with none of P17.1-P17.5 = WARN.",
+      "notes": "LLM-calling module with none of P17.1-P17.5 = WARN. Absence of evidence is a weak signal: confidence low.",
       "pcre": "(CircuitBreaker|@circuit|tenacity|resilience4j|pybreaker)",
       "signal": "pass_signal"
     },
@@ -1862,7 +1899,7 @@
       "classification": "structural",
       "confidence": "medium",
       "control": "DSGAI17",
-      "description": "Retry with backoff (PASS)",
+      "description": "Retry with backoff (PASS; absence is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.py",
@@ -1881,7 +1918,7 @@
       "classification": "structural",
       "confidence": "medium",
       "control": "DSGAI17",
-      "description": "Timeout on LLM call (PASS)",
+      "description": "Timeout on LLM call (PASS; absence is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.py",
@@ -1900,7 +1937,7 @@
       "classification": "structural",
       "confidence": "medium",
       "control": "DSGAI17",
-      "description": "Rate limit incoming (PASS)",
+      "description": "Rate limit incoming (PASS; absence is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.py",
@@ -1919,7 +1956,7 @@
       "classification": "structural",
       "confidence": "medium",
       "control": "DSGAI17",
-      "description": "Fallback response (PASS)",
+      "description": "Fallback response (PASS; absence is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.py",
@@ -2211,9 +2248,9 @@
     },
     {
       "classification": "structural",
-      "confidence": "medium",
+      "confidence": "low",
       "control": "DSGAI20",
-      "description": "Inference endpoint (count)",
+      "description": "Inference endpoint (count; no auth/rate limit nearby is a low-confidence WARN)",
       "exclude_globs": [],
       "file_globs": [
         "*.py",
@@ -2226,6 +2263,7 @@
       "framework": "dsgai-2026-v1.0",
       "id": "P20.5",
       "name": "inference-endpoint",
+      "notes": "Absence-of-evidence branch: an endpoint with neither P20.1 nor P20.2 within 15 lines is a WARN, confidence low — auth and rate limiting are often applied globally (middleware, gateway) outside the window.",
       "pcre": "(@app\\.(post|get)\\([\"'][^\"']*(chat|generate|completion|infer|predict)|@router\\.(post|get)\\([\"'][^\"']*(chat|generate|completion|infer|predict)|app\\.(post|get)\\([\"'][^\"']*(chat|generate|completion|infer|predict))",
       "requires_nearby": {
         "lines": 15,

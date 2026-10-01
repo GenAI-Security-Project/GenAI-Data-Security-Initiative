@@ -680,17 +680,19 @@ Files: `*.py`, `*.ts`, `*.js`, `*.java`, `*.kt`, `*.go`, `*.env*`, `*.yaml`, `*.
 
 Patterns (PCRE):
 ```
-P02.1  Hardcoded LLM API key (OpenAI):     (?i)(OPENAI_API_KEY|openai[._-]?api[._-]?key)\s*[:=]\s*["']sk-[A-Za-z0-9_\-]{20,}
-P02.2  Hardcoded LLM API key (Anthropic):  (?i)(ANTHROPIC_API_KEY|anthropic[._-]?api[._-]?key)\s*[:=]\s*["']sk-ant-[A-Za-z0-9_\-]{20,}
-P02.3  Hardcoded Cohere/Google/HF tokens:  (?i)(COHERE_API_KEY|GOOGLE_API_KEY|HF_TOKEN|HUGGINGFACE_TOKEN)\s*[:=]\s*["'][A-Za-z0-9_\-]{20,}
-P02.4  Hardcoded AWS creds:                (AWS_ACCESS_KEY_ID|aws_access_key_id)\s*[:=]\s*["'][A-Z0-9]{16,}
-P02.5  Hardcoded Azure/GCP cred:           (AZURE_OPENAI_KEY|GCP_SERVICE_ACCOUNT_KEY)\s*[:=]\s*["'][A-Za-z0-9_\-]{16,}
+P02.1  Hardcoded LLM API key (OpenAI):     (?i)(OPENAI_API_KEY|openai[._-]?api[._-]?key)\s*[:=]\s*["']?sk-[A-Za-z0-9_\-]{20,}
+P02.2  Hardcoded LLM API key (Anthropic):  (?i)(ANTHROPIC_API_KEY|anthropic[._-]?api[._-]?key)\s*[:=]\s*["']?sk-ant-[A-Za-z0-9_\-]{20,}
+P02.3  Hardcoded Cohere/Google/HF tokens:  (?i)(COHERE_API_KEY|GOOGLE_API_KEY|HF_TOKEN|HUGGINGFACE_TOKEN)\s*[:=]\s*["']?[A-Za-z0-9_\-]{20,}
+P02.4  Hardcoded AWS creds:                (AWS_ACCESS_KEY_ID|aws_access_key_id)\s*[:=]\s*["']?[A-Z0-9]{16,}
+P02.5  Hardcoded Azure/GCP cred:           (AZURE_OPENAI_KEY|GCP_SERVICE_ACCOUNT_KEY)\s*[:=]\s*["']?[A-Za-z0-9_\-]{16,}
 P02.6  Wildcard token scope (warn):        ("scope"\s*:\s*"\*|permissions[^\n]{0,30}\*|scope[^\n]{0,20}admin)
 P02.7  Vault/secrets-manager (PASS):       (hvac\.Client|hashicorp/vault|VAULT_(ADDR|TOKEN|NAMESPACE)|secretsmanager\.|GetSecretValue|SecretManagerServiceClient|azure[._-]keyvault|@aws-sdk/client-secrets-manager)
 P02.8  Tool-call signing (PASS):           (hmac|sign_request|verify_signature|tool_auth|mtls|mutual_tls)
+P02.9  Raw token literal (any variable):   \b(sk-ant-[A-Za-z0-9_\-]{20,}|sk-proj-[A-Za-z0-9_\-]{20,}|ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{22,}|xox[baprs]-[A-Za-z0-9-]{10,}|AIza[0-9A-Za-z_\-]{35}|AKIA[0-9A-Z]{16})\b
+P02.10 Raw JWT literal (WARN, low):        \beyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\b   (skip *.min.js, dist/, __snapshots__/, *.lock, *.map)
 ```
 
-Treat P02.1–P02.5 hits as FAIL evidence. P02.6 as WARN. P02.7–P02.8 as PASS signals. Render per V5.
+Treat P02.1–P02.5 and P02.9 hits as FAIL evidence. P02.6 and P02.10 as WARN. P02.7–P02.8 as PASS signals. Render per V5.
 
 ### DSGAI03 Scan — Shadow AI Detection [STRUCTURAL]
 
@@ -758,7 +760,7 @@ P07.3  Vector delete (PASS):           (delete_namespace|delete_collection|drop_
 P07.4  Right-to-erasure (PASS):        (gdpr_delete|erase_user_data|handle_deletion|right_to_erasure|forget_user)
 ```
 
-Absence of all four in a multi-tenant or PII-handling repo = WARN.
+Absence of all four in a multi-tenant or PII-handling repo = WARN (low confidence — absence of evidence, not evidence of absence).
 
 ### DSGAI08 Scan — Regulatory and Privacy Compliance [STRUCTURAL]
 
@@ -773,7 +775,7 @@ P08.5  Audit logging:                  (audit_log|decision_log|audit_trail)
 P08.6  Do-not-track honored:           (do_not_track|opt_out|DNT)
 ```
 
-Absence of all six in a production GenAI service = WARN; absence in a high-risk EU AI Act use case = FAIL.
+Absence of all six in a production GenAI service = WARN (low confidence); absence in a high-risk EU AI Act use case = FAIL.
 
 ### DSGAI09 Scan — Multimodal AI Data Security [STRUCTURAL]
 
@@ -891,7 +893,7 @@ P16.3  Telemetry off (PASS):           (telemetry[^\n]{0,10}(off|false|disabled)
 P16.4  Context scope limits:           (contextWindow|ignorePaths|excludeFiles|maxContextLines)
 ```
 
-Absence of P16.1 in a repo with `.env` or `secrets/` directory = WARN.
+Absence of P16.1 in a repo with `.env` or `secrets/` directory = WARN (low confidence).
 
 ### DSGAI17 Scan — System Resilience and Availability [STRUCTURAL]
 
@@ -906,7 +908,7 @@ P17.5  Fallback response (PASS):       (fallback_response|default_response|grace
 P17.6  Unbounded retry (FAIL):         while\s+True[^}]{0,200}(generate|complete|chat)|retry\s*\(\s*\)
 ```
 
-LLM-calling module with none of P17.1–P17.5 = WARN.
+LLM-calling module with none of P17.1–P17.5 = WARN (low confidence).
 
 ### DSGAI18 Scan — Model Output Security [STRUCTURAL]
 
@@ -949,7 +951,7 @@ P20.4  Prompt injection detect (PASS): (prompt_injection_detect|detect_injection
 P20.5  Inference endpoint (count):     (@app\.(post|get)\(["'][^"']*(chat|generate|completion|infer|predict)|@router\.(post|get)\(["'][^"']*(chat|generate|completion|infer|predict)|app\.(post|get)\(["'][^"']*(chat|generate|completion|infer|predict))
 ```
 
-For every P20.5 inference endpoint, verify P20.1 and P20.2 are nearby. Both absent = FAIL.
+For every P20.5 inference endpoint, verify P20.1 and P20.2 are nearby. Both absent = WARN (low confidence — auth and rate limiting are often applied globally, outside the window).
 
 ### DSGAI21 Scan — Knowledge Store Security [STRUCTURAL]
 

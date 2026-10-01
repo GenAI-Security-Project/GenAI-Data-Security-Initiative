@@ -153,12 +153,24 @@ rules:
     classification: value_bearing
     signal: fail
     confidence: high
-    pcre: '\b(sk-ant-[A-Za-z0-9_\-]{20,}|sk-proj-[A-Za-z0-9_\-]{20,}|ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{22,}|xox[baprs]-[A-Za-z0-9-]{10,}|AIza[0-9A-Za-z_\-]{35}|AKIA[0-9A-Z]{16}|eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,})\b'
+    pcre: '\b(sk-ant-[A-Za-z0-9_\-]{20,}|sk-proj-[A-Za-z0-9_\-]{20,}|ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{22,}|xox[baprs]-[A-Za-z0-9-]{10,}|AIza[0-9A-Za-z_\-]{35}|AKIA[0-9A-Z]{16})\b'
     file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg', '*.cs', '*.rs', '*.rb', '*.csproj']
     exclude_globs: ['*.min.js', 'dist/**', '**/__snapshots__/**', '*.lock', '*.map']
     framework: 'dsgai-2026-v1.0'
-    description: 'Raw token literal (Slack/GitHub/Google/AWS/Anthropic/OpenAI/JWT) assigned to any variable'
-    notes: 'JWT branch is noisy in bundles/lockfiles (see exclude_globs); further split tracked as a good-first-issue.'
+    description: 'Raw token literal (Slack/GitHub/Google/AWS/Anthropic/OpenAI) assigned to any variable'
+    notes: 'The JWT branch was split out to P02.10 (low/warn) so it can carry its own confidence.'
+  - id: P02.10
+    control: DSGAI02
+    name: raw-jwt-literal
+    classification: value_bearing
+    signal: warn
+    confidence: low
+    pcre: '\beyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\b'
+    file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg', '*.cs', '*.rs', '*.rb', '*.csproj']
+    exclude_globs: ['*.min.js', 'dist/**', '**/__snapshots__/**', '*.lock', '*.map']
+    framework: 'dsgai-2026-v1.0'
+    description: 'Raw JWT literal (WARN — low confidence)'
+    notes: 'JWT-shaped strings are common in bundles, lockfiles and test snapshots (excluded via exclude_globs) and are often public test tokens, so a hit is a WARN, not a FAIL.'
   - id: P03.1
     control: DSGAI03
     name: third-party-llm-endpoints
@@ -403,8 +415,8 @@ rules:
     file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'TTL config'
-    notes: 'Absence of P07.1-P07.4 in a multi-tenant or PII-handling repo = WARN.'
+    description: 'TTL config (absence is a low-confidence WARN)'
+    notes: 'Absence of P07.1-P07.4 in a multi-tenant or PII-handling repo = WARN. Absence of evidence is a weak signal: confidence low.'
   - id: P07.2
     control: DSGAI07
     name: session-cleanup
@@ -415,7 +427,7 @@ rules:
     file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'Session cleanup (PASS)'
+    description: 'Session cleanup (PASS; absence is a low-confidence WARN)'
   - id: P07.3
     control: DSGAI07
     name: vector-delete
@@ -426,7 +438,7 @@ rules:
     file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'Vector delete (PASS)'
+    description: 'Vector delete (PASS; absence is a low-confidence WARN)'
   - id: P07.4
     control: DSGAI07
     name: right-to-erasure
@@ -437,7 +449,7 @@ rules:
     file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'Right-to-erasure (PASS)'
+    description: 'Right-to-erasure (PASS; absence is a low-confidence WARN)'
   - id: P08.1
     control: DSGAI08
     name: dpia-privacy-assessment-doc
@@ -448,8 +460,8 @@ rules:
     file_globs: ['*.md', '*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json', 'docs/**', 'appsec/**', 'security-review/**']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'DPIA / privacy assessment doc'
-    notes: 'Absence of P08.1-P08.6 in a production GenAI service = WARN; absence in a high-risk EU AI Act use case = FAIL.'
+    description: 'DPIA / privacy assessment doc (absence is a low-confidence WARN)'
+    notes: 'Absence of P08.1-P08.6 in a production GenAI service = WARN; absence in a high-risk EU AI Act use case = FAIL. Absence of evidence is a weak signal: confidence low.'
   - id: P08.2
     control: DSGAI08
     name: data-processing-agreement-ref
@@ -460,7 +472,7 @@ rules:
     file_globs: ['*.md', '*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json', 'docs/**', 'appsec/**', 'security-review/**']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'Data processing agreement ref'
+    description: 'Data processing agreement ref (absence is a low-confidence WARN)'
   - id: P08.3
     control: DSGAI08
     name: consent-capture
@@ -471,7 +483,7 @@ rules:
     file_globs: ['*.md', '*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json', 'docs/**', 'appsec/**', 'security-review/**']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'Consent capture'
+    description: 'Consent capture (absence is a low-confidence WARN)'
   - id: P08.4
     control: DSGAI08
     name: eu-ai-act-annotation
@@ -482,7 +494,7 @@ rules:
     file_globs: ['*.md', '*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json', 'docs/**', 'appsec/**', 'security-review/**']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'EU AI Act annotation'
+    description: 'EU AI Act annotation (absence is a low-confidence WARN)'
   - id: P08.5
     control: DSGAI08
     name: audit-logging
@@ -493,7 +505,7 @@ rules:
     file_globs: ['*.md', '*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json', 'docs/**', 'appsec/**', 'security-review/**']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'Audit logging'
+    description: 'Audit logging (absence is a low-confidence WARN)'
   - id: P08.6
     control: DSGAI08
     name: do-not-track-honored
@@ -504,7 +516,7 @@ rules:
     file_globs: ['*.md', '*.py', '*.ts', '*.java', '*.kt', '*.go', '*.yaml', '*.json', 'docs/**', 'appsec/**', 'security-review/**']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'Do-not-track honored'
+    description: 'Do-not-track honored (absence is a low-confidence WARN)'
   - id: P09.1
     control: DSGAI09
     name: exif-metadata-strip
@@ -906,8 +918,8 @@ rules:
     file_globs: ['.copilotignore', '.aiignore', '.cursorignore', '.continueignore', '.codeiumignore', '.vscode/settings.json', 'cursor.json', 'continue.json']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'AI-ignore file present (PASS)'
-    notes: 'Filename-existence check (not content grep). Absence in a repo with .env or secrets/ = WARN.'
+    description: 'AI-ignore file present (PASS; absence is a low-confidence WARN)'
+    notes: 'Filename-existence check (not content grep). Absence in a repo with .env or secrets/ = WARN. Absence of evidence is a weak signal: confidence low.'
   - id: P16.2
     control: DSGAI16
     name: sensitive-paths-excluded
@@ -952,8 +964,8 @@ rules:
     file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'Circuit breaker (PASS)'
-    notes: 'LLM-calling module with none of P17.1-P17.5 = WARN.'
+    description: 'Circuit breaker (PASS; absence is a low-confidence WARN)'
+    notes: 'LLM-calling module with none of P17.1-P17.5 = WARN. Absence of evidence is a weak signal: confidence low.'
   - id: P17.2
     control: DSGAI17
     name: retry-with-backoff
@@ -964,7 +976,7 @@ rules:
     file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'Retry with backoff (PASS)'
+    description: 'Retry with backoff (PASS; absence is a low-confidence WARN)'
   - id: P17.3
     control: DSGAI17
     name: timeout-on-llm-call
@@ -975,7 +987,7 @@ rules:
     file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'Timeout on LLM call (PASS)'
+    description: 'Timeout on LLM call (PASS; absence is a low-confidence WARN)'
   - id: P17.4
     control: DSGAI17
     name: rate-limit-incoming
@@ -986,7 +998,7 @@ rules:
     file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'Rate limit incoming (PASS)'
+    description: 'Rate limit incoming (PASS; absence is a low-confidence WARN)'
   - id: P17.5
     control: DSGAI17
     name: fallback-response
@@ -997,7 +1009,7 @@ rules:
     file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'Fallback response (PASS)'
+    description: 'Fallback response (PASS; absence is a low-confidence WARN)'
   - id: P17.6
     control: DSGAI17
     name: unbounded-retry
@@ -1163,12 +1175,13 @@ rules:
     name: inference-endpoint
     classification: structural
     signal: count
-    confidence: medium
+    confidence: low
     pcre: '(@app\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict)|@router\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict)|app\.(post|get)\(["''][^"'']*(chat|generate|completion|infer|predict))'
     file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go', '*.js']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'Inference endpoint (count)'
+    description: 'Inference endpoint (count; no auth/rate limit nearby is a low-confidence WARN)'
+    notes: 'Absence-of-evidence branch: an endpoint with neither P20.1 nor P20.2 within 15 lines is a WARN, confidence low — auth and rate limiting are often applied globally (middleware, gateway) outside the window.'
     requires_nearby: {rules: ['P20.1', 'P20.2'], lines: 15}
   - id: P21.1
     control: DSGAI21

@@ -55,6 +55,8 @@ def raw_matches(rg):
             rel = os.path.relpath(f, FIXTURE).replace(os.sep, "/")
             if not glob_match(rel, r["file_globs"]):
                 continue
+            if glob_match(rel, r.get("exclude_globs") or []):
+                continue  # the CLI never runs the rule on excluded paths
             if r.get("match") == "file_exists":
                 out.add((r["id"], rel, 1))   # presence of the file is the signal
                 continue
