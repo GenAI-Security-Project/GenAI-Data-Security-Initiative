@@ -1,16 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Risk Assessment Dataset Entry",
-  "type": "object",
-  "required": ["assessment_id", "deployment_scenario", "components_assessed", "dsgai_risks_identified"],
-  "properties": {
-    "assessment_id": { "type": "string", "pattern": "^RA-\\d{4}$" },
-    "deployment_scenario": { "type": "string", "minLength": 20 },
-    "components_assessed": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-    "dsgai_risks_identified": { "type": "array", "items": { "type": "object", "required": ["dsgai_id", "risk_rating"], "properties": { "dsgai_id": { "type": "string", "pattern": "^DSGAI(0[1-9]|1[0-9]|2[01])$" }, "risk_rating": { "type": "string", "enum": ["Critical", "High", "Medium", "Low"] } } }, "minItems": 1 },
-    "existing_controls": { "type": "string" },
-    "control_gaps": { "type": "string" },
-    "framework_alignment": { "type": "array", "items": { "type": "string" } },
-    "industry": { "type": "string" }
-  }
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Historical stub, superseded. datasets/riskassessment_dataset/schema.json is authoritative for this dataset: it is the schema its entries are actually validated against (datasets/riskassessment_dataset/validate.py), and all 23 current entries pass it while all 23 fail this file. It diverged from this file in draft version (draft-07 to 2020-12, with additionalProperties false), assessment_id shape (RA-NNNN to a DSGAI-RA- slug), typed components with roles and sensitivity tiers instead of a string list, risks rated inherent and residual with a required rationale instead of a single risk_rating, structured existing_controls, control_gaps and framework_alignments instead of free text, an industry_sector enum instead of free-text industry, and new required fields (scenario_name, entry_type, deployment_pattern, description, date_added). This file is kept only so a $ref into it does not break; do not hand-edit it without also updating the dataset-local schema, and prefer editing the dataset-local one.",
+  "$ref": "../../datasets/riskassessment_dataset/schema.json"
 }
