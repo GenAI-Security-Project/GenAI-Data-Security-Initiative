@@ -11,7 +11,7 @@ const app = express();
 const SLACK_BOT_TOKEN = "xoxb-FAKE0000000000-FAKE0000000000-FAKEfake0000000000fake00";
 
 app.post("/chat", (req, res) => {
-  // No auth, no rate limit — DSGAI20 FAIL.
+  // No auth, no rate limit — DSGAI20 WARN (absence of evidence, low confidence).
   res.json({ reply: "ok" });
 });
 

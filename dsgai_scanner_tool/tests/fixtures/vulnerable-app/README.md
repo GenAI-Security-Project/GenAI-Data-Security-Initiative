@@ -13,7 +13,7 @@ scanner does not fail its own repository.
 
 | File | Control | Expected |
 |---|---|---|
-| `.env` | DSGAI02 | FAIL — unquoted hardcoded key (v0.2 false negative; fixed PR-11) |
+| `.env` | DSGAI02 | FAIL — unquoted hardcoded keys (v0.2 false negative; fixed PR-11) incl. unquoted `AZURE_OPENAI_KEY` (P02.5) |
 | `config.py` | DSGAI02 | FAIL — quoted hardcoded key (caught by v0.2) |
 | `webhook.py` | DSGAI12 | **no finding** — innocent webhook (v0.2 false positive; fixed PR-11) |
 | `sql_agent.py` | DSGAI12 | FAIL — genuine LLM-generated SQL execution |
@@ -24,9 +24,11 @@ scanner does not fail its own repository.
 | `telemetry.py` | DSGAI14 | WARN — prompt/response content capture |
 | `system_prompt.py` | DSGAI15 | FAIL — secret embedded in system prompt |
 | `requirements.txt` | DSGAI04 | WARN — unpinned deps; old CVE-bearing deps |
-| `js-service/` | DSGAI02/20 | JS fake Slack token + unauth `/chat` (coverage lands PR-15) |
+| `js-service/` | DSGAI02/20 | JS fake Slack token (FAIL) + unauth `/chat` (low-confidence WARN) |
+| `js-service/vendor.min.js` | DSGAI02 | **no finding** — JWT-shaped string in a minified bundle (excluded) |
+| `jwt_config.py` | DSGAI02 | WARN — hardcoded fake JWT (P02.10, low confidence) |
 | `docs/NOTES.md` | — | adversarial prompt-injection; must have zero effect |
-| `good_config.py` | DSGAI02 | PASS — Vault retrieval, no hardcoded secret |
+| `good_config.py` | DSGAI02 | PASS — Vault retrieval, no hardcoded secret; env-sourced `AZURE_OPENAI_KEY` (no P02.5) |
 | `rate_limited_api.py` | DSGAI20 | PASS — authenticated + rate-limited endpoint |
 | `unbounded_retry.py` | DSGAI17 | WARN — unbounded multiline LLM retry loop |
 | `bounded_retry_*.py` | DSGAI17 | **no P17.6 finding** — break, timeout, or retry limit bounds the loop |

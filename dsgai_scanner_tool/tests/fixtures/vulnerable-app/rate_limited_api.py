@@ -1,7 +1,7 @@
 """Fixture GOOD inference endpoint — the negative case. Never deploy.
 
 DSGAI20 PASS: the /chat endpoint requires auth and is rate limited
-(P20.1 + P20.2), so the P20.5 "endpoint without auth/rate-limit" FAIL must
+(P20.1 + P20.2), so the P20.5 "endpoint without auth/rate-limit" WARN must
 NOT fire here.
 """
 from fastapi import Depends, FastAPI

@@ -18,12 +18,16 @@ findings:
   # DSGAI02 — credentials (P02.1 quote-optional; P02.9 raw tokens, incl. gitignored .env)
   - {control: DSGAI02, rule_id: P02.1, path: .env, line: 3, status: fail, classification: value_bearing}
   - {control: DSGAI02, rule_id: P02.9, path: .env, line: 3, status: fail, classification: value_bearing}
+  - {control: DSGAI02, rule_id: P02.5, path: .env, line: 6, status: fail, classification: value_bearing}
   - {control: DSGAI02, rule_id: P02.1, path: config.py, line: 7, status: fail, classification: value_bearing}
   - {control: DSGAI02, rule_id: P02.9, path: config.py, line: 7, status: fail, classification: value_bearing}
-  - {control: DSGAI02, rule_id: P02.7, path: good_config.py, line: 11, status: pass_signal, classification: value_bearing}
+  - {control: DSGAI02, rule_id: P02.7, path: good_config.py, line: 13, status: pass_signal, classification: value_bearing}
   - {control: DSGAI02, rule_id: P02.9, path: js-service/index.js, line: 11, status: fail, classification: value_bearing}
-  # DSGAI20 — unauthenticated JS /chat endpoint (now caught: *.js coverage)
-  - {control: DSGAI20, rule_id: P20.5, path: js-service/index.js, line: 13, status: fail}
+  # DSGAI02 — JWT literal: split out of P02.9 into low-confidence P02.10 (WARN)
+  - {control: DSGAI02, rule_id: P02.10, path: jwt_config.py, line: 7, status: warn, classification: value_bearing}
+  # DSGAI20 — unauthenticated JS /chat endpoint (*.js coverage). Absence of auth /
+  # rate limit nearby is weak evidence, so it is a low-confidence WARN.
+  - {control: DSGAI20, rule_id: P20.5, path: js-service/index.js, line: 13, status: warn}
   # DSGAI04 — supply chain
   - {control: DSGAI04, rule_id: P04.1, path: loader.py, line: 10, status: fail}
   - {control: DSGAI04, rule_id: P04.4, path: requirements.txt, line: 6, status: warn}
@@ -68,6 +72,9 @@ findings:
 must_not_flag:
   - {rule_id: P02.1, path: good_config.py, reason: "secret comes from Vault, not hardcoded"}
   - {rule_id: P02.9, path: good_config.py, reason: "no raw token literal — Vault retrieval"}
+  - {rule_id: P02.5, path: good_config.py, reason: "AZURE_OPENAI_KEY assigned from os.environ, not a literal"}
+  - {rule_id: P02.10, path: js-service/vendor.min.js, reason: "JWT-shaped string in a minified bundle (*.min.js excluded)"}
+  - {rule_id: P02.9, path: js-service/vendor.min.js, reason: "minified bundle (*.min.js excluded)"}
   - {rule_id: P20.5, path: rate_limited_api.py, reason: "endpoint is authenticated and rate limited"}
   - {rule_id: P12.1, path: webhook.py, reason: "innocent webhook — no LLM call nearby"}
   - {rule_id: P17.6, path: bounded_retry_break.py, reason: "explicit break condition bounds the loop"}

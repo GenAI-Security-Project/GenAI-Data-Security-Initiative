@@ -8,6 +8,25 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
 
 ## [Unreleased]
 
+### Changed (rule confidence seeds + DSGAI02 precision — #19, #22, #23, #24)
+- **JWT literals split out of P02.9 into a new P02.10** (`raw-jwt-literal`, signal
+  `warn`, confidence `low`), keeping the `*.min.js` / `dist/**` / `**/__snapshots__/**` /
+  `*.lock` / `*.map` excludes. P02.9 keeps the provider-prefix tokens at `fail`/`high`.
+  New fixtures: `jwt_config.py` (WARN) and `js-service/vendor.min.js` (must not fire). (#19)
+- **Absence-of-evidence verdicts are low-confidence WARNs.** The P20.5 absence branch
+  (inference endpoint with neither P20.1 nor P20.2 within 15 lines) now resolves to
+  `warn` instead of `fail`, and P20.5 is confidence `low`; the fixture JS `/chat`
+  endpoint, and so DSGAI20 on the fixture, moves from FAIL to WARN. P07.1–P07.4,
+  P08.1–P08.6, P16.1 and P17.1–P17.5 note the low-confidence absence WARN in their
+  description/notes and in skill Step 2; their presence branches are unchanged. (#22)
+- **P02.5 quote-optional** (pattern already fixed in PR-11): added an unquoted
+  `AZURE_OPENAI_KEY` positive in the fixture `.env` and an env-sourced negative in
+  `good_config.py`; skill Step 2 now lists the quote-optional P02.1–P02.5 patterns and
+  P02.9/P02.10, matching the YAML. (#23)
+- **Presence / PASS-signal rules stay at `medium` confidence** (seeded in PR-03), now
+  enforced by a self-test so it cannot regress. (#24)
+- `tests/regen_expected.py` honours `exclude_globs`, as the CLI does.
+
 ### Fixed (hard-audit follow-up)
 - **CRITICAL — gitignored `.env` files are now scanned.** Discovery honored `.gitignore`,
   so the flagship "hardcoded key in `.env`" detection silently didn't run on real repos.

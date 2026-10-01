@@ -52,7 +52,9 @@ COMPOUND_STATUS = {
     "P06.5": {"violation": "fail", "satisfied": "info"},
     "P11.1": {"violation": "fail", "satisfied": "pass_signal"},
     "P18.4": {"violation": "warn", "satisfied": "pass_signal"},
-    "P20.5": {"violation": "fail", "satisfied": "pass_signal"},
+    # Absence of auth/rate limit near an endpoint is weak evidence (it is often
+    # applied globally), so the violation is a low-confidence WARN (#22).
+    "P20.5": {"violation": "warn", "satisfied": "pass_signal"},
     # Corroborating-signal rules: fire only when the nearby signal is PRESENT
     # (drop the match otherwise). P12.1 is a FAIL only when an LLM call is nearby.
     "P12.1": {"violation": "drop", "satisfied": "fail"},

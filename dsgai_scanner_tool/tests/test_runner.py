@@ -97,6 +97,36 @@ def test_p17_6_remains_a_low_confidence_multiline_warning():
     assert rule["multiline"] is True
 
 
+def test_jwt_literal_is_a_low_confidence_warning():
+    """#19: the JWT branch lives in its own rule so it can be low/warn and
+    skip bundles, lockfiles and snapshots; P02.9 no longer matches JWTs."""
+    rules = {r["id"]: r for r in _rules()}
+    jwt = rules["P02.10"]
+    assert (jwt["signal"], jwt["confidence"]) == ("warn", "low")
+    assert set(jwt["exclude_globs"]) >= {
+        "*.min.js", "dist/**", "**/__snapshots__/**", "*.lock", "*.map"}
+    assert "eyJ" not in rules["P02.9"]["pcre"]
+
+
+def test_presence_rules_are_medium_confidence():
+    """#24: a PASS signal proves an import/call exists, not that it is used
+    correctly — never more than medium confidence."""
+    bad = [r["id"] for r in _rules()
+           if r["signal"] == "pass_signal" and r["confidence"] != "medium"]
+    assert not bad, f"pass_signal rules not at medium confidence: {bad}"
+
+
+def test_absence_rules_are_low_confidence():
+    """#22: absence-of-evidence verdicts are weak signals. Detect-only rules
+    whose sole use is an absence check are low confidence; the CLI-executed
+    P20.5 absence branch resolves to WARN, not FAIL."""
+    rules = {r["id"]: r for r in _rules()}
+    absence_only = ["P07.1"] + [f"P08.{n}" for n in range(1, 7)] + ["P20.5"]
+    assert all(rules[i]["confidence"] == "low" for i in absence_only)
+    ds = _import_cli()
+    assert ds.COMPOUND_STATUS["P20.5"]["violation"] == "warn"
+
+
 @requires_rg
 def test_scan_matches_sheet_exactly(scan, sheet):
     def key(f):
