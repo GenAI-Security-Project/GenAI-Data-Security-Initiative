@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """DSGAI CVE enrichment — deterministic, cached, stdlib-only.
 
 The CLI fetches CVE data so the LLM never transcribes it (hallucinated CVEs

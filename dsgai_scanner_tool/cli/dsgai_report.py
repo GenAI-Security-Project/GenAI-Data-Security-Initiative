@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Deterministic DSGAI HTML report renderer.
 
 Renders `DSGAI-scan.json` to a self-contained HTML report — by code, from the

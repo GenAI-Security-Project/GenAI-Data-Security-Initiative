@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """DSGAI scanner — deterministic runner.
 
 Single-file, standard-library-only at runtime. Shells out to ripgrep

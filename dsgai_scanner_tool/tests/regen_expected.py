@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
 """Regenerate / verify the raw match set behind tests/expected-findings.yaml.
 
 Appendix-C mitigation for brittle pinned line numbers: after editing a fixture,

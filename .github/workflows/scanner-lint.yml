@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 name: scanner-lint
 
 # Path-filtered lint for the DSGAI scanner subproject only, to keep monorepo
