@@ -155,10 +155,10 @@ rules:
     confidence: high
     pcre: '\b(sk-ant-[A-Za-z0-9_\-]{20,}|sk-proj-[A-Za-z0-9_\-]{20,}|ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{22,}|xox[baprs]-[A-Za-z0-9-]{10,}|AIza[0-9A-Za-z_\-]{35}|AKIA[0-9A-Z]{16})\b'
     file_globs: ['*.py', '*.ts', '*.js', '*.java', '*.kt', '*.go', '*.env*', '*.yaml', '*.yml', '*.json', '*.toml', '*.cfg', '*.cs', '*.rs', '*.rb', '*.csproj']
-    exclude_globs: ['*.min.js', 'dist/**', '**/__snapshots__/**', '*.lock', '*.map']
+    exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'Raw token literal (Slack/GitHub/Google/AWS/Anthropic/OpenAI) assigned to any variable'
-    notes: 'The JWT branch was split out to P02.10 (low/warn) so it can carry its own confidence.'
+    notes: 'The JWT branch was split out to P02.10 (low/warn) so it can carry its own confidence. The bundle/snapshot excludes went with it (#83): they existed for JWT false positives, and a provider-prefixed key inside a minified bundle or snapshot is a real leak.'
   - id: P02.10
     control: DSGAI02
     name: raw-jwt-literal
@@ -292,7 +292,8 @@ rules:
     file_globs: ['*.py', '*.ts', '*.java', '*.kt']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'Document ingestion calls'
+    description: 'Document ingestion calls (no access control or tenant filter in the module is a low-confidence WARN)'
+    notes: 'Absence-of-evidence branch: ingestion with neither P05.2 nor P05.3 in the same module is a WARN, confidence low — access control is often enforced in another module or service.'
     requires_nearby: {rules: ['P05.2', 'P05.3'], scope: module}
   - id: P05.2
     control: DSGAI05
@@ -403,7 +404,8 @@ rules:
     file_globs: ['*.json', '*.yaml', '*.toml', '*.py', '*.ts', 'mcp.json', 'claude_desktop_config.json']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'uvicorn bind-all + no auth'
+    description: 'uvicorn bind-all (no MCP auth in the module is a low-confidence WARN)'
+    notes: 'Absence-of-evidence branch: a 0.0.0.0 bind with no P06.2 in the same module is a WARN, confidence low — auth is often enforced by a reverse proxy, gateway or middleware defined elsewhere (#83).'
     requires_nearby: {rule: P06.2, scope: module, absent: true}
   - id: P07.1
     control: DSGAI07
@@ -461,7 +463,7 @@ rules:
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
     description: 'DPIA / privacy assessment doc (absence is a low-confidence WARN)'
-    notes: 'Absence of P08.1-P08.6 in a production GenAI service = WARN; absence in a high-risk EU AI Act use case = FAIL. Absence of evidence is a weak signal: confidence low.'
+    notes: 'Absence of P08.1-P08.6 in a production GenAI service = WARN; escalate to FAIL only when the operator has declared the system high-risk under the EU AI Act (the obligation is then confirmed, though the documents may still live outside the repo). Absence of evidence is a weak signal: confidence low (#83).'
   - id: P08.2
     control: DSGAI08
     name: data-processing-agreement-ref
@@ -649,7 +651,8 @@ rules:
     file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'Vector query call sites'
+    description: 'Vector query call sites (no tenant filter nearby is a low-confidence WARN)'
+    notes: 'Absence-of-evidence branch: a vector query with no P11.2 within 15 lines is a WARN, confidence low — tenant filters are often applied in a retriever wrapper or query builder outside the window (#83).'
     requires_nearby: {rule: P11.2, lines: 15}
   - id: P11.2
     control: DSGAI11
@@ -1060,12 +1063,13 @@ rules:
     name: llm-call-sites
     classification: structural
     signal: count
-    confidence: medium
+    confidence: low
     pcre: '(\.chat\.completions\.create|client\.messages\.create|openai\.ChatCompletion|anthropic\.messages|generate_content|chat\.complete)'
     file_globs: ['*.py', '*.ts', '*.java', '*.kt', '*.go']
     exclude_globs: []
     framework: 'dsgai-2026-v1.0'
-    description: 'LLM call sites (count)'
+    description: 'LLM call sites (count; no max_tokens nearby is a low-confidence WARN)'
+    notes: 'Absence-of-evidence branch: an LLM call with no P18.5 within 10 lines is a WARN, confidence low — max_tokens is often set on a shared client, wrapper or config default (#83).'
     requires_nearby: {rule: P18.5, lines: 10}
   - id: P18.5
     control: DSGAI18

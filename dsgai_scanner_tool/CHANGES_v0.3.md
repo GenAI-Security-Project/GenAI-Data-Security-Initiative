@@ -8,6 +8,24 @@ dates are ISO-8601. The previous line is recorded in [`CHANGES_v0.2.md`](CHANGES
 
 ## [Unreleased]
 
+### Changed (absence-based rules, P02.9 bundles, SARIF confidence — #83)
+- **No requires_nearby rule FAILs on absence of evidence alone.** P06.5 (uvicorn bind-all
+  with no MCP auth in the module) and P11.1 (vector query with no tenant filter within
+  15 lines) now resolve to `warn` instead of `fail`; P18.4 confidence `medium` → `low`;
+  P05.1 already warned at `low`. Each carries an absence note in its description/notes
+  and in skill Step 2. On the fixture DSGAI11 moves from FAIL to WARN; DSGAI06 stays
+  FAIL on P06.1. A self-test enforces the rule for every `COMPOUND_STATUS` entry.
+- **P08 escalation:** absence of P08.1–P08.6 stays a low-confidence WARN and escalates
+  to FAIL only when the operator has declared the system high-risk under the EU AI Act.
+- **P02.9 scans bundles and snapshots again.** Its `*.min.js` / `dist/**` /
+  `**/__snapshots__/**` / `*.lock` / `*.map` excludes existed for JWT false positives
+  and moved to P02.10 with the JWT branch; a provider-prefixed key in a minified bundle
+  is a real leak. New fixture: `js-service/bundle.min.js` (FAIL).
+- **SARIF results carry `properties.confidence`** (and `status`). SARIF `level` still
+  follows the finding's status; `rules/README.md` no longer claims confidence sets it.
+- **`DSGAI-samplereport.png` regenerated** from the current fixture scan (5 FAIL, 5 WARN),
+  with the CVE panel; the caption now dates the snapshot and gives the commands.
+
 ### Changed (rule confidence seeds + DSGAI02 precision — #19, #22, #23, #24)
 - **JWT literals split out of P02.9 into a new P02.10** (`raw-jwt-literal`, signal
   `warn`, confidence `low`), keeping the `*.min.js` / `dist/**` / `**/__snapshots__/**` /

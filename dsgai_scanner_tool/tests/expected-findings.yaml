@@ -23,6 +23,8 @@ findings:
   - {control: DSGAI02, rule_id: P02.9, path: config.py, line: 7, status: fail, classification: value_bearing}
   - {control: DSGAI02, rule_id: P02.7, path: good_config.py, line: 13, status: pass_signal, classification: value_bearing}
   - {control: DSGAI02, rule_id: P02.9, path: js-service/index.js, line: 11, status: fail, classification: value_bearing}
+  # DSGAI02 — provider key in a minified bundle: P02.9 no longer excludes bundles (#83)
+  - {control: DSGAI02, rule_id: P02.9, path: js-service/bundle.min.js, line: 2, status: fail, classification: value_bearing}
   # DSGAI02 — JWT literal: split out of P02.9 into low-confidence P02.10 (WARN)
   - {control: DSGAI02, rule_id: P02.10, path: jwt_config.py, line: 7, status: warn, classification: value_bearing}
   # DSGAI20 — unauthenticated JS /chat endpoint (*.js coverage). Absence of auth /
@@ -34,7 +36,8 @@ findings:
   - {control: DSGAI04, rule_id: P04.4, path: requirements.txt, line: 7, status: warn}
   # DSGAI06 — MCP / plugin
   - {control: DSGAI06, rule_id: P06.1, path: mcp_config.json, line: 4, status: fail}
-  - {control: DSGAI06, rule_id: P06.5, path: server.py, line: 18, status: fail}
+  # P06.5: bind-all with no MCP auth in the module is absence of evidence, a low-confidence WARN (#83)
+  - {control: DSGAI06, rule_id: P06.5, path: server.py, line: 18, status: warn}
   # DSGAI13 — P13.3 host 0.0.0.0 in server.py
   - {control: DSGAI13, rule_id: P13.3, path: server.py, line: 18, status: warn, classification: value_bearing}
   # DSGAI02 polyglot (C#/Rust/Ruby credential coverage)
@@ -42,7 +45,8 @@ findings:
   - {control: DSGAI02, rule_id: P02.9, path: polyglot/config.rb, line: 3, status: fail, classification: value_bearing}
   - {control: DSGAI02, rule_id: P02.9, path: polyglot/config.rs, line: 3, status: fail, classification: value_bearing}
   # DSGAI11 — multi-tenant isolation
-  - {control: DSGAI11, rule_id: P11.1, path: retriever.py, line: 12, status: fail}
+  # P11.1: no tenant filter within 15 lines is absence of evidence, a low-confidence WARN (#83)
+  - {control: DSGAI11, rule_id: P11.1, path: retriever.py, line: 12, status: warn}
   - {control: DSGAI11, rule_id: P11.1, path: retriever.py, line: 30, status: pass_signal}
   - {control: DSGAI11, rule_id: P11.2, path: retriever.py, line: 30, status: pass_signal}
   # DSGAI05 — RAG tenant-filter PASS signals
@@ -74,7 +78,7 @@ must_not_flag:
   - {rule_id: P02.9, path: good_config.py, reason: "no raw token literal — Vault retrieval"}
   - {rule_id: P02.5, path: good_config.py, reason: "AZURE_OPENAI_KEY assigned from os.environ, not a literal"}
   - {rule_id: P02.10, path: js-service/vendor.min.js, reason: "JWT-shaped string in a minified bundle (*.min.js excluded)"}
-  - {rule_id: P02.9, path: js-service/vendor.min.js, reason: "minified bundle (*.min.js excluded)"}
+  - {rule_id: P02.9, path: js-service/vendor.min.js, reason: "bundle holds only a JWT-shaped string, no provider-prefixed key"}
   - {rule_id: P20.5, path: rate_limited_api.py, reason: "endpoint is authenticated and rate limited"}
   - {rule_id: P12.1, path: webhook.py, reason: "innocent webhook — no LLM call nearby"}
   - {rule_id: P17.6, path: bounded_retry_break.py, reason: "explicit break condition bounds the loop"}

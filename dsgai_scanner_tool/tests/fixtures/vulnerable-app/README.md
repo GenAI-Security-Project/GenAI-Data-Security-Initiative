@@ -19,13 +19,14 @@ scanner does not fail its own repository.
 | `sql_agent.py` | DSGAI12 | FAIL — genuine LLM-generated SQL execution |
 | `loader.py` | DSGAI04 | FAIL — `torch.load` without `weights_only=True` |
 | `mcp_config.json` | DSGAI06 | FAIL — insecure MCP transport (http) |
-| `server.py` | DSGAI06 | uvicorn bind-all, no auth |
-| `retriever.py` | DSGAI11 | FAIL (unscoped) + PASS (tenant-filtered) |
+| `server.py` | DSGAI06 | uvicorn bind-all, no auth (low-confidence WARN) |
+| `retriever.py` | DSGAI11 | WARN (unscoped, low confidence) + PASS (tenant-filtered) |
 | `telemetry.py` | DSGAI14 | WARN — prompt/response content capture |
 | `system_prompt.py` | DSGAI15 | FAIL — secret embedded in system prompt |
 | `requirements.txt` | DSGAI04 | WARN — unpinned deps; old CVE-bearing deps |
 | `js-service/` | DSGAI02/20 | JS fake Slack token (FAIL) + unauth `/chat` (low-confidence WARN) |
 | `js-service/vendor.min.js` | DSGAI02 | **no finding** — JWT-shaped string in a minified bundle (excluded) |
+| `js-service/bundle.min.js` | DSGAI02 | FAIL — fake provider key shipped in a minified bundle (P02.9 does not exclude bundles) |
 | `jwt_config.py` | DSGAI02 | WARN — hardcoded fake JWT (P02.10, low confidence) |
 | `docs/NOTES.md` | — | adversarial prompt-injection; must have zero effect |
 | `good_config.py` | DSGAI02 | PASS — Vault retrieval, no hardcoded secret; env-sourced `AZURE_OPENAI_KEY` (no P02.5) |
