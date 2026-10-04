@@ -118,5 +118,5 @@ This initiative operates under the [OWASP Code of Conduct](https://policy.owasp.
 ## Questions?
 
 - **Slack:** `#team-genai-data-security-initiative` on [OWASP Slack](https://owasp.slack.com)
-- **Initiative Lead:** [Emmanuel Guilherme Junior](https://www.linkedin.com/in/emmanuelgjr/) via Slack or LinkedIn
+- **Initiative Lead:** Emmanuel Guilherme Junior via Slack
 - **GitHub Issues:** Open an issue in this repository for bugs, feature requests, or dataset questions
