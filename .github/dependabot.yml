@@ -40,37 +40,6 @@
           patterns:
             - "*"
 
-    # ----- Python dev deps for the DSGAI scanner (requirements-dev.txt) -----
-    - package-ecosystem: "pip"
-      directory: "/dsgai_scanner_tool"
-      schedule:
-        interval: "weekly"
-        day: "monday"
-        time: "06:00"
-        timezone: "Etc/UTC"
-      open-pull-requests-limit: 10
-      versioning-strategy: "increase-if-necessary"
-      labels:
-        - "dependencies"
-        - "python"
-        - "security"
-        - "scanner"
-      commit-message:
-        prefix: "deps"
-        prefix-development: "deps-dev"
-        include: "scope"
-      groups:
-        python-minor-and-patch:
-          applies-to: version-updates
-          update-types: ["minor", "patch"]
-        python-security:
-          applies-to: security-updates
-          patterns: ["*"]
-      ignore:
-        # Block silent major bumps; require explicit review.
-        - dependency-name: "*"
-          update-types: ["version-update:semver-major"]
-
     # ----- Uncomment if/when a Dockerfile is added -----
     # - package-ecosystem: "docker"
     #   directory: "/"

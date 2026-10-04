@@ -3,7 +3,7 @@ name: dataset-agentdataflow-validate
 # Runs the dataset-local validator for agentdataflow_toolexchange_traces on
 # every change to it, so "enforced by validate.py" in that dataset's README
 # is true of the merged tree and not only of whoever remembered to run it
-# locally. Path-filtered to the dataset, same pattern as scanner-selftest.
+# locally. Path-filtered to the dataset.
 on:
   push:
     branches: [main]

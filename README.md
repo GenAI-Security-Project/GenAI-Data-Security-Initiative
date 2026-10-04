@@ -10,7 +10,7 @@ Part of the [OWASP GenAI Security Project](https://genai.owasp.org/) · [Initiat
 [![Crosswalk](https://img.shields.io/badge/Crosswalk-live%20webapp-2ea44f)](https://genai-security-project.github.io/crosswalk/)
 [![DSGAI](https://img.shields.io/badge/DSGAI%202026-21%20risks-6d28d9)](https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/)
 [![Frameworks](https://img.shields.io/badge/frameworks-26-orange)](https://genai-security-project.github.io/crosswalk/#/frameworks)
-[![Scanner](https://img.shields.io/badge/DSGAI%20Scanner-v0.3.0-16a34a)](dsgai_scanner_tool/README.md)
+[![Scanner](https://img.shields.io/badge/DSGAI%20Scanner-v0.3.0-16a34a)](https://github.com/GenAI-Security-Project/dsgai)
 [![License](https://img.shields.io/badge/license-CC%20BY--SA%204.0-lightgrey)](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](CONTRIBUTING.md)
 
@@ -35,7 +35,7 @@ This initiative produces community-developed, peer-reviewed guidance, interactiv
 | 📄 **DSGAI Risk Taxonomy 2026** | 21 GenAI data security risks with tiered mitigations | [White paper](https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/) |
 | 📄 **Data Security Best Practices** | Companion implementation guide | [White paper](https://genai.owasp.org/resource/llm-and-gen-ai-data-security-best-practices/) |
 | 🌐 **Framework Crosswalk** | 51 risk entries × 26 frameworks, 3,800+ control mappings, interactive webapp | [Webapp](https://genai-security-project.github.io/crosswalk/) · [Repo](https://github.com/GenAI-Security-Project/crosswalk) |
-| 🛡️ **DSGAI Scanner** | Deterministic compliance scanner for AI codebases (SARIF, CI-ready) | [`dsgai_scanner_tool/`](dsgai_scanner_tool/) |
+| 🛡️ **DSGAI Scanner** | Deterministic compliance scanner for AI codebases (SARIF, CI-ready) | [`GenAI-Security-Project/dsgai`](https://github.com/GenAI-Security-Project/dsgai) ↗ |
 | 📊 **Community Datasets** | Exploits, vulnerabilities, test cases, incidents, traces | [`datasets/`](datasets/) |
 | ✅ **Data Validation** | Schemas and checks for contributed data | [`data_validation/`](data_validation/) |
 | 📚 **Literature Review** | Categorized corpus of LLM-security research papers | [`literature/`](literature/) |
@@ -126,30 +126,30 @@ Crosswalk source data, per-framework compliance gap reports (Markdown, CSV, JSON
 
 ## 🛡️ DSGAI Scanner
 
-**v0.3.0** · [`dsgai_scanner_tool/`](dsgai_scanner_tool/) — audits GenAI and agentic codebases against all 21 DSGAI controls.
+**v0.3.0** · maintained in its own repo, [`GenAI-Security-Project/dsgai`](https://github.com/GenAI-Security-Project/dsgai) — audits GenAI and agentic codebases against all 21 DSGAI controls.
 
 A **deterministic engine** owns the pattern matching — 107 PCRE rules run via ripgrep produce identical findings on identical input, so you get a reproducible compliance artifact rather than an LLM opinion. An optional [Claude Code](https://www.anthropic.com/claude-code) skill orchestrates the run and writes the narrative report.
 
 - 🎯 **Deterministic & reproducible** — a compliance report you can diff; secrets never leave your machine
 - 🌐 **Multi-language** — Python, JavaScript/TypeScript, Java, Kotlin, Go, plus credential coverage for C#, Rust, Ruby
 - 🐛 **CVE enrichment without hallucination** — queries OSV (+ NVD for CVSS) per pinned dependency across 6 ecosystems
-- 🧰 **Meets your toolchain** — SARIF 2.1.0 for GitHub Code Scanning, a [Semgrep rule-pack export](dsgai_scanner_tool/dist/dsgai.semgrep.yaml), and a [gitleaks pack](dsgai_scanner_tool/integrations/gitleaks/dsgai.toml) for pre-commit
+- 🧰 **Meets your toolchain** — SARIF 2.1.0 for GitHub Code Scanning, a [Semgrep rule-pack export](https://github.com/GenAI-Security-Project/dsgai/blob/main/dist/dsgai.semgrep.yaml), and a [gitleaks pack](https://github.com/GenAI-Security-Project/dsgai/blob/main/integrations/gitleaks/dsgai.toml) for pre-commit
 - 💸 **$0 CI path** — the CLI needs only Python 3.10+ and ripgrep; no LLM, no account
 
 ```bash
-git clone --depth 1 https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative
-python GenAI-Data-Security-Initiative/dsgai_scanner_tool/cli/dsgai_scan.py scan . \
-  --sarif DSGAI-scan.sarif --json-out DSGAI-scan.json
+git clone --depth 1 https://github.com/GenAI-Security-Project/dsgai
+pip install ./dsgai
+dsgai audit . --sarif DSGAI-scan.sarif --json-out DSGAI-scan.json
 ```
 
 <details>
 <summary><strong>Sample report</strong></summary>
 
-![DSGAI Scanner sample report](dsgai_scanner_tool/DSGAI-samplereport.png)
+![DSGAI Scanner sample report](https://github.com/GenAI-Security-Project/dsgai/raw/main/DSGAI-samplereport.png)
 
 </details>
 
-See the [scanner README](dsgai_scanner_tool/README.md) for the full feature set, CI/CD integration, and the Claude Code skill.
+See the [scanner README](https://github.com/GenAI-Security-Project/dsgai#readme) for the full feature set, CI/CD integration, and the Claude Code skill. Scanner issues and pull requests go to that repo.
 
 ---
 
@@ -179,7 +179,6 @@ Contributions to every dataset are validated by the schemas and checks in [`data
 ```text
 ├── datasets/                ← community datasets (8 tracks, one entry per file)
 ├── data_validation/         ← JSON schemas + validation pipeline for contributions
-├── dsgai_scanner_tool/      ← DSGAI Scanner v0.3.0 (deterministic CLI + Claude Code skill)
 ├── literature/              ← categorized LLM-security literature corpus
 ├── CONTRIBUTING.md          ← contribution paths by role and workstream
 └── SECURITY.md              ← vulnerability reporting policy
