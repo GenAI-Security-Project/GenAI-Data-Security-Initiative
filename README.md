@@ -14,11 +14,48 @@ Part of the [OWASP GenAI Security Project](https://genai.owasp.org/) · [Initiat
 [![License](https://img.shields.io/badge/license-CC%20BY--SA%204.0-lightgrey)](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](CONTRIBUTING.md)
 
-[**🌐 Explore the Crosswalk webapp →**](https://genai-security-project.github.io/crosswalk/)
+<a href="https://genai-security-project.github.io/crosswalk/"><img src="assets/readme/crosswalk-home.png" alt="The GenAI Crosswalk webapp: 26 frameworks, 3,771 mappings, 51 entries" width="820"></a>
+
+**[🌐 Open the Crosswalk webapp](https://genai-security-project.github.io/crosswalk/)** &nbsp;·&nbsp; **[🛡️ Get the DSGAI Scanner](https://github.com/GenAI-Security-Project/dsgai)** &nbsp;·&nbsp; **[📄 Read the 2026 risk taxonomy](https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/)**
 
 [White Papers](#deliverables) · [Crosswalk](#crosswalk) · [Scanner](#scanner) · [Datasets](#datasets) · [Contribute](#contribute)
 
 </div>
+
+---
+
+## 🚀 Start here
+
+The initiative ships three things you can use today: the risk taxonomy (white papers below), the **Crosswalk** webapp, and the **DSGAI Scanner**. The webapp and the scanner each have their own repository.
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 🌐 Framework Crosswalk
+
+<a href="https://genai-security-project.github.io/crosswalk/#/crosswalk"><img src="assets/readme/crosswalk-matrix.png" alt="Crosswalk Visualizer: OWASP GenAI risks linked to the frameworks that map to them"></a>
+
+Map every OWASP GenAI risk to **26 frameworks**, from NIST AI RMF and ISO/IEC 42001 to the EU AI Act and DORA. You can score your coverage, find gaps, and export OSCAL or STIX.
+
+**[Open the webapp →](https://genai-security-project.github.io/crosswalk/)**<br>
+Source and data: [`GenAI-Security-Project/crosswalk`](https://github.com/GenAI-Security-Project/crosswalk)
+
+</td>
+<td width="50%" valign="top">
+
+### 🛡️ DSGAI Scanner
+
+<a href="https://github.com/GenAI-Security-Project/dsgai"><img src="assets/readme/dsgai-report-dashboard.png" alt="DSGAI Scanner compliance report: status of all 21 DSGAI controls"></a>
+
+Audit a GenAI or agentic codebase against all **21 DSGAI controls**. Findings are deterministic and SARIF-ready, and secrets never leave your machine. Use the free CLI in CI, or the Claude Code skill for a narrative report.
+
+**[Get the scanner →](https://github.com/GenAI-Security-Project/dsgai)**<br>
+`pip install ./dsgai && dsgai audit .`
+
+</td>
+</tr>
+</table>
 
 ---
 
@@ -34,8 +71,8 @@ This initiative produces community-developed, peer-reviewed guidance, interactiv
 | --- | --- | --- |
 | 📄 **DSGAI Risk Taxonomy 2026** | 21 GenAI data security risks with tiered mitigations | [White paper](https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/) |
 | 📄 **Data Security Best Practices** | Companion implementation guide | [White paper](https://genai.owasp.org/resource/llm-and-gen-ai-data-security-best-practices/) |
-| 🌐 **Framework Crosswalk** | 51 risk entries × 26 frameworks, 3,800+ control mappings, interactive webapp | [Webapp](https://genai-security-project.github.io/crosswalk/) · [Repo](https://github.com/GenAI-Security-Project/crosswalk) |
-| 🛡️ **DSGAI Scanner** | Deterministic compliance scanner for AI codebases (SARIF, CI-ready) | [`GenAI-Security-Project/dsgai`](https://github.com/GenAI-Security-Project/dsgai) ↗ |
+| 🌐 **Framework Crosswalk** | 51 risk entries × 26 frameworks, 3,700+ control mappings, interactive webapp | [Webapp](https://genai-security-project.github.io/crosswalk/) · [Repo](https://github.com/GenAI-Security-Project/crosswalk) |
+| 🛡️ **DSGAI Scanner** | Deterministic compliance scanner for AI codebases (SARIF, CI-ready) | [Repo](https://github.com/GenAI-Security-Project/dsgai) · [Quick start](https://github.com/GenAI-Security-Project/dsgai#quick-start) |
 | 📊 **Community Datasets** | Exploits, vulnerabilities, test cases, incidents, traces | [`datasets/`](datasets/) |
 | ✅ **Data Validation** | Schemas and checks for contributed data | [`data_validation/`](data_validation/) |
 | 📚 **Literature Review** | Categorized corpus of LLM-security research papers | [`literature/`](literature/) |
@@ -97,7 +134,7 @@ The companion implementation guide covering data security principles, secure dep
 
 ## 🌐 Framework Crosswalk
 
-The initiative's flagship interactive deliverable: **51 risk entries** across four OWASP source lists — LLM Top 10 2026, Agentic Top 10 2026, DSGAI 2026, and Agentic Skills Top 10 — mapped to **26 industry frameworks** through **3,800+ individual control mappings**, with **131 tracked AI security incidents**.
+The initiative's flagship interactive deliverable: **51 risk entries** across four OWASP source lists — LLM Top 10 2026, Agentic Top 10 2026, DSGAI 2026, and Agentic Skills Top 10 — mapped to **26 industry frameworks** through **3,700+ individual control mappings**, with **131 tracked AI security incidents**.
 
 > ### [🚀 Open the Crosswalk webapp](https://genai-security-project.github.io/crosswalk/)
 >
@@ -108,6 +145,10 @@ The initiative's flagship interactive deliverable: **51 risk entries** across fo
 > | [**Coverage Matrix**](https://genai-security-project.github.io/crosswalk/#/frameworks) | Interactive 51 × 26 matrix — click any cell for the specific controls |
 > | [**Incidents**](https://genai-security-project.github.io/crosswalk/#/incidents) | Real-world AI security incidents, filterable by severity, year, and layer |
 > | [**Submit a Standard**](https://genai-security-project.github.io/crosswalk/#/submit) | Propose any framework for automated mapping |
+
+<p align="center">
+<a href="https://genai-security-project.github.io/crosswalk/#/frameworks"><img src="assets/readme/crosswalk-frameworks.png" alt="Crosswalk framework coverage cards for MAESTRO, AIUC-1, CIS Controls, DORA, the EU AI Act and more" width="820"></a>
+</p>
 
 Crosswalk source data, per-framework compliance gap reports (Markdown, CSV, JSON, OSCAL), and enterprise exports (STIX 2.1, OSCAL Component Definition) are maintained in the dedicated [`GenAI-Security-Project/crosswalk`](https://github.com/GenAI-Security-Project/crosswalk) repository.
 
@@ -142,12 +183,7 @@ pip install ./dsgai
 dsgai audit . --sarif DSGAI-scan.sarif --json-out DSGAI-scan.json
 ```
 
-<details>
-<summary><strong>Sample report</strong></summary>
-
-![DSGAI Scanner sample report](https://github.com/GenAI-Security-Project/dsgai/raw/main/DSGAI-samplereport.png)
-
-</details>
+📋 [Full sample report](https://github.com/GenAI-Security-Project/dsgai/blob/main/DSGAI-samplereport.png): a scan of the scanner's own vulnerable fixture app, with the compliance dashboard shown [above](#-start-here).
 
 See the [scanner README](https://github.com/GenAI-Security-Project/dsgai#readme) for the full feature set, CI/CD integration, and the Claude Code skill. Scanner issues and pull requests go to that repo.
 
@@ -184,6 +220,13 @@ Contributions to every dataset are validated by the schemas and checks in [`data
 └── SECURITY.md              ← vulnerability reporting policy
 ```
 
+**Sibling repositories**
+
+| Repo | What lives there |
+| --- | --- |
+| [`GenAI-Security-Project/crosswalk`](https://github.com/GenAI-Security-Project/crosswalk) | Crosswalk data, generators, gap reports, OSCAL/STIX exports, and the [webapp](https://genai-security-project.github.io/crosswalk/) source |
+| [`GenAI-Security-Project/dsgai`](https://github.com/GenAI-Security-Project/dsgai) | The DSGAI Scanner: CLI, rules, fixtures, GitHub Action, and the Claude Code skill |
+
 ---
 
 ## 🧭 Workstreams
@@ -219,7 +262,7 @@ All contributions are welcome — from security practitioners, AI engineers, res
 - 💬 **Slack:** Join `#team-genai-data-security-initiative` on the [OWASP Slack workspace](https://owasp.slack.com) · [New to OWASP Slack? Join here](https://owasp.org/slack/invite)
 - 🧑‍💻 **GitHub:** Submit issues or pull requests — [CONTRIBUTING.md](CONTRIBUTING.md) has starting points for every role and experience level
 - 🔒 **Security:** Report vulnerabilities via [GitHub Private Vulnerability Reporting](https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/security/advisories/new) — see [SECURITY.md](SECURITY.md) · researchers are credited in [SECURITY-THANKS.md](SECURITY-THANKS.md)
-- ✉️ **Contact:** Reach out to Emmanuel Guilherme Junior (Initiative Lead) via [Slack](https://owasp.slack.com) or [LinkedIn](https://www.linkedin.com/in/emmanuelgjr/)
+- ✉️ **Contact:** Reach out to Emmanuel Guilherme Junior (Initiative Lead) via [Slack](https://owasp.slack.com)
 
 ---
 
@@ -242,7 +285,9 @@ This initiative is one of several under the [OWASP GenAI Security Project](https
 
 ## 🙏 Acknowledgments
 
-**Initiative Lead:** [Emmanuel Guilherme Junior](https://www.linkedin.com/in/emmanuelgjr/)
+**Initiative Lead:** Emmanuel Guilherme Junior
+
+**DSGAI Scanner:** initiated by Emmanuel Guilherme Junior and Harish Ramachandran. Harish Ramachandran is the initial contributor; he wrote the original v0.1 Claude Code skill.
 
 This initiative is made possible by the contributions of its authors, contributors, and reviewers from across the global AI security community. Thank you to everyone who has helped build and shape this community resource. Full contributor lists are included in each published document.
 
