@@ -6,7 +6,7 @@ The **OWASP GenAI Data Security Initiative** publishes security research, guidan
 
 This policy applies to content in the repository:
 
-- **Code** — Python validators, the `dsgai_scanner_tool`, HTML resources, and CI/build scripts (the crosswalk explorer now lives in [GenAI-Security-Project/crosswalk](https://github.com/GenAI-Security-Project/crosswalk))
+- **Code** — Python validators, HTML resources, and CI/build scripts (the crosswalk explorer now lives in [GenAI-Security-Project/crosswalk](https://github.com/GenAI-Security-Project/crosswalk) and the DSGAI scanner in [GenAI-Security-Project/dsgai](https://github.com/GenAI-Security-Project/dsgai), each with its own security policy)
 - **Datasets** — `dsgai-bench`, validation datasets, and community-contributed data
 - **Frameworks & documentation** — risk taxonomies, best-practices guides, and framework crosswalk content where errors could materially mislead readers
 
@@ -112,7 +112,6 @@ Security fixes are maintained for the current published edition and the `main` b
 | GenAI Data Security Risks and Mitigations         | 2026 v1.0            |
 | LLM and GenAI Data Security Best Practices        | 2025 v1.0            |
 | `dsgai-bench`                                     | latest tag on `main` |
-| `dsgai_scanner_tool`                              | latest tag on `main` |
 | Crosswalk Explorer                                | `main`               |
 
 ## Dependencies & Supply Chain
