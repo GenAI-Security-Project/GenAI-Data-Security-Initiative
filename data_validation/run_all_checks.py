@@ -28,6 +28,7 @@ that can be checked.
 from __future__ import annotations
 
 import argparse
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -41,6 +42,7 @@ from validators import (  # noqa: E402
 from validators._common import (  # noqa: E402
     ERROR, SKIP_DIRS, Finding, ensure_utf8_stdout, iter_data_files, load_json, load_taxonomy_ids,
 )
+from validators.json_lines import line_for  # noqa: E402
 
 DATASETS_ROOT = Path(__file__).resolve().parent.parent / "datasets"
 DEFAULT_TIMEOUT = 300
@@ -88,6 +90,44 @@ def run_validator(dataset: Path, timeout: float = DEFAULT_TIMEOUT) -> tuple[str,
     return "FAIL", output
 
 
+VALIDATOR_LINE_RE = re.compile(r"^(?P<file>[^:\s][^:]*\.json): (?P<loc>[^:]+): (?P<msg>.+)$")
+
+
+def _escape(text: str, prop: bool = False) -> str:
+    text = text.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+    return text.replace(":", "%3A").replace(",", "%2C") if prop else text
+
+
+def annotation(level: str, path: Path, pointer: str, title: str, message: str) -> str:
+    """A GitHub Actions workflow command that shows the finding on the PR diff."""
+    command = "error" if level == ERROR else "warning"
+    try:
+        shown = path.resolve().relative_to(DATASETS_ROOT.resolve().parent).as_posix()
+    except ValueError:
+        shown = path.as_posix()
+    props = f"file={_escape(shown, True)}"
+    line = line_for(path, pointer)
+    if line:
+        props += f",line={line}"
+    return f"::{command} {props},title={_escape(title, True)}::{_escape(message)}"
+
+
+def validator_annotations(script: Path, output: str) -> list[str]:
+    """Annotations for a dataset validator's "file.json: location: message" lines."""
+    out = []
+    for raw in output.splitlines():
+        m = VALIDATOR_LINE_RE.match(raw.strip())
+        if not m:
+            continue
+        name = m.group("file")
+        path = next((p for p in (script.parent / "entries" / name, script.parent / name) if p.is_file()),
+                    script.parent / name)
+        loc = m.group("loc").strip()
+        pointer = "" if loc == "<root>" else "/" + loc.lstrip("/")
+        out.append(annotation(ERROR, path, pointer, f"{script.parent.name}/validate.py", m.group("msg")))
+    return out
+
+
 def shared_checks(dataset: Path, datasets_root: Path) -> tuple[int, list[Finding]]:
     """(files checked, findings) for the shared checks on one dataset."""
     files = iter_data_files(dataset)
@@ -129,6 +169,8 @@ def main(argv: list[str] | None = None) -> int:
                         help="Treat shared-check warnings as failures")
     parser.add_argument("--no-shared", action="store_true",
                         help="Run only the dataset validators")
+    parser.add_argument("--github", action="store_true",
+                        help="Also print GitHub Actions annotations, so findings show on the PR diff")
     parser.add_argument("--timeout", type=float, default=DEFAULT_TIMEOUT,
                         help=f"Seconds each dataset validator may run (default {DEFAULT_TIMEOUT})")
     args = parser.parse_args(argv)
@@ -149,6 +191,7 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     results = []
+    annotations: list[str] = []
     for dataset in datasets:
         validators = find_validators(dataset)
         if not validators:
@@ -165,6 +208,8 @@ def main(argv: list[str] | None = None) -> int:
             if output and (args.verbose or status in ("FAIL", "ERROR")):
                 for line in output.splitlines():
                     print(f"    {line}")
+            if status == "FAIL":
+                annotations += validator_annotations(script, output)
 
     checked_files = errors = warnings = 0
     if not args.no_shared:
@@ -181,6 +226,11 @@ def main(argv: list[str] | None = None) -> int:
             for f in findings:
                 if f.level == ERROR or args.verbose or args.strict:
                     print(f"    {f.format(datasets_root.parent)}")
+                annotations.append(annotation(f.level, f.path, f.location, f.check, f.message))
+
+    if args.github:
+        for line in annotations:
+            print(line)
 
     ran = [s for s in results if s != "NO VALIDATOR"]
     failed = [s for s in ran if s != "PASS"]
