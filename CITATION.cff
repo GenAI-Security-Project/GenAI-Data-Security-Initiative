@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+title: "OWASP GenAI Data Security Initiative: datasets"
+message: "If you use these datasets, please cite them as below."
+type: dataset
+authors:
+  - name: "OWASP GenAI Data Security Initiative"
+repository-code: "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative"
+url: "https://genai.owasp.org/initiatives/ai-data-security-initiative/"
+license: CC-BY-SA-4.0
+# The datasets release version. A release is cut by tagging datasets-v<version>
+# (see .github/workflows/datasets-release.yml); the tag must match this value.
+version: "1.0.0"
+date-released: "2026-10-09"
+keywords:
+  - generative AI
+  - AI security
+  - data security
+  - OWASP
+  - DSGAI
+  - prompt injection
+  - LLM vulnerabilities

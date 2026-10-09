@@ -76,6 +76,7 @@ After the automated checks pass, contributions are reviewed by cybersecurity and
 | `anomaly_detector.py` | A DSGAI entry most of a dataset maps to, records with far more mappings than usual, and one severity or category value dominating a dataset (datasets of 10+ records) |
 | `online_check.py` | Runs weekly (`datasets-online-checks` workflow), not on PRs, because it needs the network. **Fails** on a CVE the CVE Program has rejected or doesn't know, a withdrawn GHSA, a dead cited link (with the Wayback Machine snapshot to use instead), or a CVE in CISA KEV whose entry isn't marked `exploited_in_the_wild`. Reports every CVE's EPSS v4 score and KEV status. These change daily, so they're reported, not stored |
 | `ner_pii_scan.py` | Person names (and, in `incident_dataset`, organisation names) found by named-entity recognition (Microsoft Presidio + spaCy) in the datasets that require anonymization. Warnings only, in the CI job summary; reviewed false positives go in `reference_data/ner_allowlist.txt`. Optional dependencies: `requirements-ner.txt` |
+| `croissant/build_croissant.py`, `croissant/check_croissant.py` | Generate each dataset's MLCommons Croissant 1.1 metadata (with RAI fields) and check it in CI: up to date with the data, valid per `mlcroissant`, and loadable record by record |
 | `consistency_check.py` | **Fails** on internal references (`DSGAI-VULN-…`, `DSGAI-EXP-…`, `DSGAI-RA-…`) that point at no existing entry; notes CVEs cited by exploits that have no vulnerability entry |
 
 ---
@@ -117,6 +118,7 @@ data_validation/
 ├── run_all_checks.py        One command for everything (CI runs this)
 ├── validators/              Shared checks; each also runs on its own
 ├── qc_tools/                Reports for reviewers
+├── croissant/               Croissant 1.1 metadata generator and checker
 ├── schemas/                 Schemas for datasets without their own schema.json
 │                            (the rest are pointers to the dataset-local schemas)
 ├── reference_data/          DSGAI, MITRE ATLAS, CWE, OWASP Top 10, NIST AI 100-2, SPDX and

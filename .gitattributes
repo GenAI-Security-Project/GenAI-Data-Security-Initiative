@@ -1,0 +1,5 @@
+# Dataset files are hashed into each dataset's croissant.json and into release
+# checksums, so their bytes must be the same on every platform: always LF.
+datasets/**/*.csv   text eol=lf
+datasets/**/*.json  text eol=lf
+data_validation/reference_data/*.csv  text eol=lf

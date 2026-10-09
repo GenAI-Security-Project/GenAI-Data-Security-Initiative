@@ -1,0 +1,76 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "equivalentProperty": "cr:equivalentProperty",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "samplingRate": "cr:samplingRate",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "rag_dataset",
+  "description": "RAG Poisoning and Retrieval Integrity Dataset. Synthetic documents and test fixtures for retrieval-augmented generation: poisoned documents, integrity and redaction tests, cross-tenant probes, each with expected secure and vulnerable retrieval behaviour.",
+  "conformsTo": "http://mlcommons.org/croissant/1.1",
+  "citeAs": "OWASP GenAI Data Security Initiative. RAG Poisoning and Retrieval Integrity Dataset (version 1.0.0). OWASP GenAI Security Project. https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/datasets/rag_dataset",
+  "datePublished": "2026-03-23",
+  "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "rai:dataBiases": "Covers one poisoning pattern (a false policy value plus a harmless canary instruction).",
+  "rai:dataCollection": "Written by contributors as synthetic, safe-to-ingest regression fixtures.",
+  "rai:dataCollectionType": "Manual Human Curator",
+  "rai:dataLimitations": "A single fixture so far; it demonstrates the format more than it covers the space.",
+  "rai:dataReleaseMaintenancePlan": "Maintained by the OWASP GenAI Data Security Initiative (Workstream 5). Contributions arrive as pull requests and must pass data_validation/run_all_checks.py in CI and peer review; weekly online checks re-verify cited CVEs, advisories and links. Versioned releases carry SHA-256 checksums.",
+  "rai:dataSocialImpact": "Fixtures use harmless canaries so they cannot cause harm if ingested by mistake.",
+  "rai:dataUseCases": "Regression tests for RAG ingestion quarantine, retrieval filtering and context resilience.",
+  "rai:personalSensitiveInformation": "No personal data; all content is synthetic and labelled as such in each record's metadata.",
+  "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/datasets/rag_dataset",
+  "version": "1.0.0",
+  "distribution": [
+    {
+      "@type": "cr:FileSet",
+      "@id": "entries/",
+      "name": "entries/",
+      "description": "One JSON record per file",
+      "encodingFormat": "application/json",
+      "includes": "entries/*.json"
+    }
+  ]
+}
