@@ -1,0 +1,11 @@
+{
+  "title": "OWASP GenAI Data Security Initiative: datasets",
+  "upload_type": "dataset",
+  "description": "Vulnerability, exploit-technique, risk-assessment, agent-trace, prompt-injection test-case and RAG fixture datasets for generative-AI data security, mapped to the OWASP GenAI Data Security (DSGAI) risk taxonomy, MITRE ATLAS, the OWASP Top 10 for LLM and Agentic Applications, NIST AI 100-2 and CWE. Each dataset ships MLCommons Croissant 1.1 metadata with Responsible AI fields.",
+  "creators": [{"name": "OWASP GenAI Data Security Initiative"}],
+  "license": "cc-by-sa-4.0",
+  "keywords": ["generative AI", "AI security", "data security", "OWASP", "DSGAI", "prompt injection", "LLM vulnerabilities"],
+  "related_identifiers": [
+    {"identifier": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative", "relation": "isSupplementTo", "scheme": "url"}
+  ]
+}

@@ -59,8 +59,8 @@ class Finding:
 
 
 def is_data_file(path: Path, root: Path) -> bool:
-    """A JSON file under root that holds data, not a schema or a test fixture."""
-    if path.suffix != ".json" or path.name == "schema.json" or path.name.endswith(".schema.json"):
+    """A JSON file under root that holds data, not a schema, Croissant metadata or a test fixture."""
+    if path.suffix != ".json" or path.name in ("schema.json", "croissant.json") or path.name.endswith(".schema.json"):
         return False
     rel = path.relative_to(root).parts[:-1]
     return not any(p in SKIP_DIRS or p.startswith((".", "_")) for p in rel)

@@ -1,0 +1,683 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "equivalentProperty": "cr:equivalentProperty",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "samplingRate": "cr:samplingRate",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "promptinj_dataextraction_testcases",
+  "description": "Prompt Injection and Data Extraction Test Cases. Adversarial prompts with expected secure and vulnerable behaviour, for red-teaming and regression testing of GenAI data-security controls. Current suites are Turkish-language: adapted cases from a public corpus, contrastive attack/benign-control pairs, and a small hand-written set with English glosses.",
+  "conformsTo": "http://mlcommons.org/croissant/1.1",
+  "citeAs": "OWASP GenAI Data Security Initiative. Prompt Injection and Data Extraction Test Cases (version 1.0.0). OWASP GenAI Security Project. https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/datasets/promptinj_dataextraction_testcases",
+  "datePublished": "2026-03-23",
+  "license": [
+    "https://creativecommons.org/licenses/by-sa/4.0/",
+    "https://creativecommons.org/licenses/by/4.0/"
+  ],
+  "rai:dataBiases": [
+    "Weighted toward system-prompt extraction and direct data extraction; other categories have fewer cases.",
+    "Reflects the attack styles of its source corpora (authority and urgency framing, morphological and cross-lingual bypasses)."
+  ],
+  "rai:dataCollection": "Contributed suites. Most cases adapt public CC BY 4.0 corpora (attribution and source hashes are kept in each case's provenance); the adaptation adds DSGAI mappings, expected behaviours and sandbox prerequisites. A small set was written for this dataset.",
+  "rai:dataCollectionType": [
+    "Secondary Data analysis",
+    "Manual Human Curator"
+  ],
+  "rai:dataLimitations": [
+    "Almost entirely Turkish; results do not transfer to other languages without new cases.",
+    "Expected behaviours are defensive test expectations, not observed results for any model.",
+    "Lexical deduplication only; paraphrased near-duplicates may remain."
+  ],
+  "rai:dataReleaseMaintenancePlan": "Maintained by the OWASP GenAI Data Security Initiative (Workstream 5). Contributions arrive as pull requests and must pass data_validation/run_all_checks.py in CI and peer review; weekly online checks re-verify cited CVEs, advisories and links. Versioned releases carry SHA-256 checksums.",
+  "rai:dataSocialImpact": "Adversarial prompts are dual-use; they are published at the level already public in their source corpora so defenders can test non-English guardrail gaps.",
+  "rai:dataUseCases": [
+    "Sandboxed red-team exercises and regression tests for prompt-injection and data-extraction defences.",
+    "Evaluating multilingual (Turkish) robustness of guardrails. Do not run against production systems."
+  ],
+  "rai:personalSensitiveInformation": "Synthetic data only: secrets and identifiers in prompts are placeholders, and cases were screened for real personal data and live-secret patterns.",
+  "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/datasets/promptinj_dataextraction_testcases",
+  "version": "1.0.0",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "tr_altaysec_turkish_llm_injection/manifest.csv",
+      "name": "tr_altaysec_turkish_llm_injection/manifest.csv",
+      "contentUrl": "tr_altaysec_turkish_llm_injection/manifest.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "08d04498431e5aea7f2514c7ef87da6cf777d025a34720ddd5b759079f0ed785"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv",
+      "name": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv",
+      "contentUrl": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "0d33cf89b2bb3e136d029ff0c729539c886ee4a987fc4719f782ab7b9adc08e6"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "tr_turkish_conversation_prompt_injection_pairs/contrastive_testcase.schema.json",
+      "name": "tr_turkish_conversation_prompt_injection_pairs/contrastive_testcase.schema.json",
+      "description": "JSON Schema for the records",
+      "contentUrl": "tr_turkish_conversation_prompt_injection_pairs/contrastive_testcase.schema.json",
+      "encodingFormat": "application/json",
+      "sha256": "de3341e66b40064629b7d60c35e094fe9a26286c697d4afe6e2b0c7b80f80f98"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "tr_altayduel/cases/",
+      "name": "tr_altayduel/cases/",
+      "description": "One JSON record per file",
+      "encodingFormat": "application/json",
+      "includes": "tr_altayduel/cases/*.json"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "tr_altaysec_turkish_llm_injection/cases/",
+      "name": "tr_altaysec_turkish_llm_injection/cases/",
+      "description": "One JSON record per file",
+      "encodingFormat": "application/json",
+      "includes": "tr_altaysec_turkish_llm_injection/cases/*.json"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "tr_turkish_conversation_prompt_injection_pairs/cases/",
+      "name": "tr_turkish_conversation_prompt_injection_pairs/cases/",
+      "description": "One JSON record per file",
+      "encodingFormat": "application/json",
+      "includes": "tr_turkish_conversation_prompt_injection_pairs/cases/*.json"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "tr_altaysec_turkish_llm_injection",
+      "name": "tr_altaysec_turkish_llm_injection",
+      "description": "One record per row of manifest.csv; list-valued columns are joined with '|'.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/path",
+          "name": "path",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "path"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/testcase_id",
+          "name": "testcase_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "testcase_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/source_record_id",
+          "name": "source_record_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "source_record_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/source_prompt_hash",
+          "name": "source_prompt_hash",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "source_prompt_hash"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/adapted_prompt_sha256",
+          "name": "adapted_prompt_sha256",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "adapted_prompt_sha256"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/category",
+          "name": "category",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "category"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/dsgai_mapping",
+          "name": "dsgai_mapping",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "dsgai_mapping"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/severity",
+          "name": "severity",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "severity"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/source_severity",
+          "name": "source_severity",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "source_severity"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/language",
+          "name": "language",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "language"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/languages",
+          "name": "languages",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "languages"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/encoded_payload_language",
+          "name": "encoded_payload_language",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "encoded_payload_language"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/source_language_label",
+          "name": "source_language_label",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "source_language_label"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/technique",
+          "name": "technique",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "technique"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/scope",
+          "name": "scope",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "scope"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/source_failure_mode_review",
+          "name": "source_failure_mode_review",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "source_failure_mode_review"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/target_scope_review",
+          "name": "target_scope_review",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "target_scope_review"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/source_batch",
+          "name": "source_batch",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "source_batch"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/source_lineage",
+          "name": "source_lineage",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "source_lineage"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_altaysec_turkish_llm_injection/anonymized",
+          "name": "anonymized",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_altaysec_turkish_llm_injection/manifest.csv"
+            },
+            "extract": {
+              "column": "anonymized"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "tr_turkish_conversation_prompt_injection_pairs",
+      "name": "tr_turkish_conversation_prompt_injection_pairs",
+      "description": "One record per row of manifest.csv; list-valued columns are joined with '|'.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/testcase_id",
+          "name": "testcase_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "testcase_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/output_file",
+          "name": "output_file",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "output_file"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/source_pair_id",
+          "name": "source_pair_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "source_pair_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/source_attack_record_id",
+          "name": "source_attack_record_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "source_attack_record_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/source_control_record_id",
+          "name": "source_control_record_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "source_control_record_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/attack_family",
+          "name": "attack_family",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "attack_family"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/source_context",
+          "name": "source_context",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "source_context"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/source_split",
+          "name": "source_split",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "source_split"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/category",
+          "name": "category",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "category"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/dsgai_mapping",
+          "name": "dsgai_mapping",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "dsgai_mapping"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/severity",
+          "name": "severity",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "severity"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/scope",
+          "name": "scope",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "scope"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/source_file",
+          "name": "source_file",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "source_file"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/source_file_sha256",
+          "name": "source_file_sha256",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "source_file_sha256"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/attack_prompt_sha256",
+          "name": "attack_prompt_sha256",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "attack_prompt_sha256"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/control_prompt_sha256",
+          "name": "control_prompt_sha256",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "control_prompt_sha256"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/case_file_sha256",
+          "name": "case_file_sha256",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "case_file_sha256"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "tr_turkish_conversation_prompt_injection_pairs/source_revision",
+          "name": "source_revision",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "tr_turkish_conversation_prompt_injection_pairs/manifest.csv"
+            },
+            "extract": {
+              "column": "source_revision"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

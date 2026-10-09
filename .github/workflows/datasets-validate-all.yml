@@ -128,3 +128,25 @@ jobs:
             python data_validation/qc_tools/ner_pii_scan.py
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+
+  # MLCommons Croissant 1.1 metadata: up to date with the data (checksums,
+  # fields, dates), valid per mlcroissant, and loadable record by record.
+  croissant:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.11'
+
+      - name: Install requirements
+        run: python -m pip install --quiet -r data_validation/requirements-croissant.txt
+
+      - name: croissant.json files are up to date
+        run: python data_validation/croissant/build_croissant.py --check
+
+      - name: Validate and load every Croissant file
+        run: python data_validation/croissant/check_croissant.py

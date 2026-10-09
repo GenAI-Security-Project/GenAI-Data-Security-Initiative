@@ -76,3 +76,21 @@ def test_nist_table_matches_the_publication():
     assert len(NIST_IDS) == 30 == len(set(NIST_IDS))
     objectives = [i for i in NIST_IDS if len(i.split(".")[1]) == 2]
     assert objectives == ["NISTAML.01", "NISTAML.02", "NISTAML.03", "NISTAML.04", "NISTAML.05"]
+
+
+def test_every_published_dataset_has_croissant_metadata():
+    """A dataset folder with records needs a croissant.json (build_croissant.py makes it)."""
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "croissant"))
+    from build_croissant import DATASETS
+    with_records = {p.parent.name for p in DATASETS_ROOT.glob("*/*.json")} | \
+                   {p.parents[1].name for p in DATASETS_ROOT.glob("*/entries/*.json")} | \
+                   {p.parents[2].name for p in DATASETS_ROOT.glob("*/*/cases/*.json")}
+    with_records -= {"_shared"}
+    assert with_records <= set(DATASETS), f"no Croissant description for {sorted(with_records - set(DATASETS))}"
+    for name in DATASETS:
+        assert (DATASETS_ROOT / name / "croissant.json").is_file(), name
+
+
+def test_citation_version_is_semver():
+    text = (DATASETS_ROOT.parent / "CITATION.cff").read_text(encoding="utf-8")
+    assert re.search(r'^version: "\d+\.\d+\.\d+"$', text, re.M)

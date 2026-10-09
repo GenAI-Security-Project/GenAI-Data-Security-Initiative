@@ -1,0 +1,365 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "equivalentProperty": "cr:equivalentProperty",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "samplingRate": "cr:samplingRate",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "agentdataflow_toolexchange_traces",
+  "description": "Agent Data Flow and Tool Exchange Traces. Sanitized traces of agentic AI tool calls, plugin data exchanges and delegation chains: typed spans, data classes and sensitivity, findings mapped to DSGAI risks, and a provenance tier with cited evidence.",
+  "conformsTo": "http://mlcommons.org/croissant/1.1",
+  "citeAs": "OWASP GenAI Data Security Initiative. Agent Data Flow and Tool Exchange Traces (version 1.0.0). OWASP GenAI Security Project. https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/datasets/agentdataflow_toolexchange_traces",
+  "dateModified": "2026-09-15",
+  "datePublished": "2026-08-07",
+  "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "rai:dataBiases": "Centred on MCP-based tool ecosystems, where most public agent data-flow documentation exists.",
+  "rai:dataCollection": "Constructed by contributors as minimal traces of documented agent and MCP behaviour, or as explicitly hypothetical scenarios; each declares its provenance tier and cites evidence.",
+  "rai:dataCollectionType": [
+    "Manual Human Curator",
+    "Document analysis"
+  ],
+  "rai:dataLimitations": [
+    "Very small: a handful of traces so far, all of unintentional failures; adversarial traces are not yet included.",
+    "Traces are reconstructions from public documentation or hypothetical, not captured production telemetry."
+  ],
+  "rai:dataReleaseMaintenancePlan": "Maintained by the OWASP GenAI Data Security Initiative (Workstream 5). Contributions arrive as pull requests and must pass data_validation/run_all_checks.py in CI and peer review; weekly online checks re-verify cited CVEs, advisories and links. Versioned releases carry SHA-256 checksums.",
+  "rai:dataSocialImpact": "Supports safer agent designs by making data-exchange failure modes concrete.",
+  "rai:dataUseCases": [
+    "Studying how sensitive data moves through agent tool calls, and testing agent data-flow analysers.",
+    "Worked examples for DSGAI06 and related agent data-exchange risks."
+  ],
+  "rai:personalSensitiveInformation": "No personal data. Payload values are synthetic placeholders; validate.py fails any trace containing credential, internal-hostname or real-address patterns.",
+  "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/datasets/agentdataflow_toolexchange_traces",
+  "version": "1.0.0",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "index.csv",
+      "name": "index.csv",
+      "contentUrl": "index.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "fede8b19c82e5f8facad7abd4b9161c767e0925a88cfafacf981e4cc07020aaf"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "schema.json",
+      "name": "schema.json",
+      "description": "JSON Schema for the records",
+      "contentUrl": "schema.json",
+      "encodingFormat": "application/json",
+      "sha256": "1b8740973635166eaa4071dc7062fc902f89af0ff98681b913f0d78fc9274298"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "entries/",
+      "name": "entries/",
+      "description": "One JSON record per file",
+      "encodingFormat": "application/json",
+      "includes": "entries/*.json"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "index",
+      "name": "index",
+      "description": "One record per row of index.csv; list-valued columns are joined with '|'.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "index/trace_id",
+          "name": "trace_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "trace_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/title",
+          "name": "title",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "title"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/category",
+          "name": "category",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "category"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/disposition",
+          "name": "disposition",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "disposition"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/provenance_tier",
+          "name": "provenance_tier",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "provenance_tier"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/primary_dsgai",
+          "name": "primary_dsgai",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "primary_dsgai"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/dsgai_mapping",
+          "name": "dsgai_mapping",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "dsgai_mapping"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/owasp_llm_top10_mapping",
+          "name": "owasp_llm_top10_mapping",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "owasp_llm_top10_mapping"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/agent_framework",
+          "name": "agent_framework",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "agent_framework"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/tool_protocol",
+          "name": "tool_protocol",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "tool_protocol"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/span_count",
+          "name": "span_count",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "span_count"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/finding_count",
+          "name": "finding_count",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "finding_count"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/max_sensitivity",
+          "name": "max_sensitivity",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "max_sensitivity"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/data_classes",
+          "name": "data_classes",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "data_classes"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/evidence_count",
+          "name": "evidence_count",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "evidence_count"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/primary_evidence",
+          "name": "primary_evidence",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "primary_evidence"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/date_added",
+          "name": "date_added",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "date_added"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/tags",
+          "name": "tags",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "tags"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

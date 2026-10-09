@@ -1,0 +1,337 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "equivalentProperty": "cr:equivalentProperty",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "samplingRate": "cr:samplingRate",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "riskassessment_dataset",
+  "description": "DSGAI Risk Assessment Dataset. Structured risk assessments of GenAI deployment archetypes: for each representative architecture, the DSGAI risks with inherent and residual ratings and rationale, existing controls, control gaps, and alignments to security and AI-governance frameworks.",
+  "conformsTo": "http://mlcommons.org/croissant/1.1",
+  "citeAs": "OWASP GenAI Data Security Initiative. DSGAI Risk Assessment Dataset (version 1.0.0). OWASP GenAI Security Project. https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/datasets/riskassessment_dataset",
+  "dateModified": "2026-05-18",
+  "datePublished": "2026-05-18",
+  "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "rai:dataBiases": [
+    "Sector coverage is uneven: cross-sector templates are the largest group, followed by financial services and SaaS; several sectors have a single template.",
+    "Framework alignments reflect the frameworks contributors know best."
+  ],
+  "rai:dataCollection": "Written by initiative contributors as synthetic-but-realistic templates of common deployment patterns, informed by public guidance and practitioner experience; peer reviewed.",
+  "rai:dataCollectionType": "Manual Human Curator",
+  "rai:dataLimitations": [
+    "Every entry is a synthetic template of a deployment archetype, not an assessment of a real organisation.",
+    "Ratings and control gaps are expert judgments for the described archetype; a real deployment needs its own assessment."
+  ],
+  "rai:dataReleaseMaintenancePlan": "Maintained by the OWASP GenAI Data Security Initiative (Workstream 5). Contributions arrive as pull requests and must pass data_validation/run_all_checks.py in CI and peer review; weekly online checks re-verify cited CVEs, advisories and links. Versioned releases carry SHA-256 checksums.",
+  "rai:dataSocialImpact": "Lowers the cost of structured GenAI risk assessment for smaller organisations.",
+  "rai:dataUseCases": [
+    "Starting points and worked examples for GenAI risk assessments and DSGAI training.",
+    "Benchmark scenarios for comparing control coverage across deployment patterns."
+  ],
+  "rai:personalSensitiveInformation": "No personal data: the scenarios are synthetic and describe archetypes, not organisations or people.",
+  "url": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/datasets/riskassessment_dataset",
+  "version": "1.0.0",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "index.csv",
+      "name": "index.csv",
+      "contentUrl": "index.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "7acf2077d2d4d2dacf07b2d1597b7a2134c57b9aba5d3082a79ecdb4c5099e5e"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "schema.json",
+      "name": "schema.json",
+      "description": "JSON Schema for the records",
+      "contentUrl": "schema.json",
+      "encodingFormat": "application/json",
+      "sha256": "f6647eebaa093c90465b86f5706a84ba893569f5c37b00d8ce628e430cba70d6"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "entries/",
+      "name": "entries/",
+      "description": "One JSON record per file",
+      "encodingFormat": "application/json",
+      "includes": "entries/*.json"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "index",
+      "name": "index",
+      "description": "One record per row of index.csv; list-valued columns are joined with '|'.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "index/assessment_id",
+          "name": "assessment_id",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "assessment_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/scenario_name",
+          "name": "scenario_name",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "scenario_name"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/entry_type",
+          "name": "entry_type",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "entry_type"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/industry_sector",
+          "name": "industry_sector",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "industry_sector"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/deployment_pattern",
+          "name": "deployment_pattern",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "deployment_pattern"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/maturity_overall",
+          "name": "maturity_overall",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "maturity_overall"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/dsgai_risks",
+          "name": "dsgai_risks",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "dsgai_risks"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/highest_inherent_rating",
+          "name": "highest_inherent_rating",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "highest_inherent_rating"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/highest_residual_rating",
+          "name": "highest_residual_rating",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "highest_residual_rating"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/control_count",
+          "name": "control_count",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "control_count"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/gap_count",
+          "name": "gap_count",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "gap_count"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/immediate_gap_count",
+          "name": "immediate_gap_count",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "immediate_gap_count"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/frameworks_mapped",
+          "name": "frameworks_mapped",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "frameworks_mapped"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/compliance_obligations",
+          "name": "compliance_obligations",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "compliance_obligations"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/date_added",
+          "name": "date_added",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "date_added"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "index/tags",
+          "name": "tags",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "index.csv"
+            },
+            "extract": {
+              "column": "tags"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
