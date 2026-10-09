@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../data_validation/schemas/rag.schema.json",
   "document_id": "RAG-0001",
   "category": "poisoned_document",
   "dsgai_mapping": [

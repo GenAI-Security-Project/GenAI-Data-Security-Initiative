@@ -8,7 +8,7 @@ Community-contributed datasets supporting research, benchmarking, and practical 
 | `incident_dataset` | Anonymized GenAI data security incidents (DSGAI01–DSGAI21) | Accepting contributions |
 | `promptinj_dataextraction_testcases` | Adversarial prompts and extraction techniques for red-teaming | Accepting contributions |
 | `rag_dataset` | RAG poisoning and retrieval integrity test sets | Accepting contributions |
-| `crossframework_mapping_dataset` | Machine-readable DSGAI-to-framework control mappings | Accepting contributions |
+| `crossframework_mapping_dataset` | Machine-readable DSGAI-to-framework control mappings | Superseded by the [GenAI Crosswalk](https://github.com/GenAI-Security-Project/crosswalk) |
 | `agentdataflow_toolexchange_traces` | Sanitized agentic AI tool call and delegation chain traces | Accepting contributions |
 
 ## How to Contribute
