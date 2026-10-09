@@ -211,7 +211,13 @@ DATASETS: dict[str, dict] = {
 
 
 def sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    """SHA-256 of the file as the repository stores and serves it.
+
+    .gitattributes keeps dataset CSV and JSON files LF in the repository, but
+    a Windows checkout (core.autocrlf) or a csv-module writer may leave CRLF
+    in a working copy; hashing LF-normalized bytes gives the same checksum
+    on every platform, matching the downloaded file."""
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def entry_dates(dataset: Path) -> list[str]:

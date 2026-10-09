@@ -86,7 +86,7 @@
       "name": "tr_altaysec_turkish_llm_injection/manifest.csv",
       "contentUrl": "tr_altaysec_turkish_llm_injection/manifest.csv",
       "encodingFormat": "text/csv",
-      "sha256": "08d04498431e5aea7f2514c7ef87da6cf777d025a34720ddd5b759079f0ed785"
+      "sha256": "ecb57c387e54c630a44e42c42cebd1398d5b7c92dbe4d8e88f108c6166ac4aec"
     },
     {
       "@type": "cr:FileObject",

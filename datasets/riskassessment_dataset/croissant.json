@@ -80,7 +80,7 @@
       "name": "index.csv",
       "contentUrl": "index.csv",
       "encodingFormat": "text/csv",
-      "sha256": "7acf2077d2d4d2dacf07b2d1597b7a2134c57b9aba5d3082a79ecdb4c5099e5e"
+      "sha256": "d6b50e83d0e00b94fb2c2166c854f0a1c2cccf53c4063477d5f78d99134d7b08"
     },
     {
       "@type": "cr:FileObject",
@@ -89,7 +89,7 @@
       "description": "JSON Schema for the records",
       "contentUrl": "schema.json",
       "encodingFormat": "application/json",
-      "sha256": "f6647eebaa093c90465b86f5706a84ba893569f5c37b00d8ce628e430cba70d6"
+      "sha256": "75ae9981bc08d69ad0916706acf710946f1a892724d78ba8e0ed9f596305e79d"
     },
     {
       "@type": "cr:FileSet",
