@@ -32,7 +32,7 @@ def test_pii_detected():
 
 @pytest.mark.parametrize("value,kind", [
     ("contact jane.doe@realcorp.io", "email address"),
-    ("key AKIAABCDEFGHIJKLMNOP", "aws access key id"),
+    ("key AKIAABCDEFGHIJKLMNOP", "aws access key id"),  # gitleaks:allow (fake key: scanner test input)
     ("token ghp_abcdefghijklmnopqrstuvwxyz0123", "github token"),
     ("-----BEGIN RSA PRIVATE KEY-----", "private key block"),
     ("password=hunter2!", "secret-looking assignment"),
