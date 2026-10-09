@@ -5,6 +5,7 @@ import json
 import shutil
 import sys
 from pathlib import Path
+from urllib.parse import urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -45,7 +46,7 @@ def fake_http(url: str, headers=None):
         return 200, json.dumps({"archived_snapshots": {"closest": {"available": True, "url": "http://web.archive.org/x"}}}).encode()
     if url.startswith("https://api.first.org/data/v1/epss"):
         return 200, json.dumps({"data": [{"cve": "CVE-2024-0001", "epss": "0.5", "percentile": "0.99"}]}).encode()
-    if "atlas.mitre.org" in url:
+    if urlsplit(url).hostname == "atlas.mitre.org":
         raise AssertionError("atlas.mitre.org must not be fetched")
     status, body = responses.get(url, (404, {}))
     return status, json.dumps(body).encode()
