@@ -124,7 +124,7 @@ The ATLAS and CWE tables are generated from MITRE's releases by `reference_data/
 
 ## Adapting the scripts
 
-The scripts are plain Python with two runtime dependencies (`jsonschema` and `cvss`) and are meant to be reused:
+The scripts are plain Python with one runtime dependency (`jsonschema`) and are meant to be reused:
 
 - **Tune the heuristics.** `DEFAULT_THRESHOLD` in `dedup_checker.py`, `PII_PATTERNS` in `anonymization_scanner.py`, `CONCENTRATION` and `SKEW` in `anomaly_detector.py`.
 - **Add a schema.** Give a new dataset a `schema.json` and have its entries point at it with `"$schema"`; `schema_validator.py` finds it.

@@ -95,7 +95,7 @@ You'll know it's active when your terminal prompt changes to show `(venv)` at th
 pip install -r requirements.txt
 ```
 
-> **What this does:** Reads the `requirements.txt` file and installs all the Python libraries the validation scripts need. That is `jsonschema` with its format checkers (schema validation, including dates and URIs), `cvss` (CVSS score checks) and `pytest` (the tests), plus `pyyaml`, which only the reference-data refresh script uses.
+> **What this does:** Reads the `requirements.txt` file and installs all the Python libraries the validation scripts need. That is `jsonschema` with its format checkers (schema validation, including dates and URIs) and `pytest` (the tests), plus `pyyaml`, which only the reference-data refresh script uses.
 
 **If you get a permissions error:** Make sure your virtual environment is activated (Step 2). If you're not using a virtual environment, add `--user` to the command: `pip install --user -r requirements.txt`
 

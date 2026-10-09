@@ -9,7 +9,7 @@ ERROR: a CVSS v3.x or v4.0 vector that does not parse; a score that differs
        Critical 9.0-10.0). The v4.0 score sets the band when both are given.
 WARN:  a score with no vector, so it cannot be checked.
 
-Scores are computed with the `cvss` package (FIRST CVSS v3.0, v3.1, v4.0).
+Scores are computed by cvss_score.py (FIRST CVSS v3.0, v3.1 and v4.0).
 
 Usage:
     python severity_check.py --dataset ../../datasets/vulnerability_dataset/
@@ -28,6 +28,7 @@ from validators._common import (  # noqa: E402
     DATASETS_ROOT, ERROR, WARN, Finding, add_target_args, ensure_utf8_stdout,
     iter_records, load_json, print_findings, resolve_targets,
 )
+from validators.cvss_score import CVSSError, cvss3_base_score, cvss4_base_score  # noqa: E402
 
 CHECK = "severity"
 TOLERANCE = 0.05
@@ -47,8 +48,9 @@ def first_band(score: float) -> str:
 
 
 def _computed(version: str, vector: str) -> float:
-    from cvss import CVSS3, CVSS4
-    return float(CVSS4(vector).base_score if version == "v4" else CVSS3(vector).base_score)
+    if version == "v4":
+        return cvss4_base_score(vector)
+    return cvss3_base_score(vector)
 
 
 def check_severity(path: Path, pointer: str, sev: dict) -> list[Finding]:
@@ -60,7 +62,7 @@ def check_severity(path: Path, pointer: str, sev: dict) -> list[Finding]:
         if vector is not None:
             try:
                 computed = _computed(version, vector)
-            except Exception as exc:  # the cvss package raises its own error types per version
+            except CVSSError as exc:
                 findings.append(Finding(ERROR, CHECK, path, f"{loc}/cvss_{version}_vector", f"not a valid CVSS vector: {exc}"))
                 continue
             if score is None:
