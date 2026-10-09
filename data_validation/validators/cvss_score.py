@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import json
 import math
-from functools import lru_cache
+from functools import cache
 from itertools import product
 from pathlib import Path
 
@@ -96,7 +96,7 @@ def cvss3_base_score(vector: str) -> float:
 
 # ---- CVSS v4.0 (port of the FIRST reference calculator) ---------------------
 
-@lru_cache(maxsize=None)
+@cache
 def _v4_tables() -> dict:
     return json.loads((Path(__file__).resolve().parent / "cvss40_tables.json").read_text(encoding="utf-8"))
 
@@ -171,9 +171,7 @@ def cvss4_base_score(vector: str) -> float:
 
     lower_eq1 = score_of(eq1 + 1, eq2, eq3, eq4, eq5, eq6)
     lower_eq2 = score_of(eq1, eq2 + 1, eq3, eq4, eq5, eq6)
-    if eq3 == 1 and eq6 == 1:
-        lower_eq3eq6 = score_of(eq1, eq2, eq3 + 1, eq4, eq5, eq6)
-    elif eq3 == 0 and eq6 == 1:
+    if eq3 == 1 and eq6 == 1 or eq3 == 0 and eq6 == 1:
         lower_eq3eq6 = score_of(eq1, eq2, eq3 + 1, eq4, eq5, eq6)
     elif eq3 == 1 and eq6 == 0:
         lower_eq3eq6 = score_of(eq1, eq2, eq3, eq4, eq5, eq6 + 1)

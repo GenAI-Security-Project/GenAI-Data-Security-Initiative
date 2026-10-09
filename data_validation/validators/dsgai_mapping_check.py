@@ -26,8 +26,18 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from validators._common import (  # noqa: E402
-    DATASETS_ROOT, ERROR, WARN, Finding, add_target_args, ensure_utf8_stdout,
-    iter_records, load_json, load_taxonomy_ids, print_findings, resolve_targets, walk_strings,
+    DATASETS_ROOT,
+    ERROR,
+    WARN,
+    Finding,
+    add_target_args,
+    ensure_utf8_stdout,
+    iter_records,
+    load_json,
+    load_taxonomy_ids,
+    print_findings,
+    resolve_targets,
+    walk_strings,
 )
 
 CHECK = "dsgai"

@@ -40,6 +40,30 @@
           patterns:
             - "*"
 
+    # ----- Python tooling in data_validation/ (hash-pinned locks) -----
+    # The requirements*.txt locks are generated from requirements*.in by
+    # data_validation/update_locks.py; Dependabot bumps pins and hashes.
+    - package-ecosystem: "pip"
+      directory: "/data_validation"
+      schedule:
+        interval: "weekly"
+        day: "monday"
+        time: "06:00"
+        timezone: "Etc/UTC"
+      open-pull-requests-limit: 5
+      labels:
+        - "dependencies"
+        - "python"
+      commit-message:
+        prefix: "deps"
+        include: "scope"
+      groups:
+        python-minor-and-patch:
+          applies-to: version-updates
+          update-types:
+            - "minor"
+            - "patch"
+
     # ----- Uncomment if/when a Dockerfile is added -----
     # - package-ecosystem: "docker"
     #   directory: "/"

@@ -1,0 +1,6 @@
+# Tooling for maintainers and CI: linting, type checking, coverage.
+-r requirements.in
+ruff>=0.6
+mypy>=1.11
+pytest-cov>=5.0
+types-PyYAML

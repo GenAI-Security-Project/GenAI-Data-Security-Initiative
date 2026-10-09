@@ -31,8 +31,17 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from validators._common import (  # noqa: E402
-    DATASETS_ROOT, ERROR, WARN, Finding, ensure_utf8_stdout, iter_data_files,
-    iter_records, load_json, print_findings, record_id, walk_strings,
+    DATASETS_ROOT,
+    ERROR,
+    WARN,
+    Finding,
+    ensure_utf8_stdout,
+    iter_data_files,
+    iter_records,
+    load_json,
+    print_findings,
+    record_id,
+    walk_strings,
 )
 
 CHECK = "dedup"
@@ -67,11 +76,12 @@ def _shingles(text: str) -> frozenset[tuple[str, ...]]:
     words = WORD_RE.findall(text)
     if len(words) < 3:
         return frozenset([tuple(words)]) if words else frozenset()
-    return frozenset(zip(words, words[1:], words[2:]))
+    return frozenset(zip(words, words[1:], words[2:], strict=False))  # trigrams: shorter by design
 
 
 def load_records(files: list[Path]) -> tuple[list[Record], list[Finding]]:
-    records, findings = [], []
+    records: list[Record] = []
+    findings: list[Finding] = []
     for path in files:
         if path.name == "example.json":
             continue
@@ -114,10 +124,7 @@ def check_records(records: list[Record], threshold: float = DEFAULT_THRESHOLD,
             continue
         if not a.shingles or not b.shingles:
             continue
-        if a.text == b.text:
-            score = 1.0
-        else:
-            score = len(a.shingles & b.shingles) / len(a.shingles | b.shingles)
+        score = 1.0 if a.text == b.text else len(a.shingles & b.shingles) / len(a.shingles | b.shingles)
         if score >= threshold:
             findings.append(Finding(WARN, CHECK, b.path, b.pointer,
                                     f"{b.label} is {score:.0%} similar to {a.label} ({a.path.name}); possible duplicate"))

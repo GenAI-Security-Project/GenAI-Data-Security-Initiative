@@ -86,7 +86,7 @@ Start with: [`data_validation/SETUP.md`](data_validation/SETUP.md) to get the en
 1. Follow steps 1–2 above
 2. **Add or modify code** in `data_validation/`
 3. **Add unit tests** in `data_validation/tests/` for any new logic
-4. **Run the test suite**: `python -m pytest tests/ -v`
+4. **Run lint, types and tests** (from `data_validation/`, after `pip install -r requirements-dev.txt`): `ruff check . && mypy && python -m pytest --cov`
 5. Submit your pull request
 
 ### For documentation contributions

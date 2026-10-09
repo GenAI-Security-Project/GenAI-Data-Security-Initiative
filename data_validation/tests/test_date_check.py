@@ -43,3 +43,8 @@ def test_placeholders_are_exempt():
 
 def test_non_date_keys_are_ignored():
     assert levels({"update": "soon", "dated_reference": "n/a"}) == []
+
+
+def test_order_message_names_the_offending_date():
+    [f] = dc.check_data(Path("e.json"), {"date_added": "2025-01-01", "date_documented": "2025-02-01"}, TODAY)
+    assert f.message == "date_documented 2025-02-01 is after date_added 2025-01-01"

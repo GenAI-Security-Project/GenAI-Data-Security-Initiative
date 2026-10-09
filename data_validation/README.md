@@ -104,9 +104,13 @@ python data_validation/qc_tools/anomaly_detector.py
 python data_validation/qc_tools/consistency_check.py
 GITHUB_TOKEN=... python data_validation/qc_tools/online_check.py --summary online.md   # needs network
 
-# Tests for the tooling itself
-python -m pytest data_validation/tests
+# Tests, lint, types and coverage for the tooling itself (what CI runs)
+cd data_validation
+pip install -r requirements-dev.txt
+ruff check . ../datasets/_shared/validate_lib.py && mypy && python -m pytest --cov
 ```
+
+**Dependencies.** Every `requirements*.txt` is a hash-pinned lock (each package, including transitive ones, pinned to one version with its SHA-256 hashes), so `pip install -r` installs exactly the reviewed artefacts on Linux, macOS or Windows. Edit the matching `requirements*.in` and run `python update_locks.py` (needs `uv`) to change them; Dependabot proposes updates weekly. Lint (ruff), type-checking (mypy) and coverage (at least 78%) are configured in `pyproject.toml` and run in CI.
 
 `run_all_checks.py` exits 0 when everything passed, 1 on any failure, and 2 when there was nothing to check. In CI it runs with `--github`, so every finding also appears as an annotation on the exact line of the file in the pull request diff.
 
@@ -117,6 +121,8 @@ python -m pytest data_validation/tests
 ```
 data_validation/
 ├── run_all_checks.py        One command for everything (CI runs this)
+├── requirements*.in / .txt  Dependency ranges / hash-pinned locks (update_locks.py)
+├── pyproject.toml           ruff, mypy, pytest and coverage settings
 ├── validators/              Shared checks; each also runs on its own
 ├── qc_tools/                Reports for reviewers
 ├── croissant/               Croissant 1.1 metadata generator and checker

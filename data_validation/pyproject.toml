@@ -1,0 +1,42 @@
+# Tool configuration for data_validation/ (and datasets/_shared/validate_lib.py).
+# Not a package: nothing here is installed.
+
+[tool.ruff]
+target-version = "py311"
+line-length = 140
+extend-exclude = ["reference_data/*.csv"]
+
+[tool.ruff.lint]
+# pycodestyle, pyflakes, isort, bugbear, pyupgrade, bandit-style security,
+# simplify and comprehension checks.
+select = ["E", "W", "F", "I", "B", "UP", "S", "SIM", "C4"]
+ignore = [
+    "S101",   # assert is how pytest tests are written
+    "S603",   # subprocess with a fixed argument list (run_all_checks, croissant)
+    "S607",   # "uv"/"git" resolved from PATH on purpose
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S108", "E402"]
+"*" = ["E402"]  # modules set sys.path before importing validators._common
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+check_untyped_defs = true
+warn_unused_ignores = true
+files = ["validators", "qc_tools", "croissant", "reference_data", "run_all_checks.py", "update_locks.py",
+         "../datasets/_shared/validate_lib.py"]
+explicit_package_bases = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["validators", "qc_tools", "run_all_checks"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+fail_under = 78
+show_missing = false
+skip_covered = true

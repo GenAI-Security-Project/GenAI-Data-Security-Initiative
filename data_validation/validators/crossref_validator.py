@@ -31,15 +31,24 @@ import csv
 import re
 import sys
 from datetime import date
-from functools import lru_cache
+from functools import cache
 from pathlib import Path
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from validators._common import (  # noqa: E402
-    DATASETS_ROOT, ERROR, REFERENCE_DIR, WARN, Finding, add_target_args,
-    ensure_utf8_stdout, load_json, print_findings, resolve_targets, walk_strings,
+    DATASETS_ROOT,
+    ERROR,
+    REFERENCE_DIR,
+    WARN,
+    Finding,
+    add_target_args,
+    ensure_utf8_stdout,
+    load_json,
+    print_findings,
+    resolve_targets,
+    walk_strings,
 )
 
 CHECK = "crossref"
@@ -53,13 +62,13 @@ ID_KINDS = (
 )
 
 
-@lru_cache(maxsize=None)
+@cache
 def atlas_status() -> dict[str, str]:
     with open(REFERENCE_DIR / "mitre_atlas_techniques.csv", newline="", encoding="utf-8") as fh:
         return {row["technique_id"]: row["status"] for row in csv.DictReader(fh)}
 
 
-@lru_cache(maxsize=None)
+@cache
 def owasp_ids() -> frozenset[str]:
     with open(REFERENCE_DIR / "owasp_top10.csv", newline="", encoding="utf-8") as fh:
         return frozenset(row["id"] for row in csv.DictReader(fh))
@@ -81,7 +90,7 @@ def check_owasp(path: Path, pointer: str, value: str) -> list[Finding]:
     return findings
 
 
-@lru_cache(maxsize=None)
+@cache
 def nist_aml_ids() -> frozenset[str]:
     with open(REFERENCE_DIR / "nist_ai_100_2.csv", newline="", encoding="utf-8") as fh:
         return frozenset(row["id"] for row in csv.DictReader(fh))
@@ -96,7 +105,7 @@ def check_nist(path: Path, pointer: str, value: str) -> list[Finding]:
             for m in NIST_RE.finditer(value) if m.group(0) not in nist_aml_ids()]
 
 
-@lru_cache(maxsize=None)
+@cache
 def cwe_status() -> dict[str, str]:
     with open(REFERENCE_DIR / "cwe_ids.csv", newline="", encoding="utf-8") as fh:
         return {row["cwe_id"]: row["status"] for row in csv.DictReader(fh)}

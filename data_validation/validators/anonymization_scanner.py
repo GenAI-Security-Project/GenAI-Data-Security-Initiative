@@ -29,8 +29,15 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from validators._common import (  # noqa: E402
-    DATASETS_ROOT, WARN, Finding, add_target_args, ensure_utf8_stdout,
-    load_json, print_findings, resolve_targets, walk_strings,
+    DATASETS_ROOT,
+    WARN,
+    Finding,
+    add_target_args,
+    ensure_utf8_stdout,
+    load_json,
+    print_findings,
+    resolve_targets,
+    walk_strings,
 )
 
 CHECK = "anonymization"
@@ -95,9 +102,9 @@ def scan_value(value: str) -> list[tuple[str, str]]:
                 continue
             hits.append((kind, text))
     for m in IPV4_RE.finditer(value):
-        kind = _ip_finding(m.group(1), value[:m.start()], value[m.end():])
-        if kind:
-            hits.append((kind, m.group(1)))
+        ip_kind = _ip_finding(m.group(1), value[:m.start()], value[m.end():])
+        if ip_kind:
+            hits.append((ip_kind, m.group(1)))
     return hits
 
 

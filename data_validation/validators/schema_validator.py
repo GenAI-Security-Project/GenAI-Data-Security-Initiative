@@ -23,7 +23,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from functools import lru_cache
+from functools import cache
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 from urllib.request import url2pathname
@@ -32,8 +32,17 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from validators._common import (  # noqa: E402
-    DATASETS_ROOT, ERROR, SCHEMAS_DIR, WARN, Finding, add_target_args,
-    dataset_root_of, ensure_utf8_stdout, load_json, print_findings, resolve_targets,
+    DATASETS_ROOT,
+    ERROR,
+    SCHEMAS_DIR,
+    WARN,
+    Finding,
+    add_target_args,
+    dataset_root_of,
+    ensure_utf8_stdout,
+    load_json,
+    print_findings,
+    resolve_targets,
 )
 
 CHECK = "schema"
@@ -73,7 +82,7 @@ def _retrieve(uri: str):
     return Resource.from_contents(contents, default_specification=DRAFT202012)
 
 
-@lru_cache(maxsize=None)
+@cache
 def _validator(schema_path: Path):
     from jsonschema.validators import validator_for
     from referencing import Registry
@@ -81,7 +90,8 @@ def _validator(schema_path: Path):
     # An $id lets relative "$ref"s in the schema resolve against its own location.
     schema = {**schema, "$id": schema_path.as_uri()}
     cls = validator_for(schema)
-    return cls(schema, registry=Registry(retrieve=_retrieve), format_checker=cls.FORMAT_CHECKER)
+    registry = Registry(retrieve=_retrieve)  # type: ignore[call-arg]  # attrs field the stubs omit
+    return cls(schema, registry=registry, format_checker=cls.FORMAT_CHECKER)
 
 
 def validate_file(path: Path, schema_path: Path | None = None, dataset_root: Path | None = None) -> list[Finding]:

@@ -19,15 +19,23 @@ from __future__ import annotations
 import argparse
 import re
 import sys
-from datetime import date, datetime, timedelta, timezone
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from validators._common import (  # noqa: E402
-    DATASETS_ROOT, ERROR, Finding, add_target_args, ensure_utf8_stdout,
-    iter_records, load_json, print_findings, resolve_targets, walk_strings,
+    DATASETS_ROOT,
+    ERROR,
+    Finding,
+    add_target_args,
+    ensure_utf8_stdout,
+    iter_records,
+    load_json,
+    print_findings,
+    resolve_targets,
+    walk_strings,
 )
 
 CHECK = "dates"
@@ -52,7 +60,7 @@ def parse_date(value: str) -> date | None:
 
 def check_data(path: Path, data, today: date | None = None) -> list[Finding]:
     # One day of slack: an entry written today in UTC+14 is still "today".
-    latest = (today or datetime.now(timezone.utc).date()) + timedelta(days=1)
+    latest = (today or datetime.now(UTC).date()) + timedelta(days=1)
     findings: list[Finding] = []
     for pointer, key, value in walk_strings(data):
         if key is None or not DATE_KEY_RE.match(key) or PLACEHOLDER_RE.match(value.strip()):
@@ -67,11 +75,11 @@ def check_data(path: Path, data, today: date | None = None) -> list[Finding]:
         if added is None:
             continue
         for key in BEFORE_ADDED:
-            value = record.get(key)
-            when = parse_date(value) if isinstance(value, str) else None
+            raw = record.get(key)
+            when = parse_date(raw) if isinstance(raw, str) else None
             if when is not None and when > added:
                 findings.append(Finding(ERROR, CHECK, path, f"{pointer}/{key}",
-                                        f"{key} {value} is after date_added {record['date_added']}"))
+                                        f"{key} {raw} is after date_added {record['date_added']}"))
     return findings
 
 

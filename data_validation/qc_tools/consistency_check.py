@@ -26,8 +26,14 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from validators._common import (  # noqa: E402
-    DATASETS_ROOT, ERROR, Finding, ensure_utf8_stdout, load_dataset_records,
-    print_findings, record_id, walk_strings,
+    DATASETS_ROOT,
+    ERROR,
+    Finding,
+    ensure_utf8_stdout,
+    load_dataset_records,
+    print_findings,
+    record_id,
+    walk_strings,
 )
 
 CHECK = "consistency"
@@ -41,7 +47,7 @@ def check(datasets_root: Path = DATASETS_ROOT) -> tuple[list[Finding], list[str]
     records = load_dataset_records(datasets_root)
     ids = {name: {record_id(r) for _p, r in items} for name, items in records.items()}
     findings: list[Finding] = []
-    for name, items in records.items():
+    for items in records.values():
         for path, rec in items:
             own = record_id(rec)
             for pointer, _key, value in walk_strings(rec):

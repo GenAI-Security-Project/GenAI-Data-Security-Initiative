@@ -25,8 +25,16 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from validators._common import (  # noqa: E402
-    DATASETS_ROOT, ERROR, WARN, Finding, add_target_args, ensure_utf8_stdout,
-    iter_records, load_json, print_findings, resolve_targets,
+    DATASETS_ROOT,
+    ERROR,
+    WARN,
+    Finding,
+    add_target_args,
+    ensure_utf8_stdout,
+    iter_records,
+    load_json,
+    print_findings,
+    resolve_targets,
 )
 from validators.cvss_score import CVSSError, cvss3_base_score, cvss4_base_score  # noqa: E402
 
