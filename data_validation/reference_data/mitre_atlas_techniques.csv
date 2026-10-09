@@ -1,29 +1,212 @@
-technique_id,name,tactic
-AML.T0002,Data Poisoning,Initial Access
-AML.T0003,Publish Poisoned Datasets,Resource Development
-AML.T0004,ML Supply Chain Compromise,Initial Access
-AML.T0010,ML Model Inference API Access,Initial Access
-AML.T0013,Discover ML Artifacts,Collection
-AML.T0014,Discover ML Model Ontology,Discovery
-AML.T0015,Evade ML Model,Defense Evasion
-AML.T0018,Backdoor ML Model,Persistence
-AML.T0019,Publish Poisoned Models,Resource Development
-AML.T0020,Poison Training Data,Impact
-AML.T0024,Exfiltration via ML Inference API,Exfiltration
-AML.T0025,Exfiltration via Cyber Means,Exfiltration
-AML.T0029,Denial of ML Service,Impact
-AML.T0031,Erode ML Model Integrity,Impact
-AML.T0034,Cost Harvesting,Impact
-AML.T0035,ML Intellectual Property Theft,Impact
-AML.T0036,Data Reconstruction,Exfiltration
-AML.T0040,ML Model Inversion,Exfiltration
-AML.T0043,Craft Adversarial Data,Execution
-AML.T0044,Full ML Model Access,Collection
-AML.T0045,Extract ML Model,Exfiltration
-AML.T0046,Prompt Injection - Direct,Initial Access
-AML.T0048,Prompt Injection - Indirect,Initial Access
-AML.T0050,Command Injection via Prompt,Execution
-AML.T0051,LLM Prompt Injection,Initial Access
-AML.T0054,LLM Jailbreak,Defense Evasion
-AML.T0056,LLM Meta Prompt Extraction,Collection
-AML.T0057,LLM Data Leakage,Exfiltration
+technique_id,name,parent_id,tactics,status
+AML.T0000,Search Open Technical Databases,,Reconnaissance,current
+AML.T0000.000,Journals and Conference Proceedings,AML.T0000,Reconnaissance,current
+AML.T0000.001,Pre-Print Repositories,AML.T0000,Reconnaissance,current
+AML.T0000.002,Technical Blogs,AML.T0000,Reconnaissance,current
+AML.T0000.003,Scan Databases,AML.T0000,Reconnaissance,current
+AML.T0001,Search Open AI Vulnerability Analysis,,Reconnaissance,current
+AML.T0002,Acquire Public AI Artifacts,,Resource Development,current
+AML.T0002.000,Datasets,AML.T0002,Resource Development,current
+AML.T0002.001,Models,AML.T0002,Resource Development,current
+AML.T0002.002,AI Agent Configuration,AML.T0002,Resource Development,current
+AML.T0003,Search Victim-Owned Websites,,Reconnaissance,current
+AML.T0004,Search Application Repositories,,Reconnaissance,current
+AML.T0005,Create Proxy AI Model,,AI Attack Adaptation,current
+AML.T0005.000,Train Proxy via Gathered AI Artifacts,AML.T0005,AI Attack Adaptation,current
+AML.T0005.001,Train Proxy via Replication,AML.T0005,AI Attack Adaptation,current
+AML.T0005.002,Use Pre-Trained Model,AML.T0005,AI Attack Adaptation,current
+AML.T0006,Active Scanning,,Reconnaissance,current
+AML.T0006.000,Enumerate Hosted AI Resources,AML.T0006,Reconnaissance,current
+AML.T0006.001,Query Platform Metadata APIs,AML.T0006,Reconnaissance,current
+AML.T0006.002,Scan for Exposed AI Infrastructure,AML.T0006,Reconnaissance,current
+AML.T0006.003,Probe AI Agent Trigger Channels,AML.T0006,Reconnaissance,current
+AML.T0007,Discover AI Artifacts,,Discovery,current
+AML.T0008,Acquire Infrastructure,,Resource Development,current
+AML.T0008.000,AI Development Workspaces,AML.T0008,Resource Development,current
+AML.T0008.001,Consumer Hardware,AML.T0008,Resource Development,current
+AML.T0008.002,Domains,AML.T0008,Resource Development,current
+AML.T0008.003,Physical Countermeasures,AML.T0008,Resource Development,current
+AML.T0008.004,Serverless,AML.T0008,Resource Development,current
+AML.T0008.005,AI Service Proxies,AML.T0008,Resource Development,current
+AML.T0010,AI Supply Chain Compromise,,Initial Access,current
+AML.T0010.000,Hardware,AML.T0010,Initial Access,current
+AML.T0010.001,AI Software,AML.T0010,Initial Access,current
+AML.T0010.002,Data,AML.T0010,Initial Access,current
+AML.T0010.003,Model,AML.T0010,Initial Access,current
+AML.T0010.004,Container Registry,AML.T0010,Initial Access,current
+AML.T0010.005,AI Agent Tool,AML.T0010,Initial Access,current
+AML.T0011,User Execution,,Execution,current
+AML.T0011.000,Unsafe AI Artifacts,AML.T0011,Execution,current
+AML.T0011.001,Malicious Package,AML.T0011,Execution,current
+AML.T0011.002,Poisoned AI Agent Tool,AML.T0011,Execution,current
+AML.T0011.003,Malicious Link,AML.T0011,Execution,current
+AML.T0012,Valid Accounts,,Initial Access; Privilege Escalation; Lateral Movement,current
+AML.T0013,Discover AI Model Ontology,,Discovery,current
+AML.T0014,Discover AI Model Family,,Discovery,current
+AML.T0015,Evade AI Model,,Initial Access; Defense Evasion; Impact,current
+AML.T0016,Obtain Capabilities,,Resource Development,current
+AML.T0016.000,Adversarial AI Attack Implementations,AML.T0016,Resource Development,current
+AML.T0016.001,Software Tools,AML.T0016,Resource Development,current
+AML.T0016.002,Generative AI,AML.T0016,Resource Development,current
+AML.T0016.003,Exploits,AML.T0016,Resource Development,current
+AML.T0016.004,AI Agent Tools,AML.T0016,Resource Development,current
+AML.T0017,Develop Capabilities,,Resource Development,current
+AML.T0017.000,Adversarial AI Attacks,AML.T0017,Resource Development,current
+AML.T0017.001,Autonomous Exploit Development,AML.T0017,Resource Development,current
+AML.T0017.002,AI Agent Tools,AML.T0017,Resource Development,current
+AML.T0018,Manipulate AI Model,,AI Attack Adaptation; Persistence,current
+AML.T0018.000,Poison AI Model,AML.T0018,AI Attack Adaptation; Persistence,current
+AML.T0018.001,Modify AI Model Architecture,AML.T0018,AI Attack Adaptation; Persistence,current
+AML.T0018.002,Embed Malware,AML.T0018,AI Attack Adaptation; Persistence,current
+AML.T0018.003,Modify Prompt Construction Logic,AML.T0018,AI Attack Adaptation; Persistence,current
+AML.T0019,Publish Poisoned Datasets,,,retired
+AML.T0020,Training Data Poisoning,,Persistence,current
+AML.T0021,Establish Accounts,,Resource Development,current
+AML.T0024,Exfiltration via AI Inference API,,Exfiltration,current
+AML.T0024.000,Infer Training Data Membership,AML.T0024,Exfiltration,current
+AML.T0024.001,Invert AI Model,AML.T0024,Exfiltration,current
+AML.T0024.002,Extract AI Model,AML.T0024,Exfiltration,current
+AML.T0025,Exfiltration via Cyber Means,,Exfiltration,current
+AML.T0029,Denial of AI Service,,Impact,current
+AML.T0031,Erode AI Model Integrity,,Impact,current
+AML.T0034,Cost Harvesting,,Impact,current
+AML.T0034.000,Excessive Queries,AML.T0034,Impact,current
+AML.T0034.001,Resource-Intensive Queries,AML.T0034,Impact,current
+AML.T0034.002,Agentic Resource Consumption,AML.T0034,Impact,current
+AML.T0035,AI Artifact Collection,,Collection,current
+AML.T0036,Data from Information Repositories,,Collection,current
+AML.T0037,Data from Local System,,Collection,current
+AML.T0040,AI Model Inference API Access,,AI Model Access,current
+AML.T0041,Physical Environment Access,,AI Model Access,current
+AML.T0042,Verify Attack,,AI Attack Adaptation,current
+AML.T0043,Craft Adversarial Data,,AI Attack Adaptation,current
+AML.T0043.000,White-Box Optimization,AML.T0043,AI Attack Adaptation,current
+AML.T0043.001,Black-Box Optimization,AML.T0043,AI Attack Adaptation,current
+AML.T0043.002,Black-Box Transfer,AML.T0043,AI Attack Adaptation,current
+AML.T0043.003,Manual Modification,AML.T0043,AI Attack Adaptation,current
+AML.T0043.004,Insert Backdoor Trigger,AML.T0043,AI Attack Adaptation,current
+AML.T0044,Full AI Model Access,,AI Model Access,current
+AML.T0046,Spamming AI System with Chaff Data,,Impact,current
+AML.T0047,AI-Enabled Product or Service,,AI Model Access,current
+AML.T0048,External Harms,,Impact,current
+AML.T0048.000,Financial Harm,AML.T0048,Impact,current
+AML.T0048.001,Reputational Harm,AML.T0048,Impact,current
+AML.T0048.002,Societal Harm,AML.T0048,Impact,current
+AML.T0048.003,User Harm,AML.T0048,Impact,current
+AML.T0048.004,AI Intellectual Property Theft,AML.T0048,Impact,current
+AML.T0049,Exploit Public-Facing Application,,Initial Access,current
+AML.T0050,Command and Scripting Interpreter,,Execution,current
+AML.T0051,LLM Prompt Injection,,Execution,current
+AML.T0051.000,Direct,AML.T0051,Execution,current
+AML.T0051.001,Indirect,AML.T0051,Execution,current
+AML.T0051.002,Triggered,AML.T0051,Execution,current
+AML.T0052,Phishing,,Initial Access; Lateral Movement,current
+AML.T0052.000,Spearphishing via Social Engineering LLM,AML.T0052,Initial Access; Lateral Movement,current
+AML.T0052.001,Deepfake-Assisted Phishing,AML.T0052,Initial Access; Lateral Movement,current
+AML.T0053,AI Agent Tool Invocation,,Execution; Privilege Escalation; Lateral Movement,current
+AML.T0054,LLM Jailbreak,,Defense Evasion; Privilege Escalation,current
+AML.T0055,Unsecured Credentials,,Credential Access,current
+AML.T0056,Extract LLM System Prompt,,Exfiltration,current
+AML.T0057,LLM Data Leakage,,Exfiltration,current
+AML.T0058,Publish Poisoned Models,,,retired
+AML.T0059,Erode Dataset Integrity,,Impact,current
+AML.T0060,Publish Hallucinated Entities,,Resource Development,current
+AML.T0061,LLM Prompt Self-Replication,,Persistence,current
+AML.T0062,Discover LLM Hallucinations,,Discovery,current
+AML.T0063,Discover AI Model Outputs,,Discovery,current
+AML.T0064,Gather RAG-Indexed Targets,,Reconnaissance,current
+AML.T0065,LLM Prompt Crafting,,AI Attack Adaptation,current
+AML.T0066,Retrieval Content Crafting,,AI Attack Adaptation,current
+AML.T0067,LLM Trusted Output Components Manipulation,,Defense Evasion,current
+AML.T0067.000,Citations,AML.T0067,Defense Evasion,current
+AML.T0068,LLM Prompt Obfuscation,,Defense Evasion,current
+AML.T0069,Discover LLM System Information,,Discovery,current
+AML.T0069.000,Special Character Sets,AML.T0069,Discovery,current
+AML.T0069.001,System Instruction Keywords,AML.T0069,Discovery,current
+AML.T0069.002,System Prompt,AML.T0069,Discovery,current
+AML.T0070,RAG Poisoning,,Persistence,current
+AML.T0071,False RAG Entry Injection,,Defense Evasion,current
+AML.T0072,Cyber Communication Channel,,Command and Control,current
+AML.T0073,Impersonation,,Defense Evasion,current
+AML.T0074,Masquerading,,Defense Evasion,current
+AML.T0075,Enterprise Resource Discovery,,Discovery,current
+AML.T0076,Corrupt AI Model,,Defense Evasion,current
+AML.T0077,LLM Response Rendering,,Exfiltration,current
+AML.T0078,Drive-by Compromise,,Initial Access,current
+AML.T0079,Stage Capabilities,,Resource Development,current
+AML.T0080,AI Agent Context Poisoning,,Persistence,current
+AML.T0080.000,Memory,AML.T0080,Persistence,current
+AML.T0080.001,Thread,AML.T0080,Persistence,current
+AML.T0081,Modify AI Agent Configuration,,Persistence; Defense Evasion,current
+AML.T0082,RAG Credential Harvesting,,Credential Access,current
+AML.T0083,Credentials from AI Agent Configuration,,Credential Access,current
+AML.T0084,Discover AI Agent Configuration,,Discovery,current
+AML.T0084.000,Embedded Knowledge,AML.T0084,Discovery,current
+AML.T0084.001,Tool Definitions,AML.T0084,Discovery,current
+AML.T0084.002,Activation Triggers,AML.T0084,Discovery,current
+AML.T0084.003,Call Chains,AML.T0084,Discovery,current
+AML.T0085,Data from AI Services,,Collection,current
+AML.T0085.000,RAG Databases,AML.T0085,Collection,current
+AML.T0085.001,AI Agent Tools,AML.T0085,Collection,current
+AML.T0086,Exfiltration via AI Agent Tool Invocation,,Exfiltration,current
+AML.T0087,Gather Victim Identity Information,,Reconnaissance,current
+AML.T0088,Generate Deepfakes,,AI Attack Adaptation,current
+AML.T0089,Enterprise Environment Discovery,,Discovery,current
+AML.T0090,OS Credential Dumping,,Credential Access,current
+AML.T0091,Use Alternate Authentication Material,,Lateral Movement,current
+AML.T0091.000,Application Access Token,AML.T0091,Lateral Movement,current
+AML.T0091.001,Web Session Cookie,AML.T0091,Lateral Movement,current
+AML.T0092,Manipulate User LLM Chat History,,Defense Evasion,current
+AML.T0093,Prompt Infiltration via Public-Facing Application,,Initial Access; Persistence,current
+AML.T0094,Delay Execution of LLM Instructions,,Defense Evasion,current
+AML.T0095,Search Open Websites/Domains,,Reconnaissance,current
+AML.T0095.000,Code Repositories,AML.T0095,Reconnaissance,current
+AML.T0096,AI Service API,,Command and Control,current
+AML.T0097,Virtualization/Sandbox Evasion,,Defense Evasion,current
+AML.T0098,AI Agent Tool Credential Harvesting,,Credential Access,current
+AML.T0099,AI Agent Tool Data Poisoning,,Persistence,current
+AML.T0100,AI Agent Clickbait,,Execution,current
+AML.T0101,Data Destruction via AI Agent Tool Invocation,,Impact,current
+AML.T0102,Generate Malicious Commands,,AI Attack Adaptation,current
+AML.T0103,Deploy AI Agent,,Execution,current
+AML.T0104,Publish Poisoned AI Agent Tool,,,retired
+AML.T0105,Escape to Host,,Privilege Escalation,current
+AML.T0106,Exploitation for Credential Access,,Credential Access,current
+AML.T0107,Exploitation for Defense Evasion,,Defense Evasion,current
+AML.T0108,AI Agent,,Command and Control,current
+AML.T0109,AI Supply Chain Rug Pull,,Defense Evasion,current
+AML.T0110,AI Agent Tool Poisoning,,Persistence,current
+AML.T0110.000,Definition and Instructions,AML.T0110,Persistence,current
+AML.T0110.001,Implementation,AML.T0110,Persistence,current
+AML.T0110.002,Runtime Response,AML.T0110,Persistence,current
+AML.T0111,AI Supply Chain Reputation Inflation,,Defense Evasion,current
+AML.T0112,Machine Compromise,,Impact,current
+AML.T0112.000,Local AI Agent,AML.T0112,Impact,current
+AML.T0112.001,AI Artifacts,AML.T0112,Impact,current
+AML.T0113,Steal Web Session Cookie,,Credential Access,current
+AML.T0114,AI Service Web Interface,,Command and Control,current
+AML.T0115,Publish Poisoned AI Artifacts,,Resource Development,current
+AML.T0115.000,Datasets,AML.T0115,Resource Development,current
+AML.T0115.001,Models,AML.T0115,Resource Development,current
+AML.T0115.002,AI Agent Tools,AML.T0115,Resource Development,current
+AML.T0116,Autonomous Reconnaissance,,Reconnaissance,current
+AML.T0117,Autonomous Attack-Path Adaptation,,AI Attack Adaptation,current
+AML.T0118,Autonomous AI Agent Communication,,AI Attack Adaptation,current
+AML.T0118.000,Communication via Shared Artifacts,AML.T0118,AI Attack Adaptation,current
+AML.T0118.001,Direct Agent Communication,AML.T0118,AI Attack Adaptation,current
+AML.T0119,Exploit Automated Artifact Processing Pipeline,,Initial Access,current
+AML.T0120,AI Artifact Repository,,Command and Control,current
+AML.T0121,AI Agent Environment Reconstruction,,Persistence,current
+AML.T0122,Exploitation of Remote Services,,Lateral Movement,current
+AML.T0123,Obfuscated Files or Information,,Defense Evasion,current
+AML.T0124,Autonomous Attack Orchestration,,AI Attack Adaptation,current
+AML.T0125,Create Account,,Persistence,current
+AML.T0126,Automated Collection,,Collection,current
+AML.T0127,Data Staged,,Collection,current
+AML.T0128,Compromise Infrastructure,,Resource Development,current
+AML.T0129,Triggers in Multimodal Inputs,,Defense Evasion,current
+AML.T0130,AI Agent Response Biasing,,Impact,current
+AML.T0131,Crafted AI Assistant Links,,Initial Access,current
+AML.T0132,Misconfigured or Publicly Exposed AI Services,,Initial Access,current
+AML.T0133,Discover AI Agent Runtime Capabilities,,Discovery,current
+AML.T0134,AI Targeted Cloaking,,Defense Evasion,current
