@@ -1,0 +1,31 @@
+id,name,level,parent_id,applies_to
+NISTAML.01,Availability Violations,objective,,PredAI; GenAI
+NISTAML.011,Model Poisoning,attack,NISTAML.01,PredAI
+NISTAML.012,Clean-label Poisoning,attack,NISTAML.01; NISTAML.02,PredAI
+NISTAML.013,Data Poisoning,attack,NISTAML.01; NISTAML.02,PredAI; GenAI
+NISTAML.014,Energy-latency,attack,NISTAML.01,PredAI
+NISTAML.015,Indirect Prompt Injection,attack,NISTAML.01; NISTAML.02; NISTAML.03,GenAI
+NISTAML.016,Indirect Prompt Injection: Availability Attacks,attack,NISTAML.015,GenAI
+NISTAML.017,Time-consuming background tasks,attack,NISTAML.016,GenAI
+NISTAML.018,Prompt Injection,attack,NISTAML.01; NISTAML.02; NISTAML.03; NISTAML.04,GenAI
+NISTAML.02,Integrity Violations,objective,,PredAI; GenAI
+NISTAML.021,Clean-label Backdoor,attack,NISTAML.02,PredAI
+NISTAML.022,Evasion,attack,NISTAML.02,PredAI
+NISTAML.023,Backdoor Poisoning,attack,NISTAML.02; NISTAML.03,PredAI; GenAI
+NISTAML.024,Targeted Poisoning,attack,NISTAML.02,PredAI; GenAI
+NISTAML.025,Black-box Evasion,attack,NISTAML.02,PredAI
+NISTAML.026,Model Poisoning,attack,NISTAML.02,PredAI
+NISTAML.027,Misaligned Outputs,attack,NISTAML.02,GenAI
+NISTAML.03,Privacy Compromises,objective,,PredAI; GenAI
+NISTAML.031,Model Extraction,attack,NISTAML.03,PredAI
+NISTAML.032,Reconstruction,attack,NISTAML.03,PredAI
+NISTAML.033,Membership Inference,attack,NISTAML.03,PredAI; GenAI
+NISTAML.034,Property Inference,attack,NISTAML.03,PredAI
+NISTAML.035,Prompt Extraction,attack,NISTAML.03,GenAI
+NISTAML.036,Leaking information from user interactions,attack,NISTAML.03,GenAI
+NISTAML.037,Training Data Attacks,attack,NISTAML.03,GenAI
+NISTAML.038,Data Extraction,attack,NISTAML.03,GenAI
+NISTAML.039,Compromising connected resources,attack,NISTAML.03,GenAI
+NISTAML.04,Misuse Violations,objective,,GenAI
+NISTAML.05,Supply Chain Attacks,objective,,PredAI; GenAI
+NISTAML.051,Model Poisoning,attack,NISTAML.05,PredAI; GenAI

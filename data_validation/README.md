@@ -40,11 +40,14 @@ The tooling has two jobs: keep the research data behind OWASP deliverables (the 
 |---|---|---|
 | `schema_validator.py` | Schema violations, for files no dataset validator covers | File with no schema to check against |
 | `dsgai_mapping_check.py` | DSGAI ID not in the taxonomy; a mapping value that is not a DSGAI ID | Same ID twice in one mapping; more than 6 mappings |
-| `crossref_validator.py` | Malformed CVE/GHSA/CWE/ATLAS ID; CVE year in the future; unknown CWE, ATLAS or OWASP Top 10 ID (`LLM01:2026`, `ASI01:2026`) | Deprecated CWE; retired ATLAS ID; OWASP ID without its edition year; malformed ID in free text (often a placeholder) |
+| `crossref_validator.py` | Malformed CVE/GHSA/CWE/ATLAS ID; CVE year in the future; unknown CWE, ATLAS, OWASP Top 10 (`LLM01:2026`, `ASI01:2026`) or NIST AI 100-2 (`NISTAML.018`) ID | Deprecated CWE; retired ATLAS ID; OWASP ID without its edition year; malformed ID in free text (often a placeholder) |
 | `severity_check.py` | CVSS v3.x/v4.0 vector that doesn't parse; score that doesn't match its vector; qualitative rating outside the score's FIRST band | Score with no vector |
 | `date_check.py` | Date that isn't ISO 8601; date in the future; documented, reported or observed after `date_added` | — |
+| `metadata_check.py` | Licence field that doesn't resolve to one SPDX licence (ID, expression or full name; the ID is preferred); language field that isn't a BCP 47 tag of registered IANA subtags | Deprecated SPDX ID or language subtag |
 | `anonymization_scanner.py` | — | Email addresses, keys and tokens, private or (in a network context) public IPs, internal hostnames, home paths, SSNs |
 | `dedup_checker.py` | Two records in one dataset with the same ID | Records with identical or ≥ 80% similar text |
+
+CI also runs **gitleaks** (pinned release, checksum-verified) over `datasets/` and `data_validation/`; a finding fails the PR.
 
 Anonymization and similarity hits are warnings because a pattern cannot tell a real secret from a synthetic one; the prompt-injection datasets contain fake credentials on purpose. Use obviously fake values to keep a file quiet: `example.com` and other RFC 2606 domains, the RFC 5737 documentation addresses (`192.0.2.0/24`, `198.51.100.0/24`, `203.0.113.0/24`), or placeholders such as `<API_KEY>` or `[API_KEY]`.
 
@@ -72,6 +75,7 @@ After the automated checks pass, contributions are reviewed by cybersecurity and
 | `bias_report.py` | Markdown coverage report: records per dataset, a DSGAI × dataset matrix, DSGAI entries nothing maps to, and the spread of severity and each dataset's categorical fields |
 | `anomaly_detector.py` | A DSGAI entry most of a dataset maps to, records with far more mappings than usual, and one severity or category value dominating a dataset (datasets of 10+ records) |
 | `online_check.py` | Runs weekly (`datasets-online-checks` workflow), not on PRs, because it needs the network. **Fails** on a CVE the CVE Program has rejected or doesn't know, a withdrawn GHSA, a dead cited link (with the Wayback Machine snapshot to use instead), or a CVE in CISA KEV whose entry isn't marked `exploited_in_the_wild`. Reports every CVE's EPSS v4 score and KEV status. These change daily, so they're reported, not stored |
+| `ner_pii_scan.py` | Person names (and, in `incident_dataset`, organisation names) found by named-entity recognition (Microsoft Presidio + spaCy) in the datasets that require anonymization. Warnings only, in the CI job summary; reviewed false positives go in `reference_data/ner_allowlist.txt`. Optional dependencies: `requirements-ner.txt` |
 | `consistency_check.py` | **Fails** on internal references (`DSGAI-VULN-…`, `DSGAI-EXP-…`, `DSGAI-RA-…`) that point at no existing entry; notes CVEs cited by exploits that have no vulnerability entry |
 
 ---
@@ -115,13 +119,14 @@ data_validation/
 ├── qc_tools/                Reports for reviewers
 ├── schemas/                 Schemas for datasets without their own schema.json
 │                            (the rest are pointers to the dataset-local schemas)
-├── reference_data/          DSGAI, MITRE ATLAS, CWE and OWASP Top 10 lookup tables; see SOURCES.md
+├── reference_data/          DSGAI, MITRE ATLAS, CWE, OWASP Top 10, NIST AI 100-2, SPDX and
+│                            IANA language lookup tables; see SOURCES.md
 └── tests/                   Tests and deliberately valid/invalid fixtures
 ```
 
 Dataset-local schemas (`datasets/<name>/schema.json`) are authoritative. `schemas/exploit`, `vulnerability`, `riskassessment` and `agentdataflow_trace` are kept only as `$ref` pointers to them; `schemas/incident`, `rag`, `crossframework_mapping` and `promptinj_testcase` are the only schemas for their data.
 
-The ATLAS and CWE tables are generated from MITRE's releases by `reference_data/update_reference_data.py`; don't edit them by hand. The `reference-data-refresh` workflow runs it on the 2nd of each month and, when MITRE has published something new, pushes a branch and opens an issue for a maintainer to turn into a PR. `owasp_top10.csv` is maintained by hand when OWASP publishes a new edition.
+The ATLAS, CWE, SPDX and language tables are generated from their publishers' releases by `reference_data/update_reference_data.py`; don't edit them by hand. The `reference-data-refresh` workflow runs it on the 2nd of each month and, when MITRE has published something new, pushes a branch and opens an issue for a maintainer to turn into a PR. `owasp_top10.csv` and `nist_ai_100_2.csv` are maintained by hand when a new edition is published.
 
 ---
 

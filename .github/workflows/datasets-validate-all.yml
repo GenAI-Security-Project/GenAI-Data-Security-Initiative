@@ -78,3 +78,53 @@ jobs:
 
       - name: data_validation tests
         run: python -m pytest data_validation/tests -v
+
+  # gitleaks (pinned release, checksum verified) over the data and tooling.
+  # Blocking: its rules target real credential formats, and the datasets'
+  # synthetic secrets use placeholders that it does not match.
+  secrets:
+    runs-on: ubuntu-latest
+    env:
+      GITLEAKS_VERSION: '8.30.1'
+      GITLEAKS_SHA256: '551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install gitleaks
+        run: |
+          tarball="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          curl -sSfL -o "$tarball" "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/${tarball}"
+          echo "${GITLEAKS_SHA256}  ${tarball}" | sha256sum -c -
+          tar -xzf "$tarball" gitleaks
+
+      - name: Scan datasets and data_validation for secrets
+        run: |
+          ./gitleaks dir datasets --redact --no-banner --exit-code 1
+          ./gitleaks dir data_validation --redact --no-banner --exit-code 1
+
+  # Named-entity scan for person and organisation names in the datasets that
+  # require anonymization. Warnings for reviewers; never fails the job.
+  ner-pii:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.11'
+
+      - name: Install requirements
+        run: python -m pip install --quiet -r data_validation/requirements.txt -r data_validation/requirements-ner.txt
+
+      - name: NER scan (job summary)
+        run: |
+          {
+            echo '## Name detection (NER) in anonymized datasets'
+            echo
+            echo '```'
+            python data_validation/qc_tools/ner_pii_scan.py
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

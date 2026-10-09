@@ -1,0 +1,7 @@
+# Text that qc_tools/ner_pii_scan.py flags as a name but a reviewer has
+# confirmed is not a real person or organisation to anonymize. One per line,
+# exact match. Add an entry only after reviewing the hit, with a comment.
+
+# NAIC "Model Bulletin" on insurers' use of AI (a regulatory document), cited
+# in riskassessment_dataset/entries/DSGAI-RA-insurance-claims-triage.json.
+Model Bulletin

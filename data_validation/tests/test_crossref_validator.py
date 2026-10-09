@@ -65,3 +65,9 @@ def test_owasp_ids():
     assert levels({"notes": "maps to LLM11:2026"}) == [ERROR]
     assert levels({"notes": "an old LLM01:2024 reference"}) == [ERROR]
     assert levels({"notes": "OWASP LLM03 (Supply Chain)"}) == [WARN]
+
+
+def test_nist_aml_ids():
+    assert levels({"nist_aml_mapping": ["NISTAML.018", "NISTAML.015", "NISTAML.03"]}) == []
+    assert levels({"notes": "see NISTAML.017 (time-consuming background tasks)"}) == []
+    assert levels({"nist_aml_mapping": ["NISTAML.099"]}) == [ERROR]
