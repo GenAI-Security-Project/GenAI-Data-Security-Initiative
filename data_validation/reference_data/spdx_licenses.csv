@@ -1,0 +1,827 @@
+spdx_id,name,type,deprecated
+0BSD,BSD Zero Clause License,license,false
+389-exception,389 Directory Server Exception,exception,false
+3D-Slicer-1.0,3D Slicer License v1.0,license,false
+AAL,Attribution Assurance License,license,false
+Abstyles,Abstyles License,license,false
+AdaCore-doc,AdaCore Doc License,license,false
+Adobe-2006,Adobe Systems Incorporated Source Code License Agreement,license,false
+Adobe-Display-PostScript,Adobe Display PostScript License,license,false
+Adobe-Glyph,Adobe Glyph List License,license,false
+Adobe-Utopia,Adobe Utopia Font License,license,false
+ADSL,Amazon Digital Services License,license,false
+Advanced-Cryptics-Dictionary,Advanced Cryptics Dictionary License,license,false
+AFL-1.1,Academic Free License v1.1,license,false
+AFL-1.2,Academic Free License v1.2,license,false
+AFL-2.0,Academic Free License v2.0,license,false
+AFL-2.1,Academic Free License v2.1,license,false
+AFL-3.0,Academic Free License v3.0,license,false
+Afmparse,Afmparse License,license,false
+AGPL-1.0,Affero General Public License v1.0,license,true
+AGPL-1.0-only,Affero General Public License v1.0 only,license,false
+AGPL-1.0-or-later,Affero General Public License v1.0 or later,license,false
+AGPL-3.0,GNU Affero General Public License v3.0,license,true
+AGPL-3.0-only,GNU Affero General Public License v3.0 only,license,false
+AGPL-3.0-or-later,GNU Affero General Public License v3.0 or later,license,false
+Aladdin,Aladdin Free Public License,license,false
+ALGLIB-Documentation,ALGLIB Documentation License,license,false
+AMD-newlib,AMD newlib License,license,false
+AMDPLPA,AMD's plpa_map.c License,license,false
+AML,Apple MIT License,license,false
+AML-glslang,AML glslang variant License,license,false
+AMPAS,Academy of Motion Picture Arts and Sciences BSD,license,false
+ANTLR-PD,ANTLR Software Rights Notice,license,false
+ANTLR-PD-fallback,ANTLR Software Rights Notice with license fallback,license,false
+any-OSI,Any OSI License,license,false
+any-OSI-perl-modules,Any OSI License - Perl Modules,license,false
+Apache-1.0,Apache License 1.0,license,false
+Apache-1.1,Apache License 1.1,license,false
+Apache-2.0,Apache License 2.0,license,false
+APAFML,Adobe Postscript AFM License,license,false
+APL-1.0,Adaptive Public License 1.0,license,false
+App-s2p,App::s2p License,license,false
+APSL-1.0,Apple Public Source License 1.0,license,false
+APSL-1.1,Apple Public Source License 1.1,license,false
+APSL-1.2,Apple Public Source License 1.2,license,false
+APSL-2.0,Apple Public Source License 2.0,license,false
+Arphic-1999,Arphic Public License,license,false
+Artistic-1.0,Artistic License 1.0,license,false
+Artistic-1.0-cl8,Artistic License 1.0 w/clause 8,license,false
+Artistic-1.0-Perl,Artistic License 1.0 (Perl),license,false
+Artistic-2.0,Artistic License 2.0,license,false
+Artistic-dist,Artistic License 1.0 (dist),license,false
+Aspell-RU,Aspell Russian License,license,false
+Asterisk-exception,Asterisk exception,exception,false
+Asterisk-linking-protocols-exception,Asterisk linking protocols exception,exception,false
+ASWF-Digital-Assets-1.0,ASWF Digital Assets License version 1.0,license,false
+ASWF-Digital-Assets-1.1,ASWF Digital Assets License 1.1,license,false
+atc-game,atc Game License,license,false
+Autoconf-exception-2.0,Autoconf exception 2.0,exception,false
+Autoconf-exception-3.0,Autoconf exception 3.0,exception,false
+Autoconf-exception-generic,Autoconf generic exception,exception,false
+Autoconf-exception-generic-3.0,Autoconf generic exception for GPL-3.0,exception,false
+Autoconf-exception-macro,Autoconf macro exception,exception,false
+Baekmuk,Baekmuk License,license,false
+Bahyph,Bahyph License,license,false
+Barr,Barr License,license,false
+bcrypt-Solar-Designer,bcrypt Solar Designer License,license,false
+Beerware,Beerware License,license,false
+Bison-exception-1.24,Bison exception 1.24,exception,false
+Bison-exception-2.2,Bison exception 2.2,exception,false
+Bitstream-Charter,Bitstream Charter Font License,license,false
+Bitstream-Vera,Bitstream Vera Font License,license,false
+BitTorrent-1.0,BitTorrent Open Source License v1.0,license,false
+BitTorrent-1.1,BitTorrent Open Source License v1.1,license,false
+blessing,SQLite Blessing,license,false
+BlueOak-1.0.0,Blue Oak Model License 1.0.0,license,false
+Boehm-GC,Boehm-Demers-Weiser GC License,license,false
+Boehm-GC-without-fee,Boehm-Demers-Weiser GC License (without fee),license,false
+BOLA-1.1,Buena Onda License Agreement v1.1,license,false
+Bootloader-exception,Bootloader Distribution Exception,exception,false
+Borceux,Borceux license,license,false
+Brian-Gladman-2-Clause,Brian Gladman 2-Clause License,license,false
+Brian-Gladman-3-Clause,Brian Gladman 3-Clause License,license,false
+Brian-Gladman-3-Clause-no-conversion,Brian Gladman 3-Clause License (no conversion clause),license,false
+BSD-1-Clause,BSD 1-Clause License,license,false
+BSD-2-Clause,"BSD 2-Clause ""Simplified"" License",license,false
+BSD-2-Clause-Darwin,BSD 2-Clause - Ian Darwin variant,license,false
+BSD-2-Clause-first-lines,BSD 2-Clause - first lines requirement,license,false
+BSD-2-Clause-FreeBSD,BSD 2-Clause FreeBSD License,license,true
+BSD-2-Clause-NetBSD,BSD 2-Clause NetBSD License,license,true
+BSD-2-Clause-Patent,BSD-2-Clause Plus Patent License,license,false
+BSD-2-Clause-pkgconf-disclaimer,BSD 2-Clause pkgconf disclaimer variant,license,false
+BSD-2-Clause-pos-unchanged,BSD 2-Clause - position unchanged variant,license,false
+BSD-2-Clause-Views,BSD 2-Clause with views sentence,license,false
+BSD-3-Clause,"BSD 3-Clause ""New"" or ""Revised"" License",license,false
+BSD-3-Clause-acpica,BSD 3-Clause acpica variant,license,false
+BSD-3-Clause-Attribution,BSD with attribution,license,false
+BSD-3-Clause-Clear,BSD 3-Clause Clear License,license,false
+BSD-3-Clause-flex,BSD 3-Clause Flex variant,license,false
+BSD-3-Clause-HP,Hewlett-Packard BSD variant license,license,false
+BSD-3-Clause-LBNL,Lawrence Berkeley National Labs BSD variant license,license,false
+BSD-3-Clause-Modification,BSD 3-Clause Modification,license,false
+BSD-3-Clause-No-Military-License,BSD 3-Clause No Military License,license,false
+BSD-3-Clause-No-Nuclear-License,BSD 3-Clause No Nuclear License,license,false
+BSD-3-Clause-No-Nuclear-License-2014,BSD 3-Clause No Nuclear License 2014,license,false
+BSD-3-Clause-No-Nuclear-Warranty,BSD 3-Clause No Nuclear Warranty,license,false
+BSD-3-Clause-Open-MPI,BSD 3-Clause Open MPI variant,license,false
+BSD-3-Clause-OpenWebUI,BSD 3-Clause - OpenWebUI variant,license,false
+BSD-3-Clause-Sun,BSD 3-Clause Sun Microsystems,license,false
+BSD-3-Clause-Tso,BSD 3-Clause Tso variant,license,false
+BSD-4-Clause,"BSD 4-Clause ""Original"" or ""Old"" License",license,false
+BSD-4-Clause-Shortened,BSD 4 Clause Shortened,license,false
+BSD-4-Clause-UC,BSD-4-Clause (University of California-Specific),license,false
+BSD-4.3RENO,BSD 4.3 RENO License,license,false
+BSD-4.3TAHOE,BSD 4.3 TAHOE License,license,false
+BSD-Advertising-Acknowledgement,BSD Advertising Acknowledgement License,license,false
+BSD-ask-to-endorse,BSD - ask to endorse,license,false
+BSD-Attribution-HPND-disclaimer,BSD with Attribution and HPND disclaimer,license,false
+BSD-Inferno-Nettverk,BSD-Inferno-Nettverk,license,false
+BSD-Mark-Modifications,BSD Mark Modifications License,license,false
+BSD-Protection,BSD Protection License,license,false
+BSD-Source-alt-GPL,BSD Source Code Attribution - GPL alternative,license,false
+BSD-Source-beginning-file,BSD Source Code Attribution - beginning of file variant,license,false
+BSD-Source-Code,BSD Source Code Attribution,license,false
+BSD-Source-Code-no-disclaimer,BSD Source Code Attribution - no disclaimer,license,false
+BSD-Systemics,Systemics BSD variant license,license,false
+BSD-Systemics-W3Works,Systemics W3Works BSD variant license,license,false
+BSL-1.0,Boost Software License 1.0,license,false
+Buddy,Buddy License,license,false
+Bugroff,Bugroff License,license,false
+BUSL-1.1,Business Source License 1.1,license,false
+bzip2-1.0.5,bzip2 and libbzip2 License v1.0.5,license,true
+bzip2-1.0.6,bzip2 and libbzip2 License v1.0.6,license,false
+C-UDA-1.0,Computational Use of Data Agreement v1.0,license,false
+CAL-1.0,Cryptographic Autonomy License 1.0,license,false
+CAL-1.0-Combined-Work-Exception,Cryptographic Autonomy License 1.0 (Combined Work Exception),license,false
+Caldera,Caldera License,license,false
+Caldera-no-preamble,Caldera License (without preamble),license,false
+CAPEC-tou,Common Attack    Pattern Enumeration and Classification License,license,false
+Catharon,Catharon License,license,false
+CATOSL-1.1,Computer Associates Trusted Open Source License 1.1,license,false
+CC-BY-1.0,Creative Commons Attribution 1.0 Generic,license,false
+CC-BY-2.0,Creative Commons Attribution 2.0 Generic,license,false
+CC-BY-2.5,Creative Commons Attribution 2.5 Generic,license,false
+CC-BY-2.5-AU,Creative Commons Attribution 2.5 Australia,license,false
+CC-BY-3.0,Creative Commons Attribution 3.0 Unported,license,false
+CC-BY-3.0-AT,Creative Commons Attribution 3.0 Austria,license,false
+CC-BY-3.0-AU,Creative Commons Attribution 3.0 Australia,license,false
+CC-BY-3.0-DE,Creative Commons Attribution 3.0 Germany,license,false
+CC-BY-3.0-IGO,Creative Commons Attribution 3.0 IGO,license,false
+CC-BY-3.0-NL,Creative Commons Attribution 3.0 Netherlands,license,false
+CC-BY-3.0-US,Creative Commons Attribution 3.0 United States,license,false
+CC-BY-4.0,Creative Commons Attribution 4.0 International,license,false
+CC-BY-NC-1.0,Creative Commons Attribution Non Commercial 1.0 Generic,license,false
+CC-BY-NC-2.0,Creative Commons Attribution Non Commercial 2.0 Generic,license,false
+CC-BY-NC-2.5,Creative Commons Attribution Non Commercial 2.5 Generic,license,false
+CC-BY-NC-3.0,Creative Commons Attribution Non Commercial 3.0 Unported,license,false
+CC-BY-NC-3.0-DE,Creative Commons Attribution Non Commercial 3.0 Germany,license,false
+CC-BY-NC-3.0-IGO,Creative Commons Attribution Non Commercial 3.0 IGO,license,false
+CC-BY-NC-4.0,Creative Commons Attribution Non Commercial 4.0 International,license,false
+CC-BY-NC-ND-1.0,Creative Commons Attribution Non Commercial No Derivatives 1.0 Generic,license,false
+CC-BY-NC-ND-2.0,Creative Commons Attribution Non Commercial No Derivatives 2.0 Generic,license,false
+CC-BY-NC-ND-2.5,Creative Commons Attribution Non Commercial No Derivatives 2.5 Generic,license,false
+CC-BY-NC-ND-3.0,Creative Commons Attribution Non Commercial No Derivatives 3.0 Unported,license,false
+CC-BY-NC-ND-3.0-DE,Creative Commons Attribution Non Commercial No Derivatives 3.0 Germany,license,false
+CC-BY-NC-ND-3.0-IGO,Creative Commons Attribution Non Commercial No Derivatives 3.0 IGO,license,false
+CC-BY-NC-ND-4.0,Creative Commons Attribution Non Commercial No Derivatives 4.0 International,license,false
+CC-BY-NC-SA-1.0,Creative Commons Attribution Non Commercial Share Alike 1.0 Generic,license,false
+CC-BY-NC-SA-2.0,Creative Commons Attribution Non Commercial Share Alike 2.0 Generic,license,false
+CC-BY-NC-SA-2.0-DE,Creative Commons Attribution Non Commercial Share Alike 2.0 Germany,license,false
+CC-BY-NC-SA-2.0-FR,Creative Commons Attribution-NonCommercial-ShareAlike 2.0 France,license,false
+CC-BY-NC-SA-2.0-UK,Creative Commons Attribution Non Commercial Share Alike 2.0 England and Wales,license,false
+CC-BY-NC-SA-2.5,Creative Commons Attribution Non Commercial Share Alike 2.5 Generic,license,false
+CC-BY-NC-SA-3.0,Creative Commons Attribution Non Commercial Share Alike 3.0 Unported,license,false
+CC-BY-NC-SA-3.0-DE,Creative Commons Attribution Non Commercial Share Alike 3.0 Germany,license,false
+CC-BY-NC-SA-3.0-IGO,Creative Commons Attribution Non Commercial Share Alike 3.0 IGO,license,false
+CC-BY-NC-SA-4.0,Creative Commons Attribution Non Commercial Share Alike 4.0 International,license,false
+CC-BY-ND-1.0,Creative Commons Attribution No Derivatives 1.0 Generic,license,false
+CC-BY-ND-2.0,Creative Commons Attribution No Derivatives 2.0 Generic,license,false
+CC-BY-ND-2.5,Creative Commons Attribution No Derivatives 2.5 Generic,license,false
+CC-BY-ND-3.0,Creative Commons Attribution No Derivatives 3.0 Unported,license,false
+CC-BY-ND-3.0-DE,Creative Commons Attribution No Derivatives 3.0 Germany,license,false
+CC-BY-ND-4.0,Creative Commons Attribution No Derivatives 4.0 International,license,false
+CC-BY-SA-1.0,Creative Commons Attribution Share Alike 1.0 Generic,license,false
+CC-BY-SA-2.0,Creative Commons Attribution Share Alike 2.0 Generic,license,false
+CC-BY-SA-2.0-UK,Creative Commons Attribution Share Alike 2.0 England and Wales,license,false
+CC-BY-SA-2.1-JP,Creative Commons Attribution Share Alike 2.1 Japan,license,false
+CC-BY-SA-2.5,Creative Commons Attribution Share Alike 2.5 Generic,license,false
+CC-BY-SA-3.0,Creative Commons Attribution Share Alike 3.0 Unported,license,false
+CC-BY-SA-3.0-AT,Creative Commons Attribution Share Alike 3.0 Austria,license,false
+CC-BY-SA-3.0-DE,Creative Commons Attribution Share Alike 3.0 Germany,license,false
+CC-BY-SA-3.0-IGO,Creative Commons Attribution-ShareAlike 3.0 IGO,license,false
+CC-BY-SA-4.0,Creative Commons Attribution Share Alike 4.0 International,license,false
+CC-PDDC,Creative Commons Public Domain Dedication and Certification,license,false
+CC-PDM-1.0,Creative    Commons Public Domain Mark 1.0 Universal,license,false
+CC-SA-1.0,Creative Commons Share Alike 1.0 Generic,license,false
+CC0-1.0,Creative Commons Zero v1.0 Universal,license,false
+CDDL-1.0,Common Development and Distribution License 1.0,license,false
+CDDL-1.1,Common Development and Distribution License 1.1,license,false
+CDL-1.0,Common Documentation License 1.0,license,false
+CDLA-Permissive-1.0,Community Data License Agreement Permissive 1.0,license,false
+CDLA-Permissive-2.0,Community Data License Agreement Permissive 2.0,license,false
+CDLA-Sharing-1.0,Community Data License Agreement Sharing 1.0,license,false
+CECILL-1.0,CeCILL Free Software License Agreement v1.0,license,false
+CECILL-1.1,CeCILL Free Software License Agreement v1.1,license,false
+CECILL-2.0,CeCILL Free Software License Agreement v2.0,license,false
+CECILL-2.1,CeCILL Free Software License Agreement v2.1,license,false
+CECILL-B,CeCILL-B Free Software License Agreement,license,false
+CECILL-C,CeCILL-C Free Software License Agreement,license,false
+CERN-OHL-1.1,CERN Open Hardware Licence v1.1,license,false
+CERN-OHL-1.2,CERN Open Hardware Licence v1.2,license,false
+CERN-OHL-P-2.0,CERN Open Hardware Licence Version 2 - Permissive,license,false
+CERN-OHL-S-2.0,CERN Open Hardware Licence Version 2 - Strongly Reciprocal,license,false
+CERN-OHL-W-2.0,CERN Open Hardware Licence Version 2 - Weakly Reciprocal,license,false
+CFITSIO,CFITSIO License,license,false
+CGAL-linking-exception,CGAL Linking Exception,exception,false
+check-cvs,check-cvs License,license,false
+checkmk,Checkmk License,license,false
+ClArtistic,Clarified Artistic License,license,false
+Classpath-exception-2.0,Classpath exception 2.0,exception,false
+Classpath-exception-2.0-short,Classpath exception 2.0 - short,exception,false
+Clips,Clips License,license,false
+CLISP-exception-2.0,CLISP exception 2.0,exception,false
+CMU-Mach,CMU Mach License,license,false
+CMU-Mach-nodoc,CMU    Mach - no notices-in-documentation variant,license,false
+CNRI-Jython,CNRI Jython License,license,false
+CNRI-Python,CNRI Python License,license,false
+CNRI-Python-GPL-Compatible,CNRI Python Open Source GPL Compatible License Agreement,license,false
+COIL-1.0,Copyfree Open Innovation License,license,false
+Community-Spec-1.0,Community Specification License 1.0,license,false
+Condor-1.1,Condor Public License v1.1,license,false
+copyleft-next-0.3.0,copyleft-next 0.3.0,license,false
+copyleft-next-0.3.1,copyleft-next 0.3.1,license,false
+Cornell-Lossless-JPEG,Cornell Lossless JPEG License,license,false
+CPAL-1.0,Common Public Attribution License 1.0,license,false
+CPL-1.0,Common Public License 1.0,license,false
+CPOL-1.02,Code Project Open License 1.02,license,false
+Cronyx,Cronyx License,license,false
+Crossword,Crossword License,license,false
+CryptoSwift,CryptoSwift License,license,false
+cryptsetup-OpenSSL-exception,cryptsetup OpenSSL exception,exception,false
+CrystalStacker,CrystalStacker License,license,false
+CUA-OPL-1.0,CUA Office Public License v1.0,license,false
+Cube,Cube License,license,false
+curl,curl License,license,false
+cve-tou,Common Vulnerability Enumeration ToU License,license,false
+D-FSL-1.0,Deutsche Freie Software Lizenz,license,false
+DEC-3-Clause,DEC 3-Clause License,license,false
+diffmark,diffmark license,license,false
+Digia-Qt-LGPL-exception-1.1,Digia Qt LGPL Exception version 1.1,exception,false
+DigiRule-FOSS-exception,DigiRule FOSS License Exception,exception,false
+DL-DE-BY-2.0,Data licence Germany – attribution – version 2.0,license,false
+DL-DE-ZERO-2.0,Data licence Germany – zero – version 2.0,license,false
+DOC,DOC License,license,false
+DocBook-DTD,DocBook DTD License,license,false
+DocBook-Schema,DocBook Schema License,license,false
+DocBook-Stylesheet,DocBook Stylesheet License,license,false
+DocBook-XML,DocBook XML License,license,false
+Dotseqn,Dotseqn License,license,false
+DRL-1.0,Detection Rule License 1.0,license,false
+DRL-1.1,Detection Rule License 1.1,license,false
+DSDP,DSDP License,license,false
+dtoa,David M. Gay dtoa License,license,false
+dvipdfm,dvipdfm License,license,false
+ECL-1.0,Educational Community License v1.0,license,false
+ECL-2.0,Educational Community License v2.0,license,false
+eCos-2.0,eCos license version 2.0,license,true
+eCos-exception-2.0,eCos exception 2.0,exception,false
+EFL-1.0,Eiffel Forum License v1.0,license,false
+EFL-2.0,Eiffel Forum License v2.0,license,false
+eGenix,eGenix.com Public License 1.1.0,license,false
+Elastic-2.0,Elastic License 2.0,license,false
+Entessa,Entessa Public License v1.0,license,false
+EPICS,EPICS Open License,license,false
+EPL-1.0,Eclipse Public License 1.0,license,false
+EPL-2.0,Eclipse Public License 2.0,license,false
+erlang-otp-linking-exception,Erlang/OTP Linking Exception,exception,false
+ErlPL-1.1,Erlang Public License v1.1,license,false
+ESA-PL-permissive-2.4,European Space Agency Public License – v2.4 – Permissive (Type 3),license,false
+ESA-PL-strong-copyleft-2.4,European Space Agency Public License (ESA-PL) - V2.4 - Strong Copyleft (Type 1),license,false
+ESA-PL-weak-copyleft-2.4,European Space Agency Public License – v2.4 – Weak Copyleft (Type 2),license,false
+etalab-2.0,Etalab Open License 2.0,license,false
+EUDatagrid,EU DataGrid Software License,license,false
+EUPL-1.0,European Union Public License 1.0,license,false
+EUPL-1.1,European Union Public License 1.1,license,false
+EUPL-1.2,European Union Public License 1.2,license,false
+Eurosym,Eurosym License,license,false
+Fair,Fair License,license,false
+Fawkes-Runtime-exception,Fawkes Runtime Exception,exception,false
+FBM,Fuzzy Bitmap License,license,false
+FDK-AAC,Fraunhofer FDK AAC Codec Library,license,false
+FDK-MPEG-H,Fraunhofer FDK MPEG-H Software,license,false
+Ferguson-Twofish,Ferguson Twofish License,license,false
+FLTK-exception,FLTK exception,exception,false
+fmt-exception,fmt exception,exception,false
+Font-exception-2.0,Font exception 2.0,exception,false
+Frameworx-1.0,Frameworx Open License 1.0,license,false
+FreeBSD-DOC,FreeBSD Documentation License,license,false
+FreeImage,FreeImage Public License v1.0,license,false
+freertos-exception-2.0,FreeRTOS Exception 2.0,exception,false
+FSFAP,FSF All Permissive License,license,false
+FSFAP-no-warranty-disclaimer,FSF All Permissive License (without Warranty),license,false
+FSFUL,FSF Unlimited License,license,false
+FSFULLR,FSF Unlimited License (with License Retention),license,false
+FSFULLRSD,FSF Unlimited License (with License Retention and Short Disclaimer),license,false
+FSFULLRWD,FSF Unlimited License (With License Retention and Warranty Disclaimer),license,false
+FSL-1.1-ALv2,"Functional Source License, Version 1.1, ALv2 Future License",license,false
+FSL-1.1-MIT,"Functional Source License, Version 1.1, MIT Future License",license,false
+FTL,Freetype Project License,license,false
+Furuseth,Furuseth License,license,false
+fwlw,fwlw License,license,false
+Game-Programming-Gems,Game Programming Gems License,license,false
+GCC-exception-2.0,GCC Runtime Library exception 2.0,exception,false
+GCC-exception-2.0-note,GCC    Runtime Library exception 2.0 - note variant,exception,false
+GCC-exception-3.1,GCC Runtime Library exception 3.1,exception,false
+GCR-docs,Gnome GCR Documentation License,license,false
+GD,GD License,license,false
+generic-xts,Generic XTS License,license,false
+GFDL-1.1,GNU Free Documentation License v1.1,license,true
+GFDL-1.1-invariants-only,GNU Free Documentation License v1.1 only - invariants,license,false
+GFDL-1.1-invariants-or-later,GNU Free Documentation License v1.1 or later - invariants,license,false
+GFDL-1.1-no-invariants-only,GNU Free Documentation License v1.1 only - no invariants,license,false
+GFDL-1.1-no-invariants-or-later,GNU Free Documentation License v1.1 or later - no invariants,license,false
+GFDL-1.1-only,GNU Free Documentation License v1.1 only,license,false
+GFDL-1.1-or-later,GNU Free Documentation License v1.1 or later,license,false
+GFDL-1.2,GNU Free Documentation License v1.2,license,true
+GFDL-1.2-invariants-only,GNU Free Documentation License v1.2 only - invariants,license,false
+GFDL-1.2-invariants-or-later,GNU Free Documentation License v1.2 or later - invariants,license,false
+GFDL-1.2-no-invariants-only,GNU Free Documentation License v1.2 only - no invariants,license,false
+GFDL-1.2-no-invariants-or-later,GNU Free Documentation License v1.2 or later - no invariants,license,false
+GFDL-1.2-only,GNU Free Documentation License v1.2 only,license,false
+GFDL-1.2-or-later,GNU Free Documentation License v1.2 or later,license,false
+GFDL-1.3,GNU Free Documentation License v1.3,license,true
+GFDL-1.3-invariants-only,GNU Free Documentation License v1.3 only - invariants,license,false
+GFDL-1.3-invariants-or-later,GNU Free Documentation License v1.3 or later - invariants,license,false
+GFDL-1.3-no-invariants-only,GNU Free Documentation License v1.3 only - no invariants,license,false
+GFDL-1.3-no-invariants-or-later,GNU Free Documentation License v1.3 or later - no invariants,license,false
+GFDL-1.3-only,GNU Free Documentation License v1.3 only,license,false
+GFDL-1.3-or-later,GNU Free Documentation License v1.3 or later,license,false
+Giftware,Giftware License,license,false
+GL2PS,GL2PS License,license,false
+Glide,3dfx Glide License,license,false
+Glulxe,Glulxe License,license,false
+GLWTPL,Good Luck With That Public License,license,false
+Gmsh-exception,Gmsh exception,exception,false
+GNAT-exception,GNAT exception,exception,false
+GNOME-examples-exception,GNOME examples exception,exception,false
+GNU-compiler-exception,GNU Compiler Exception,exception,false
+gnu-javamail-exception,GNU JavaMail exception,exception,false
+gnuplot,gnuplot License,license,false
+Google-Patent-WebM,Google Additional IP Rights Grant (Patents) - WebM,exception,false
+GPL-1.0,GNU General Public License v1.0 only,license,true
+GPL-1.0+,GNU General Public License v1.0 or later,license,true
+GPL-1.0-only,GNU General Public License v1.0 only,license,false
+GPL-1.0-or-later,GNU General Public License v1.0 or later,license,false
+GPL-2.0,GNU General Public License v2.0 only,license,true
+GPL-2.0+,GNU General Public License v2.0 or later,license,true
+GPL-2.0-only,GNU General Public License v2.0 only,license,false
+GPL-2.0-or-later,GNU General Public License v2.0 or later,license,false
+GPL-2.0-with-autoconf-exception,GNU General Public License v2.0 w/Autoconf exception,license,true
+GPL-2.0-with-bison-exception,GNU General Public License v2.0 w/Bison exception,license,true
+GPL-2.0-with-classpath-exception,GNU General Public License v2.0 w/Classpath exception,license,true
+GPL-2.0-with-font-exception,GNU General Public License v2.0 w/Font exception,license,true
+GPL-2.0-with-GCC-exception,GNU General Public License v2.0 w/GCC Runtime Library exception,license,true
+GPL-3.0,GNU General Public License v3.0 only,license,true
+GPL-3.0+,GNU General Public License v3.0 or later,license,true
+GPL-3.0-389-ds-base-exception,GPL-3.0 389 DS Base Exception,exception,false
+GPL-3.0-interface-exception,GPL-3.0 Interface Exception,exception,false
+GPL-3.0-linking-exception,GPL-3.0 Linking Exception,exception,false
+GPL-3.0-linking-source-exception,GPL-3.0 Linking Exception (with Corresponding Source),exception,false
+GPL-3.0-only,GNU General Public License v3.0 only,license,false
+GPL-3.0-or-later,GNU General Public License v3.0 or later,license,false
+GPL-3.0-with-autoconf-exception,GNU General Public License v3.0 w/Autoconf exception,license,true
+GPL-3.0-with-GCC-exception,GNU General Public License v3.0 w/GCC Runtime Library exception,license,true
+GPL-CC-1.0,GPL Cooperation Commitment 1.0,exception,false
+Graphics-Gems,Graphics Gems License,license,false
+gSOAP-1.3b,gSOAP Public License v1.3b,license,false
+GStreamer-exception-2005,GStreamer Exception (2005),exception,false
+GStreamer-exception-2008,GStreamer Exception (2008),exception,false
+gtkbook,gtkbook License,license,false
+Gutmann,Gutmann License,license,false
+harbour-exception,harbour exception,exception,false
+HaskellReport,Haskell Language Report License,license,false
+HDF5,HDF5 License,license,false
+hdparm,hdparm License,license,false
+HIDAPI,HIDAPI License,license,false
+Hippocratic-2.1,Hippocratic License 2.1,license,false
+Hippocratic-3.0-core,Hippocratic License 3.0,license,false
+HP-1986,Hewlett-Packard 1986 License,license,false
+HP-1989,Hewlett-Packard 1989 License,license,false
+HPND,Historical Permission Notice and Disclaimer,license,false
+HPND-DEC,Historical Permission Notice and Disclaimer - DEC variant,license,false
+HPND-doc,Historical Permission Notice and Disclaimer - documentation variant,license,false
+HPND-doc-sell,Historical Permission Notice and Disclaimer - documentation sell variant,license,false
+HPND-export-US,HPND with US Government export control warning,license,false
+HPND-export-US-acknowledgement,HPND with US Government export control warning and acknowledgment,license,false
+HPND-export-US-modify,HPND with US Government export control warning and modification rqmt,license,false
+HPND-export2-US,HPND with US Government export control and 2 disclaimers,license,false
+HPND-Fenneberg-Livingston,Historical Permission Notice and Disclaimer - Fenneberg-Livingston variant,license,false
+HPND-INRIA-IMAG,Historical Permission Notice and Disclaimer    - INRIA-IMAG variant,license,false
+HPND-Intel,Historical Permission Notice and Disclaimer - Intel variant,license,false
+HPND-Kevlin-Henney,Historical Permission Notice and Disclaimer - Kevlin Henney variant,license,false
+HPND-Markus-Kuhn,Historical Permission Notice and Disclaimer - Markus Kuhn variant,license,false
+HPND-merchantability-variant,Historical Permission Notice and Disclaimer - merchantability variant,license,false
+HPND-MIT-disclaimer,Historical Permission Notice and Disclaimer with MIT disclaimer,license,false
+HPND-Netrek,Historical Permission Notice and Disclaimer - Netrek variant,license,false
+HPND-Pbmplus,Historical Permission Notice and Disclaimer - Pbmplus variant,license,false
+HPND-sell-MIT-disclaimer-xserver,Historical Permission Notice and Disclaimer - sell xserver variant with MIT disclaimer,license,false
+HPND-sell-regexpr,Historical Permission Notice and Disclaimer - sell regexpr variant,license,false
+HPND-sell-variant,Historical Permission Notice and Disclaimer - sell variant,license,false
+HPND-sell-variant-critical-systems,HPND - sell variant with safety critical systems clause,license,false
+HPND-sell-variant-MIT-disclaimer,HPND sell variant with MIT disclaimer,license,false
+HPND-sell-variant-MIT-disclaimer-rev,HPND sell variant with MIT disclaimer - reverse,license,false
+HPND-SMC,Historical Permission Notice and Disclaimer - SMC variant,license,false
+HPND-UC,Historical Permission Notice and Disclaimer - University of California variant,license,false
+HPND-UC-export-US,"Historical Permission Notice and Disclaimer - University of California, US export warning",license,false
+HTMLTIDY,HTML Tidy License,license,false
+hyphen-bulgarian,hyphen-bulgarian License,license,false
+i2p-gpl-java-exception,i2p GPL+Java Exception,exception,false
+IBM-pibs,IBM PowerPC Initialization and Boot Software,license,false
+ICU,ICU License,license,false
+IEC-Code-Components-EULA,IEC    Code Components End-user licence agreement,license,false
+IJG,Independent JPEG Group License,license,false
+IJG-short,Independent JPEG Group License - short,license,false
+ImageMagick,ImageMagick License,license,false
+iMatix,iMatix Standard Function Library Agreement,license,false
+Imlib2,Imlib2 License,license,false
+Independent-modules-exception,Independent Module Linking exception,exception,false
+Info-ZIP,Info-ZIP License,license,false
+Informatica,Informatica License,license,false
+Inner-Net-2.0,Inner Net License v2.0,license,false
+InnoSetup,Inno Setup License,license,false
+Intel,Intel Open Source License,license,false
+Intel-ACPI,Intel ACPI Software License Agreement,license,false
+Interbase-1.0,Interbase Public License v1.0,license,false
+IPA,IPA Font License,license,false
+IPL-1.0,IBM Public License v1.0,license,false
+ISC,ISC License,license,false
+ISC-Veillard,ISC Veillard variant,license,false
+ISO-permission,ISO permission notice,license,false
+Jam,Jam License,license,false
+JasPer-2.0,JasPer License,license,false
+jove,Jove License,license,false
+JPL-image,JPL Image Use Policy,license,false
+JPNIC,Japan Network Information Center License,license,false
+JSON,JSON License,license,false
+Kastrup,Kastrup License,license,false
+Kazlib,Kazlib License,license,false
+KiCad-libraries-exception,KiCad Libraries Exception,exception,false
+Knuth-CTAN,Knuth CTAN License,license,false
+kvirc-openssl-exception,kvirc OpenSSL Exception,exception,false
+LAL-1.2,Licence Art Libre 1.2,license,false
+LAL-1.3,Licence Art Libre 1.3,license,false
+Latex2e,Latex2e License,license,false
+Latex2e-translated-notice,Latex2e with translated notice permission,license,false
+Leptonica,Leptonica License,license,false
+LGPL-2.0,GNU Library General Public License v2 only,license,true
+LGPL-2.0+,GNU Library General Public License v2 or later,license,true
+LGPL-2.0-only,GNU Library General Public License v2 only,license,false
+LGPL-2.0-or-later,GNU Library General Public License v2 or later,license,false
+LGPL-2.1,GNU Lesser General Public License v2.1 only,license,true
+LGPL-2.1+,GNU Lesser General Public License v2.1 or later,license,true
+LGPL-2.1-only,GNU Lesser General Public License v2.1 only,license,false
+LGPL-2.1-or-later,GNU Lesser General Public License v2.1 or later,license,false
+LGPL-3.0,GNU Lesser General Public License v3.0 only,license,true
+LGPL-3.0+,GNU Lesser General Public License v3.0 or later,license,true
+LGPL-3.0-linking-exception,LGPL-3.0 Linking Exception,exception,false
+LGPL-3.0-only,GNU Lesser General Public License v3.0 only,license,false
+LGPL-3.0-or-later,GNU Lesser General Public License v3.0 or later,license,false
+LGPLLR,Lesser General Public License For Linguistic Resources,license,false
+Libpng,libpng License,license,false
+libpng-1.6.35,PNG Reference Library License v1 (for libpng 0.5 through 1.6.35),license,false
+libpng-2.0,PNG Reference Library version 2,license,false
+libpri-OpenH323-exception,libpri OpenH323 exception,exception,false
+libselinux-1.0,libselinux public domain notice,license,false
+libtiff,libtiff License,license,false
+Libtool-exception,Libtool Exception,exception,false
+libutil-David-Nugent,libutil David Nugent License,license,false
+LiLiQ-P-1.1,Licence Libre du Québec – Permissive version 1.1,license,false
+LiLiQ-R-1.1,Licence Libre du Québec – Réciprocité version 1.1,license,false
+LiLiQ-Rplus-1.1,Licence Libre du Québec – Réciprocité forte version 1.1,license,false
+Linux-man-pages-1-para,Linux man-pages - 1 paragraph,license,false
+Linux-man-pages-copyleft,Linux man-pages Copyleft,license,false
+Linux-man-pages-copyleft-2-para,Linux man-pages Copyleft - 2 paragraphs,license,false
+Linux-man-pages-copyleft-var,Linux man-pages Copyleft Variant,license,false
+Linux-OpenIB,Linux Kernel Variant of OpenIB.org license,license,false
+Linux-syscall-note,Linux Syscall Note,exception,false
+LLGPL,LLGPL Preamble,exception,false
+LLVM-exception,LLVM Exception,exception,false
+LOOP,Common Lisp LOOP License,license,false
+LPD-document,LPD Documentation License,license,false
+LPL-1.0,Lucent Public License Version 1.0,license,false
+LPL-1.02,Lucent Public License v1.02,license,false
+LPPL-1.0,LaTeX Project Public License v1.0,license,false
+LPPL-1.1,LaTeX Project Public License v1.1,license,false
+LPPL-1.2,LaTeX Project Public License v1.2,license,false
+LPPL-1.3a,LaTeX Project Public License v1.3a,license,false
+LPPL-1.3c,LaTeX Project Public License v1.3c,license,false
+lsof,lsof License,license,false
+Lucida-Bitmap-Fonts,Lucida Bitmap Fonts License,license,false
+LZMA-exception,LZMA exception,exception,false
+LZMA-SDK-9.11-to-9.20,LZMA SDK License (versions 9.11 to 9.20),license,false
+LZMA-SDK-9.22,LZMA SDK License (versions 9.22 and beyond),license,false
+Mackerras-3-Clause,Mackerras 3-Clause License,license,false
+Mackerras-3-Clause-acknowledgment,Mackerras 3-Clause - acknowledgment variant,license,false
+magaz,magaz License,license,false
+mailprio,mailprio License,license,false
+MakeIndex,MakeIndex License,license,false
+man2html,man2html License,license,false
+Martin-Birgmeier,Martin Birgmeier License,license,false
+McPhee-slideshow,McPhee Slideshow License,license,false
+metamail,metamail License,license,false
+mif-exception,Macros and Inline Functions Exception,exception,false
+Minpack,Minpack License,license,false
+MIPS,MIPS License,license,false
+MirOS,The MirOS Licence,license,false
+MIT,MIT License,license,false
+MIT-0,MIT No Attribution,license,false
+MIT-advertising,Enlightenment License (e16),license,false
+MIT-Click,MIT Click License,license,false
+MIT-CMU,CMU License,license,false
+MIT-enna,enna License,license,false
+MIT-feh,feh License,license,false
+MIT-Festival,MIT Festival Variant,license,false
+MIT-Khronos-old,MIT Khronos - old variant,license,false
+MIT-Modern-Variant,MIT License Modern Variant,license,false
+MIT-open-group,MIT Open Group variant,license,false
+MIT-STK,MIT-STK License,license,false
+MIT-testregex,MIT testregex Variant,license,false
+MIT-Wu,MIT Tom Wu Variant,license,false
+MITNFA,MIT +no-false-attribs license,license,false
+MMIXware,MMIXware License,license,false
+MMPL-1.0.1,Minecraft Mod Public License v1.0.1,license,false
+Motosoto,Motosoto License,license,false
+MPEG-SSG,MPEG Software Simulation,license,false
+mpi-permissive,mpi Permissive License,license,false
+mpich2,mpich2 License,license,false
+MPL-1.0,Mozilla Public License 1.0,license,false
+MPL-1.1,Mozilla Public License 1.1,license,false
+MPL-2.0,Mozilla Public License 2.0,license,false
+MPL-2.0-no-copyleft-exception,Mozilla Public License 2.0 (no copyleft exception),license,false
+mplus,mplus Font License,license,false
+MS-LPL,Microsoft Limited Public License,license,false
+MS-PL,Microsoft Public License,license,false
+MS-RL,Microsoft Reciprocal License,license,false
+MTLL,Matrix Template Library License,license,false
+MulanPSL-1.0,"Mulan Permissive Software License, Version 1",license,false
+MulanPSL-2.0,"Mulan Permissive Software License, Version 2",license,false
+Multics,Multics License,license,false
+Mup,Mup License,license,false
+MVT-1.1,MVT License 1.1,license,false
+mxml-exception,mxml Exception,exception,false
+NAIST-2003,Nara Institute of Science and Technology License (2003),license,false
+NASA-1.3,NASA Open Source Agreement 1.3,license,false
+Naumen,Naumen Public License,license,false
+NBPL-1.0,Net Boolean Public License v1,license,false
+NCBI-PD,NCBI Public Domain Notice,license,false
+NCGL-UK-2.0,Non-Commercial Government Licence,license,false
+NCL,NCL Source Code License,license,false
+NCSA,University of Illinois/NCSA Open Source License,license,false
+Net-SNMP,Net-SNMP License,license,true
+NetCDF,NetCDF license,license,false
+Newsletr,Newsletr License,license,false
+NGPL,Nethack General Public License,license,false
+ngrep,ngrep License,license,false
+NICTA-1.0,"NICTA Public Software License, Version 1.0",license,false
+NIST-PD,NIST Public Domain Notice,license,false
+NIST-PD-fallback,NIST Public Domain Notice with license fallback,license,false
+NIST-PD-TNT,NIST    Public Domain Notice TNT variant,license,false
+NIST-Software,NIST Software License,license,false
+NLOD-1.0,Norwegian Licence for Open Government Data (NLOD) 1.0,license,false
+NLOD-2.0,Norwegian Licence for Open Government Data (NLOD) 2.0,license,false
+NLPL,No Limit Public License,license,false
+Nokia,Nokia Open Source License,license,false
+Nokia-Qt-exception-1.1,Nokia Qt LGPL exception 1.1,exception,true
+NOSL,Netizen Open Source License,license,false
+Noweb,Noweb License,license,false
+NPL-1.0,Netscape Public License v1.0,license,false
+NPL-1.1,Netscape Public License v1.1,license,false
+NPOSL-3.0,Non-Profit Open Software License 3.0,license,false
+NRL,NRL License,license,false
+NTIA-PD,NTIA Public Domain Notice,license,false
+NTP,NTP License,license,false
+NTP-0,NTP No Attribution,license,false
+Nunit,Nunit License,license,true
+O-UDA-1.0,Open Use of Data Agreement v1.0,license,false
+OAR,OAR License,license,false
+OCaml-LGPL-linking-exception,OCaml LGPL Linking Exception,exception,false
+OCCT-exception-1.0,Open CASCADE Exception 1.0,exception,false
+OCCT-PL,Open CASCADE Technology Public License,license,false
+OCLC-2.0,OCLC Research Public License 2.0,license,false
+ODbL-1.0,Open Data Commons Open Database License v1.0,license,false
+ODC-By-1.0,Open Data Commons Attribution License v1.0,license,false
+OFFIS,OFFIS License,license,false
+OFL-1.0,SIL Open Font License 1.0,license,false
+OFL-1.0-no-RFN,SIL Open Font License 1.0 with no Reserved Font Name,license,false
+OFL-1.0-RFN,SIL Open Font License 1.0 with Reserved Font Name,license,false
+OFL-1.1,SIL Open Font License 1.1,license,false
+OFL-1.1-no-RFN,SIL Open Font License 1.1 with no Reserved Font Name,license,false
+OFL-1.1-RFN,SIL Open Font License 1.1 with Reserved Font Name,license,false
+OGC-1.0,"OGC Software License, Version 1.0",license,false
+OGDL-Taiwan-1.0,"Taiwan Open Government Data License, version 1.0",license,false
+OGL-Canada-2.0,Open Government Licence - Canada,license,false
+OGL-UK-1.0,Open Government Licence v1.0,license,false
+OGL-UK-2.0,Open Government Licence v2.0,license,false
+OGL-UK-3.0,Open Government Licence v3.0,license,false
+OGTSL,Open Group Test Suite License,license,false
+OLDAP-1.1,Open LDAP Public License v1.1,license,false
+OLDAP-1.2,Open LDAP Public License v1.2,license,false
+OLDAP-1.3,Open LDAP Public License v1.3,license,false
+OLDAP-1.4,Open LDAP Public License v1.4,license,false
+OLDAP-2.0,Open LDAP Public License v2.0 (or possibly 2.0A and 2.0B),license,false
+OLDAP-2.0.1,Open LDAP Public License v2.0.1,license,false
+OLDAP-2.1,Open LDAP Public License v2.1,license,false
+OLDAP-2.2,Open LDAP Public License v2.2,license,false
+OLDAP-2.2.1,Open LDAP Public License v2.2.1,license,false
+OLDAP-2.2.2,Open LDAP Public License 2.2.2,license,false
+OLDAP-2.3,Open LDAP Public License v2.3,license,false
+OLDAP-2.4,Open LDAP Public License v2.4,license,false
+OLDAP-2.5,Open LDAP Public License v2.5,license,false
+OLDAP-2.6,Open LDAP Public License v2.6,license,false
+OLDAP-2.7,Open LDAP Public License v2.7,license,false
+OLDAP-2.8,Open LDAP Public License v2.8,license,false
+OLFL-1.3,Open Logistics Foundation License Version 1.3,license,false
+OML,Open Market License,license,false
+OpenJDK-assembly-exception-1.0,OpenJDK Assembly exception 1.0,exception,false
+OpenMDW-1.0,OpenMDW License Agreement v1.0,license,false
+OpenPBS-2.3,OpenPBS v2.3 Software License,license,false
+OpenSSL,OpenSSL License,license,false
+OpenSSL-standalone,OpenSSL License - standalone,license,false
+OpenVision,OpenVision License,license,false
+openvpn-openssl-exception,OpenVPN OpenSSL Exception,exception,false
+OPL-1.0,Open Public License v1.0,license,false
+OPL-UK-3.0,United    Kingdom Open Parliament Licence v3.0,license,false
+OPUBL-1.0,Open Publication License v1.0,license,false
+OSC-1.0,OSC License 1.0,license,false
+OSET-PL-2.1,OSET Public License version 2.1,license,false
+OSL-1.0,Open Software License 1.0,license,false
+OSL-1.1,Open Software License 1.1,license,false
+OSL-2.0,Open Software License 2.0,license,false
+OSL-2.1,Open Software License 2.1,license,false
+OSL-3.0,Open Software License 3.0,license,false
+OSSP,OSSP License,license,false
+PADL,PADL License,license,false
+ParaType-Free-Font-1.3,ParaType Free Font Licensing Agreement v1.3,license,false
+Parity-6.0.0,The Parity Public License 6.0.0,license,false
+Parity-7.0.0,The Parity Public License 7.0.0,license,false
+PCRE2-exception,PCRE2 exception,exception,false
+PDDL-1.0,Open Data Commons Public Domain Dedication & License 1.0,license,false
+PHP-3.0,PHP License v3.0,license,false
+PHP-3.01,PHP License v3.01,license,false
+Pixar,Pixar License,license,false
+pkgconf,pkgconf License,license,false
+Plexus,Plexus Classworlds License,license,false
+pnmstitch,pnmstitch License,license,false
+PolyForm-Noncommercial-1.0.0,PolyForm Noncommercial License 1.0.0,license,false
+PolyForm-Small-Business-1.0.0,PolyForm Small Business License 1.0.0,license,false
+polyparse-exception,Polyparse Exception,exception,false
+PostgreSQL,PostgreSQL License,license,false
+PPL,Peer Production License,license,false
+PS-or-PDF-font-exception-20170817,PS/PDF font exception (2017-08-17),exception,false
+PSF-2.0,Python Software Foundation License 2.0,license,false
+psfrag,psfrag License,license,false
+psutils,psutils License,license,false
+Python-2.0,Python License 2.0,license,false
+Python-2.0.1,Python License 2.0.1,license,false
+python-ldap,Python ldap License,license,false
+Qhull,Qhull License,license,false
+QPL-1.0,Q Public License 1.0,license,false
+QPL-1.0-INRIA-2004,Q Public License 1.0 - INRIA 2004 variant,license,false
+QPL-1.0-INRIA-2004-exception,INRIA QPL 1.0 2004 variant exception,exception,false
+Qt-GPL-exception-1.0,Qt GPL exception 1.0,exception,false
+Qt-LGPL-exception-1.1,Qt LGPL exception 1.1,exception,false
+Qwt-exception-1.0,Qwt exception 1.0,exception,false
+radvd,radvd License,license,false
+Rdisc,Rdisc License,license,false
+RHeCos-1.1,Red Hat eCos Public License v1.1,license,false
+romic-exception,Romic Exception,exception,false
+RPL-1.1,Reciprocal Public License 1.1,license,false
+RPL-1.5,Reciprocal Public License 1.5,license,false
+RPSL-1.0,RealNetworks Public Source License v1.0,license,false
+RRDtool-FLOSS-exception-2.0,RRDtool FLOSS exception 2.0,exception,false
+RSA-MD,RSA Message-Digest License,license,false
+RSCPL,Ricoh Source Code Public License,license,false
+rsync-linking-exception,rsync Linking Exception,exception,false
+Ruby,Ruby License,license,false
+Ruby-pty,Ruby pty extension license,license,false
+SANE-exception,SANE Exception,exception,false
+SAX-PD,Sax Public Domain Notice,license,false
+SAX-PD-2.0,Sax Public Domain Notice 2.0,license,false
+Saxpath,Saxpath License,license,false
+SCEA,SCEA Shared Source License,license,false
+SchemeReport,Scheme Language Report License,license,false
+Sendmail,Sendmail License,license,false
+Sendmail-8.23,Sendmail License 8.23,license,false
+Sendmail-Open-Source-1.1,Sendmail Open Source License v1.1,license,false
+SGI-B-1.0,SGI Free Software License B v1.0,license,false
+SGI-B-1.1,SGI Free Software License B v1.1,license,false
+SGI-B-2.0,SGI Free Software License B v2.0,license,false
+SGI-OpenGL,SGI OpenGL License,license,false
+SGMLUG-PM,SGMLUG Parser Materials License,license,false
+SGP4,SGP4 Permission Notice,license,false
+SHL-0.5,Solderpad Hardware License v0.5,license,false
+SHL-0.51,"Solderpad Hardware License, Version 0.51",license,false
+SHL-2.0,Solderpad Hardware License v2.0,exception,false
+SHL-2.1,Solderpad Hardware License v2.1,exception,false
+SimPL-2.0,Simple Public License 2.0,license,false
+Simple-Library-Usage-exception,Simple Library Usage Exception,exception,false
+SISSL,Sun Industry Standards Source License v1.1,license,false
+SISSL-1.2,Sun Industry Standards Source License v1.2,license,false
+SL,SL License,license,false
+Sleepycat,Sleepycat License,license,false
+SMAIL-GPL,SMAIL General Public License,license,false
+SMLNJ,Standard ML of New Jersey License,license,false
+SMPPL,Secure Messaging Protocol Public License,license,false
+SNIA,SNIA Public License 1.1,license,false
+snprintf,snprintf License,license,false
+SOFA,SOFA Software License,license,false
+softSurfer,softSurfer License,license,false
+Soundex,Soundex License,license,false
+Spelling-Provider-LGPL-exception,Spelling Provider LGPL exception,exception,false
+Spencer-86,Spencer License 86,license,false
+Spencer-94,Spencer License 94,license,false
+Spencer-99,Spencer License 99,license,false
+SPL-1.0,Sun Public License v1.0,license,false
+sqlitestudio-OpenSSL-exception,sqlitestudio OpenSSL exception,exception,false
+ssh-keyscan,ssh-keyscan License,license,false
+SSH-OpenSSH,SSH OpenSSH license,license,false
+SSH-short,SSH short notice,license,false
+SSLeay-standalone,SSLeay License - standalone,license,false
+SSPL-1.0,"Server Side Public License, v 1",license,false
+StandardML-NJ,Standard ML of New Jersey License,license,true
+stunnel-exception,stunnel Exception,exception,false
+SugarCRM-1.1.3,SugarCRM Public License v1.1.3,license,false
+SUL-1.0,Sustainable Use License v1.0,license,false
+Sun-PPP,Sun PPP License,license,false
+Sun-PPP-2000,Sun PPP License (2000),license,false
+SunPro,SunPro License,license,false
+SWI-exception,SWI exception,exception,false
+Swift-exception,Swift Exception,exception,false
+SWL,Scheme Widget Library (SWL) Software License Agreement,license,false
+swrule,swrule License,license,false
+Symlinks,Symlinks License,license,false
+TAPR-OHL-1.0,TAPR Open Hardware License v1.0,license,false
+TCL,TCL/TK License,license,false
+TCP-wrappers,TCP Wrappers License,license,false
+TekHVC,TekHVC License,license,false
+TermReadKey,TermReadKey License,license,false
+Texinfo-exception,Texinfo exception,exception,false
+TGPPL-1.0,Transitive Grace Period Public Licence 1.0,license,false
+ThirdEye,ThirdEye License,license,false
+threeparttable,threeparttable License,license,false
+TMate,TMate Open Source License,license,false
+TORQUE-1.1,TORQUE v2.5+ Software License v1.1,license,false
+TOSL,Trusster Open Source License,license,false
+TPDL,Time::ParseDate License,license,false
+TPL-1.0,THOR Public License 1.0,license,false
+TrustedQSL,TrustedQSL License,license,false
+TTWL,Text-Tabs+Wrap License,license,false
+TTYP0,TTYP0 License,license,false
+TU-Berlin-1.0,Technische Universitaet Berlin License 1.0,license,false
+TU-Berlin-2.0,Technische Universitaet Berlin License 2.0,license,false
+u-boot-exception-2.0,U-Boot exception 2.0,exception,false
+UBDL-exception,Unmodified Binary Distribution exception,exception,false
+Ubuntu-font-1.0,Ubuntu Font Licence v1.0,license,false
+UCAR,UCAR License,license,false
+UCL-1.0,Upstream Compatibility License v1.0,license,false
+ulem,ulem License,license,false
+UMich-Merit,Michigan/Merit Networks License,license,false
+Unicode-3.0,Unicode License v3,license,false
+Unicode-DFS-2015,Unicode License Agreement - Data Files and Software (2015),license,false
+Unicode-DFS-2016,Unicode License Agreement - Data Files and Software (2016),license,false
+Unicode-TOU,Unicode Terms of Use,license,false
+Universal-FOSS-exception-1.0,"Universal FOSS Exception, Version 1.0",exception,false
+UnixCrypt,UnixCrypt License,license,false
+Unlicense,The Unlicense,license,false
+Unlicense-libtelnet,Unlicense - libtelnet variant,license,false
+Unlicense-libwhirlpool,Unlicense - libwhirlpool variant,license,false
+UnRAR,UnRAR License,license,false
+UPL-1.0,Universal Permissive License v1.0,license,false
+URT-RLE,Utah Raster Toolkit Run Length Encoded License,license,false
+Vim,Vim License,license,false
+Vixie-Cron,Vixie Cron License,license,false
+VOSTROM,VOSTROM Public License for Open Source,license,false
+vsftpd-openssl-exception,vsftpd OpenSSL exception,exception,false
+VSL-1.0,Vovida Software License v1.0,license,false
+W3C,W3C Software Notice and License (2002-12-31),license,false
+W3C-19980720,W3C Software Notice and License (1998-07-20),license,false
+W3C-20150513,W3C Software Notice and Document License (2015-05-13),license,false
+w3m,w3m License,license,false
+Watcom-1.0,Sybase Open Watcom Public License 1.0,license,false
+Widget-Workshop,Widget Workshop License,license,false
+WordNet,WordNet License,license,false
+Wsuipa,Wsuipa License,license,false
+WTFNMFPL,Do What The F*ck You Want To But It's Not My Fault Public License,license,false
+WTFPL,Do What The F*ck You Want To Public License,license,false
+wwl,WWL License,license,false
+wxWindows,wxWindows Library License,license,true
+WxWindows-exception-3.1,WxWindows Library Exception 3.1,exception,false
+X11,X11 License,license,false
+X11-distribute-modifications-variant,X11 License Distribution Modification Variant,license,false
+X11-no-permit-persons,X11 no permit persons clause,license,false
+X11-swapped,X11 swapped final paragraphs,license,false
+x11vnc-openssl-exception,x11vnc OpenSSL Exception,exception,false
+Xdebug-1.03,Xdebug License v 1.03,license,false
+Xerox,Xerox License,license,false
+Xfig,Xfig License,license,false
+XFree86-1.1,XFree86 License 1.1,license,false
+xinetd,xinetd License,license,false
+xkeyboard-config-Zinoviev,xkeyboard-config Zinoviev License,license,false
+xlock,xlock License,license,false
+Xnet,X.Net License,license,false
+xpp,XPP License,license,false
+XSkat,XSkat License,license,false
+xzoom,xzoom License,license,false
+YPL-1.0,Yahoo! Public License v1.0,license,false
+YPL-1.1,Yahoo! Public License v1.1,license,false
+Zed,Zed License,license,false
+Zeeff,Zeeff License,license,false
+Zend-2.0,Zend License v2.0,license,false
+Zimbra-1.3,Zimbra Public License v1.3,license,false
+Zimbra-1.4,Zimbra Public License v1.4,license,false
+Zlib,zlib License,license,false
+zlib-acknowledgement,zlib/libpng License with Acknowledgement,license,false
+ZPL-1.1,Zope Public License 1.1,license,false
+ZPL-2.0,Zope Public License 2.0,license,false
+ZPL-2.1,Zope Public License 2.1,license,false

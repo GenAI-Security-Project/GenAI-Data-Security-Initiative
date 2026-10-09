@@ -7,11 +7,14 @@ Lookup tables the validators check identifiers against.
 | DSGAI | `dsgai_entries.json` | 1.0 | OWASP GenAI Data Security Risks and Mitigations 2026 (kept identical to `datasets/_shared/dsgai_taxonomy.json`; a test enforces it) |
 | MITRE ATLAS | `mitre_atlas_techniques.csv` | 2026.09 | latest release listed in `https://raw.githubusercontent.com/mitre-atlas/atlas-data/main/dist/manifest.yaml` |
 | OWASP Top 10s | `owasp_top10.csv` | LLM 2025, LLM 2026, Agentic 2026 | LLM: `https://github.com/GenAI-Security-Project/GenAI-LLM-Top10` (2026 published 2026-08-04). Agentic: `https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/` (published 2025-12-09) |
+| SPDX licenses | `spdx_licenses.csv` | 3.29.0 | `https://raw.githubusercontent.com/spdx/license-list-data/main/json/licenses.json` |
+| Language subtags | `language_subtags.csv` | 2026-09-17 | IANA Language Subtag Registry, `https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry` (languages, scripts, regions) |
+| NIST AI 100-2 | `nist_ai_100_2.csv` | E2025 | NIST AI 100-2e2025, *Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and Mitigations*, Taxonomy Index, https://doi.org/10.6028/NIST.AI.100-2e2025. The 30 `NISTAML.*` identifiers from its Taxonomy Index and section text (NISTAML.016 and .017 appear only in §3.4.1) |
 | CWE | `cwe_ids.csv` | 4.20 | `https://cwe.mitre.org/data/xml/cwec_latest.xml.zip` (weaknesses, categories and views) |
 
 `owasp_top10.csv` is maintained by hand. The 2026 LLM list renumbered the entries (LLM03 was Supply Chain in 2025 and is Excessive Agency in 2026), so IDs always carry the edition year; `equivalent_2025` gives the 2025 ID each 2026 entry continues (LLM08:2026 Hidden Context Exposure broadens LLM07:2025 System Prompt Leakage). OWASP writes the Agentic IDs without a year (ASI01); this repository adds `:2026` so a future edition cannot collide.
 
-Regenerate the ATLAS and CWE tables with `python update_reference_data.py`; it fills in the Version column. Do not edit those two CSVs by hand.
+Regenerate the ATLAS, CWE, SPDX and language tables with `python update_reference_data.py`; it fills in the Version column. Do not edit those CSVs by hand. `nist_ai_100_2.csv` and `owasp_top10.csv` are maintained by hand when a new edition is published.
 
 `datasets/_shared/dsgai_taxonomy.json` is the DSGAI list the validators use. `dsgai_entries.json` is kept because the Turkish prompt-injection validator reads it.
 

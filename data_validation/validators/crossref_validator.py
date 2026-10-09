@@ -1,13 +1,15 @@
 """
-Checks CVE, GHSA, CWE, MITRE ATLAS and OWASP Top 10 identifiers.
+Checks CVE, GHSA, CWE, MITRE ATLAS, OWASP Top 10 and NIST AI 100-2
+identifiers.
 
 ERROR: a field whose whole value is meant to be one of these IDs but is
        malformed (e.g. "CVE-24-1234"); a CVE year in the future; a CWE ID
        that is not in reference_data/cwe_ids.csv; an ATLAS technique ID that
        is not in reference_data/mitre_atlas_techniques.csv; an OWASP Top 10
        ID with an edition year (LLM01:2026, ASI01:2026) that is not in
-       reference_data/owasp_top10.csv. ATLAS, CWE and OWASP IDs are checked
-       wherever they appear, including free text.
+       reference_data/owasp_top10.csv; a NIST AI 100-2 ID (NISTAML.018) not
+       in reference_data/nist_ai_100_2.csv. ATLAS, CWE, OWASP and NIST IDs
+       are checked wherever they appear, including free text.
 WARN:  a CWE that MITRE has deprecated, or an ATLAS ID that a later ATLAS
        release retired (merged into another technique); an OWASP ID with
        no edition year (LLM03 was Supply Chain in 2025 and is Excessive
@@ -80,6 +82,21 @@ def check_owasp(path: Path, pointer: str, value: str) -> list[Finding]:
 
 
 @lru_cache(maxsize=None)
+def nist_aml_ids() -> frozenset[str]:
+    with open(REFERENCE_DIR / "nist_ai_100_2.csv", newline="", encoding="utf-8") as fh:
+        return frozenset(row["id"] for row in csv.DictReader(fh))
+
+
+NIST_RE = re.compile(r"NISTAML\.\d+")
+
+
+def check_nist(path: Path, pointer: str, value: str) -> list[Finding]:
+    return [Finding(ERROR, CHECK, path, pointer,
+                    f"{m.group(0)} is not a NIST AI 100-2e2025 identifier (not in reference_data/nist_ai_100_2.csv)")
+            for m in NIST_RE.finditer(value) if m.group(0) not in nist_aml_ids()]
+
+
+@lru_cache(maxsize=None)
 def cwe_status() -> dict[str, str]:
     with open(REFERENCE_DIR / "cwe_ids.csv", newline="", encoding="utf-8") as fh:
         return {row["cwe_id"]: row["status"] for row in csv.DictReader(fh)}
@@ -108,6 +125,7 @@ def check_data(path: Path, data) -> list[Finding]:
     findings: list[Finding] = []
     for pointer, _key, value in walk_strings(data):
         findings += check_owasp(path, pointer, value)
+        findings += check_nist(path, pointer, value)
         stripped = value.strip()
         whole_value = False
         for kind, strict, loose in ID_KINDS:
@@ -147,7 +165,7 @@ def check_file(path: Path) -> list[Finding]:
 
 def main(argv: list[str] | None = None) -> int:
     ensure_utf8_stdout()
-    parser = argparse.ArgumentParser(description="Check CVE, GHSA, CWE, MITRE ATLAS and OWASP Top 10 identifiers")
+    parser = argparse.ArgumentParser(description="Check CVE, GHSA, CWE, MITRE ATLAS, OWASP Top 10 and NIST AI 100-2 identifiers")
     add_target_args(parser)
     args = parser.parse_args(argv)
     files = resolve_targets(args)

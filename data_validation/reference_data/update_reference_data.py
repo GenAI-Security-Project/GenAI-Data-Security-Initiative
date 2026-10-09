@@ -1,12 +1,16 @@
 """
-Regenerates the MITRE ATLAS and CWE lookup tables from MITRE's published data.
+Regenerates the lookup tables that track an external release: MITRE ATLAS,
+CWE, the SPDX License List and the IANA Language Subtag Registry.
 
-    python update_reference_data.py            # both
-    python update_reference_data.py --atlas    # mitre_atlas_techniques.csv only
-    python update_reference_data.py --cwe      # cwe_ids.csv only
+    python update_reference_data.py              # all of them
+    python update_reference_data.py --atlas      # mitre_atlas_techniques.csv
+    python update_reference_data.py --cwe        # cwe_ids.csv
+    python update_reference_data.py --spdx       # spdx_licenses.csv
+    python update_reference_data.py --languages  # language_subtags.csv
 
-Run it when ATLAS or CWE publish a new release, and commit the regenerated
-CSVs together with the version line this script updates in SOURCES.md.
+Run it when one of them publishes a new release (the reference-data-refresh
+workflow does so monthly), and commit the regenerated CSVs together with the
+version line this script updates in SOURCES.md.
 Requires pyyaml for the ATLAS data. Needs network access; nothing else in
 data_validation does.
 """
@@ -15,6 +19,7 @@ from __future__ import annotations
 import argparse
 import csv
 import io
+import json
 import re
 import sys
 import urllib.request
@@ -34,6 +39,8 @@ ATLAS_MANIFEST = ATLAS_DIST + "manifest.yaml"
 # so instead of an "unknown ID" error.
 ATLAS_LEGACY = ATLAS_DIST + "ATLAS.yaml"
 CWE_URL = "https://cwe.mitre.org/data/xml/cwec_latest.xml.zip"
+SPDX_URL = "https://raw.githubusercontent.com/spdx/license-list-data/main/json/licenses.json"
+IANA_SUBTAGS_URL = "https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry"
 SOURCES = HERE / "SOURCES.md"
 
 
@@ -106,16 +113,56 @@ def update_cwe() -> None:
     print(f"cwe_ids.csv: {len(rows)} entries (CWE {root.get('Version')})")
 
 
+def update_spdx() -> None:
+    data = json.loads(fetch(SPDX_URL))
+    exceptions = json.loads(fetch(SPDX_URL.replace("licenses.json", "exceptions.json")))
+    rows = [{"spdx_id": lic["licenseId"], "name": lic["name"], "type": "license",
+             "deprecated": str(lic.get("isDeprecatedLicenseId", False)).lower()} for lic in data["licenses"]]
+    rows += [{"spdx_id": exc["licenseExceptionId"], "name": exc["name"], "type": "exception",
+              "deprecated": str(exc.get("isDeprecatedLicenseId", False)).lower()} for exc in exceptions["exceptions"]]
+    rows.sort(key=lambda r: r["spdx_id"].lower())
+    with open(HERE / "spdx_licenses.csv", "w", newline="", encoding="utf-8") as fh:
+        w = csv.DictWriter(fh, fieldnames=["spdx_id", "name", "type", "deprecated"], lineterminator="\n")
+        w.writeheader()
+        w.writerows(rows)
+    set_version("SPDX licenses", data["licenseListVersion"])
+    print(f"spdx_licenses.csv: {len(rows)} licenses and exceptions (SPDX License List {data['licenseListVersion']})")
+
+
+def update_languages() -> None:
+    text = fetch(IANA_SUBTAGS_URL).decode("utf-8")
+    records = text.split("\n%%\n")
+    file_date = records[0].split(":", 1)[1].strip()
+    rows = []
+    for record in records[1:]:
+        fields: dict[str, str] = {}
+        for line in record.splitlines():
+            if line.startswith("  "):  # continuation of the previous field
+                continue
+            key, _, value = line.partition(":")
+            fields.setdefault(key.strip(), value.strip())  # first Description only
+        kind = fields.get("Type")
+        if kind in ("language", "script", "region") and "Subtag" in fields and ".." not in fields["Subtag"]:
+            rows.append({"type": kind, "subtag": fields["Subtag"], "description": fields.get("Description", ""),
+                         "deprecated": "true" if "Deprecated" in fields else "false"})
+    rows.sort(key=lambda r: (r["type"], r["subtag"].lower()))
+    with open(HERE / "language_subtags.csv", "w", newline="", encoding="utf-8") as fh:
+        w = csv.DictWriter(fh, fieldnames=["type", "subtag", "description", "deprecated"], lineterminator="\n")
+        w.writeheader()
+        w.writerows(rows)
+    set_version("Language subtags", file_date)
+    print(f"language_subtags.csv: {len(rows)} subtags (IANA registry {file_date})")
+
+
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Regenerate ATLAS and CWE reference tables")
-    parser.add_argument("--atlas", action="store_true")
-    parser.add_argument("--cwe", action="store_true")
+    parser = argparse.ArgumentParser(description="Regenerate the externally maintained reference tables")
+    for name in ("atlas", "cwe", "spdx", "languages"):
+        parser.add_argument(f"--{name}", action="store_true")
     args = parser.parse_args(argv)
-    both = not (args.atlas or args.cwe)
-    if both or args.atlas:
-        update_atlas()
-    if both or args.cwe:
-        update_cwe()
+    every = not (args.atlas or args.cwe or args.spdx or args.languages)
+    for name, update in (("atlas", update_atlas), ("cwe", update_cwe), ("spdx", update_spdx), ("languages", update_languages)):
+        if every or getattr(args, name):
+            update()
     return 0
 
 
