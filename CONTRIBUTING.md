@@ -75,9 +75,9 @@ Start with: [`data_validation/SETUP.md`](data_validation/SETUP.md) to get the en
 3. **Add your file(s)** to the appropriate dataset folder, following the schema in that folder's README
 4. **Run validation locally** to catch issues before submitting:
    ```bash
-   cd data_validation
-   python run_all_checks.py --dataset ../datasets/incident_dataset/
+   python data_validation/run_all_checks.py
    ```
+   This runs every dataset's own `validate.py` and prints PASS, FAIL, ERROR or NO VALIDATOR per dataset. To check one dataset, add `--dataset datasets/<dataset_folder>`.
 5. **Commit and push** your changes
 6. **Open a pull request** with a clear description of what you're contributing and which DSGAI entries it relates to
 

@@ -135,8 +135,11 @@ python validators/schema_validator.py --file ../datasets/vulnerability_dataset/e
 ### Run all checks on an entire dataset
 
 ```bash
-python run_all_checks.py --dataset ../datasets/incident_dataset/
+python run_all_checks.py                                      # every dataset
+python run_all_checks.py --dataset ../datasets/exploit_dataset/  # one dataset
 ```
+
+Each dataset is checked by its own `validate.py`; datasets without one are listed as NO VALIDATOR.
 
 ### Generate a coverage and bias report
 

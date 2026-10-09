@@ -120,8 +120,9 @@ pip install -r requirements.txt
 # Validate a single contributed file
 python schema_validator.py --file ../datasets/vulnerability_dataset/new_entry.json
 
-# Run all checks on a dataset directory
-python run_all_checks.py --dataset ../datasets/incident_dataset/
+# Run every dataset's own validate.py (or one dataset with --dataset)
+python run_all_checks.py
+python run_all_checks.py --dataset ../datasets/exploit_dataset/
 
 # Generate a bias and coverage report for all datasets
 python bias_report.py --datasets ../datasets/
