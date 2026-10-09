@@ -22,7 +22,7 @@ The tooling has two jobs: keep the research data behind OWASP deliverables (the 
 
 `run_all_checks.py` runs two layers.
 
-**1. Dataset validators.** Each dataset that has a `validate.py` (at its root, or in a sub-collection folder) is run in its own directory. These are the authoritative checks for their data: schema conformance against the dataset's own `schema.json`, plus rules a schema cannot express. Datasets without one are listed as `NO VALIDATOR` so the gap is visible.
+**1. Dataset validators.** Each dataset that has a `validate.py` (at its root, or in a sub-collection folder) is run in its own directory. Most are thin wrappers around a shared core, [`datasets/_shared/validate_lib.py`](../datasets/_shared/validate_lib.py) (schema with formats, DSGAI IDs, ID matches file name, duplicate IDs), plus the dataset's own extra rules. These are the authoritative checks for their data: schema conformance against the dataset's own `schema.json`, plus rules a schema cannot express. Datasets without one are listed as `NO VALIDATOR` so the gap is visible.
 
 | Dataset | Own validator |
 |---|---|
@@ -92,6 +92,7 @@ python data_validation/run_all_checks.py                       # everything
 python data_validation/run_all_checks.py --dataset datasets/exploit_dataset
 python data_validation/run_all_checks.py --verbose             # every validator's output and every warning
 python data_validation/run_all_checks.py --strict              # warnings fail too
+python data_validation/run_all_checks.py --github              # also emit annotations (CI uses this)
 
 # One check, on chosen files or datasets (each script's docstring has details)
 python data_validation/validators/schema_validator.py --file datasets/rag_dataset/entries/RAG-0001.json
@@ -107,7 +108,7 @@ GITHUB_TOKEN=... python data_validation/qc_tools/online_check.py --summary onlin
 python -m pytest data_validation/tests
 ```
 
-`run_all_checks.py` exits 0 when everything passed, 1 on any failure, and 2 when there was nothing to check.
+`run_all_checks.py` exits 0 when everything passed, 1 on any failure, and 2 when there was nothing to check. In CI it runs with `--github`, so every finding also appears as an annotation on the exact line of the file in the pull request diff.
 
 ---
 

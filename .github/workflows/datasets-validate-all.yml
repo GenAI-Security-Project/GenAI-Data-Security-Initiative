@@ -39,7 +39,7 @@ jobs:
         run: python -m pip install --quiet -r data_validation/requirements.txt
 
       - name: Run every dataset validator and the shared checks
-        run: python data_validation/run_all_checks.py --verbose
+        run: python data_validation/run_all_checks.py --verbose --github
 
       - name: Cross-dataset consistency
         run: python data_validation/qc_tools/consistency_check.py

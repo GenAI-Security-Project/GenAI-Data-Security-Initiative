@@ -66,9 +66,16 @@ def test_owasp_table_is_complete_and_crosswalked():
 
 @pytest.mark.parametrize("validate", sorted(DATASETS_ROOT.glob("*/validate.py")), ids=lambda p: p.parent.name)
 def test_dataset_validators_enforce_format(validate):
-    """Without a format checker, "format": "date" and "uri" are never checked."""
+    """Without a format checker, "format": "date" and "uri" are never checked.
+
+    A validator either builds its own (agentdataflow) or uses the shared core,
+    which does."""
     source = validate.read_text(encoding="utf-8")
-    assert re.search(r"format_checker\s*=", source), f"{validate} builds its validator without a format checker"
+    uses_shared = "from validate_lib import" in source
+    assert uses_shared or re.search(r"format_checker\s*=", source), f"{validate} has no format checker"
+    if uses_shared:
+        lib = (DATASETS_ROOT / "_shared" / "validate_lib.py").read_text(encoding="utf-8")
+        assert re.search(r"format_checker\s*=", lib)
 
 
 def test_nist_table_matches_the_publication():
