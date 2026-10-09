@@ -12,7 +12,7 @@ Whether a mapping is the right one is a reviewer judgment; this only catches
 what can be checked mechanically.
 
 Usage:
-    python dsgai_mapping_check.py --file ../../datasets/rag_dataset/RAG-0001.json
+    python dsgai_mapping_check.py --file ../../datasets/rag_dataset/entries/RAG-0001.json
     python dsgai_mapping_check.py                # every dataset
 """
 from __future__ import annotations

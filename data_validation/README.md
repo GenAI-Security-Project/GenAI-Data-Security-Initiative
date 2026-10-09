@@ -31,7 +31,8 @@ The tooling has two jobs: keep the research data behind OWASP deliverables (the 
 | [`riskassessment_dataset`](../datasets/riskassessment_dataset) | `validate.py`: schema, DSGAI IDs |
 | [`vulnerability_dataset`](../datasets/vulnerability_dataset) | `validate.py`: schema, DSGAI IDs |
 | [`promptinj_dataextraction_testcases`](../datasets/promptinj_dataextraction_testcases) | `tr_turkish_conversation_prompt_injection_pairs/validate.py` for that collection only |
-| [`rag_dataset`](../datasets/rag_dataset), [`incident_dataset`](../datasets/incident_dataset), [`crossframework_mapping_dataset`](../datasets/crossframework_mapping_dataset) | none yet; covered by the shared checks below |
+| [`rag_dataset`](../datasets/rag_dataset), [`incident_dataset`](../datasets/incident_dataset) | `validate.py`: schema (from `data_validation/schemas/`), DSGAI IDs, ID matches file name |
+| [`crossframework_mapping_dataset`](../datasets/crossframework_mapping_dataset) | none; superseded by the [GenAI Crosswalk](https://github.com/GenAI-Security-Project/crosswalk) |
 
 **2. Shared checks** (`validators/`), on every data file in every dataset:
 
@@ -85,7 +86,7 @@ python data_validation/run_all_checks.py --verbose             # every validator
 python data_validation/run_all_checks.py --strict              # warnings fail too
 
 # One check, on chosen files or datasets (each script's docstring has details)
-python data_validation/validators/schema_validator.py --file datasets/rag_dataset/RAG-0001.json
+python data_validation/validators/schema_validator.py --file datasets/rag_dataset/entries/RAG-0001.json
 python data_validation/validators/dedup_checker.py --file my_new_entry.json --dataset datasets/exploit_dataset
 
 # Reports
@@ -133,4 +134,4 @@ The scripts are plain Python with one runtime dependency (`jsonschema`) and are 
 
 ## Contributing
 
-Improvements are welcome: new checks, better patterns, fewer false positives, a `validate.py` for a dataset that has none. Include tests in `tests/`, and update this README with what the check does and which findings are errors versus warnings. Discuss ideas in `#team-genai-data-security-initiative` on the [OWASP Slack workspace](https://owasp.slack.com).
+Improvements are welcome: new checks, better patterns, fewer false positives, a `validate.py` for a sub-collection that has none. Include tests in `tests/`, and update this README with what the check does and which findings are errors versus warnings. Discuss ideas in `#team-genai-data-security-initiative` on the [OWASP Slack workspace](https://owasp.slack.com).

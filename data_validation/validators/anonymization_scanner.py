@@ -14,7 +14,7 @@ datasets/agentdataflow_toolexchange_traces/validate.py, which fails its own
 dataset on them.
 
 Usage:
-    python anonymization_scanner.py --file ../../datasets/rag_dataset/RAG-0001.json
+    python anonymization_scanner.py --file ../../datasets/rag_dataset/entries/RAG-0001.json
     python anonymization_scanner.py              # every dataset
 """
 from __future__ import annotations

@@ -9,11 +9,12 @@ The schema for a file is found in this order:
   2. the nearest schema.json in the file's folder or a parent folder,
      up to the dataset directory
   3. data_validation/schemas/ for datasets that have no schema.json of
-     their own (incident, rag, crossframework_mapping)
+     their own (incident, rag, crossframework_mapping); the rag and
+     incident entries also name it in "$schema"
 A file with no schema found is reported as a warning.
 
 Usage:
-    python schema_validator.py --file ../../datasets/rag_dataset/RAG-0001.json
+    python schema_validator.py --file ../../datasets/rag_dataset/entries/RAG-0001.json
     python schema_validator.py --dataset ../../datasets/rag_dataset/
     python schema_validator.py --file entry.json --schema ../schemas/rag.schema.json
 """

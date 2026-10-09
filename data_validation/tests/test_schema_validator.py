@@ -52,7 +52,7 @@ def test_finds_nearest_schema_json(tmp_path):
 
 def test_fallback_schema_for_rag_dataset():
     rag = DATASETS_ROOT / "rag_dataset"
-    assert schema_validator.find_schema(rag / "RAG-0001.json", {}, rag) == SCHEMAS_DIR / "rag.schema.json"
+    assert schema_validator.find_schema(rag / "entries" / "RAG-0001.json", {}, rag) == SCHEMAS_DIR / "rag.schema.json"
 
 
 def test_missing_schema_is_an_error(tmp_path):

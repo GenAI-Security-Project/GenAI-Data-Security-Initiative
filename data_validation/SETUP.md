@@ -129,8 +129,8 @@ tests/test_schema_validator.py::test_valid_vulnerability PASSED
 ### Check a single file
 
 ```bash
-python validators/schema_validator.py --file ../datasets/rag_dataset/RAG-0001.json
-python validators/dsgai_mapping_check.py --file ../datasets/rag_dataset/RAG-0001.json
+python validators/schema_validator.py --file ../datasets/rag_dataset/entries/RAG-0001.json
+python validators/dsgai_mapping_check.py --file ../datasets/rag_dataset/entries/RAG-0001.json
 ```
 
 Each script in `validators/` takes `--file` (one or more files) or `--dataset` (a folder), and checks every dataset when given neither.
@@ -236,7 +236,7 @@ Now that your environment is set up, here's what you can do:
 Read the README in the specific dataset folder you're interested in (e.g., `datasets/incident_dataset/README.md`). It describes the expected format and contribution guidelines. Create your entry, run the validators locally, and submit a pull request.
 
 **If you want to improve the validators:**
-Look at the `validators/` and `qc_tools/` directories. Each script has a docstring at the top explaining what it checks and which findings are errors versus warnings. A useful first contribution is a `validate.py` for a dataset that has none yet (`rag_dataset`, `incident_dataset`, `crossframework_mapping_dataset`). Add unit tests in `tests/` for any new logic.
+Look at the `validators/` and `qc_tools/` directories. Each script has a docstring at the top explaining what it checks and which findings are errors versus warnings. A useful first contribution is a `validate.py` for a promptinj sub-collection that has none yet (`tr_altaysec_turkish_llm_injection`). Add unit tests in `tests/` for any new logic.
 
 **If you want to check a new kind of identifier:**
 Add the lookup table to `reference_data/`, record where it came from in `reference_data/SOURCES.md`, and check against it in `crossref_validator.py`.
