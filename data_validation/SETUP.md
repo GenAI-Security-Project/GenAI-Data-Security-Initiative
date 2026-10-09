@@ -17,9 +17,9 @@ The data validation pipeline is a set of Python scripts that check contributed d
 
 ## Prerequisites
 
-### Python 3.8+
+### Python 3.10+
 
-The scripts require Python 3.8 or higher. Most modern systems have Python pre-installed.
+The scripts require Python 3.10 or higher. Most modern systems have Python pre-installed.
 
 **Check if you have it:**
 
@@ -27,7 +27,7 @@ The scripts require Python 3.8 or higher. Most modern systems have Python pre-in
 python3 --version
 ```
 
-If you see `Python 3.8.x` or higher, you're good. If not:
+If you see `Python 3.10.x` or higher, you're good. If not:
 
 | Platform | How to install |
 |---|---|
@@ -95,7 +95,7 @@ You'll know it's active when your terminal prompt changes to show `(venv)` at th
 pip install -r requirements.txt
 ```
 
-> **What this does:** Reads the `requirements.txt` file and installs all the Python libraries the validation scripts need. This includes things like `jsonschema` for schema validation, `pandas` for data manipulation, and any other dependencies.
+> **What this does:** Reads the `requirements.txt` file and installs all the Python libraries the validation scripts need. That is `jsonschema` (schema validation) and `pytest` (the tests), plus `pyyaml`, which only the reference-data refresh script uses.
 
 **If you get a permissions error:** Make sure your virtual environment is activated (Step 2). If you're not using a virtual environment, add `--user` to the command: `pip install --user -r requirements.txt`
 
@@ -109,16 +109,16 @@ Run the built-in test suite to confirm everything is working:
 python -m pytest tests/ -v
 ```
 
-> **What this does:** Runs all unit tests for the validation scripts. You should see a series of green `PASSED` results. If any test fails, something went wrong in setup — check the error message and revisit the steps above.
+> **What this does:** Runs the unit tests for the validation scripts. You should see a series of green `PASSED` results. If any test fails, something went wrong in setup — check the error message and revisit the steps above.
 
-**Expected output (approximate):**
+**Expected output (abridged):**
 
 ```
-tests/test_schema_validator.py::test_valid_vulnerability PASSED
-tests/test_schema_validator.py::test_invalid_vulnerability PASSED
-tests/test_dsgai_mapping_check.py::test_valid_mapping PASSED
 tests/test_anonymization_scanner.py::test_clean_entry PASSED
 tests/test_anonymization_scanner.py::test_pii_detected PASSED
+tests/test_crossref_validator.py::test_unknown_cwe_and_atlas PASSED
+tests/test_dsgai_mapping_check.py::test_invalid_dsgai_id PASSED
+tests/test_schema_validator.py::test_valid_vulnerability PASSED
 ...
 ```
 
@@ -126,31 +126,36 @@ tests/test_anonymization_scanner.py::test_pii_detected PASSED
 
 ## Step 5 — Run Your First Validation
 
-### Validate a single file
+### Check a single file
 
 ```bash
-python validators/schema_validator.py --file ../datasets/vulnerability_dataset/example_entry.json
+python validators/schema_validator.py --file ../datasets/rag_dataset/RAG-0001.json
+python validators/dsgai_mapping_check.py --file ../datasets/rag_dataset/RAG-0001.json
 ```
 
-### Run all checks on an entire dataset
+Each script in `validators/` takes `--file` (one or more files) or `--dataset` (a folder), and checks every dataset when given neither.
+
+### Run all checks
 
 ```bash
 python run_all_checks.py                                      # every dataset
 python run_all_checks.py --dataset ../datasets/exploit_dataset/  # one dataset
 ```
 
-Each dataset is checked by its own `validate.py`; datasets without one are listed as NO VALIDATOR.
+This runs each dataset's own `validate.py`, then the shared checks in `validators/` on every data file. It is the same command CI runs on your pull request. Add `--verbose` to see every warning.
 
 ### Generate a coverage and bias report
 
 ```bash
-python qc_tools/bias_report.py --datasets ../datasets/
+python qc_tools/bias_report.py --output coverage.md
 ```
 
 > **What the output means:**
-> - ✅ **PASS** — The check passed, no issues found
-> - ⚠️ **WARN** — Something looks unusual but isn't blocking (e.g., a rarely used DSGAI mapping)
-> - ❌ **FAIL** — A required check failed. The output will tell you which field, which file, and what's wrong
+> - ✅ **PASS** — No issues found
+> - ⚠️ **WARN** — Something a reviewer should look at, but not blocking (e.g., text that looks like an email address, or two very similar entries)
+> - ❌ **FAIL** — A check failed. The lines under it name the file, the field, and what's wrong
+> - **ERROR** — A dataset validator could not run (a missing dependency, or it timed out)
+> - **NO VALIDATOR** — The dataset has no `validate.py` of its own yet; the shared checks still cover it
 
 ---
 
@@ -164,7 +169,7 @@ Python might be installed as `python` instead of `python3` on your system (commo
 python --version
 ```
 
-If that shows 3.8+, use `python` everywhere this guide says `python3`.
+If that shows 3.10+, use `python` everywhere this guide says `python3`.
 
 ### "No module named 'jsonschema'" (or any other module)
 
@@ -189,7 +194,9 @@ This is expected — it means your data has an issue, not the tooling. Read the 
 
 - **Missing required field** — Check the dataset's README for the expected schema
 - **Invalid DSGAI mapping** — Make sure the DSGAI ID exists (DSGAI01 through DSGAI21)
-- **Anonymization failure** — Your entry may contain patterns that look like email addresses, IP addresses, or API keys. Replace them with synthetic values
+- **Unknown identifier** — A CWE or MITRE ATLAS ID that doesn't exist, or a malformed CVE ID such as `CVE-24-1234`
+
+Anonymization findings are warnings, not failures, but reviewers will ask about them. If your entry contains something that looks like an email address, IP address or API key, use an obviously fake value instead: an `example.com` address, a documentation IP such as `192.0.2.10`, or a placeholder such as `<API_KEY>`.
 
 ---
 
@@ -202,21 +209,20 @@ GenAI-Data-Security-Initiative/
 ├── README.md                      ← Project overview — start here
 ├── CONTRIBUTING.md                ← How to contribute to any workstream
 ├── datasets/                      ← The actual data (what gets validated)
-│   ├── vulnerability_dataset/
+│   ├── _shared/dsgai_taxonomy.json ← The DSGAI IDs every check uses
+│   ├── vulnerability_dataset/      ← schema.json, validate.py, entries/
 │   ├── exploit_dataset/
-│   ├── incident_dataset/
 │   └── ...
 ├── data_validation/               ← You are here
 │   ├── README.md                  ← What the validation framework does
 │   ├── SETUP.md                   ← This file
 │   ├── requirements.txt
 │   ├── run_all_checks.py
-│   ├── schemas/                   ← Defines what valid data looks like
-│   ├── validators/                ← Automated checks (run on every PR)
+│   ├── schemas/                   ← Schemas for datasets without their own schema.json
+│   ├── validators/                ← Shared automated checks (run on every PR)
 │   ├── qc_tools/                  ← Reports for human reviewers
-│   ├── reference_data/            ← Lookup tables (DSGAI IDs, CWEs, etc.)
+│   ├── reference_data/            ← Lookup tables (DSGAI, MITRE ATLAS, CWE)
 │   └── tests/                     ← Tests for the validators themselves
-├── mappings/                      ← Framework mapping files
 └── literature/                    ← Reference materials
 ```
 
@@ -230,10 +236,10 @@ Now that your environment is set up, here's what you can do:
 Read the README in the specific dataset folder you're interested in (e.g., `datasets/incident_dataset/README.md`). It describes the expected format and contribution guidelines. Create your entry, run the validators locally, and submit a pull request.
 
 **If you want to improve the validators:**
-Look at the `validators/` and `qc_tools/` directories. Each script has a docstring at the top explaining what it does. Pick an issue from the repo or propose a new check. Add unit tests in `tests/` for any new logic.
+Look at the `validators/` and `qc_tools/` directories. Each script has a docstring at the top explaining what it checks and which findings are errors versus warnings. A useful first contribution is a `validate.py` for a dataset that has none yet (`rag_dataset`, `incident_dataset`, `crossframework_mapping_dataset`). Add unit tests in `tests/` for any new logic.
 
-**If you want to add a new framework mapping:**
-Add a reference data file in `reference_data/framework_control_ids/` and update `crossref_validator.py` to support it.
+**If you want to check a new kind of identifier:**
+Add the lookup table to `reference_data/`, record where it came from in `reference_data/SOURCES.md`, and check against it in `crossref_validator.py`.
 
 **If you have questions:**
 Join `#team-genai-data-security-initiative` on the [OWASP Slack workspace](https://owasp.slack.com) ([join here](https://owasp.org/slack/invite) if you're new). No question is too basic.
@@ -245,7 +251,7 @@ Join `#team-genai-data-security-initiative` on the [OWASP Slack workspace](https
 These tools are designed to be used in educational settings. If you're running a workshop, training session, or university course on AI security:
 
 - The `tests/fixtures/` directory contains deliberately valid and invalid sample entries — useful for hands-on exercises
-- `bias_report.py` generates visual coverage reports that make good discussion starters for data quality conversations
+- `bias_report.py` generates a coverage report (which DSGAI risks the data covers, and where it is thin) that makes a good discussion starter for data quality conversations
 - The validation pipeline itself demonstrates applied data governance concepts from the DSGAI risk taxonomy (DSGAI05: Data Integrity & Validation Failures, DSGAI07: Data Governance, Lifecycle & Classification)
 - Students can contribute real data back to the initiative — a practical way to engage with open-source security research
 

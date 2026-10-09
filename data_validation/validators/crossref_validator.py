@@ -1,16 +1,135 @@
 """
-Checks CVE, CWE, MITRE ATLAS, and framework control ID references against known-valid lists.
+Checks CVE, GHSA, CWE and MITRE ATLAS identifiers.
+
+ERROR: a field whose whole value is meant to be one of these IDs but is
+       malformed (e.g. "CVE-24-1234"); a CVE year in the future; a CWE ID
+       that is not in reference_data/cwe_ids.csv; an ATLAS technique ID that
+       is not in reference_data/mitre_atlas_techniques.csv. ATLAS and CWE IDs
+       are checked wherever they appear, including free text.
+WARN:  a CWE that MITRE has deprecated, or an ATLAS ID that a later ATLAS
+       release retired (merged into another technique); something in free text that starts
+       like an ID but is malformed (often a placeholder such as CVE-XXXX-XXXX).
+
+CVE and GHSA IDs are format-checked only: there is no offline list to check
+that they exist. Framework control IDs (ISO, NIST, CIS) are not checked; see
+reference_data/SOURCES.md.
 
 Usage:
-    python crossref_validator.py --file ../../datasets/vulnerability_dataset/VULN-0001.json
+    python crossref_validator.py --file ../../datasets/exploit_dataset/entries/AML.T0051.json
+    python crossref_validator.py                # every dataset
 """
-import argparse
+from __future__ import annotations
 
-def main():
-    parser = argparse.ArgumentParser(description="Validate external references (CVE, CWE, ATLAS, framework controls)")
-    parser.add_argument("--file", required=True, help="Path to file to check")
-    args = parser.parse_args()
-    print("Cross-reference validator stub - contributions welcome!")
+import argparse
+import csv
+import re
+import sys
+from datetime import date
+from functools import lru_cache
+from pathlib import Path
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from validators._common import (  # noqa: E402
+    DATASETS_ROOT, ERROR, REFERENCE_DIR, WARN, Finding, add_target_args,
+    ensure_utf8_stdout, load_json, print_findings, resolve_targets, walk_strings,
+)
+
+CHECK = "crossref"
+
+# (name, strict full form, loose "starts like one" form)
+ID_KINDS = (
+    ("CVE", re.compile(r"CVE-(\d{4})-\d{4,}"), re.compile(r"\bCVE-[A-Za-z0-9-]+")),
+    ("GHSA", re.compile(r"GHSA(-[23456789cfghjmpqrvwx]{4}){3}"), re.compile(r"\bGHSA-[A-Za-z0-9-]+")),
+    ("CWE", re.compile(r"CWE-\d+"), re.compile(r"\bCWE-[A-Za-z0-9]+")),
+    ("ATLAS", re.compile(r"AML\.T\d{4}(\.\d{3})?"), re.compile(r"\bAML\.T[A-Za-z0-9.]*[A-Za-z0-9]")),
+)
+
+
+@lru_cache(maxsize=None)
+def atlas_status() -> dict[str, str]:
+    with open(REFERENCE_DIR / "mitre_atlas_techniques.csv", newline="", encoding="utf-8") as fh:
+        return {row["technique_id"]: row["status"] for row in csv.DictReader(fh)}
+
+
+@lru_cache(maxsize=None)
+def cwe_status() -> dict[str, str]:
+    with open(REFERENCE_DIR / "cwe_ids.csv", newline="", encoding="utf-8") as fh:
+        return {row["cwe_id"]: row["status"] for row in csv.DictReader(fh)}
+
+
+def _check_id(kind: str, value: str, m: re.Match) -> tuple[str, str] | None:
+    """(level, message) for a well-formed ID that is still wrong, else None."""
+    if kind == "CVE" and int(m.group(1)) > date.today().year:
+        return ERROR, f"{value}: CVE year is in the future"
+    if kind == "CWE":
+        status = cwe_status().get(value)
+        if status is None:
+            return ERROR, f"{value} is not a CWE ID (not in reference_data/cwe_ids.csv)"
+        if status == "Deprecated":
+            return WARN, f"{value} is deprecated by MITRE; use the CWE it points to"
+    if kind == "ATLAS":
+        status = atlas_status().get(value)
+        if status is None:
+            return ERROR, f"{value} is not a MITRE ATLAS technique (not in reference_data/mitre_atlas_techniques.csv)"
+        if status == "retired":
+            return WARN, f"{value} was retired by MITRE ATLAS; check the ATLAS changelog for the technique that replaced it"
+    return None
+
+
+def check_data(path: Path, data) -> list[Finding]:
+    findings: list[Finding] = []
+    for pointer, _key, value in walk_strings(data):
+        stripped = value.strip()
+        whole_value = False
+        for kind, strict, loose in ID_KINDS:
+            if not loose.fullmatch(stripped):
+                continue
+            # The whole value is meant to be an ID of this kind.
+            whole_value = True
+            m = strict.fullmatch(stripped)
+            if not m:
+                findings.append(Finding(ERROR, CHECK, path, pointer, f"{stripped!r} is not a well-formed {kind} ID"))
+            elif problem := _check_id(kind, stripped, m):
+                findings.append(Finding(problem[0], CHECK, path, pointer, problem[1]))
+        if whole_value:
+            continue
+        for kind, strict, loose in ID_KINDS:
+            for token in loose.finditer(value):
+                text = token.group(0)
+                m = strict.match(text)
+                if not m or m.end() != len(text):
+                    # "CVE-2024-1234-style" or a sub-technique suffix is not malformed.
+                    if m and kind in ("CVE", "GHSA", "CWE") and text[m.end()] == "-":
+                        text = m.group(0)
+                    else:
+                        findings.append(Finding(WARN, CHECK, path, pointer, f"{text!r} looks like a {kind} ID but is not well-formed"))
+                        continue
+                if problem := _check_id(kind, m.group(0), m):
+                    findings.append(Finding(problem[0], CHECK, path, pointer, problem[1]))
+    return findings
+
+
+def check_file(path: Path) -> list[Finding]:
+    data, err = load_json(path, CHECK)
+    if err:
+        return [err]
+    return check_data(path, data)
+
+
+def main(argv: list[str] | None = None) -> int:
+    ensure_utf8_stdout()
+    parser = argparse.ArgumentParser(description="Check CVE, GHSA, CWE and MITRE ATLAS identifiers")
+    add_target_args(parser)
+    args = parser.parse_args(argv)
+    files = resolve_targets(args)
+    if files is None:
+        return 2
+    findings = [f for p in files for f in check_file(p)]
+    print(f"Checked {len(files)} file(s)")
+    return print_findings(findings, DATASETS_ROOT.parent)
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

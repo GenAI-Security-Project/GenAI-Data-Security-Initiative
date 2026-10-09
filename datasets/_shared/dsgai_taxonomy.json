@@ -37,7 +37,7 @@
     },
     {
       "id": "DSGAI07",
-      "name": "Data Governance, Lifecycle & Classification for AI",
+      "name": "Data Governance, Lifecycle & Classification for AI Systems",
       "summary": "Gaps in lifecycle management, classification, provenance, and traceability of AI-related data, treated as enabling conditions for every other DSGAI risk."
     },
     {
@@ -62,7 +62,7 @@
     },
     {
       "id": "DSGAI12",
-      "name": "Unsafe Natural-Language Data Gateways",
+      "name": "Unsafe Natural-Language Data Gateways (LLM-to-SQL/Graph)",
       "summary": "Natural-language interfaces that translate user prompts into database queries (SQL, GraphQL, NoSQL, vector search) generating unsafe or unscoped data access."
     },
     {
