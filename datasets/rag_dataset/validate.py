@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 
 try:
-    from jsonschema import Draft7Validator, FormatChecker
+    from jsonschema import Draft202012Validator
 except ImportError:
     sys.stderr.write("jsonschema not installed. Run: pip install jsonschema\n")
     sys.exit(2)
@@ -36,7 +36,7 @@ def load_taxonomy_ids() -> set[str]:
 
 def main() -> int:
     schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
-    validator = Draft7Validator(schema, format_checker=FormatChecker())
+    validator = Draft202012Validator(schema, format_checker=Draft202012Validator.FORMAT_CHECKER)
     taxonomy_ids = load_taxonomy_ids()
 
     entry_files = sorted(ENTRIES_DIR.glob("*.json")) if ENTRIES_DIR.is_dir() else []

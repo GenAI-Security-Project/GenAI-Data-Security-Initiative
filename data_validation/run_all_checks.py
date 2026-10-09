@@ -9,7 +9,8 @@ result per dataset.
    silently passing.
 2. Shared checks (data_validation/validators/) on every data file:
    schema (for files no dataset validator covers), DSGAI IDs, CVE/CWE/ATLAS
-   IDs, anonymization patterns and duplicates. Errors fail the run;
+   and OWASP Top 10 IDs, CVSS scores and ratings, anonymization patterns
+   and duplicates. Errors fail the run;
    heuristic warnings (anonymization, near-duplicates, retired IDs) are
    counted, and printed with --verbose.
 
@@ -34,6 +35,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from validators import (  # noqa: E402
     anonymization_scanner, crossref_validator, dedup_checker, dsgai_mapping_check, schema_validator,
+    severity_check,
 )
 from validators._common import (  # noqa: E402
     ERROR, SKIP_DIRS, Finding, ensure_utf8_stdout, iter_data_files, load_json, load_taxonomy_ids,
@@ -100,6 +102,7 @@ def shared_checks(dataset: Path, datasets_root: Path) -> tuple[int, list[Finding
             findings += schema_validator.validate_file(path, dataset_root=dataset)
         findings += dsgai_mapping_check.check_data(path, data, taxonomy)
         findings += crossref_validator.check_data(path, data)
+        findings += severity_check.check_data(path, data)
         findings += anonymization_scanner.check_data(path, data)
     records, load_errors = dedup_checker.load_records(files)
     findings += load_errors + dedup_checker.check_records(records)
@@ -162,7 +165,7 @@ def main(argv: list[str] | None = None) -> int:
 
     checked_files = errors = warnings = 0
     if not args.no_shared:
-        print("\nShared checks (schema, DSGAI IDs, CVE/CWE/ATLAS IDs, anonymization, duplicates):")
+        print("\nShared checks (schema, DSGAI, CVE/CWE/ATLAS/OWASP IDs, CVSS, anonymization, duplicates):")
         for dataset in datasets:
             n, findings = shared_checks(dataset, datasets_root)
             if not n:

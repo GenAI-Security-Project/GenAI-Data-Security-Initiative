@@ -40,7 +40,8 @@ The tooling has two jobs: keep the research data behind OWASP deliverables (the 
 |---|---|---|
 | `schema_validator.py` | Schema violations, for files no dataset validator covers | File with no schema to check against |
 | `dsgai_mapping_check.py` | DSGAI ID not in the taxonomy; a mapping value that is not a DSGAI ID | Same ID twice in one mapping; more than 6 mappings |
-| `crossref_validator.py` | Malformed CVE/GHSA/CWE/ATLAS ID; CVE year in the future; unknown CWE or ATLAS ID | Deprecated CWE; retired ATLAS ID; malformed ID in free text (often a placeholder) |
+| `crossref_validator.py` | Malformed CVE/GHSA/CWE/ATLAS ID; CVE year in the future; unknown CWE, ATLAS or OWASP Top 10 ID (`LLM01:2026`, `ASI01:2026`) | Deprecated CWE; retired ATLAS ID; OWASP ID without its edition year; malformed ID in free text (often a placeholder) |
+| `severity_check.py` | CVSS v3.x/v4.0 vector that doesn't parse; score that doesn't match its vector; qualitative rating outside the score's FIRST band | Score with no vector |
 | `anonymization_scanner.py` | — | Email addresses, keys and tokens, private or (in a network context) public IPs, internal hostnames, home paths, SSNs |
 | `dedup_checker.py` | Two records in one dataset with the same ID | Records with identical or ≥ 80% similar text |
 
@@ -75,7 +76,7 @@ After the automated checks pass, contributions are reviewed by cybersecurity and
 
 ## Running the checks
 
-Python 3.10 or higher.
+Python 3.11 or higher (CI tests 3.11, 3.12 and 3.13).
 
 ```bash
 pip install -r data_validation/requirements.txt
@@ -111,13 +112,13 @@ data_validation/
 ├── qc_tools/                Reports for reviewers
 ├── schemas/                 Schemas for datasets without their own schema.json
 │                            (the rest are pointers to the dataset-local schemas)
-├── reference_data/          DSGAI, MITRE ATLAS and CWE lookup tables; see SOURCES.md
+├── reference_data/          DSGAI, MITRE ATLAS, CWE and OWASP Top 10 lookup tables; see SOURCES.md
 └── tests/                   Tests and deliberately valid/invalid fixtures
 ```
 
 Dataset-local schemas (`datasets/<name>/schema.json`) are authoritative. `schemas/exploit`, `vulnerability`, `riskassessment` and `agentdataflow_trace` are kept only as `$ref` pointers to them; `schemas/incident`, `rag`, `crossframework_mapping` and `promptinj_testcase` are the only schemas for their data.
 
-The ATLAS and CWE tables are generated from MITRE's releases by `reference_data/update_reference_data.py`; don't edit them by hand.
+The ATLAS and CWE tables are generated from MITRE's releases by `reference_data/update_reference_data.py`; don't edit them by hand. The `reference-data-refresh` workflow runs it on the 2nd of each month and, when MITRE has published something new, pushes a branch and opens an issue for a maintainer to turn into a PR. `owasp_top10.csv` is maintained by hand when OWASP publishes a new edition.
 
 ---
 

@@ -7,7 +7,7 @@
   "disposition": "unintentional_failure",
 
   "dsgai_mapping": ["DSGAI15", "DSGAI01", "DSGAI14", "DSGAI05"],
-  "owasp_llm_top10_mapping": ["LLM02:2025", "LLM05:2025"],
+  "owasp_llm_top10_mapping": ["LLM02:2025", "LLM05:2025", "LLM02:2026", "LLM10:2026"],
 
   "agent": {
     "framework": "custom",
