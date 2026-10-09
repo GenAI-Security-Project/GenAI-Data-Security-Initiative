@@ -18,7 +18,12 @@ Categories include:
 
 ## Data Format
 
-<!-- TODO: Define schema once initial data is contributed -->
+Each entry is one JSON file in [`entries/`](entries/), named after its `document_id` (e.g. `entries/RAG-0002.json`), that validates against [`data_validation/schemas/rag.schema.json`](../../data_validation/schemas/rag.schema.json). Start the file with `"$schema": "../../../data_validation/schemas/rag.schema.json"` and see [`entries/RAG-0001.json`](entries/RAG-0001.json) for a complete example. Check your entry with:
+
+```bash
+cd datasets/rag_dataset
+python validate.py
+```
 
 Contributions should include:
 
@@ -37,4 +42,4 @@ All documents in this dataset must be **synthetic or publicly sourced**. Do not 
 
 ## Contributing
 
-Add documents and test sets as individual files or structured JSON/YAML and submit a pull request. See the [main datasets README](../README.md) for general contribution guidelines.
+Add each document or test case as its own JSON file in `entries/` and submit a pull request. See the [main datasets README](../README.md) for general contribution guidelines.

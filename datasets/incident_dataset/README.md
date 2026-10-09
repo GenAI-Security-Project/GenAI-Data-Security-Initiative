@@ -12,9 +12,14 @@ This dataset is modeled on existing incident databases (e.g., AIAAIC, AI Inciden
 
 ## Data Format
 
-<!-- TODO: Define schema once initial data is contributed -->
+Each entry is one JSON file in `entries/`, named after its `incident_id` (e.g. `entries/INC-0001.json`), that validates against [`data_validation/schemas/incident.schema.json`](../../data_validation/schemas/incident.schema.json). Start the file with `"$schema": "../../../data_validation/schemas/incident.schema.json"`. Check your entry with:
 
-Contributions should include where possible:
+```bash
+cd datasets/incident_dataset
+python validate.py
+```
+
+Required fields are `incident_id`, `date`, `summary`, `dsgai_mapping`, `attack_vector`, `data_types_affected` and `impact`. Contributions should include where possible:
 
 - **Incident ID** — Unique identifier (assigned on merge)
 - **Date** — When the incident occurred or was disclosed
@@ -42,4 +47,4 @@ Self-reported incidents from your own organization are welcome and encouraged �
 
 ## Contributing
 
-Add entries as individual JSON or Markdown files and submit a pull request. See the [main datasets README](../README.md) for general contribution guidelines.
+Add each incident as its own JSON file in `entries/` and submit a pull request. See the [main datasets README](../README.md) for general contribution guidelines.
