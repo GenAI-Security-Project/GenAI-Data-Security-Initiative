@@ -26,21 +26,17 @@
       timeout-minutes: 10
       steps:
         - name: Harden runner
-          # Pin to SHA in production: replace @v2 with the commit SHA from
-          # https://github.com/step-security/harden-runner/releases
-          uses: step-security/harden-runner@v2
+          uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
           with:
             egress-policy: audit
 
         - name: Checkout
-          # Pin to SHA in production.
-          uses: actions/checkout@v7.0.1
+          uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
           with:
             persist-credentials: false
 
         - name: Dependency Review
-          # Pin to SHA in production.
-          uses: actions/dependency-review-action@v5
+          uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
           with:
             # Block on Moderate+; raise to "high" only if you get noisy results.
             fail-on-severity: moderate
@@ -55,7 +51,16 @@
               MPL-2.0,
               CC-BY-4.0,
               CC0-1.0,
-              Unlicense
+              Unlicense,
+              PSF-2.0,
+              Python-2.0,
+              CNRI-Python
+            # GitHub's licence detection adds a spurious GPL-1.0-or-later term
+            # for these two (it reads the PSF licence history and a bundled
+            # grammar note); their declared licences are PSF-2.0 and MIT.
+            allow-dependencies-licenses: >-
+              pkg:pypi/typing-extensions,
+              pkg:pypi/rfc3987-syntax
             # Block dependencies with active GitHub Security Advisories
             # in the npm/PyPI/Maven/etc. ecosystems regardless of severity.
             vulnerability-check: true
