@@ -23,7 +23,7 @@ Every case preserves the public source record ID and its original 16-character p
 | Source file SHA-256 | `7655b67c958b4dde1d77026c392f3ffad39d59d39109afb3c48b78a60590ab9f` |
 | Source license | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 | Source copyright | Copyright (c) 2026 Fevzi Ege Yurtsevenler / AltaySec |
-| Adapted by | Enes Deniz / AltaySec |
+| Adapted by | Enes Deniz |
 | Adaptation license | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
 
 The original source material remains licensed under CC BY 4.0. Enes Deniz / AltaySec licenses the new annotations, DSGAI mappings, anonymization changes, and collection arrangement in this contribution under CC BY-SA 4.0. This does not replace the source license or imply endorsement.
