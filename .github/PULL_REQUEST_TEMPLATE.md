@@ -10,5 +10,5 @@
 
 - [ ] Data is anonymized (no PII, credentials, or org names)
 - [ ] Entries reference at least one DSGAI ID where applicable
-- [ ] Validation scripts pass (`python run_all_checks.py`)
+- [ ] Validation scripts pass (`python data_validation/run_all_checks.py`)
 - [ ] One entry per file for dataset contributions
