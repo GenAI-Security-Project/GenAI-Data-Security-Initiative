@@ -321,7 +321,7 @@ def main(argv: list[str] | None = None) -> int:
             if not target.is_file() or target.read_text(encoding="utf-8") != text:
                 stale.append(target.relative_to(REPO_ROOT).as_posix())
         else:
-            target.write_text(text, encoding="utf-8")
+            target.write_text(text, encoding="utf-8", newline="")  # LF on every platform
             print(f"wrote {target.relative_to(REPO_ROOT).as_posix()}")
     if stale:
         print("Out of date (run python data_validation/croissant/build_croissant.py): " + ", ".join(stale))
