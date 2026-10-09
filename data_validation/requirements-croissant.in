@@ -1,0 +1,2 @@
+# Optional: only for data_validation/croissant/build_croissant.py and its CI check.
+mlcroissant>=1.1.0,<1.2

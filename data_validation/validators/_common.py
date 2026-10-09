@@ -10,9 +10,11 @@ from __future__ import annotations
 import csv
 import json
 import sys
+from collections.abc import Iterator
+from contextlib import suppress
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterator
+from typing import Any
 
 DV_ROOT = Path(__file__).resolve().parent.parent
 REPO_ROOT = DV_ROOT.parent
@@ -50,10 +52,8 @@ class Finding:
     def format(self, base: Path | None = None) -> str:
         shown = self.path
         if base is not None:
-            try:
+            with suppress(ValueError):
                 shown = self.path.resolve().relative_to(base.resolve())
-            except ValueError:
-                pass
         where = f"{shown.as_posix()}: {self.location}" if self.location else shown.as_posix()
         return f"{self.level:<5} [{self.check}] {where}: {self.message}"
 
@@ -143,7 +143,7 @@ def load_dataset_records(datasets_root: Path = DATASETS_ROOT) -> dict[str, list[
     """{dataset name: [(file, record), ...]} for every dataset; example.json files skipped."""
     out: dict[str, list[tuple[Path, dict]]] = {}
     for d in dataset_dirs(datasets_root):
-        records = []
+        records: list[tuple[Path, dict]] = []
         for path in iter_data_files(d):
             if path.name == "example.json":
                 continue

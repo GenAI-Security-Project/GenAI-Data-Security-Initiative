@@ -36,11 +36,23 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from validators import (  # noqa: E402
-    anonymization_scanner, crossref_validator, date_check, dedup_checker, dsgai_mapping_check,
-    metadata_check, schema_validator, severity_check,
+    anonymization_scanner,
+    crossref_validator,
+    date_check,
+    dedup_checker,
+    dsgai_mapping_check,
+    metadata_check,
+    schema_validator,
+    severity_check,
 )
 from validators._common import (  # noqa: E402
-    ERROR, SKIP_DIRS, Finding, ensure_utf8_stdout, iter_data_files, load_json, load_taxonomy_ids,
+    ERROR,
+    SKIP_DIRS,
+    Finding,
+    ensure_utf8_stdout,
+    iter_data_files,
+    load_json,
+    load_taxonomy_ids,
 )
 from validators.json_lines import line_for  # noqa: E402
 

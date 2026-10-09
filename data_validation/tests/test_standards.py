@@ -23,10 +23,15 @@ DRAFT_2020_12 = "https://json-schema.org/draft/2020-12/schema"
 # Contributor-maintained schema for one sub-collection; its own validator owns it.
 CONTRIBUTOR_SCHEMAS = {"contrastive_testcase.schema.json"}
 
-OWASP = list(csv.DictReader(open(REFERENCE_DIR / "owasp_top10.csv", newline="", encoding="utf-8")))
+def read_csv(name: str) -> list[dict[str, str]]:
+    with open(REFERENCE_DIR / name, newline="", encoding="utf-8") as fh:
+        return list(csv.DictReader(fh))
+
+
+OWASP = read_csv("owasp_top10.csv")
 LLM_IDS = sorted(r["id"] for r in OWASP if r["list"] == "LLM")
 ASI_IDS = sorted(r["id"] for r in OWASP if r["list"] == "ASI")
-NIST_IDS = [r["id"] for r in csv.DictReader(open(REFERENCE_DIR / "nist_ai_100_2.csv", newline="", encoding="utf-8"))]
+NIST_IDS = [r["id"] for r in read_csv("nist_ai_100_2.csv")]
 MAPPING_SCHEMAS = [DATASETS_ROOT / d / "schema.json"
                    for d in ("exploit_dataset", "vulnerability_dataset", "agentdataflow_toolexchange_traces")]
 
@@ -59,7 +64,7 @@ def test_owasp_table_is_complete_and_crosswalked():
     for edition in ("2025", "2026"):
         assert [r["id"] for r in OWASP if r["list"] == "LLM" and r["edition"] == edition] == \
             [f"LLM{n:02d}:{edition}" for n in range(1, 11)]
-    assert ASI_IDS == [f"ASI{n:02d}:2026" for n in range(1, 11)]
+    assert [f"ASI{n:02d}:2026" for n in range(1, 11)] == ASI_IDS
     equivalents = [r["equivalent_2025"] for r in OWASP if r["edition"] == "2026" and r["list"] == "LLM"]
     assert sorted(equivalents) == [f"LLM{n:02d}:2025" for n in range(1, 11)]  # a one-to-one crosswalk
 

@@ -27,15 +27,24 @@ import argparse
 import csv
 import re
 import sys
-from functools import lru_cache
+from functools import cache
 from pathlib import Path
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from validators._common import (  # noqa: E402
-    DATASETS_ROOT, ERROR, REFERENCE_DIR, WARN, Finding, add_target_args,
-    ensure_utf8_stdout, load_json, print_findings, resolve_targets, walk_strings,
+    DATASETS_ROOT,
+    ERROR,
+    REFERENCE_DIR,
+    WARN,
+    Finding,
+    add_target_args,
+    ensure_utf8_stdout,
+    load_json,
+    print_findings,
+    resolve_targets,
+    walk_strings,
 )
 
 CHECK = "metadata"
@@ -50,12 +59,14 @@ def _norm(text: str) -> str:
     return re.sub(r"[^a-z0-9]", "", text.lower())
 
 
-@lru_cache(maxsize=None)
+@cache
 def spdx() -> dict[str, dict]:
     """Lookups over the SPDX License List: by ID (case-insensitive, as SPDX
     specifies), by normalized ID (for short forms such as "CC BY 4.0" in
     parentheses), and by normalized full name."""
-    by_id, by_norm_id, by_name = {}, {}, {}
+    by_id: dict[str, tuple[str, str, bool]] = {}
+    by_norm_id: dict[str, tuple[str, str, bool]] = {}
+    by_name: dict[str, tuple[str, str, bool]] = {}
     with open(REFERENCE_DIR / "spdx_licenses.csv", newline="", encoding="utf-8") as fh:
         for row in csv.DictReader(fh):
             entry = (row["spdx_id"], row["type"], row["deprecated"] == "true")
@@ -66,7 +77,7 @@ def spdx() -> dict[str, dict]:
     return {"id": by_id, "norm_id": by_norm_id, "name": by_name}
 
 
-@lru_cache(maxsize=None)
+@cache
 def subtags() -> dict[tuple[str, str], bool]:
     """{(type, lowercased subtag): deprecated}."""
     with open(REFERENCE_DIR / "language_subtags.csv", newline="", encoding="utf-8") as fh:
@@ -92,7 +103,7 @@ def resolve_license(value: str) -> tuple[list[str], list[str]]:
     for token in re.split(r"\s+|[()]", text):
         if not token or token in ("AND", "OR"):
             continue
-        if token == "WITH":
+        if token == "WITH":  # noqa: S105 - the SPDX operator, not a password
             after_with = True
             continue
         hit = t["id"].get(token.lower()) or t["id"].get(token.rstrip("+").lower())

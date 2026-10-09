@@ -36,8 +36,15 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from validators._common import (  # noqa: E402
-    DATASETS_ROOT, REFERENCE_DIR, WARN, Finding, ensure_utf8_stdout, iter_data_files,
-    load_json, print_findings, walk_strings,
+    DATASETS_ROOT,
+    REFERENCE_DIR,
+    WARN,
+    Finding,
+    ensure_utf8_stdout,
+    iter_data_files,
+    load_json,
+    print_findings,
+    walk_strings,
 )
 
 CHECK = "ner-pii"

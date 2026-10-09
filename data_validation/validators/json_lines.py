@@ -90,12 +90,13 @@ def pointer_line(text: str, pointer: str) -> int | None:
     """1-based line where the value at a JSON pointer ("/a/0/b") starts."""
     if pointer in ("", "<root>"):
         return 1
-    i: int | None = _skip_ws(text, 0)
+    i = _skip_ws(text, 0)
     for raw in pointer.lstrip("/").split("/"):
         token = raw.replace("~1", "/").replace("~0", "~")
-        i = _child_start(text, i, token)
-        if i is None:
+        child = _child_start(text, i, token)
+        if child is None:
             return None
+        i = child
     return text.count("\n", 0, i) + 1
 
 

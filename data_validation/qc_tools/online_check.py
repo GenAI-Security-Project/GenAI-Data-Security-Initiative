@@ -44,8 +44,15 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from validators._common import (  # noqa: E402
-    DATASETS_ROOT, ERROR, WARN, Finding, ensure_utf8_stdout, load_dataset_records,
-    print_findings, record_id, walk_strings,
+    DATASETS_ROOT,
+    ERROR,
+    WARN,
+    Finding,
+    ensure_utf8_stdout,
+    load_dataset_records,
+    print_findings,
+    record_id,
+    walk_strings,
 )
 
 CHECK = "online"
@@ -64,7 +71,7 @@ UNCHECKABLE_HOSTS = {"atlas.mitre.org"}
 
 def http_get(url: str, headers: dict[str, str] | None = None) -> tuple[int, bytes]:
     """(status, body); status 0 means the host could not be reached."""
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, **(headers or {})})
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, **(headers or {})})  # noqa: S310 - http(s) only
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:  # noqa: S310 - http(s) only, checked by callers
             return resp.status, resp.read()
@@ -155,9 +162,9 @@ def run(datasets_root: Path = DATASETS_ROOT, skip_links: bool = False, token: st
         findings.append(Finding(level, CHECK, path, pointer, message + more))
 
     with ThreadPoolExecutor(max_workers=8) as pool:
-        cve_states = dict(zip(cves, pool.map(cve_state, cves)))
-        ghsa_states = dict(zip(ghsas, pool.map(lambda g: ghsa_state(g, token), ghsas)))
-        link_states = {} if skip_links else dict(zip(urls, pool.map(url_status, urls)))
+        cve_states = dict(zip(cves, pool.map(cve_state, cves), strict=True))
+        ghsa_states = dict(zip(ghsas, pool.map(lambda g: ghsa_state(g, token), ghsas), strict=True))
+        link_states = {} if skip_links else dict(zip(urls, pool.map(url_status, urls), strict=True))
 
     for cve, state in sorted(cve_states.items()):
         if state in ("NOT_FOUND", "REJECTED"):
@@ -176,7 +183,7 @@ def run(datasets_root: Path = DATASETS_ROOT, skip_links: bool = False, token: st
     snapshots = {}
     if dead:
         with ThreadPoolExecutor(max_workers=4) as pool:
-            snapshots = dict(zip(dead, pool.map(wayback_snapshot, dead)))
+            snapshots = dict(zip(dead, pool.map(wayback_snapshot, dead), strict=True))
     for url, status in sorted(link_states.items()):
         if status in (0, 404, 410):
             reason = "host does not resolve or refuses connections" if status == 0 else f"HTTP {status}"
@@ -213,7 +220,7 @@ def run(datasets_root: Path = DATASETS_ROOT, skip_links: bool = False, token: st
         lines.append(f"| {cve} | {'yes' if cve in vuln_cves else 'no'} | {'**yes**' if cve in kev else 'no'} | "
                      f"{'' if score is None else f'{score:.4f}'} | {'' if pct is None else f'{pct:.2%}'} |")
     checked = f"{len(cves)} CVE(s), {len(ghsas)} GHSA(s), " + ("links skipped" if skip_links else f"{len(urls)} link(s)")
-    summary = "\n".join([f"# Online dataset checks", "", f"Checked {checked}.", ""] + lines) + "\n"
+    summary = "\n".join(["# Online dataset checks", "", f"Checked {checked}.", ""] + lines) + "\n"
     return findings, summary
 
 

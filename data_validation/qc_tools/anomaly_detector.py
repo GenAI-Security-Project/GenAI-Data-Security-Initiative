@@ -29,7 +29,13 @@ if __package__ in (None, ""):
 
 from qc_tools.bias_report import CATEGORY_FIELDS, severity_of  # noqa: E402
 from validators._common import (  # noqa: E402
-    DATASETS_ROOT, WARN, Finding, ensure_utf8_stdout, load_dataset_records, print_findings, record_id,
+    DATASETS_ROOT,
+    WARN,
+    Finding,
+    ensure_utf8_stdout,
+    load_dataset_records,
+    print_findings,
+    record_id,
 )
 from validators.dsgai_mapping_check import record_dsgai_ids  # noqa: E402
 
@@ -57,7 +63,7 @@ def detect(datasets_root: Path = DATASETS_ROOT) -> list[Finding]:
         if len(set(sizes)) > 1:
             mean = statistics.mean(sizes)
             limit = max(mean + 2 * statistics.stdev(sizes), 2 * mean, 3)
-            for (path, rec), size in zip(items, sizes):
+            for (path, rec), size in zip(items, sizes, strict=True):
                 if size > limit:
                     findings.append(Finding(WARN, CHECK, path, "",
                                             f"{record_id(rec) or path.name} maps to {size} DSGAI entries "

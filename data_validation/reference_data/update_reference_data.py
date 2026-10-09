@@ -23,6 +23,7 @@ import json
 import re
 import sys
 import urllib.request
+
 # stdlib ElementTree does not fetch external entities; the input is MITRE's
 # own release file over HTTPS, read only by maintainers running this script.
 import xml.etree.ElementTree as ET  # noqa: S405
@@ -91,7 +92,7 @@ def update_atlas() -> None:
 
 def update_cwe() -> None:
     with zipfile.ZipFile(io.BytesIO(fetch(CWE_URL))) as zf:
-        root = ET.fromstring(zf.read(zf.namelist()[0]))
+        root = ET.fromstring(zf.read(zf.namelist()[0]))  # noqa: S314 - MITRE's own release file, see import
     ns = {"c": root.tag.split("}")[0].strip("{")}
     rows = []
     for kind, xpath in (("weakness", "c:Weaknesses/c:Weakness"),
@@ -100,17 +101,18 @@ def update_cwe() -> None:
         for el in root.findall(xpath, ns):
             rows.append({
                 "cwe_id": f"CWE-{el.get('ID')}",
-                "name": el.get("Name"),
+                "name": el.get("Name", ""),
                 "type": kind,
-                "status": el.get("Status"),
+                "status": el.get("Status", ""),
             })
     rows.sort(key=lambda r: int(r["cwe_id"].split("-")[1]))
     with open(HERE / "cwe_ids.csv", "w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=["cwe_id", "name", "type", "status"], lineterminator="\n")
         w.writeheader()
         w.writerows(rows)
-    set_version("CWE", root.get("Version"))
-    print(f"cwe_ids.csv: {len(rows)} entries (CWE {root.get('Version')})")
+    version = root.get("Version", "unknown")
+    set_version("CWE", version)
+    print(f"cwe_ids.csv: {len(rows)} entries (CWE {version})")
 
 
 def update_spdx() -> None:
