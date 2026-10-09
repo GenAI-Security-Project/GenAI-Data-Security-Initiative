@@ -43,7 +43,7 @@ Every entry carries:
 - **`spans`** - the trace itself: an ordered sequence of events
 - **`security_observations`** - what the trace demonstrates, one falsifiable claim per item
 
-Optional: `agent` (framework, protocol, topology, autonomy), `owasp_llm_top10_mapping`, `mitre_atlas_mapping`, `mitigations`, `contributor`, `tags`, `notes`.
+Optional: `agent` (framework, protocol, topology, autonomy), `owasp_llm_top10_mapping` (`LLMnn:2025` or `LLMnn:2026`), `owasp_agentic_top10_mapping` (`ASI01:2026`..`ASI10:2026`), `mitre_atlas_mapping`, `mitigations`, `contributor`, `tags`, `notes`.
 
 ### Spans
 

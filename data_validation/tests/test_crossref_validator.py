@@ -57,3 +57,11 @@ def test_reference_tables_are_complete():
     assert cr.atlas_status()["AML.T0051"] == "current"
     assert len(cr.cwe_status()) > 1000
     assert cr.cwe_status()["CWE-79"] != "Deprecated"
+
+
+def test_owasp_ids():
+    assert levels({"owasp_llm_top10_mapping": ["LLM03:2025", "LLM04:2026"]}) == []
+    assert levels({"owasp_agentic_top10_mapping": ["ASI10:2026"]}) == []
+    assert levels({"notes": "maps to LLM11:2026"}) == [ERROR]
+    assert levels({"notes": "an old LLM01:2024 reference"}) == [ERROR]
+    assert levels({"notes": "OWASP LLM03 (Supply Chain)"}) == [WARN]

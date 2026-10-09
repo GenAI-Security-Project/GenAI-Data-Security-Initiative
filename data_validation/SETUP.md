@@ -17,9 +17,9 @@ The data validation pipeline is a set of Python scripts that check contributed d
 
 ## Prerequisites
 
-### Python 3.10+
+### Python 3.11+
 
-The scripts require Python 3.10 or higher. Most modern systems have Python pre-installed.
+The scripts require Python 3.11 or higher. Most modern systems have Python pre-installed.
 
 **Check if you have it:**
 
@@ -27,7 +27,7 @@ The scripts require Python 3.10 or higher. Most modern systems have Python pre-i
 python3 --version
 ```
 
-If you see `Python 3.10.x` or higher, you're good. If not:
+If you see `Python 3.11.x` or higher, you're good. If not:
 
 | Platform | How to install |
 |---|---|
@@ -95,7 +95,7 @@ You'll know it's active when your terminal prompt changes to show `(venv)` at th
 pip install -r requirements.txt
 ```
 
-> **What this does:** Reads the `requirements.txt` file and installs all the Python libraries the validation scripts need. That is `jsonschema` (schema validation) and `pytest` (the tests), plus `pyyaml`, which only the reference-data refresh script uses.
+> **What this does:** Reads the `requirements.txt` file and installs all the Python libraries the validation scripts need. That is `jsonschema` with its format checkers (schema validation, including dates and URIs), `cvss` (CVSS score checks) and `pytest` (the tests), plus `pyyaml`, which only the reference-data refresh script uses.
 
 **If you get a permissions error:** Make sure your virtual environment is activated (Step 2). If you're not using a virtual environment, add `--user` to the command: `pip install --user -r requirements.txt`
 
@@ -169,7 +169,7 @@ Python might be installed as `python` instead of `python3` on your system (commo
 python --version
 ```
 
-If that shows 3.10+, use `python` everywhere this guide says `python3`.
+If that shows 3.11+, use `python` everywhere this guide says `python3`.
 
 ### "No module named 'jsonschema'" (or any other module)
 

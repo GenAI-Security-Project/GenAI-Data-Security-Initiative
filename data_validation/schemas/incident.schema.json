@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Incident Dataset Entry",
   "type": "object",
   "required": ["incident_id", "date", "summary", "dsgai_mapping", "attack_vector", "data_types_affected", "impact"],

@@ -1,13 +1,17 @@
 """
-Checks CVE, GHSA, CWE and MITRE ATLAS identifiers.
+Checks CVE, GHSA, CWE, MITRE ATLAS and OWASP Top 10 identifiers.
 
 ERROR: a field whose whole value is meant to be one of these IDs but is
        malformed (e.g. "CVE-24-1234"); a CVE year in the future; a CWE ID
        that is not in reference_data/cwe_ids.csv; an ATLAS technique ID that
-       is not in reference_data/mitre_atlas_techniques.csv. ATLAS and CWE IDs
-       are checked wherever they appear, including free text.
+       is not in reference_data/mitre_atlas_techniques.csv; an OWASP Top 10
+       ID with an edition year (LLM01:2026, ASI01:2026) that is not in
+       reference_data/owasp_top10.csv. ATLAS, CWE and OWASP IDs are checked
+       wherever they appear, including free text.
 WARN:  a CWE that MITRE has deprecated, or an ATLAS ID that a later ATLAS
-       release retired (merged into another technique); something in free text that starts
+       release retired (merged into another technique); an OWASP ID with
+       no edition year (LLM03 was Supply Chain in 2025 and is Excessive
+       Agency in 2026, so a bare ID is ambiguous); something in free text that starts
        like an ID but is malformed (often a placeholder such as CVE-XXXX-XXXX).
 
 CVE and GHSA IDs are format-checked only: there is no offline list to check
@@ -54,6 +58,28 @@ def atlas_status() -> dict[str, str]:
 
 
 @lru_cache(maxsize=None)
+def owasp_ids() -> frozenset[str]:
+    with open(REFERENCE_DIR / "owasp_top10.csv", newline="", encoding="utf-8") as fh:
+        return frozenset(row["id"] for row in csv.DictReader(fh))
+
+
+OWASP_RE = re.compile(r"\b(?:LLM|ASI)\d{2}(?::\d{4})?\b")
+
+
+def check_owasp(path: Path, pointer: str, value: str) -> list[Finding]:
+    findings = []
+    for m in OWASP_RE.finditer(value):
+        token = m.group(0)
+        if ":" not in token:
+            findings.append(Finding(WARN, CHECK, path, pointer,
+                                    f"{token} has no edition year; write {token}:2025 or {token}:2026"))
+        elif token not in owasp_ids():
+            findings.append(Finding(ERROR, CHECK, path, pointer,
+                                    f"{token} is not an OWASP Top 10 entry (not in reference_data/owasp_top10.csv)"))
+    return findings
+
+
+@lru_cache(maxsize=None)
 def cwe_status() -> dict[str, str]:
     with open(REFERENCE_DIR / "cwe_ids.csv", newline="", encoding="utf-8") as fh:
         return {row["cwe_id"]: row["status"] for row in csv.DictReader(fh)}
@@ -81,6 +107,7 @@ def _check_id(kind: str, value: str, m: re.Match) -> tuple[str, str] | None:
 def check_data(path: Path, data) -> list[Finding]:
     findings: list[Finding] = []
     for pointer, _key, value in walk_strings(data):
+        findings += check_owasp(path, pointer, value)
         stripped = value.strip()
         whole_value = False
         for kind, strict, loose in ID_KINDS:
@@ -120,7 +147,7 @@ def check_file(path: Path) -> list[Finding]:
 
 def main(argv: list[str] | None = None) -> int:
     ensure_utf8_stdout()
-    parser = argparse.ArgumentParser(description="Check CVE, GHSA, CWE and MITRE ATLAS identifiers")
+    parser = argparse.ArgumentParser(description="Check CVE, GHSA, CWE, MITRE ATLAS and OWASP Top 10 identifiers")
     add_target_args(parser)
     args = parser.parse_args(argv)
     files = resolve_targets(args)

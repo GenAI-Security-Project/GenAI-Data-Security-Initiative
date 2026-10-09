@@ -2,10 +2,11 @@ name: datasets-validate-all
 
 # Runs data_validation/run_all_checks.py: every dataset's own validate.py
 # (including ones in sub-collections), then the shared checks in
-# data_validation/validators/ on every data file. Then the data_validation
-# test suite, and the cross-dataset consistency check. The coverage report
-# and anomaly list go to the job summary for reviewers; they never fail
-# the job.
+# data_validation/validators/ on every data file, and the cross-dataset
+# consistency check. The tests job runs the data_validation test suite on
+# each supported Python. The coverage report and anomaly list go to the job
+# summary for reviewers; they never fail the job.
+
 on:
   push:
     branches: [main]
@@ -43,9 +44,6 @@ jobs:
       - name: Cross-dataset consistency
         run: python data_validation/qc_tools/consistency_check.py
 
-      - name: data_validation tests
-        run: python -m pytest data_validation/tests -v
-
       - name: Coverage report and anomalies (job summary)
         if: always()
         run: |
@@ -58,3 +56,25 @@ jobs:
             python data_validation/qc_tools/anomaly_detector.py
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+
+  # The tooling's own tests on every Python release it supports.
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12', '3.13']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install requirements
+        run: python -m pip install --quiet -r data_validation/requirements.txt
+
+      - name: data_validation tests
+        run: python -m pytest data_validation/tests -v
