@@ -42,6 +42,7 @@ The tooling has two jobs: keep the research data behind OWASP deliverables (the 
 | `dsgai_mapping_check.py` | DSGAI ID not in the taxonomy; a mapping value that is not a DSGAI ID | Same ID twice in one mapping; more than 6 mappings |
 | `crossref_validator.py` | Malformed CVE/GHSA/CWE/ATLAS ID; CVE year in the future; unknown CWE, ATLAS or OWASP Top 10 ID (`LLM01:2026`, `ASI01:2026`) | Deprecated CWE; retired ATLAS ID; OWASP ID without its edition year; malformed ID in free text (often a placeholder) |
 | `severity_check.py` | CVSS v3.x/v4.0 vector that doesn't parse; score that doesn't match its vector; qualitative rating outside the score's FIRST band | Score with no vector |
+| `date_check.py` | Date that isn't ISO 8601; date in the future; documented, reported or observed after `date_added` | — |
 | `anonymization_scanner.py` | — | Email addresses, keys and tokens, private or (in a network context) public IPs, internal hostnames, home paths, SSNs |
 | `dedup_checker.py` | Two records in one dataset with the same ID | Records with identical or ≥ 80% similar text |
 
@@ -70,6 +71,7 @@ After the automated checks pass, contributions are reviewed by cybersecurity and
 |---|---|
 | `bias_report.py` | Markdown coverage report: records per dataset, a DSGAI × dataset matrix, DSGAI entries nothing maps to, and the spread of severity and each dataset's categorical fields |
 | `anomaly_detector.py` | A DSGAI entry most of a dataset maps to, records with far more mappings than usual, and one severity or category value dominating a dataset (datasets of 10+ records) |
+| `online_check.py` | Runs weekly (`datasets-online-checks` workflow), not on PRs, because it needs the network. **Fails** on a CVE the CVE Program has rejected or doesn't know, a withdrawn GHSA, a dead cited link (with the Wayback Machine snapshot to use instead), or a CVE in CISA KEV whose entry isn't marked `exploited_in_the_wild`. Reports every CVE's EPSS v4 score and KEV status. These change daily, so they're reported, not stored |
 | `consistency_check.py` | **Fails** on internal references (`DSGAI-VULN-…`, `DSGAI-EXP-…`, `DSGAI-RA-…`) that point at no existing entry; notes CVEs cited by exploits that have no vulnerability entry |
 
 ---
@@ -94,6 +96,7 @@ python data_validation/validators/dedup_checker.py --file my_new_entry.json --da
 python data_validation/qc_tools/bias_report.py --output coverage.md
 python data_validation/qc_tools/anomaly_detector.py
 python data_validation/qc_tools/consistency_check.py
+GITHUB_TOKEN=... python data_validation/qc_tools/online_check.py --summary online.md   # needs network
 
 # Tests for the tooling itself
 python -m pytest data_validation/tests
