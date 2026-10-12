@@ -1,0 +1,301 @@
+{
+  "$schema": "../schema.json",
+  "trace_id": "DSGAI-TRACE-derived-summary-memory-outlives-column-entitlement",
+  "title": "Summary derived from a restricted column is written to shared agent memory and served to a user who lacks that column entitlement",
+  "description": "An analytics agent answers an entitled user's question by querying a warehouse through a governed tool that enforces column-level access, then writes its natural-language summary to a long-term memory store shared across a workspace. The memory item carries a namespace, a key and a value, but nothing about which source columns it was derived from or who was entitled to read them. Days later a second user, who is not entitled to the restricted column, asks a related question; the store returns the summary by semantic similarity, the only check applied is workspace membership on the namespace, and the derived figures reach that user. Every individual access check passes; the entitlement was enforced on the source read and never carried onto the derived artifact.",
+  "category": "memory_read_write",
+  "disposition": "unintentional_failure",
+
+  "dsgai_mapping": ["DSGAI01", "DSGAI11", "DSGAI07", "DSGAI15", "DSGAI18"],
+  "owasp_llm_top10_mapping": ["LLM02:2025", "LLM02:2026"],
+  "owasp_agentic_top10_mapping": ["ASI03:2026"],
+
+  "agent": {
+    "framework": "custom",
+    "tool_protocol": "mcp",
+    "topology": "single analytics agent + governed warehouse query tool + workspace-shared long-term memory store",
+    "autonomy": "fully_autonomous"
+  },
+
+  "provenance": {
+    "tier": "derived_from_public_documentation",
+    "collection_method": "Hand-constructed around two documented preconditions: a widely used agent memory store whose items carry only namespace, key, value and timestamps, with namespaces defined by the application; and a long-standing database convention in which a derived relation is, by default, authorized independently of the reader's rights on the base data. The agent, warehouse, columns, users, figures and offsets are all synthetic.",
+    "evidence": [
+      {
+        "type": "url",
+        "citation": "https://docs.langchain.com/oss/python/langgraph/stores",
+        "locator": "Basic usage (Item attributes); Namespace design; Semantic search",
+        "supports": "A stored memory Item is described by value, key, namespace, created_at and updated_at; namespaces are application-defined tuples of strings (the documented example is a user id); and retrieval supports semantic search by meaning. The documented item model has no field for the source data a memory was derived from or the entitlements that applied to it, so any such restriction has to be carried by the application or it is lost at write time."
+      },
+      {
+        "type": "url",
+        "citation": "https://www.postgresql.org/docs/current/sql-createview.html",
+        "locator": "Notes, paragraphs on base-relation access and security_invoker",
+        "supports": "'By default, access to the underlying base relations referenced in the view is determined by the permissions of the view owner', with invoker-side checking available only as an opt-in (security_invoker). This is the established precedent that a derived artifact is not automatically bound to the reader's rights on its sources; this trace models the same gap in a store that has no invoker-side option at all."
+      }
+    ]
+  },
+
+  "sanitization": {
+    "attestation": true,
+    "techniques": ["not_applicable_fully_synthetic", "name_generalization", "shape_only_payloads"],
+    "notes": "Fully synthetic. No system, organization, schema or figure here was taken from a real deployment; column, team and user identifiers are invented."
+  },
+
+  "spans": [
+    {
+      "span_id": "s1",
+      "parent_span_id": null,
+      "t_offset_ms": 0,
+      "actor": "user",
+      "actor_id": "user://analyst-a",
+      "operation": "model.prompt",
+      "summary": "User A, entitled to the restricted compensation column, asks for average compensation by team for one small organization.",
+      "payload": {
+        "prompt": "<shape:string,len=96>",
+        "workspace": "workspace://org-planning",
+        "user_entitlements": ["hr.compensation:read", "org.headcount:read"]
+      },
+      "data_classes": ["user_prompt"],
+      "sensitivity": "low"
+    },
+    {
+      "span_id": "s2",
+      "parent_span_id": "s1",
+      "t_offset_ms": 1200,
+      "actor": "agent",
+      "actor_id": "agent://analytics-assistant",
+      "operation": "tool.call",
+      "summary": "Agent calls the governed warehouse tool on behalf of user A, passing A's identity for query-time authorization.",
+      "payload": {
+        "tool": "tool://warehouse-gateway/query_metric",
+        "metric": "avg_compensation",
+        "group_by": ["team"],
+        "filter": "<shape:string,len=24>",
+        "on_behalf_of": "user://analyst-a"
+      },
+      "data_classes": ["user_prompt"],
+      "sensitivity": "low"
+    },
+    {
+      "span_id": "s3",
+      "parent_span_id": "s2",
+      "t_offset_ms": 1350,
+      "actor": "policy_engine",
+      "actor_id": "policy://warehouse-column-acl",
+      "operation": "policy.decision",
+      "summary": "Column-level check passes for user A: the request touches the restricted column and A holds the entitlement.",
+      "payload": {
+        "subject": "user://analyst-a",
+        "columns_touched": ["employees.compensation", "employees.team_id"],
+        "restricted_columns": ["employees.compensation"],
+        "decision": "allow"
+      },
+      "data_classes": ["none"],
+      "sensitivity": "none"
+    },
+    {
+      "span_id": "s4",
+      "parent_span_id": "s2",
+      "t_offset_ms": 2900,
+      "actor": "tool",
+      "actor_id": "tool://warehouse-gateway/query_metric",
+      "operation": "tool.result",
+      "summary": "Tool returns per-team averages; three of the teams have three or fewer members.",
+      "payload": {
+        "rows": "<shape:int,approx=7>",
+        "columns": ["team", "avg_compensation", "headcount"],
+        "min_group_size": 2,
+        "source_lineage_returned": ["employees.compensation"]
+      },
+      "data_classes": ["tool_output", "financial", "pii"],
+      "sensitivity": "high"
+    },
+    {
+      "span_id": "s5",
+      "parent_span_id": "s4",
+      "t_offset_ms": 4100,
+      "actor": "model",
+      "actor_id": "model://primary",
+      "operation": "model.completion",
+      "summary": "Model writes a narrative summary that restates the per-team averages, including the small teams, and answers user A.",
+      "payload": {
+        "completion": "<shape:string,len=640>",
+        "contains_figures_from": ["employees.compensation"]
+      },
+      "data_classes": ["financial", "pii"],
+      "sensitivity": "high"
+    },
+    {
+      "span_id": "s6",
+      "parent_span_id": "s5",
+      "t_offset_ms": 4300,
+      "actor": "agent",
+      "actor_id": "agent://analytics-assistant",
+      "operation": "memory.write",
+      "summary": "Agent saves the summary as a reusable insight in the workspace-shared namespace. The item records namespace, key and value only; the source lineage the tool returned in s4 is dropped.",
+      "payload": {
+        "store": "memory://long-term",
+        "namespace": ["org-planning", "insights"],
+        "key": "<synthetic:uuid>",
+        "value": { "text": "<shape:string,len=640>", "topic": "team budgets" },
+        "derived_from_columns": null,
+        "required_entitlements": null,
+        "embedding_indexed": true
+      },
+      "data_classes": ["memory_state", "financial", "pii"],
+      "sensitivity": "high",
+      "finding": {
+        "dsgai_id": "DSGAI07",
+        "note": "Lineage is available at write time (s4 returned it) and is discarded. Once the derived value is stored without its source columns, no later reader-side check can recover which entitlement it should require.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s7",
+      "parent_span_id": null,
+      "t_offset_ms": 345600000,
+      "actor": "user",
+      "actor_id": "user://manager-b",
+      "operation": "model.prompt",
+      "summary": "Four days later, user B, a workspace member without the compensation entitlement, asks why one team's budget is over plan.",
+      "payload": {
+        "prompt": "<shape:string,len=72>",
+        "workspace": "workspace://org-planning",
+        "user_entitlements": ["org.headcount:read", "finance.budget:read"]
+      },
+      "data_classes": ["user_prompt"],
+      "sensitivity": "low"
+    },
+    {
+      "span_id": "s8",
+      "parent_span_id": "s7",
+      "t_offset_ms": 345600900,
+      "actor": "policy_engine",
+      "actor_id": "policy://memory-namespace-acl",
+      "operation": "policy.decision",
+      "summary": "Memory access is checked against the namespace only: user B is a workspace member, so reads from the shared insights namespace are allowed.",
+      "payload": {
+        "subject": "user://manager-b",
+        "namespace": ["org-planning", "insights"],
+        "check": "workspace_membership",
+        "source_entitlement_checked": false,
+        "decision": "allow"
+      },
+      "data_classes": ["none"],
+      "sensitivity": "none",
+      "finding": {
+        "dsgai_id": "DSGAI11",
+        "note": "The authorization question asked here (may this user read this namespace?) is not the one that matters (may this user read data derived from employees.compensation?). The namespace boundary is a tenancy boundary, not an entitlement boundary.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s9",
+      "parent_span_id": "s8",
+      "t_offset_ms": 345601300,
+      "actor": "memory_store",
+      "actor_id": "memory://long-term",
+      "operation": "memory.read",
+      "summary": "Semantic search on 'team budget' returns the item written in s6 as the top match.",
+      "payload": {
+        "query": "<shape:string,len=72>",
+        "namespace_prefix": ["org-planning"],
+        "results": 1,
+        "top_score": "<shape:float,approx=0.84>",
+        "item_written_by_span": "s6"
+      },
+      "data_classes": ["memory_state", "financial", "pii"],
+      "sensitivity": "high"
+    },
+    {
+      "span_id": "s10",
+      "parent_span_id": "s9",
+      "t_offset_ms": 345601400,
+      "actor": "orchestrator",
+      "actor_id": "orchestrator://analytics-assistant",
+      "operation": "context.append",
+      "summary": "The retrieved summary is appended to user B's context as trusted prior knowledge.",
+      "payload": {
+        "appended_bytes": "<shape:int,approx=700>",
+        "presented_as": "workspace insight"
+      },
+      "data_classes": ["memory_state", "financial", "pii"],
+      "sensitivity": "high",
+      "finding": {
+        "dsgai_id": "DSGAI15",
+        "note": "Context assembly treats memory as pre-authorized. Data that would have been denied at the warehouse (s3 would deny B) enters B's context window by a path that never reaches that check.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s11",
+      "parent_span_id": "s10",
+      "t_offset_ms": 345603800,
+      "actor": "model",
+      "actor_id": "model://primary",
+      "operation": "egress",
+      "summary": "The answer to user B cites the stored per-team compensation averages, including teams of two and three people.",
+      "payload": {
+        "completion": "<shape:string,len=520>",
+        "recipient": "user://manager-b",
+        "contains_figures_from": ["employees.compensation"],
+        "smallest_group_disclosed": 2
+      },
+      "data_classes": ["financial", "pii"],
+      "sensitivity": "high",
+      "finding": {
+        "dsgai_id": "DSGAI01",
+        "note": "Restricted data reaches a user who would be denied a direct query for it. Because two of the averaged groups are tiny, the aggregate is close to individual-level disclosure.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s12",
+      "parent_span_id": "s11",
+      "t_offset_ms": 345603900,
+      "actor": "orchestrator",
+      "actor_id": "orchestrator://analytics-assistant",
+      "operation": "context.append",
+      "summary": "Run completes as a success; audit shows one allowed memory read and no warehouse access by user B.",
+      "payload": {
+        "audit_warehouse_queries_by_subject": 0,
+        "audit_memory_reads_by_subject": 1,
+        "alerts": 0
+      },
+      "data_classes": ["telemetry"],
+      "sensitivity": "low",
+      "finding": {
+        "dsgai_id": "DSGAI18",
+        "note": "Source-system audit shows user B never touched the restricted column, so the disclosure is invisible to the control that governs it. Small-group aggregates also let B infer individual values.",
+        "severity": "Medium"
+      }
+    }
+  ],
+
+  "security_observations": [
+    "Column-level access control enforced only at the source read does not constrain what an agent later does with values derived from that read.",
+    "A memory item that records namespace, key and value but not its source columns cannot be authorized against the entitlements of the data it was derived from.",
+    "Namespace or workspace membership is a tenancy check; in this trace it is the only check between a derived restricted value and a non-entitled reader.",
+    "Every guard passes: the warehouse correctly allows user A, the memory store correctly allows user B into the namespace, and the source audit correctly shows no access by B. The failure exists only across the derivation step.",
+    "Semantic retrieval makes the exposure unpredictable: the derived item is returned for a question that does not mention the restricted attribute."
+  ],
+
+  "mitigations": [
+    "Propagate source lineage onto every memory write: record the set of source columns (or their classification labels) a stored value was derived from, using lineage the data tool already returns.",
+    "Authorize memory reads against the derived item's required entitlements, computed from its lineage, in addition to namespace membership; deny or redact when the reader lacks any source entitlement.",
+    "Default to user-scoped memory for anything derived from restricted sources, and require an explicit, logged declassification step before such an item can be written to a shared namespace.",
+    "Apply minimum group-size suppression to aggregates before they are persisted, not only before they are first displayed.",
+    "Log memory-served disclosures against the source columns' audit trail, so a read of a derived item is visible to the control that governs the underlying data."
+  ],
+
+  "contributor": {
+    "name": "Venkata Sangaraju"
+  },
+
+  "date_added": "2026-10-12",
+
+  "tags": ["agent-memory", "long-term-memory", "derived-data", "column-level-access-control", "data-lineage", "entitlement-propagation", "shared-namespace", "semantic-retrieval", "small-group-aggregate"],
+
+  "notes": "Scope: models the non-adversarial path, where no one intends the disclosure. An adversarial variant (a user who deliberately phrases questions to pull high-sensitivity items from a shared namespace) belongs in a separate entry. The trace does not claim that any specific product ships this configuration; the cited store documentation establishes only that its item model carries no lineage or entitlement fields, so a shared namespace with namespace-only checks is a reachable configuration unless the application adds them. Mitigation 2 follows the general derivation-aware access-control pattern; the contributor has published on this pattern and has deliberately not used that publication as provenance evidence, per this dataset's rule on contributor-controlled sources."
+}
