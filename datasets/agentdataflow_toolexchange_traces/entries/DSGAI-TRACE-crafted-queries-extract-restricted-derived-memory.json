@@ -1,0 +1,338 @@
+{
+  "$schema": "../schema.json",
+  "trace_id": "DSGAI-TRACE-crafted-queries-extract-restricted-derived-memory",
+  "title": "Workspace member uses crafted, keyword-free questions to pull restricted derived items out of shared agent memory",
+  "description": "A workspace member who is not entitled to a restricted compensation column wants the figures anyway. Instead of querying the warehouse, where a column-level check would deny the request, they ask the analytics agent a series of questions phrased to land near stored workspace insights without using any restricted term, and ask for prior insights to be repeated verbatim. Each question passes a keyword-based input filter, the agent's memory search passes a namespace-membership check, and the store returns its top matches by semantic similarity. Several matches are summaries previously derived from the restricted column, but they carry no lineage, so nothing in the path can tell them apart. Answers restating the figures pass an output filter that looks for restricted terms rather than restricted data. Over a dozen varied questions the member collects enough small-team averages, combined with headcount they are entitled to, to reconstruct individual compensation. No check fails and no alert fires.",
+  "category": "memory_read_write",
+  "disposition": "adversarial",
+
+  "dsgai_mapping": ["DSGAI11", "DSGAI01", "DSGAI13", "DSGAI18", "DSGAI15", "DSGAI07"],
+  "owasp_llm_top10_mapping": ["LLM02:2025", "LLM08:2025", "LLM02:2026", "LLM09:2026"],
+  "owasp_agentic_top10_mapping": ["ASI03:2026"],
+  "nist_aml_mapping": ["NISTAML.038", "NISTAML.036"],
+
+  "agent": {
+    "framework": "custom",
+    "tool_protocol": "mcp",
+    "topology": "single analytics agent + model-callable memory search over a workspace-shared long-term store + keyword-based input and output filters",
+    "autonomy": "fully_autonomous"
+  },
+
+  "provenance": {
+    "tier": "derived_from_public_documentation",
+    "collection_method": "Hand-constructed around documented preconditions: a widely used agent memory store whose search returns items under a namespace prefix ranked by semantic similarity up to a limit, with no item-level lineage or entitlement fields; and published research showing that an attacker who can only send queries to an agent can induce it to retrieve and output stored memory records, with extraction growing with retrieval depth and with the number of distinct attacking prompts. The agent, filters, columns, users, figures and offsets are all synthetic.",
+    "evidence": [
+      {
+        "type": "url",
+        "citation": "https://docs.langchain.com/oss/python/langgraph/stores",
+        "locator": "Listing items in a namespace; Semantic search; Build a custom store (Base contract, Semantic search support)",
+        "supports": "store.search returns items stored under a namespace_prefix up to a limit (default 10); namespace_prefix matches by prefix, so a shared prefix reaches every sub-namespace beneath it; with an embedding model configured, search ranks results by meaning (cosine similarity) for a natural-language query. Nothing in the documented search contract evaluates the requesting user's entitlements to the data an item was derived from."
+      },
+      {
+        "type": "url",
+        "citation": "https://arxiv.org/abs/2502.13172",
+        "locator": "Wang et al., 'Unveiling Privacy Risks in LLM Agent Memory' (MEXTRA): Sec. 2.2 threat model; Sec. 3.1 attacking prompt design; Sec. 5.2 and Sec. 6 factors",
+        "supports": "Third-party research on a black-box setting in which the attacker interacts with the agent only through input queries, using prompts that both locate memory content and ask for retrieved records to be output. It reports extraction of stored private queries from two representative agents, and that extraction increases with retrieval depth (larger k) and with the number of attacking prompts. Cited for the query-only extraction mechanism and its scaling, not for the specific store or memory design in this trace."
+      },
+      {
+        "type": "url",
+        "citation": "https://arxiv.org/abs/2402.16893",
+        "locator": "Zeng et al., 'The Good and The Bad: Exploring Privacy Issues in Retrieval-Augmented Generation (RAG)': abstract and attack sections",
+        "supports": "Third-party empirical study reporting that RAG systems are vulnerable to leaking their private retrieval database through attack queries, establishing that content reachable by similarity retrieval can be extracted through the model's answers."
+      }
+    ]
+  },
+
+  "sanitization": {
+    "attestation": true,
+    "techniques": ["not_applicable_fully_synthetic", "name_generalization", "shape_only_payloads"],
+    "notes": "Fully synthetic. No system, organization, schema, prompt or figure here was taken from a real deployment; column, team and user identifiers are invented, and attacking prompts are recorded as shapes only."
+  },
+
+  "spans": [
+    {
+      "span_id": "s1",
+      "parent_span_id": null,
+      "t_offset_ms": 0,
+      "actor": "adversary",
+      "actor_id": "user://member-c",
+      "operation": "model.prompt",
+      "summary": "Member C, a workspace member without the compensation entitlement, asks the agent to repeat, word for word, any earlier workspace insights about staffing cost per team. The question avoids every restricted term.",
+      "payload": {
+        "prompt": "<shape:string,len=210>",
+        "workspace": "workspace://org-planning",
+        "user_entitlements": ["org.headcount:read", "finance.budget:read"],
+        "requests_verbatim_recall": true,
+        "restricted_terms_present": false,
+        "probe_round": 1
+      },
+      "data_classes": ["user_prompt"],
+      "sensitivity": "low"
+    },
+    {
+      "span_id": "s2",
+      "parent_span_id": "s1",
+      "t_offset_ms": 150,
+      "actor": "policy_engine",
+      "actor_id": "policy://prompt-term-filter",
+      "operation": "policy.decision",
+      "summary": "The input filter checks the prompt against a restricted-term list and allows it, since none of the listed terms appear.",
+      "payload": {
+        "subject": "user://member-c",
+        "check": "restricted_term_match",
+        "terms_matched": 0,
+        "decision": "allow"
+      },
+      "data_classes": ["none"],
+      "sensitivity": "none",
+      "finding": {
+        "dsgai_id": "DSGAI15",
+        "note": "The gate judges the wording of the question, which the adversary controls, not the sensitivity of the data the question will pull into context. A semantic paraphrase reaches the same items as the blocked wording.",
+        "severity": "Medium"
+      }
+    },
+    {
+      "span_id": "s3",
+      "parent_span_id": "s2",
+      "t_offset_ms": 900,
+      "actor": "agent",
+      "actor_id": "agent://analytics-assistant",
+      "operation": "tool.call",
+      "summary": "Agent calls its memory search tool with a query generated from C's wording, scoped to the workspace prefix.",
+      "payload": {
+        "tool": "tool://memory/search",
+        "namespace_prefix": ["org-planning"],
+        "query": "<shape:string,len=64>",
+        "limit": 10,
+        "on_behalf_of": "user://member-c"
+      },
+      "data_classes": ["user_prompt"],
+      "sensitivity": "low"
+    },
+    {
+      "span_id": "s4",
+      "parent_span_id": "s3",
+      "t_offset_ms": 1000,
+      "actor": "policy_engine",
+      "actor_id": "policy://memory-namespace-acl",
+      "operation": "policy.decision",
+      "summary": "Memory access is checked on namespace membership only. C is a workspace member, so the search across the shared prefix is allowed.",
+      "payload": {
+        "subject": "user://member-c",
+        "namespace_prefix": ["org-planning"],
+        "check": "workspace_membership",
+        "source_entitlement_checked": false,
+        "decision": "allow"
+      },
+      "data_classes": ["none"],
+      "sensitivity": "none",
+      "finding": {
+        "dsgai_id": "DSGAI11",
+        "note": "A tenancy check stands in for an entitlement check. Every member of the workspace can steer retrieval over items derived from data only some members may read, and the adversary needs no privilege beyond membership.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s5",
+      "parent_span_id": "s4",
+      "t_offset_ms": 1300,
+      "actor": "memory_store",
+      "actor_id": "memory://long-term",
+      "operation": "memory.read",
+      "summary": "The store returns its ten nearest items. Two are summaries previously derived from the restricted compensation column; like the rest, they carry no lineage or required-entitlement fields.",
+      "payload": {
+        "namespace_prefix": ["org-planning"],
+        "results": 10,
+        "ranking": "cosine_similarity",
+        "items_with_lineage_fields": 0,
+        "items_derived_from_restricted_columns": 2,
+        "derived_from_columns_known_to_store": null
+      },
+      "data_classes": ["memory_state", "financial", "pii"],
+      "sensitivity": "high",
+      "finding": {
+        "dsgai_id": "DSGAI13",
+        "note": "The store ranks and returns items by similarity alone. Because no item records what it was derived from, the retrieval layer has nothing to filter on, and restricted derived items are returned to whoever can phrase a nearby query.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s6",
+      "parent_span_id": "s5",
+      "t_offset_ms": 1400,
+      "actor": "orchestrator",
+      "actor_id": "orchestrator://analytics-assistant",
+      "operation": "context.append",
+      "summary": "All ten items are appended to C's context as workspace insights.",
+      "payload": {
+        "appended_items": 10,
+        "appended_bytes": "<shape:int,approx=5200>",
+        "presented_as": "workspace insight"
+      },
+      "data_classes": ["memory_state", "financial", "pii"],
+      "sensitivity": "high"
+    },
+    {
+      "span_id": "s7",
+      "parent_span_id": "s6",
+      "t_offset_ms": 3600,
+      "actor": "model",
+      "actor_id": "model://primary",
+      "operation": "model.completion",
+      "summary": "Following the request for verbatim recall, the model restates the retrieved insights, including per-team average cost figures from the two restricted items, labeled as 'cost per head'.",
+      "payload": {
+        "completion": "<shape:string,len=1100>",
+        "contains_figures_from": ["employees.compensation"],
+        "restates_items_verbatim": 2
+      },
+      "data_classes": ["financial", "pii"],
+      "sensitivity": "high"
+    },
+    {
+      "span_id": "s8",
+      "parent_span_id": "s7",
+      "t_offset_ms": 3700,
+      "actor": "policy_engine",
+      "actor_id": "policy://output-term-filter",
+      "operation": "policy.decision",
+      "summary": "The output filter scans the answer for restricted terms and allows it: the figures are present, but the words it looks for are not.",
+      "payload": {
+        "check": "restricted_term_match",
+        "terms_matched": 0,
+        "numeric_values_present": true,
+        "decision": "allow"
+      },
+      "data_classes": ["none"],
+      "sensitivity": "none"
+    },
+    {
+      "span_id": "s9",
+      "parent_span_id": "s8",
+      "t_offset_ms": 3800,
+      "actor": "model",
+      "actor_id": "model://primary",
+      "operation": "egress",
+      "summary": "The answer reaches C with per-team compensation averages from the two restricted items.",
+      "payload": {
+        "recipient": "user://member-c",
+        "contains_figures_from": ["employees.compensation"],
+        "teams_disclosed": "<shape:int,approx=7>"
+      },
+      "data_classes": ["financial", "pii"],
+      "sensitivity": "high",
+      "finding": {
+        "dsgai_id": "DSGAI01",
+        "note": "Restricted data reaches a user who would be denied a direct warehouse query for it. Both content filters passed because they inspect vocabulary, and the adversary controlled the vocabulary.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s10",
+      "parent_span_id": null,
+      "t_offset_ms": 2700000,
+      "actor": "adversary",
+      "actor_id": "user://member-c",
+      "operation": "model.prompt",
+      "summary": "Forty-five minutes later, after eleven earlier variants each worded to land near a different cluster of stored insights, C's twelfth question targets 'small teams that are over plan'.",
+      "payload": {
+        "prompt": "<shape:string,len=180>",
+        "requests_verbatim_recall": true,
+        "restricted_terms_present": false,
+        "probe_round": 12
+      },
+      "data_classes": ["user_prompt"],
+      "sensitivity": "low"
+    },
+    {
+      "span_id": "s11",
+      "parent_span_id": "s10",
+      "t_offset_ms": 2701300,
+      "actor": "memory_store",
+      "actor_id": "memory://long-term",
+      "operation": "memory.read",
+      "summary": "After the same two allowed checks as in rounds 1 to 11, the twelfth search returns another set of nearest items. Across all twelve rounds C has now received 38 distinct items, six of them derived from the restricted column.",
+      "payload": {
+        "namespace_prefix": ["org-planning"],
+        "results": 10,
+        "distinct_items_returned_across_rounds": 38,
+        "items_derived_from_restricted_columns_across_rounds": 6,
+        "checks_applied_each_round": ["restricted_term_match", "workspace_membership"],
+        "decisions_each_round": "allow"
+      },
+      "data_classes": ["memory_state", "financial", "pii"],
+      "sensitivity": "high"
+    },
+    {
+      "span_id": "s12",
+      "parent_span_id": "s11",
+      "t_offset_ms": 2704200,
+      "actor": "model",
+      "actor_id": "model://primary",
+      "operation": "egress",
+      "summary": "The answer gives average compensation for three teams of two or three people. C combines these with headcount, which C may read, to work out individual compensation.",
+      "payload": {
+        "recipient": "user://member-c",
+        "contains_figures_from": ["employees.compensation"],
+        "smallest_group_disclosed": 2,
+        "combinable_with_entitled_data": ["org.headcount"]
+      },
+      "data_classes": ["financial", "pii"],
+      "sensitivity": "high",
+      "finding": {
+        "dsgai_id": "DSGAI18",
+        "note": "Each answer is an aggregate, but aggregates over groups of two or three, combined across rounds and with headcount the adversary is entitled to, reconstruct individual-level values.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s13",
+      "parent_span_id": "s12",
+      "t_offset_ms": 2704300,
+      "actor": "orchestrator",
+      "actor_id": "orchestrator://analytics-assistant",
+      "operation": "context.append",
+      "summary": "Session ends normally. Audit shows twelve allowed memory searches by C, no warehouse access, no filter matches and no alerts.",
+      "payload": {
+        "audit_memory_searches_by_subject": 12,
+        "audit_warehouse_queries_by_subject": 0,
+        "filter_matches": 0,
+        "alerts": 0
+      },
+      "data_classes": ["telemetry"],
+      "sensitivity": "low",
+      "finding": {
+        "dsgai_id": "DSGAI07",
+        "note": "Because stored items carry no classification or lineage, the monitoring that governs the compensation column never sees these reads, and nothing marks twelve rounds of steered retrieval over restricted derived items as different from ordinary use.",
+        "severity": "Medium"
+      }
+    }
+  ],
+
+  "security_observations": [
+    "Keyword-based input and output filters do not constrain an adversary who chooses the wording: in this trace both filters pass on every round while restricted figures are disclosed.",
+    "Semantic retrieval bounded by a result limit returns a different subset for each differently worded query, so repeated varied questions widen coverage of a shared namespace; this matches published findings that query-only memory extraction grows with retrieval depth and with the number of attacking prompts.",
+    "Workspace membership is the only authorization between the adversary and the restricted derived items; no privilege beyond membership is needed.",
+    "Without lineage on stored items, neither the store, the filters nor the audit trail can identify which returned items require the compensation entitlement.",
+    "Small-group aggregates gathered across rounds and combined with data the adversary may legitimately read reconstruct individual-level values, even though no single answer discloses an individual record.",
+    "The control that would stop this trace, read-time authorization against each item's source entitlements, is the same one that stops the unintentional variant; content filtering stops neither."
+  ],
+
+  "mitigations": [
+    "Record source lineage or classification labels on every memory write, and authorize each memory read against the required entitlements derived from that lineage, in addition to namespace membership.",
+    "Apply that authorization inside the retrieval layer, before ranking and before the result limit, so items the reader may not see are never candidates, cannot fill result slots, and cannot be probed through presence, absence or score.",
+    "Do not treat memory content as pre-authorized when assembling context; drop or redact items whose required entitlements the requesting user lacks.",
+    "Restrict verbatim recall of stored items in shared namespaces, and cap retrieval depth for user-steered memory search tools.",
+    "Monitor per-user retrieval coverage over shared namespaces, such as distinct items returned and rounds of high-similarity searches in a session, and alert on unusual breadth, not only on restricted terms.",
+    "Apply minimum group-size suppression to aggregates before they are written to memory, so small-group figures cannot be collected later."
+  ],
+
+  "contributor": {
+    "name": "Venkata Sangaraju"
+  },
+
+  "date_added": "2026-10-16",
+
+  "tags": ["agent-memory", "long-term-memory", "derived-data", "memory-extraction", "crafted-queries", "keyword-filter-evasion", "shared-namespace", "semantic-retrieval", "column-level-access-control", "data-lineage", "small-group-aggregate", "reconstruction"],
+
+  "notes": "Companion to DSGAI-TRACE-derived-summary-memory-outlives-column-entitlement, which models the unintentional path. Here the adversary is an authenticated workspace member, not an outsider, and uses only the agent's normal query interface: no prompt injection into other users' sessions, no direct store access, no stolen credentials. The cited memory-extraction study evaluates agents that store past user queries as demonstrations, a different memory design from the derived-insight store modeled here; it is cited for the query-only extraction mechanism and how extraction scales with retrieval depth and number of prompts, not as a measurement of this configuration. The trace does not claim that any specific product ships this configuration."
+}
