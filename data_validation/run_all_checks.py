@@ -227,7 +227,10 @@ def main(argv: list[str] | None = None) -> int:
 
     checked_files = errors = warnings = 0
     if not args.no_shared:
-        print("\nShared checks (schema, DSGAI, CVE/CWE/ATLAS/OWASP/NIST IDs, CVSS, dates, licences, languages, test records, anonymization, duplicates):")
+        print(
+            "\nShared checks (schema, DSGAI, CVE/CWE/ATLAS/OWASP/NIST IDs, CVSS, dates, licences, languages,"
+            " test records, anonymization, duplicates):"
+        )
         for dataset in datasets:
             n, findings = shared_checks(dataset, datasets_root)
             if not n:

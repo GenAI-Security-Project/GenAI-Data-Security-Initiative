@@ -81,7 +81,7 @@ def package_version() -> str | None:
 def corpora_dir() -> Path | None:
     if package_version() is None:
         return None
-    from agent_evidence_vectors.run_vectors import corpora_root  # type: ignore[import-not-found]
+    from agent_evidence_vectors.run_vectors import corpora_root
 
     return Path(corpora_root())
 
