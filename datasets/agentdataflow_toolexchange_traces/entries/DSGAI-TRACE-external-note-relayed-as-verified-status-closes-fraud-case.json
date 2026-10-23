@@ -1,0 +1,305 @@
+{
+  "$schema": "../schema.json",
+  "trace_id": "DSGAI-TRACE-external-note-relayed-as-verified-status-closes-fraud-case",
+  "title": "A forged verification note in a dispute form is relayed by an intake agent as a verified status, and the triage orchestrator closes a high-score fraud case",
+  "description": "An outside party files a dispute form whose free-text memo imitates an internal verification note. An intake agent summarizes the case file for a triage orchestrator and reports the memo's claim as a validation_status field. The handoff is well-formed, so it passes schema validation, but it carries no record of where the value came from. The orchestrator's rule set closes any case marked verified before it consults the model's own high fraud score. Closing the case removes it from the only queue humans review, and a hold on the payment is released. No agent obeys an injected command; the failure is the relay of an outsider's assertion across the delegation boundary as first-party metadata.",
+  "category": "multi_agent_delegation",
+  "disposition": "adversarial",
+
+  "dsgai_mapping": ["DSGAI06", "DSGAI05"],
+  "owasp_llm_top10_mapping": ["LLM01:2025", "LLM06:2025", "LLM01:2026", "LLM03:2026"],
+  "owasp_agentic_top10_mapping": ["ASI07:2026"],
+
+  "agent": {
+    "framework": "custom",
+    "tool_protocol": "custom",
+    "topology": "intake agent summarizes case files for a triage orchestrator; the orchestrator applies an ordered rule set and a model risk score, then writes to a case-management tool; humans review only the cases the orchestrator escalates",
+    "autonomy": "human_approves_flagged_actions"
+  },
+
+  "provenance": {
+    "tier": "derived_from_public_documentation",
+    "collection_method": "Constructed. The agents, case system, rule set, field names and bands are synthetic, and the fraud-triage workflow is illustrative. The mechanism rendered is the one documented in published research on multi-agent systems: untrusted content in a file or page reaches an orchestrator because a front-line agent relays it as trusted metadata, which directs the system's later actions. The published work studies code execution and data exfiltration in open-source frameworks and does not study fraud workflows or case-closure decisions.",
+    "evidence": [
+      {
+        "type": "url",
+        "citation": "https://arxiv.org/abs/2503.12188",
+        "locator": "Abstract and introduction (MAS hijacking)",
+        "supports": "Adversarial content in a file or web page can reach a multi-agent system's orchestrator when a front-line agent relays it as trusted metadata, steering what the other agents do, in AutoGen, CrewAI and MetaGPT. The authors report the attack works even when individual agents resist prompt injection, which is why this trace places the failure in the relay and not in an agent obeying a command. Supports the relay mechanism only, not any fraud-specific outcome."
+      },
+      {
+        "type": "url",
+        "citation": "https://arxiv.org/abs/2302.12173",
+        "locator": "Abstract (indirect prompt injection)",
+        "supports": "An attacker can place content in data that an LLM-integrated application will later retrieve, so no direct interface to the application is needed. Supports the precondition that an outsider can plant text in a case file that an agent will read."
+      },
+      {
+        "type": "url",
+        "citation": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+        "locator": "Definition of indirect prompt injection; mitigations 'Segregate and identify external content' and 'Require human approval for high-risk actions'",
+        "supports": "OWASP defines indirect prompt injection as input from external sources such as websites or files altering model behavior, and states that impact depends on the agency the model is given. Also the source of two of the mitigations listed below."
+      }
+    ]
+  },
+
+  "sanitization": {
+    "attestation": true,
+    "techniques": ["not_applicable_fully_synthetic", "name_generalization", "shape_only_payloads"],
+    "notes": "Fully synthetic. No system, organization, rule set, score, figure or case identifier here was taken from a real deployment. The external party's memo is recorded as a shape only."
+  },
+
+  "spans": [
+    {
+      "span_id": "s1",
+      "parent_span_id": null,
+      "t_offset_ms": 0,
+      "actor": "adversary",
+      "actor_id": "party://external-submitter",
+      "operation": "tool.call",
+      "summary": "An outside party files a dispute form on a payment. The free-text memo is written to look like an internal verification result. It states a conclusion and contains no instruction to anyone.",
+      "payload": {
+        "endpoint": "tool://dispute-portal/submit_form",
+        "memo_field": "<shape:string,len=420>",
+        "memo_imitates": "internal verification note",
+        "contains_imperative_instruction": false,
+        "other_fields": "<synthetic:form-fields>"
+      },
+      "data_classes": ["user_prompt"],
+      "sensitivity": "low"
+    },
+    {
+      "span_id": "s2",
+      "parent_span_id": "s1",
+      "t_offset_ms": 3600000,
+      "actor": "tool",
+      "actor_id": "tool://case-store/get_case_file",
+      "operation": "tool.result",
+      "summary": "The case file is returned for triage. System-computed fields and fields the outside party wrote sit in one object, with nothing marking which is which.",
+      "payload": {
+        "case_id": "<synthetic:case-id>",
+        "system_fields": ["amount_band", "account_age_band", "channel"],
+        "externally_writable_fields": ["dispute_reason", "memo"],
+        "memo": "<shape:string,len=420>",
+        "field_origin_labels_present": false
+      },
+      "data_classes": ["retrieved_document", "financial"],
+      "sensitivity": "moderate",
+      "finding": {
+        "dsgai_id": "DSGAI05",
+        "note": "Text an outsider authored is returned in the same object as system-computed fields with no origin label, so nothing downstream can tell which values an outsider could have written.",
+        "severity": "Medium"
+      }
+    },
+    {
+      "span_id": "s3",
+      "parent_span_id": "s2",
+      "t_offset_ms": 3600200,
+      "actor": "agent",
+      "actor_id": "agent://intake",
+      "operation": "context.append",
+      "summary": "The intake agent places the whole case file in its context and is asked to summarize it and report a validation_status.",
+      "payload": {
+        "appended_bytes": "<shape:int,approx=3100>",
+        "external_text_delimited": false,
+        "validation_status_defined_as": "agent's judgement from the file contents"
+      },
+      "data_classes": ["retrieved_document", "financial", "system_prompt"],
+      "sensitivity": "moderate"
+    },
+    {
+      "span_id": "s4",
+      "parent_span_id": "s3",
+      "t_offset_ms": 3603900,
+      "actor": "model",
+      "actor_id": "model://intake-llm",
+      "operation": "model.completion",
+      "summary": "The intake model reports validation_status as verified, taking the claim from the memo. It makes no call to any system of record to check it.",
+      "payload": {
+        "summary": "<shape:string,len=640>",
+        "fields_emitted": ["dispute_reason", "validation_status", "recommended_action"],
+        "validation_status": "verified",
+        "validation_status_derived_from": "memo text",
+        "verification_tool_called": false,
+        "followed_embedded_command": false
+      },
+      "data_classes": ["tool_output"],
+      "sensitivity": "moderate",
+      "finding": {
+        "dsgai_id": "DSGAI05",
+        "note": "The model obeys nothing here. It turns an outsider's assertion into a status field and states it as a fact, and no tool call checks it.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s5",
+      "parent_span_id": "s4",
+      "t_offset_ms": 3603950,
+      "actor": "agent",
+      "actor_id": "agent://intake",
+      "operation": "delegation.handoff",
+      "summary": "The intake agent hands the structured summary to the triage orchestrator. The handoff validates against its schema and carries no record of where validation_status came from.",
+      "payload": {
+        "to": "agent://triage-orchestrator",
+        "handoff_schema_valid": true,
+        "fields": {
+          "validation_status": "verified",
+          "recommended_action": "close_no_action"
+        },
+        "field_origin_carried": false,
+        "validation_status_actual_origin": "external memo text"
+      },
+      "data_classes": ["financial"],
+      "sensitivity": "moderate",
+      "finding": {
+        "dsgai_id": "DSGAI06",
+        "note": "Inter-agent context smuggling: a claim an outsider wrote crosses the agent boundary as a first-party metadata field. The schema check passes because the field is well-formed, and it cannot see where the value came from.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s6",
+      "parent_span_id": "s5",
+      "t_offset_ms": 3604100,
+      "actor": "tool",
+      "actor_id": "tool://risk-model/score_case",
+      "operation": "tool.result",
+      "summary": "The orchestrator's own risk model scores the case. The result is in the high band, independent of anything the memo says.",
+      "payload": {
+        "fraud_score_band": "high",
+        "score_basis": "<shape:feature-summary>"
+      },
+      "data_classes": ["tool_output", "financial"],
+      "sensitivity": "moderate"
+    },
+    {
+      "span_id": "s7",
+      "parent_span_id": "s6",
+      "t_offset_ms": 3604300,
+      "actor": "policy_engine",
+      "actor_id": "policy://triage-rules",
+      "operation": "policy.decision",
+      "summary": "The rule set is evaluated in order and stops at the first match. A rule that closes verified cases sits ahead of the rule that escalates high scores, so the score is never consulted.",
+      "payload": {
+        "rule_order": [
+          "R1 escalate when fraud_score_band is critical",
+          "R2 close when validation_status is verified",
+          "R3 escalate when fraud_score_band is high"
+        ],
+        "evaluation": "first match wins",
+        "inputs": {
+          "validation_status": "verified",
+          "fraud_score_band": "high"
+        },
+        "matched_rule": "R2",
+        "decision": "close_no_action"
+      },
+      "data_classes": ["financial"],
+      "sensitivity": "moderate",
+      "finding": {
+        "dsgai_id": "DSGAI05",
+        "note": "A status value an outsider can influence is ordered ahead of the system's own risk score, so one forged field overrides the score without any check being skipped.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s8",
+      "parent_span_id": "s7",
+      "t_offset_ms": 3604420,
+      "actor": "orchestrator",
+      "actor_id": "agent://triage-orchestrator",
+      "operation": "tool.call",
+      "summary": "The orchestrator closes the case. Its write scope allows closure without a second approval, including at a high score band.",
+      "payload": {
+        "tool": "tool://case-store/update_case",
+        "case_id": "<synthetic:case-id>",
+        "new_status": "closed_no_action",
+        "escalate_to_human": false,
+        "granted_scope": "case.write:close"
+      },
+      "data_classes": ["financial"],
+      "sensitivity": "moderate",
+      "finding": {
+        "dsgai_id": "DSGAI06",
+        "note": "The orchestrator's tool scope lets it close a case whose own score band is high. Nothing outside the rule set checks the closure.",
+        "severity": "High"
+      }
+    },
+    {
+      "span_id": "s9",
+      "parent_span_id": "s8",
+      "t_offset_ms": 3604520,
+      "actor": "tool",
+      "actor_id": "tool://case-store/update_case",
+      "operation": "tool.result",
+      "summary": "The write succeeds and the case leaves the only queue humans review.",
+      "payload": {
+        "status": "ok",
+        "human_review_queue_membership": "none",
+        "downstream_hold": "release scheduled"
+      },
+      "data_classes": ["tool_output"],
+      "sensitivity": "moderate"
+    },
+    {
+      "span_id": "s10",
+      "parent_span_id": "s9",
+      "t_offset_ms": 3604700,
+      "actor": "external_service",
+      "actor_id": "tool://hold-service/release_hold",
+      "operation": "egress",
+      "summary": "The hold on the payment is released.",
+      "payload": {
+        "hold_release_requested": true,
+        "amount_band": "within auto-close limit"
+      },
+      "data_classes": ["financial"],
+      "sensitivity": "high"
+    },
+    {
+      "span_id": "s11",
+      "parent_span_id": "s9",
+      "t_offset_ms": 604800000,
+      "actor": "tool",
+      "actor_id": "tool://audit-log/read_entry",
+      "operation": "tool.result",
+      "summary": "Seven days later, a sampled quality review reads the audit entry. It shows a case closed on a verified status, with no sign that the status came from an outside party's memo.",
+      "payload": {
+        "entry": "closed by triage orchestrator; validation_status verified",
+        "origin_of_validation_status_recorded": false,
+        "memo_field_included": false
+      },
+      "data_classes": ["telemetry"],
+      "sensitivity": "low",
+      "finding": {
+        "dsgai_id": "DSGAI05",
+        "note": "The audit record keeps the claim and drops its origin, so a later review sees a verified case and cannot tell it was closed on an outsider's assertion.",
+        "severity": "Medium"
+      }
+    }
+  ],
+
+  "security_observations": [
+    "No agent in this trace obeys an injected command. The intake model records an outsider's claim as a status field, so the failure sits in the delegation handoff and not in any single model's susceptibility to injection.",
+    "The handoff passes schema validation because validation_status is a well-formed field. A schema check cannot see where a value came from.",
+    "The orchestrator's own risk score was high (s6) and was never consulted, because a rule on an outsider-influenced field matched first (s7).",
+    "Every individual control passed: the case file loaded, the summary was produced, the handoff validated, a rule matched, and the closure write was authorized.",
+    "Closing the case removed it from the only queue humans review, so the human review of flagged cases never saw it.",
+    "The audit entry at s11 records the status without its origin, so a later sample review cannot distinguish this case from a legitimately verified one."
+  ],
+
+  "mitigations": [
+    "Carry per-field origin (system, internal user, external party) across every delegation.handoff, and have the receiving agent and rule engine treat external-party-origin values as data, never as a status or an instruction.",
+    "Compute status-type fields such as validation_status only from systems of record, and do not let a summarizing model emit them.",
+    "Make closure and downgrade decisions depend on the model score first, so no field an outsider can influence can override a high or critical score band.",
+    "Segregate and label externally authored free text in the case file, and present it to agents inside a clearly delimited untrusted block (OWASP LLM01:2025 mitigation: segregate and identify external content).",
+    "Require human approval to close or downgrade a case at or above a set score band (OWASP LLM01:2025 mitigation: require human approval for high-risk actions).",
+    "Record the origin of every input to a decision in the audit entry, so a later review can tell an asserted status from a verified one.",
+    "Test each outsider-writable field with status-shaped and instruction-shaped text, and check what the intake agent emits in its handoff."
+  ],
+
+  "date_added": "2026-10-19",
+
+  "tags": ["multi-agent", "delegation-chain", "inter-agent-context-smuggling", "trusted-metadata", "confused-deputy", "fraud-triage", "financial-services", "indirect-prompt-injection", "decision-integrity", "human-review-bypass"],
+
+  "notes": "Scope: the relay mechanism is documented in public research; the fraud-triage workflow, rule set, and outcome are synthetic and illustrative. The cited multi-agent study measures code execution and data exfiltration, not case-closure decisions. It also reports that previously known indirect prompt injection attacks rarely succeed against multi-agent systems, which is why this trace models a forged status claim being relayed and not an agent obeying an injected command. The contributor has published on LLM fraud-detection security; that work is not used as evidence in this entry. A non-adversarial variant, in which a legitimately mislabeled field produces the same closure, would belong in a separate entry."
+}
