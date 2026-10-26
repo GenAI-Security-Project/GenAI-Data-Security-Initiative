@@ -22,6 +22,7 @@ import argparse
 import csv
 import io
 import json
+import os
 import re
 import sys
 import urllib.request
@@ -51,7 +52,11 @@ SOURCES = HERE / "SOURCES.md"
 
 
 def fetch(url: str) -> bytes:
-    with urllib.request.urlopen(url, timeout=60) as resp:  # noqa: S310 - fixed https URLs
+    request = urllib.request.Request(url)  # noqa: S310 - fixed https URLs
+    token = os.environ.get("GITHUB_TOKEN")
+    if token and url.startswith("https://api.github.com/"):
+        request.add_header("Authorization", f"Bearer {token}")
+    with urllib.request.urlopen(request, timeout=60) as resp:  # noqa: S310 - fixed https URLs
         return resp.read()
 
 
