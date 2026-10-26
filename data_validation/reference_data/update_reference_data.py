@@ -1,12 +1,14 @@
 """
 Regenerates the lookup tables that track an external release: MITRE ATLAS,
-CWE, the SPDX License List and the IANA Language Subtag Registry.
+CWE, the SPDX License List, the IANA Language Subtag Registry and the OWASP
+AIBOM Generator field registry.
 
     python update_reference_data.py              # all of them
     python update_reference_data.py --atlas      # mitre_atlas_techniques.csv
     python update_reference_data.py --cwe        # cwe_ids.csv
     python update_reference_data.py --spdx       # spdx_licenses.csv
     python update_reference_data.py --languages  # language_subtags.csv
+    python update_reference_data.py --aibom      # aibom_fields.csv
 
 Run it when one of them publishes a new release (the reference-data-refresh
 workflow does so monthly), and commit the regenerated CSVs together with the
@@ -42,6 +44,9 @@ ATLAS_LEGACY = ATLAS_DIST + "ATLAS.yaml"
 CWE_URL = "https://cwe.mitre.org/data/xml/cwec_latest.xml.zip"
 SPDX_URL = "https://raw.githubusercontent.com/spdx/license-list-data/main/json/licenses.json"
 IANA_SUBTAGS_URL = "https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry"
+AIBOM_REPO = "GenAI-Security-Project/aibom-generator"
+AIBOM_HEAD_URL = f"https://api.github.com/repos/{AIBOM_REPO}/commits/main"
+AIBOM_REGISTRY_URL = f"https://raw.githubusercontent.com/{AIBOM_REPO}/%s/src/models/field_registry.json"
 SOURCES = HERE / "SOURCES.md"
 
 
@@ -156,13 +161,28 @@ def update_languages() -> None:
     print(f"language_subtags.csv: {len(rows)} subtags (IANA registry {file_date})")
 
 
+def update_aibom() -> None:
+    """The fields the OWASP AIBOM Generator can write, from its field_registry.json at the current main commit."""
+    commit = json.loads(fetch(AIBOM_HEAD_URL))["sha"]
+    fields = json.loads(fetch(AIBOM_REGISTRY_URL % commit))["fields"]
+    rows = [{"field_id": fid, "cyclonedx_path": f["aibom_generation"]["location"], "rule": f["aibom_generation"]["rule"],
+             "tier": f["tier"], "description": f["description"]} for fid, f in sorted(fields.items())]
+    with open(HERE / "aibom_fields.csv", "w", newline="", encoding="utf-8") as fh:
+        w = csv.DictWriter(fh, fieldnames=["field_id", "cyclonedx_path", "rule", "tier", "description"], lineterminator="\n")
+        w.writeheader()
+        w.writerows(rows)
+    set_version("AIBOM Generator fields", f"aibom-generator@{commit[:12]}")
+    print(f"aibom_fields.csv: {len(rows)} fields (aibom-generator {commit[:12]})")
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Regenerate the externally maintained reference tables")
-    for name in ("atlas", "cwe", "spdx", "languages"):
+    for name in ("atlas", "cwe", "spdx", "languages", "aibom"):
         parser.add_argument(f"--{name}", action="store_true")
     args = parser.parse_args(argv)
-    every = not (args.atlas or args.cwe or args.spdx or args.languages)
-    for name, update in (("atlas", update_atlas), ("cwe", update_cwe), ("spdx", update_spdx), ("languages", update_languages)):
+    every = not (args.atlas or args.cwe or args.spdx or args.languages or args.aibom)
+    for name, update in (("atlas", update_atlas), ("cwe", update_cwe), ("spdx", update_spdx), ("languages", update_languages),
+                         ("aibom", update_aibom)):
         if every or getattr(args, name):
             update()
     return 0

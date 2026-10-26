@@ -1,0 +1,51 @@
+field_id,cyclonedx_path,rule,tier,description
+attention_head_count,$.components[0].properties,include_if_available,supplementary,Number of attention heads in the model
+attention_head_count_kv,$.components[0].properties,include_if_available,supplementary,Number of Key-Value attention heads
+autonomyType,$.metadata.properties,include_if_available,supplementary,Level of autonomy or human involvement required
+block_count,$.components[0].properties,include_if_available,supplementary,Number of transformer blocks or layers
+bomFormat,$.bomFormat,always_include,critical,Format identifier for the SBOM
+component_version,$.components[0].version,always_include,critical,Version of the component
+context_length,$.components[0].properties,include_if_available,supplementary,Maximum context length or sequence length supported
+datasets,$.component.modelCard.modelParameters.datasets,include_if_available,important,Datasets used for training
+description,$.components[0].description,include_if_available,important,Description of the AI model
+domain,$.metadata.properties,include_if_available,supplementary,Domain or field of application
+downloadLocation,$.component.externalReferences,include_if_available,important,URL to download the model
+embedding_length,$.components[0].properties,include_if_available,supplementary,Vector length of the token embeddings
+energyConsumption,$.metadata.properties,include_if_available,important,Energy consumption information
+energyQuantity,$.metadata.properties,include_if_available,supplementary,Quantitative energy consumption data
+energyUnit,$.metadata.properties,include_if_available,supplementary,Unit of measurement for energy consumption
+ethicalConsiderations,$.component.modelCard.considerations.ethicalConsiderations,include_if_available,important,Ethical considerations and fairness assessments
+external_references,$.component.externalReferences,include_if_available,supplementary,Additional external references
+feed_forward_length,$.components[0].properties,include_if_available,supplementary,Dimensionality of the feed-forward network
+hyperparameter,$.metadata.properties,include_if_available,important,Key hyperparameters of the model architecture
+informationAboutApplication,$.metadata.properties,include_if_available,supplementary,Information about intended applications
+informationAboutTraining,$.metadata.properties,include_if_available,supplementary,Information about the training process
+intendedUse,$.component.modelCard.considerations.useCases,include_if_available,important,Intended use cases for the model
+licenses,$.components[0].licenses,include_if_available,important,License information for the model
+metric,$.metadata.properties,include_if_available,supplementary,Performance metrics and evaluation results
+metricDecisionThreshold,$.metadata.properties,include_if_available,supplementary,Decision thresholds for metrics
+modelDataPreprocessing,$.metadata.properties,include_if_available,supplementary,Data preprocessing information
+modelExplainability,$.metadata.properties,include_if_available,supplementary,Information about model explainability
+model_file_size,$.components[0].properties,include_if_available,supplementary,Total size in bytes of the model weight files in the repository
+name,$.components[0].name,always_include,critical,Name of the AI model component
+paper,none,include_if_present,supplementary,Research paper associated with the model
+primaryPurpose,$.component.modelCard.modelParameters.task,include_if_available,critical,Primary purpose or task of the AI model
+purl,$.components[0].purl,include_if_available,important,Package URL identifier
+quantization_file_type,$.components[0].properties,include_if_available,supplementary,Enum or integer identifier for the quantization bit-precision (e.g. Q4_K_M)
+quantization_version,$.components[0].properties,include_if_available,supplementary,Version or specification identifier of the quantization format
+rope_dimension_count,$.components[0].properties,include_if_available,supplementary,Number of dimensions for Rotary Position Embedding (RoPE)
+runtime_requirement,$.components[0].properties,include_if_available,supplementary,Runtime needed to execute the model based on its weight format: 'python' (loadable from a Python ML stack such as transformers/PyTorch) or 'llm-stack' (requires an LLM inference stack such as llama.cpp/Ollama for GGUF/GGML weights)
+safetyRiskAssessment,$.metadata.properties,include_if_available,important,Safety and risk assessment information
+serialNumber,$.serialNumber,always_include,critical,Unique identifier for this SBOM instance
+specVersion,$.specVersion,always_include,critical,CycloneDX specification version
+standardCompliance,$.metadata.properties,include_if_available,supplementary,Standards or regulations the model complies with
+suppliedBy,$.component.supplier,include_if_available,critical,Organization or individual that supplied the model
+technicalLimitations,$.component.modelCard.considerations.technicalLimitations,include_if_available,important,Known limitations of the model
+tokenizer_class,$.components[0].properties,include_if_available,supplementary,The specific tokenizer class or method used
+type,$.components[0].type,always_include,critical,Type of component (machine-learning-model)
+typeOfModel,$.components[0].modelCard.modelParameters.modelArchitecture,include_if_available,important,Type or architecture of the model
+useSensitivePersonalInformation,$.metadata.properties,include_if_available,supplementary,Information about use of sensitive personal data
+vcs,none,include_if_present,supplementary,Version control system URL
+version,$.version,always_include,critical,Version of this SBOM document
+vocab_size,$.components[0].properties,include_if_available,supplementary,Expected size of the model's vocabulary
+website,none,include_if_present,supplementary,Model website or documentation URL

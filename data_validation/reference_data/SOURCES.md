@@ -11,10 +11,11 @@ Lookup tables the validators check identifiers against.
 | Language subtags | `language_subtags.csv` | 2026-09-17 | IANA Language Subtag Registry, `https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry` (languages, scripts, regions) |
 | NIST AI 100-2 | `nist_ai_100_2.csv` | E2025 | NIST AI 100-2e2025, *Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and Mitigations*, Taxonomy Index, https://doi.org/10.6028/NIST.AI.100-2e2025. The 30 `NISTAML.*` identifiers from its Taxonomy Index and section text (NISTAML.016 and .017 appear only in §3.4.1) |
 | CWE | `cwe_ids.csv` | 4.20 | `https://cwe.mitre.org/data/xml/cwec_latest.xml.zip` (weaknesses, categories and views) |
+| AIBOM Generator fields | `aibom_fields.csv` | aibom-generator@45851cb96dbe | OWASP AIBOM Generator `src/models/field_registry.json`, `https://github.com/GenAI-Security-Project/aibom-generator`: one row per field id, with the CycloneDX path the generator writes it to (`none` when it never writes the field to the BOM), its inclusion rule and its tier |
 
 `owasp_top10.csv` is maintained by hand. The 2026 LLM list renumbered the entries (LLM03 was Supply Chain in 2025 and is Excessive Agency in 2026), so IDs always carry the edition year; `equivalent_2025` gives the 2025 ID each 2026 entry continues (LLM08:2026 Hidden Context Exposure broadens LLM07:2025 System Prompt Leakage). OWASP writes the Agentic IDs without a year (ASI01); this repository adds `:2026` so a future edition cannot collide.
 
-Regenerate the ATLAS, CWE, SPDX and language tables with `python update_reference_data.py`; it fills in the Version column. Do not edit those CSVs by hand. `nist_ai_100_2.csv` and `owasp_top10.csv` are maintained by hand when a new edition is published.
+Regenerate the ATLAS, CWE, SPDX, language and AIBOM field tables with `python update_reference_data.py`; it fills in the Version column. Do not edit those CSVs by hand. `nist_ai_100_2.csv` and `owasp_top10.csv` are maintained by hand when a new edition is published.
 
 `datasets/_shared/dsgai_taxonomy.json` is the DSGAI list the validators use. `dsgai_entries.json` is kept because the Turkish prompt-injection validator reads it.
 
