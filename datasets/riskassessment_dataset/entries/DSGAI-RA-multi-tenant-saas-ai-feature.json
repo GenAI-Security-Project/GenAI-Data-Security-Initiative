@@ -43,13 +43,13 @@
     {"description": "Legacy tenants on per-tenant DB and newer tenants on shared DB have inconsistent isolation guarantees.", "addresses_dsgai": ["DSGAI11", "DSGAI13"], "suggested_remediation": "Document the isolation model per tenant; communicate the gap to enterprise customers.", "urgency": "Near-term"}
   ],
   "framework_alignments": [
-    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-05", "control_name": "Network integrity is protected", "alignment_status": "satisfied"},
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-05", "control_name": "Network integrity is protected", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"},
     {"framework": "NIST AI RMF 1.0", "control_id": "MAP 1.1", "control_name": "Context for AI system established", "alignment_status": "satisfied", "aibom_field": "intendedUse"},
     {"framework": "ISO/IEC 42001", "control_id": "A.7.4", "control_name": "Verification and validation", "alignment_status": "partial", "aibom_field": "metric"},
-    {"framework": "ISO/IEC 27001", "control_id": "A.5.10", "control_name": "Acceptable use", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 27001", "control_id": "A.5.10", "control_name": "Acceptable use", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"},
     {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"},
-    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM08:2025", "control_name": "Vector and Embedding Weaknesses", "alignment_status": "partial"},
-    {"framework": "SOC 2", "control_id": "CC6.1", "control_name": "Logical and physical access controls", "alignment_status": "satisfied"}
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM08:2025", "control_name": "Vector and Embedding Weaknesses", "alignment_status": "partial", "aibom_field_none": "deployment-control"},
+    {"framework": "SOC 2", "control_id": "CC6.1", "control_name": "Logical and physical access controls", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"}
   ],
   "compliance_obligations": ["GDPR", "CCPA", "HIPAA", "SOC 2", "ISO 27001 certification"],
   "maturity_overall": "Managed",

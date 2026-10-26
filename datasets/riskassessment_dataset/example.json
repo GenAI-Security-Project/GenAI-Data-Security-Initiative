@@ -52,9 +52,9 @@
     {"description": "Adversarial-input red-team exercise not yet a release gate.", "addresses_dsgai": ["DSGAI21", "DSGAI06"], "suggested_remediation": "Add a published red-team corpus to the release gate; track refusal stability across versions.", "urgency": "Near-term"}
   ],
   "framework_alignments": [
-    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-01", "control_name": "Data-at-rest is protected", "alignment_status": "satisfied", "notes": "KMS-managed encryption across KB, vector store, logs."},
-    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-01", "control_name": "Identities and credentials are managed", "alignment_status": "satisfied", "notes": "Short-lived IDP tokens; no static service credentials."},
-    {"framework": "NIST CSF 2.0", "control_id": "DE.CM-01", "control_name": "The network is monitored", "alignment_status": "partial", "notes": "Prompt/response monitoring exists; injection-rate anomaly detection not yet."},
+    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-01", "control_name": "Data-at-rest is protected", "alignment_status": "satisfied", "notes": "KMS-managed encryption across KB, vector store, logs.", "aibom_field_none": "deployment-control"},
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-01", "control_name": "Identities and credentials are managed", "alignment_status": "satisfied", "notes": "Short-lived IDP tokens; no static service credentials.", "aibom_field_none": "deployment-control"},
+    {"framework": "NIST CSF 2.0", "control_id": "DE.CM-01", "control_name": "The network is monitored", "alignment_status": "partial", "notes": "Prompt/response monitoring exists; injection-rate anomaly detection not yet.", "aibom_field_none": "deployment-control"},
     {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.7", "control_name": "AI system security is evaluated and documented", "alignment_status": "partial", "notes": "Red-team exercises run; not yet a release gate."},
     {"framework": "NIST AI RMF 1.0", "control_id": "GOVERN 5.1", "control_name": "Policies and procedures are in place for AI risk management", "alignment_status": "satisfied", "notes": "DPIA + AI risk policy maintained by the bank's model risk function."},
     {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied", "notes": "DPIA + DSGAI-aligned assessment cycle annual.", "aibom_field": "safetyRiskAssessment"},
@@ -64,7 +64,7 @@
     {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied", "notes": "PII regex on input and output; logs redacted."},
     {"framework": "GDPR", "control_id": "Art. 35", "control_name": "Data protection impact assessment", "alignment_status": "satisfied", "notes": "DPIA on file with the bank's DPO."},
     {"framework": "EU AI Act", "control_id": "Art. 26", "control_name": "Obligations of deployers of high-risk AI systems", "alignment_status": "partial", "notes": "Classification pending; documentation in progress."},
-    {"framework": "SOC 2", "control_id": "CC6.1", "control_name": "Logical and physical access controls", "alignment_status": "satisfied", "notes": "Inherited from underlying SOC 2 Type II program."}
+    {"framework": "SOC 2", "control_id": "CC6.1", "control_name": "Logical and physical access controls", "alignment_status": "satisfied", "notes": "Inherited from underlying SOC 2 Type II program.", "aibom_field_none": "deployment-control"}
   ],
   "compliance_obligations": ["GDPR", "CCPA", "SOC 2", "ISO 27001 certification", "EU AI Act", "DORA"],
   "maturity_overall": "Managed",

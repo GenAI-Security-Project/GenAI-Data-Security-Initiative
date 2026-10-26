@@ -43,8 +43,8 @@
     {"description": "Attachment-OCR pipeline scans for OCR injection but does not flag low-contrast or hidden-text patterns in PDFs.", "addresses_dsgai": ["DSGAI09", "DSGAI06"], "suggested_remediation": "Add visual-anomaly detection on attachments; flag for human review.", "urgency": "Near-term"}
   ],
   "framework_alignments": [
-    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-05", "control_name": "Protections against data leaks", "alignment_status": "partial"},
-    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions with least privilege", "alignment_status": "partial"},
+    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-05", "control_name": "Protections against data leaks", "alignment_status": "partial", "aibom_field_none": "deployment-control"},
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions with least privilege", "alignment_status": "partial", "aibom_field_none": "deployment-control"},
     {"framework": "NIST AI RMF 1.0", "control_id": "MAP 4.1", "control_name": "Approaches for mapping legal and AI risks", "alignment_status": "satisfied", "aibom_field": "licenses"},
     {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied", "aibom_field": "safetyRiskAssessment"},
     {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM01:2025", "control_name": "Prompt Injection", "alignment_status": "partial"},

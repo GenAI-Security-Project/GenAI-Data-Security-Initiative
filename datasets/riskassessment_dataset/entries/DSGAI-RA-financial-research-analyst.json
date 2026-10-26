@@ -40,13 +40,13 @@
     {"description": "MAR (EU Market Abuse Regulation) conformity assessment pending.", "addresses_dsgai": ["DSGAI08"], "suggested_remediation": "Complete MAR-applicability analysis; document residual-risk acceptance.", "urgency": "Immediate"}
   ],
   "framework_alignments": [
-    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions with least privilege", "alignment_status": "satisfied"},
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions with least privilege", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"},
     {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.10", "control_name": "Privacy risk is evaluated", "alignment_status": "partial", "aibom_field": "useSensitivePersonalInformation"},
     {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied", "aibom_field": "safetyRiskAssessment"},
     {"framework": "ISO/IEC 27001", "control_id": "A.5.34", "control_name": "Privacy and protection of PII", "alignment_status": "satisfied", "aibom_field": "useSensitivePersonalInformation"},
     {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "partial"},
     {"framework": "EU AI Act", "control_id": "Art. 26", "control_name": "Obligations of deployers of high-risk AI systems", "alignment_status": "partial"},
-    {"framework": "SOC 2", "control_id": "CC6.1", "control_name": "Logical and physical access controls", "alignment_status": "satisfied"}
+    {"framework": "SOC 2", "control_id": "CC6.1", "control_name": "Logical and physical access controls", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"}
   ],
   "compliance_obligations": ["GDPR", "EU AI Act", "SOC 2"],
   "maturity_overall": "Managed",

@@ -40,7 +40,7 @@
     {"description": "No formal periodic notice to parents about AI use in instruction.", "addresses_dsgai": ["DSGAI08"], "suggested_remediation": "Annual AI-use notice integrated with district communication cycles.", "urgency": "Near-term"}
   ],
   "framework_alignments": [
-    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-05", "control_name": "Protections against data leaks", "alignment_status": "satisfied"},
+    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-05", "control_name": "Protections against data leaks", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"},
     {"framework": "NIST AI RMF 1.0", "control_id": "GOVERN 1.5", "control_name": "Ongoing monitoring and review", "alignment_status": "partial"},
     {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied", "aibom_field": "safetyRiskAssessment"},
     {"framework": "FERPA", "control_id": "34 CFR 99.31", "control_name": "Disclosure without consent permitted", "alignment_status": "satisfied"},

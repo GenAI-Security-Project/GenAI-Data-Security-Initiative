@@ -43,7 +43,7 @@
     {"description": "Public-records retention schedule does not yet specify PII-redacted vs raw transcript handling.", "addresses_dsgai": ["DSGAI14", "DSGAI08"], "suggested_remediation": "Update retention schedule to differentiate PII-redacted from raw and align with the agency's records-management authority.", "urgency": "Immediate"}
   ],
   "framework_alignments": [
-    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-02", "control_name": "Data-in-transit is protected", "alignment_status": "satisfied"},
+    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-02", "control_name": "Data-in-transit is protected", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"},
     {"framework": "NIST AI RMF 1.0", "control_id": "GOVERN 1.5", "control_name": "Ongoing monitoring and review", "alignment_status": "partial"},
     {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "partial", "aibom_field": "safetyRiskAssessment"},
     {"framework": "ISO/IEC 27001", "control_id": "A.5.31", "control_name": "Legal, statutory, regulatory, and contractual requirements", "alignment_status": "satisfied"},

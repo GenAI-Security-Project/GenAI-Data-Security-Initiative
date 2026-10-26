@@ -39,7 +39,7 @@
     {"description": "Rental-mode is operator-opt-in; many shared vehicles do not enable it.", "addresses_dsgai": ["DSGAI11"], "suggested_remediation": "Detect rental fleet via VIN-list; enable rental-mode by default; require operator opt-out.", "urgency": "Near-term"}
   ],
   "framework_alignments": [
-    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-07", "control_name": "Users authenticated for access", "alignment_status": "satisfied"},
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-07", "control_name": "Users authenticated for access", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"},
     {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.10", "control_name": "Privacy risk is evaluated", "alignment_status": "partial", "aibom_field": "useSensitivePersonalInformation"},
     {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied", "aibom_field": "safetyRiskAssessment"},
     {"framework": "GDPR", "control_id": "Art. 9", "control_name": "Processing of special categories (biometrics)", "alignment_status": "partial", "aibom_field": "useSensitivePersonalInformation"},
