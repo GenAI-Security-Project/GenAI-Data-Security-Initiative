@@ -44,7 +44,7 @@
     {"framework": "NIST AI RMF 1.0", "control_id": "GOVERN 1.5", "control_name": "Ongoing monitoring and review", "alignment_status": "partial"},
     {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied", "aibom_field": "safetyRiskAssessment"},
     {"framework": "FERPA", "control_id": "34 CFR 99.31", "control_name": "Disclosure without consent permitted", "alignment_status": "satisfied"},
-    {"framework": "EU AI Act", "control_id": "Annex III(3)", "control_name": "High-risk: education and vocational training", "alignment_status": "partial"},
+    {"framework": "EU AI Act", "control_id": "Annex III(3)", "control_name": "High-risk: education and vocational training", "alignment_status": "partial", "aibom_field": "intendedUse"},
     {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"}
   ],
   "compliance_obligations": ["FERPA", "GDPR", "EU AI Act"],

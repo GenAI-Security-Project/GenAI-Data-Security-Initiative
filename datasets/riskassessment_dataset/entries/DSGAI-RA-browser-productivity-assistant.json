@@ -42,10 +42,10 @@
   "framework_alignments": [
     {"framework": "NIST CSF 2.0", "control_id": "PR.DS-05", "control_name": "Protections against data leaks", "alignment_status": "partial"},
     {"framework": "NIST CSF 2.0", "control_id": "PR.AT-01", "control_name": "Awareness and training", "alignment_status": "satisfied"},
-    {"framework": "NIST AI RMF 1.0", "control_id": "MAP 4.1", "control_name": "Approaches for mapping AI legal and technology risks", "alignment_status": "partial"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MAP 4.1", "control_name": "Approaches for mapping AI legal and technology risks", "alignment_status": "partial", "aibom_field": "licenses"},
     {"framework": "ISO/IEC 42001", "control_id": "A.6.1.4", "control_name": "Roles, responsibilities, and authorities", "alignment_status": "satisfied"},
     {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "partial"},
-    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM06:2025", "control_name": "Excessive Agency", "alignment_status": "partial"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM06:2025", "control_name": "Excessive Agency", "alignment_status": "partial", "aibom_field": "autonomyType"},
     {"framework": "SOC 2", "control_id": "CC7.2", "control_name": "Monitoring activities", "alignment_status": "satisfied"}
   ],
   "compliance_obligations": ["GDPR", "CCPA", "SOC 2"],

@@ -56,7 +56,7 @@
     {"framework": "HIPAA", "control_id": "164.312(a)(1)", "control_name": "Access control standard", "alignment_status": "satisfied"},
     {"framework": "HIPAA", "control_id": "164.312(b)", "control_name": "Audit controls", "alignment_status": "satisfied"},
     {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"},
-    {"framework": "EU AI Act", "control_id": "Annex III", "control_name": "High-risk AI in healthcare", "alignment_status": "partial", "notes": "If deployed for EU patients, classification under high-risk applies."}
+    {"framework": "EU AI Act", "control_id": "Annex III", "control_name": "High-risk AI in healthcare", "alignment_status": "partial", "notes": "If deployed for EU patients, classification under high-risk applies.", "aibom_field": "intendedUse"}
   ],
   "compliance_obligations": ["HIPAA", "GDPR", "EU AI Act", "ISO 27001 certification"],
   "maturity_overall": "Managed",
