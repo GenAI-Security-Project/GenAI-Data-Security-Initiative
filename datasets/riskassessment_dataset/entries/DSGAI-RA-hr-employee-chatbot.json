@@ -44,7 +44,7 @@
     {"framework": "NIST AI RMF 1.0", "control_id": "MAP 4.1", "control_name": "Approaches for mapping legal and AI risks", "alignment_status": "satisfied", "aibom_field": "licenses"},
     {"framework": "ISO/IEC 42001", "control_id": "A.8.2", "control_name": "Data resources for AI systems", "alignment_status": "satisfied", "aibom_field": "datasets"},
     {"framework": "ISO/IEC 27001", "control_id": "A.5.34", "control_name": "Privacy and protection of PII", "alignment_status": "satisfied", "aibom_field": "useSensitivePersonalInformation"},
-    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied", "aibom_field_none": "runtime-behaviour"},
     {"framework": "GDPR", "control_id": "Art. 5(1)(c)", "control_name": "Data minimisation", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"}
   ],
   "compliance_obligations": ["GDPR", "CCPA", "SOC 2"],

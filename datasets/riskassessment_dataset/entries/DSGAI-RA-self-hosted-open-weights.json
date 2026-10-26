@@ -48,7 +48,7 @@
     {"framework": "ISO/IEC 42001", "control_id": "A.6.2.8", "control_name": "Data quality for AI systems", "alignment_status": "satisfied", "aibom_field": "modelDataPreprocessing"},
     {"framework": "ISO/IEC 27001", "control_id": "A.5.7", "control_name": "Threat intelligence", "alignment_status": "partial", "aibom_field_none": "deployment-control"},
     {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM03:2025", "control_name": "Supply Chain", "alignment_status": "satisfied", "aibom_field": "suppliedBy"},
-    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM10:2025", "control_name": "Unbounded Consumption", "alignment_status": "partial"}
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM10:2025", "control_name": "Unbounded Consumption", "alignment_status": "partial", "aibom_field_none": "runtime-behaviour"}
   ],
   "compliance_obligations": ["SOC 2", "ISO 27001 certification"],
   "maturity_overall": "Defined",

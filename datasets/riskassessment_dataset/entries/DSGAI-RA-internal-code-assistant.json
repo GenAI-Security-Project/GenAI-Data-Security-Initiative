@@ -51,7 +51,7 @@
     {"framework": "NIST AI RMF 1.0", "control_id": "MAP 4.1", "control_name": "Approaches for mapping AI technology and legal risks", "alignment_status": "partial", "aibom_field": "licenses"},
     {"framework": "ISO/IEC 42001", "control_id": "A.6.1.2", "control_name": "AI policy", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"},
     {"framework": "ISO/IEC 27001", "control_id": "A.8.10", "control_name": "Information deletion", "alignment_status": "partial", "aibom_field_none": "deployment-control"},
-    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "partial"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "partial", "aibom_field_none": "runtime-behaviour"},
     {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM03:2025", "control_name": "Supply Chain", "alignment_status": "partial", "aibom_field": "suppliedBy"},
     {"framework": "SOC 2", "control_id": "CC6.7", "control_name": "Restriction of access to information assets", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"}
   ],

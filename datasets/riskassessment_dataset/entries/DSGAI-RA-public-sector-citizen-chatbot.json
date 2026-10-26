@@ -49,7 +49,7 @@
     {"framework": "ISO/IEC 27001", "control_id": "A.5.31", "control_name": "Legal, statutory, regulatory, and contractual requirements", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"},
     {"framework": "EU AI Act", "control_id": "Art. 49", "control_name": "Registration in EU database for high-risk systems", "alignment_status": "partial", "aibom_field_none": "deployment-control"},
     {"framework": "GDPR", "control_id": "Art. 35", "control_name": "Data protection impact assessment", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"},
-    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"}
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied", "aibom_field_none": "runtime-behaviour"}
   ],
   "compliance_obligations": ["GDPR", "EU AI Act", "UK Data Protection Act 2018"],
   "maturity_overall": "Developing",

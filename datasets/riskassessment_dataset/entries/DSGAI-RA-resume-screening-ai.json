@@ -49,7 +49,7 @@
     {"framework": "ISO/IEC 27001", "control_id": "A.5.34", "control_name": "Privacy and protection of PII", "alignment_status": "satisfied", "aibom_field": "useSensitivePersonalInformation"},
     {"framework": "EU AI Act", "control_id": "Annex III(4)", "control_name": "High-risk: employment", "alignment_status": "partial", "aibom_field": "intendedUse"},
     {"framework": "GDPR", "control_id": "Art. 22", "control_name": "Automated individual decision-making", "alignment_status": "partial", "aibom_field": "autonomyType"},
-    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"}
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied", "aibom_field_none": "runtime-behaviour"}
   ],
   "compliance_obligations": ["GDPR", "CCPA", "EU AI Act", "SOC 2"],
   "maturity_overall": "Developing",

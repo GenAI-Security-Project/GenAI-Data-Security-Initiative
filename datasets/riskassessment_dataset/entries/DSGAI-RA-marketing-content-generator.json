@@ -43,9 +43,9 @@
     {"framework": "NIST CSF 2.0", "control_id": "PR.IP-12", "control_name": "Vulnerability management plan", "alignment_status": "partial", "aibom_field_none": "deployment-control"},
     {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.11", "control_name": "Fairness and bias evaluated", "alignment_status": "partial", "aibom_field": "ethicalConsiderations"},
     {"framework": "ISO/IEC 42001", "control_id": "A.7.3", "control_name": "AI system design and development", "alignment_status": "satisfied", "aibom_field": "informationAboutTraining"},
-    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM01:2025", "control_name": "Prompt Injection", "alignment_status": "partial"},
-    {"framework": "EU AI Act", "control_id": "Art. 50", "control_name": "Transparency for content-generation systems", "alignment_status": "satisfied"},
-    {"framework": "GDPR", "control_id": "Art. 5(1)(d)", "control_name": "Accuracy", "alignment_status": "partial"}
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM01:2025", "control_name": "Prompt Injection", "alignment_status": "partial", "aibom_field_none": "runtime-behaviour"},
+    {"framework": "EU AI Act", "control_id": "Art. 50", "control_name": "Transparency for content-generation systems", "alignment_status": "satisfied", "aibom_field_none": "runtime-behaviour"},
+    {"framework": "GDPR", "control_id": "Art. 5(1)(d)", "control_name": "Accuracy", "alignment_status": "partial", "aibom_field_none": "runtime-behaviour"}
   ],
   "compliance_obligations": ["GDPR", "EU AI Act"],
   "maturity_overall": "Developing",
