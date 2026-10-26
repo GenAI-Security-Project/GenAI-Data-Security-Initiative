@@ -50,7 +50,7 @@
     {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions with least privilege", "alignment_status": "satisfied"},
     {"framework": "NIST CSF 2.0", "control_id": "DE.AE-02", "control_name": "Detected events analyzed", "alignment_status": "partial"},
     {"framework": "NIST AI RMF 1.0", "control_id": "MANAGE 3.2", "control_name": "AI risks are responded to", "alignment_status": "partial"},
-    {"framework": "ISO/IEC 42001", "control_id": "A.7.3", "control_name": "AI system design and development", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.7.3", "control_name": "AI system design and development", "alignment_status": "satisfied", "aibom_field": "informationAboutTraining"},
     {"framework": "OWASP Agentic Top 10 2026", "control_id": "AGT-01", "control_name": "Tool privilege management", "alignment_status": "partial", "notes": "Per-agent scoping in place; cross-agent privilege escalation paths not fully audited."},
     {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM05:2025", "control_name": "Improper Output Handling", "alignment_status": "satisfied"},
     {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM07:2025", "control_name": "System Prompt Leakage", "alignment_status": "partial"},

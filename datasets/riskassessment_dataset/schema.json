@@ -250,6 +250,11 @@
             "enum": ["satisfied", "partial", "missing", "not_applicable"]
           },
           "notes": { "type": "string" },
+          "aibom_field": {
+            "description": "The field of a generated CycloneDX AIBOM that evidences this control: an id from the OWASP AIBOM Generator's src/models/field_registry.json (for example datasets, metric or safetyRiskAssessment). data_validation/validators/aibom_field_check.py checks it against data_validation/reference_data/aibom_fields.csv.",
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_]*$"
+          },
           "test_records": {
             "description": "Published signed test records this row rests on: a corpus shipped in the pinned agent-evidence-vectors package and, optionally, one requirement in its REGISTRY.json. data_validation/validators/evidence_mapping_check.py replays the corpus with its reference verifier.",
             "type": "object",

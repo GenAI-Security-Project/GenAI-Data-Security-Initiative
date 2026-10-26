@@ -49,9 +49,9 @@
   ],
   "framework_alignments": [
     {"framework": "NIST CSF 2.0", "control_id": "PR.DS-01", "control_name": "Data-at-rest is protected", "alignment_status": "satisfied"},
-    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.10", "control_name": "Privacy risk is evaluated", "alignment_status": "partial"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.10", "control_name": "Privacy risk is evaluated", "alignment_status": "partial", "aibom_field": "useSensitivePersonalInformation"},
     {"framework": "NIST AI RMF 1.0", "control_id": "MANAGE 3.2", "control_name": "AI risks are responded to", "alignment_status": "satisfied"},
-    {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied", "aibom_field": "safetyRiskAssessment"},
     {"framework": "ISO/IEC 27001", "control_id": "A.8.11", "control_name": "Data masking", "alignment_status": "satisfied"},
     {"framework": "HIPAA", "control_id": "164.312(a)(1)", "control_name": "Access control standard", "alignment_status": "satisfied"},
     {"framework": "HIPAA", "control_id": "164.312(b)", "control_name": "Audit controls", "alignment_status": "satisfied"},

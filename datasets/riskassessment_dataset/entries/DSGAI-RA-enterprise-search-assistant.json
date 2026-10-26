@@ -45,8 +45,8 @@
   "framework_alignments": [
     {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions with least privilege", "alignment_status": "partial"},
     {"framework": "NIST CSF 2.0", "control_id": "ID.AM-05", "control_name": "Resources prioritized by classification", "alignment_status": "partial"},
-    {"framework": "NIST AI RMF 1.0", "control_id": "MAP 2.3", "control_name": "Data sources documented", "alignment_status": "satisfied"},
-    {"framework": "ISO/IEC 42001", "control_id": "A.8.2", "control_name": "Data resources for AI systems", "alignment_status": "partial"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MAP 2.3", "control_name": "Data sources documented", "alignment_status": "satisfied", "aibom_field": "datasets"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.8.2", "control_name": "Data resources for AI systems", "alignment_status": "partial", "aibom_field": "datasets"},
     {"framework": "ISO/IEC 27001", "control_id": "A.5.12", "control_name": "Classification of information", "alignment_status": "partial"},
     {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "partial"},
     {"framework": "SOC 2", "control_id": "CC6.3", "control_name": "Access removal upon termination", "alignment_status": "satisfied"}

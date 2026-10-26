@@ -41,8 +41,8 @@
   ],
   "framework_alignments": [
     {"framework": "NIST CSF 2.0", "control_id": "PR.DS-04", "control_name": "Adequate capacity to ensure availability", "alignment_status": "satisfied"},
-    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.10", "control_name": "Privacy risk is evaluated", "alignment_status": "satisfied"},
-    {"framework": "ISO/IEC 42001", "control_id": "A.8.2", "control_name": "Data resources for AI systems", "alignment_status": "satisfied"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.10", "control_name": "Privacy risk is evaluated", "alignment_status": "satisfied", "aibom_field": "useSensitivePersonalInformation"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.8.2", "control_name": "Data resources for AI systems", "alignment_status": "satisfied", "aibom_field": "datasets"},
     {"framework": "ISO/IEC 27001", "control_id": "A.8.11", "control_name": "Data masking", "alignment_status": "satisfied"},
     {"framework": "GDPR", "control_id": "Art. 25", "control_name": "Data protection by design and default", "alignment_status": "partial"},
     {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"}
