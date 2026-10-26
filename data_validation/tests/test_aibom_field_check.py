@@ -75,6 +75,32 @@ def test_every_keyed_row_in_the_datasets_passes():
     assert findings == []
 
 
+@pytest.mark.parametrize("reason", ab.REASONS)
+def test_a_recorded_reason_passes(reason):
+    data = {"framework_alignments": [{"control_id": "PR.AC-04", "alignment_status": "satisfied", "aibom_field_none": reason}]}
+    assert ab.check_data(P, data) == []
+
+
+@pytest.mark.parametrize("reason", ["", "deployment", "none", None, 3])
+def test_an_unknown_reason_fails_and_lists_the_reasons(reason):
+    data = {"framework_alignments": [{"control_id": "PR.AC-04", "aibom_field_none": reason}]}
+    [f] = ab.check_data(P, data)
+    assert f.level == ERROR and "deployment-control, runtime-behaviour, no-registry-field" in f.message
+    assert f.location == "/framework_alignments/0/aibom_field_none"
+
+
+def test_a_row_with_both_keys_fails():
+    data = {"framework_alignments": [{"control_id": "A.8.2", "aibom_field": "datasets", "aibom_field_none": "deployment-control"}]}
+    [f] = ab.check_data(P, data)
+    assert f.level == ERROR and "both" in f.message and f.location == "/framework_alignments/0"
+
+
+def test_reasons_match_the_dataset_schema():
+    schema = json.loads((DATASETS_ROOT / "riskassessment_dataset" / "schema.json").read_text(encoding="utf-8"))
+    row_props = schema["properties"]["framework_alignments"]["items"]["properties"]
+    assert tuple(row_props[ab.NONE_KEY]["enum"]) == ab.REASONS
+
+
 def test_cli_on_a_file(tmp_path, capsys):
     path = tmp_path / "entry.json"
     path.write_text(json.dumps(row("paper")), encoding="utf-8")

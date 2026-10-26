@@ -9,11 +9,17 @@ A row in framework_alignments (or any object with a "control_id") may carry
 an id from the generator's src/models/field_registry.json. The row then says
 which field of a generated CycloneDX AIBOM evidences the control. The ids come
 from reference_data/aibom_fields.csv, a table regenerated from the registry at
-a recorded commit (see reference_data/SOURCES.md).
+a recorded commit (see reference_data/SOURCES.md). A row that no field
+evidences carries instead
+
+    "aibom_field_none": "deployment-control"
+
+with one of the reasons in REASONS (defined in the dataset's schema.json).
 
 ERROR: the value is not a string; the id is not in the registry; the registry
        lists the field with no CycloneDX location, so the generator never
-       writes it into the BOM.
+       writes it into the BOM; the reason is not one of REASONS; the row
+       carries both keys.
 The inclusion rule and tier are not judged: a field written only
 "include_if_available" is still a valid key, because the generator emits it
 whenever the model's source has the data.
@@ -49,6 +55,8 @@ from validators._common import (  # noqa: E402
 
 CHECK = "aibom"
 KEY = "aibom_field"
+NONE_KEY = "aibom_field_none"
+REASONS = ("deployment-control", "runtime-behaviour", "no-registry-field")
 TABLE = "aibom_fields.csv"
 NOT_WRITTEN = "none"
 
@@ -61,9 +69,9 @@ def generator_fields() -> dict[str, dict[str, str]]:
 
 
 def iter_keyed_rows(obj: Any, pointer: str = ""):
-    """(pointer, row) for every object that carries aibom_field."""
+    """(pointer, row) for every object that carries aibom_field or aibom_field_none."""
     if isinstance(obj, dict):
-        if KEY in obj:
+        if KEY in obj or NONE_KEY in obj:
             yield pointer, obj
         for k, v in obj.items():
             yield from iter_keyed_rows(v, f"{pointer}/{k}")
@@ -72,7 +80,19 @@ def iter_keyed_rows(obj: Any, pointer: str = ""):
             yield from iter_keyed_rows(v, f"{pointer}/{i}")
 
 
+def check_reason(path: Path, pointer: str, row: dict) -> list[Finding]:
+    reason = row[NONE_KEY]
+    if reason in REASONS:
+        return []
+    allowed = ", ".join(REASONS)
+    return [Finding(ERROR, CHECK, path, f"{pointer}/{NONE_KEY}", f"{reason!r} is not a reason; expected one of {allowed}")]
+
+
 def check_row(path: Path, pointer: str, row: dict) -> list[Finding]:
+    if KEY in row and NONE_KEY in row:
+        return [Finding(ERROR, CHECK, path, pointer, f"the row carries both {KEY} and {NONE_KEY}; keep one")]
+    if NONE_KEY in row:
+        return check_reason(path, pointer, row)
     where = f"{pointer}/{KEY}"
     field = row[KEY]
     if not isinstance(field, str):
