@@ -44,11 +44,11 @@
   ],
   "framework_alignments": [
     {"framework": "NIST CSF 2.0", "control_id": "PR.DS-02", "control_name": "Data-in-transit is protected", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"},
-    {"framework": "NIST AI RMF 1.0", "control_id": "GOVERN 1.5", "control_name": "Ongoing monitoring and review", "alignment_status": "partial"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "GOVERN 1.5", "control_name": "Ongoing monitoring and review", "alignment_status": "partial", "aibom_field_none": "deployment-control"},
     {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "partial", "aibom_field": "safetyRiskAssessment"},
-    {"framework": "ISO/IEC 27001", "control_id": "A.5.31", "control_name": "Legal, statutory, regulatory, and contractual requirements", "alignment_status": "satisfied"},
-    {"framework": "EU AI Act", "control_id": "Art. 49", "control_name": "Registration in EU database for high-risk systems", "alignment_status": "partial"},
-    {"framework": "GDPR", "control_id": "Art. 35", "control_name": "Data protection impact assessment", "alignment_status": "satisfied"},
+    {"framework": "ISO/IEC 27001", "control_id": "A.5.31", "control_name": "Legal, statutory, regulatory, and contractual requirements", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"},
+    {"framework": "EU AI Act", "control_id": "Art. 49", "control_name": "Registration in EU database for high-risk systems", "alignment_status": "partial", "aibom_field_none": "deployment-control"},
+    {"framework": "GDPR", "control_id": "Art. 35", "control_name": "Data protection impact assessment", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"},
     {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"}
   ],
   "compliance_obligations": ["GDPR", "EU AI Act", "UK Data Protection Act 2018"],

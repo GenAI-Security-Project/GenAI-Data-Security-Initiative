@@ -49,7 +49,7 @@
     {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied", "aibom_field": "safetyRiskAssessment"},
     {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM01:2025", "control_name": "Prompt Injection", "alignment_status": "partial"},
     {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "partial"},
-    {"framework": "GDPR", "control_id": "Art. 5(1)(c)", "control_name": "Data minimisation", "alignment_status": "partial"}
+    {"framework": "GDPR", "control_id": "Art. 5(1)(c)", "control_name": "Data minimisation", "alignment_status": "partial", "aibom_field_none": "deployment-control"}
   ],
   "compliance_obligations": ["GDPR", "CCPA", "SOC 2"],
   "maturity_overall": "Developing",
