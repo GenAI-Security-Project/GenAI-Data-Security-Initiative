@@ -21,8 +21,33 @@ def row(field, control_id="MAP 2.3"):
     ]}
 
 
-def test_rows_without_the_key_are_not_checked():
-    assert ab.check_data(P, {"framework_alignments": [{"control_id": "PR.DS-05", "alignment_status": "satisfied"}]}) == []
+def test_objects_outside_framework_alignments_are_not_checked():
+    assert ab.check_data(P, {"controls": [{"control_id": "PR.DS-05", "alignment_status": "satisfied"}]}) == []
+
+
+def test_a_mapping_row_with_neither_key_fails():
+    data = {"framework_alignments": [
+        {"control_id": "A.8.2", "aibom_field": "datasets"},
+        {"control_id": "PR.DS-05", "alignment_status": "satisfied"},
+    ]}
+    [f] = ab.check_data(P, data)
+    assert f.level == ERROR and "neither aibom_field nor aibom_field_none" in f.message
+    assert f.location == "/framework_alignments/1"
+
+
+def test_an_unkeyed_row_is_found_at_any_depth():
+    data = {"entries": [{"framework_alignments": ["not-an-object", {"control_id": "GOVERN 1.1"}]}]}
+    assert [f.location for f in ab.check_data(P, data)] == ["/entries/0/framework_alignments/1"]
+
+
+def test_every_risk_assessment_row_is_keyed_or_carries_a_reason():
+    dataset = DATASETS_ROOT / "riskassessment_dataset"
+    rows = [
+        row
+        for path in [*sorted((dataset / "entries").glob("*.json")), dataset / "example.json"]
+        for row in json.loads(path.read_text(encoding="utf-8"))["framework_alignments"]
+    ]
+    assert rows and all((ab.KEY in r) != (ab.NONE_KEY in r) for r in rows)
 
 
 @pytest.mark.parametrize("field", ["datasets", "metric", "safetyRiskAssessment", "bomFormat"])

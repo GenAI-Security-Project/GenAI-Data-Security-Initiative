@@ -19,7 +19,8 @@ with one of the reasons in REASONS (defined in the dataset's schema.json).
 ERROR: the value is not a string; the id is not in the registry; the registry
        lists the field with no CycloneDX location, so the generator never
        writes it into the BOM; the reason is not one of REASONS; the row
-       carries both keys.
+       carries both keys; a row in a framework_alignments list carries
+       neither, so it is not keyed.
 The inclusion rule and tier are not judged: a field written only
 "include_if_available" is still a valid key, because the generator emits it
 whenever the model's source has the data.
@@ -80,6 +81,29 @@ def iter_keyed_rows(obj: Any, pointer: str = ""):
             yield from iter_keyed_rows(v, f"{pointer}/{i}")
 
 
+def iter_alignment_rows(obj: Any, pointer: str = ""):
+    """(pointer, row) for every object in a framework_alignments list, at any depth."""
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if k == "framework_alignments" and isinstance(v, list):
+                for i, row in enumerate(v):
+                    if isinstance(row, dict):
+                        yield f"{pointer}/{k}/{i}", row
+            yield from iter_alignment_rows(v, f"{pointer}/{k}")
+    elif isinstance(obj, list):
+        for i, v in enumerate(obj):
+            yield from iter_alignment_rows(v, f"{pointer}/{i}")
+
+
+def check_coverage(path: Path, data: Any) -> list[Finding]:
+    message = f"the mapping row carries neither {KEY} nor {NONE_KEY}"
+    return [
+        Finding(ERROR, CHECK, path, pointer, message)
+        for pointer, row in iter_alignment_rows(data)
+        if KEY not in row and NONE_KEY not in row
+    ]
+
+
 def check_reason(path: Path, pointer: str, row: dict) -> list[Finding]:
     reason = row[NONE_KEY]
     if reason in REASONS:
@@ -110,7 +134,8 @@ def check_row(path: Path, pointer: str, row: dict) -> list[Finding]:
 
 
 def check_data(path: Path, data: Any) -> list[Finding]:
-    return [f for pointer, row in iter_keyed_rows(data) for f in check_row(path, pointer, row)]
+    keyed = [f for pointer, row in iter_keyed_rows(data) for f in check_row(path, pointer, row)]
+    return keyed + check_coverage(path, data)
 
 
 def check_file(path: Path) -> list[Finding]:
