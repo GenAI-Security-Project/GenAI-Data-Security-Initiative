@@ -230,6 +230,7 @@
               "CIS Controls v8",
               "OWASP LLM Top 10 2025",
               "OWASP Agentic Top 10 2026",
+              "OWASP MCP Top 10",
               "MITRE ATLAS",
               "MITRE ATT&CK",
               "EU AI Act",
@@ -248,7 +249,28 @@
             "type": "string",
             "enum": ["satisfied", "partial", "missing", "not_applicable"]
           },
-          "notes": { "type": "string" }
+          "notes": { "type": "string" },
+          "aibom_field": {
+            "description": "The field of a generated CycloneDX AIBOM that evidences this control: an id from the OWASP AIBOM Generator's src/models/field_registry.json (for example datasets, metric or safetyRiskAssessment). data_validation/validators/aibom_field_check.py checks it against data_validation/reference_data/aibom_fields.csv.",
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_]*$"
+          },
+          "aibom_field_none": {
+            "description": "Why no field of a generated AIBOM evidences this control, for a row without aibom_field. deployment-control: the deploying organisation meets the control with its own systems, processes or legal obligations (access, encryption, monitoring, incident response, contracts, policies), which an AIBOM of the model does not record. runtime-behaviour: the control is about what the running application does with live inputs and outputs (prompt injection, disclosure filtering, output handling, rate limits), which a static AIBOM does not record. no-registry-field: the control is about the model itself, but field_registry.json has no field that records it.",
+            "type": "string",
+            "enum": ["deployment-control", "runtime-behaviour", "no-registry-field"]
+          },
+          "test_records": {
+            "description": "Published signed test records this row rests on: a corpus shipped in the pinned agent-evidence-vectors package and, optionally, one requirement in its REGISTRY.json. data_validation/validators/evidence_mapping_check.py replays the corpus with its reference verifier.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["package", "corpus"],
+            "properties": {
+              "package": { "const": "agent-evidence-vectors" },
+              "corpus": { "type": "string", "pattern": "^vectors(-[a-z0-9]+)*$" },
+              "requirement": { "type": "string", "minLength": 1 }
+            }
+          }
         }
       },
       "minItems": 4

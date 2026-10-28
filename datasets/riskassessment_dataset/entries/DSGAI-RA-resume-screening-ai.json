@@ -43,13 +43,13 @@
     {"description": "DSAR / right-to-explanation workflow not fully automated.", "addresses_dsgai": ["DSGAI08"], "suggested_remediation": "Build a per-candidate decision-explanation export that includes the ranking inputs and the audit-trail reference.", "urgency": "Near-term"}
   ],
   "framework_alignments": [
-    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-05", "control_name": "Protections against data leaks", "alignment_status": "satisfied"},
-    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.11", "control_name": "Fairness and bias evaluated", "alignment_status": "partial"},
-    {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied"},
-    {"framework": "ISO/IEC 27001", "control_id": "A.5.34", "control_name": "Privacy and protection of PII", "alignment_status": "satisfied"},
-    {"framework": "EU AI Act", "control_id": "Annex III(4)", "control_name": "High-risk: employment", "alignment_status": "partial"},
-    {"framework": "GDPR", "control_id": "Art. 22", "control_name": "Automated individual decision-making", "alignment_status": "partial"},
-    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"}
+    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-05", "control_name": "Protections against data leaks", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.11", "control_name": "Fairness and bias evaluated", "alignment_status": "partial", "aibom_field": "ethicalConsiderations"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied", "aibom_field": "safetyRiskAssessment"},
+    {"framework": "ISO/IEC 27001", "control_id": "A.5.34", "control_name": "Privacy and protection of PII", "alignment_status": "satisfied", "aibom_field": "useSensitivePersonalInformation"},
+    {"framework": "EU AI Act", "control_id": "Annex III(4)", "control_name": "High-risk: employment", "alignment_status": "partial", "aibom_field": "intendedUse"},
+    {"framework": "GDPR", "control_id": "Art. 22", "control_name": "Automated individual decision-making", "alignment_status": "partial", "aibom_field": "autonomyType"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied", "aibom_field_none": "runtime-behaviour"}
   ],
   "compliance_obligations": ["GDPR", "CCPA", "EU AI Act", "SOC 2"],
   "maturity_overall": "Developing",

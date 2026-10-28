@@ -40,12 +40,12 @@
     {"description": "No automated detection of HR-policy doc tampering.", "addresses_dsgai": ["DSGAI04", "DSGAI21"], "suggested_remediation": "Add integrity hashing on policy docs; alert on changes outside the editorial workflow.", "urgency": "Strategic"}
   ],
   "framework_alignments": [
-    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions with least privilege", "alignment_status": "satisfied"},
-    {"framework": "NIST AI RMF 1.0", "control_id": "MAP 4.1", "control_name": "Approaches for mapping legal and AI risks", "alignment_status": "satisfied"},
-    {"framework": "ISO/IEC 42001", "control_id": "A.8.2", "control_name": "Data resources for AI systems", "alignment_status": "satisfied"},
-    {"framework": "ISO/IEC 27001", "control_id": "A.5.34", "control_name": "Privacy and protection of PII", "alignment_status": "satisfied"},
-    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"},
-    {"framework": "GDPR", "control_id": "Art. 5(1)(c)", "control_name": "Data minimisation", "alignment_status": "satisfied"}
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions with least privilege", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MAP 4.1", "control_name": "Approaches for mapping legal and AI risks", "alignment_status": "satisfied", "aibom_field": "licenses"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.8.2", "control_name": "Data resources for AI systems", "alignment_status": "satisfied", "aibom_field": "datasets"},
+    {"framework": "ISO/IEC 27001", "control_id": "A.5.34", "control_name": "Privacy and protection of PII", "alignment_status": "satisfied", "aibom_field": "useSensitivePersonalInformation"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied", "aibom_field_none": "runtime-behaviour"},
+    {"framework": "GDPR", "control_id": "Art. 5(1)(c)", "control_name": "Data minimisation", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"}
   ],
   "compliance_obligations": ["GDPR", "CCPA", "SOC 2"],
   "maturity_overall": "Managed",

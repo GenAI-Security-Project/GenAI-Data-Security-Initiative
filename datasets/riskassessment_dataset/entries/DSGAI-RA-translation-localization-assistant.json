@@ -37,11 +37,11 @@
     {"description": "Audit-log retention does not differentiate translated PII from raw.", "addresses_dsgai": ["DSGAI14", "DSGAI08"], "suggested_remediation": "Apply field-level redaction to translated outputs; separate retention bucket for sensitive translations.", "urgency": "Strategic"}
   ],
   "framework_alignments": [
-    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-05", "control_name": "Protections against data leaks", "alignment_status": "satisfied"},
-    {"framework": "NIST AI RMF 1.0", "control_id": "MAP 4.1", "control_name": "Approaches for mapping legal and AI risks", "alignment_status": "satisfied"},
-    {"framework": "ISO/IEC 42001", "control_id": "A.6.1.2", "control_name": "AI policy", "alignment_status": "satisfied"},
-    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"},
-    {"framework": "GDPR", "control_id": "Art. 28", "control_name": "Processor obligations", "alignment_status": "satisfied"}
+    {"framework": "NIST CSF 2.0", "control_id": "PR.DS-05", "control_name": "Protections against data leaks", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MAP 4.1", "control_name": "Approaches for mapping legal and AI risks", "alignment_status": "satisfied", "aibom_field": "licenses"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.6.1.2", "control_name": "AI policy", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied", "aibom_field_none": "runtime-behaviour"},
+    {"framework": "GDPR", "control_id": "Art. 28", "control_name": "Processor obligations", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"}
   ],
   "compliance_obligations": ["GDPR", "SOC 2"],
   "maturity_overall": "Defined",

@@ -40,13 +40,13 @@
     {"description": "Image tamper-detection is heuristic; no signed-camera-attestation accepted.", "addresses_dsgai": ["DSGAI04", "DSGAI21"], "suggested_remediation": "Pilot signed-camera attestation acceptance for high-severity claims.", "urgency": "Strategic"}
   ],
   "framework_alignments": [
-    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions with least privilege", "alignment_status": "satisfied"},
-    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.11", "control_name": "Fairness and bias evaluated", "alignment_status": "satisfied"},
-    {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied"},
-    {"framework": "EU AI Act", "control_id": "Annex III(5)", "control_name": "High-risk: insurance and creditworthiness", "alignment_status": "partial"},
-    {"framework": "GDPR", "control_id": "Art. 22", "control_name": "Automated individual decision-making", "alignment_status": "satisfied"},
-    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied"},
-    {"framework": "SOC 2", "control_id": "CC6.1", "control_name": "Logical and physical access controls", "alignment_status": "satisfied"}
+    {"framework": "NIST CSF 2.0", "control_id": "PR.AC-04", "control_name": "Access permissions with least privilege", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"},
+    {"framework": "NIST AI RMF 1.0", "control_id": "MEASURE 2.11", "control_name": "Fairness and bias evaluated", "alignment_status": "satisfied", "aibom_field": "ethicalConsiderations"},
+    {"framework": "ISO/IEC 42001", "control_id": "A.6.2.6", "control_name": "AI system impact assessment", "alignment_status": "satisfied", "aibom_field": "safetyRiskAssessment"},
+    {"framework": "EU AI Act", "control_id": "Annex III(5)", "control_name": "High-risk: insurance and creditworthiness", "alignment_status": "partial", "aibom_field": "intendedUse"},
+    {"framework": "GDPR", "control_id": "Art. 22", "control_name": "Automated individual decision-making", "alignment_status": "satisfied", "aibom_field": "autonomyType"},
+    {"framework": "OWASP LLM Top 10 2025", "control_id": "LLM02:2025", "control_name": "Sensitive Information Disclosure", "alignment_status": "satisfied", "aibom_field_none": "runtime-behaviour"},
+    {"framework": "SOC 2", "control_id": "CC6.1", "control_name": "Logical and physical access controls", "alignment_status": "satisfied", "aibom_field_none": "deployment-control"}
   ],
   "compliance_obligations": ["GDPR", "CCPA", "EU AI Act", "SOC 2"],
   "maturity_overall": "Managed",
