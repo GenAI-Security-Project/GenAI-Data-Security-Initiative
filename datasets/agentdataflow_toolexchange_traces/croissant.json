@@ -51,7 +51,7 @@
   "description": "Agent Data Flow and Tool Exchange Traces. Sanitized traces of agentic AI tool calls, plugin data exchanges and delegation chains: typed spans, data classes and sensitivity, findings mapped to DSGAI risks, and a provenance tier with cited evidence.",
   "conformsTo": "http://mlcommons.org/croissant/1.1",
   "citeAs": "OWASP GenAI Data Security Initiative. Agent Data Flow and Tool Exchange Traces (version 1.0.0). OWASP GenAI Security Project. https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/tree/main/datasets/agentdataflow_toolexchange_traces",
-  "dateModified": "2026-10-12",
+  "dateModified": "2026-10-19",
   "datePublished": "2026-08-07",
   "license": "https://creativecommons.org/licenses/by-sa/4.0/",
   "rai:dataBiases": "Centred on MCP-based tool ecosystems, where most public agent data-flow documentation exists.",
@@ -80,7 +80,7 @@
       "name": "index.csv",
       "contentUrl": "index.csv",
       "encodingFormat": "text/csv",
-      "sha256": "6ecd8311a2e7756e163df367aea2e2ce909be89fe186ddb7c4534c08fce62631"
+      "sha256": "0984df28bee5f9981ef2ca433cd508f978ad9c6b202ed9522a074b81a301c178"
     },
     {
       "@type": "cr:FileObject",
