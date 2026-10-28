@@ -10,8 +10,8 @@ result per dataset.
 2. Shared checks (data_validation/validators/) on every data file:
    schema (for files no dataset validator covers), DSGAI IDs, CVE/CWE/ATLAS
    OWASP Top 10 and NIST AI 100-2 IDs, CVSS scores and ratings, dates,
-   SPDX licences and BCP 47 language tags, anonymization patterns and
-   duplicates. Errors fail the run;
+   SPDX licences and BCP 47 language tags, mapping rows that cite
+   published test records, anonymization patterns and duplicates. Errors fail the run;
    heuristic warnings (anonymization, near-duplicates, retired IDs) are
    counted, and printed with --verbose.
 
@@ -41,6 +41,7 @@ from validators import (  # noqa: E402
     date_check,
     dedup_checker,
     dsgai_mapping_check,
+    evidence_mapping_check,
     metadata_check,
     schema_validator,
     severity_check,
@@ -158,6 +159,7 @@ def shared_checks(dataset: Path, datasets_root: Path) -> tuple[int, list[Finding
         findings += severity_check.check_data(path, data)
         findings += date_check.check_data(path, data)
         findings += metadata_check.check_data(path, data)
+        findings += evidence_mapping_check.check_data(path, data)
         findings += anonymization_scanner.check_data(path, data)
     records, load_errors = dedup_checker.load_records(files)
     findings += load_errors + dedup_checker.check_records(records)
@@ -225,7 +227,10 @@ def main(argv: list[str] | None = None) -> int:
 
     checked_files = errors = warnings = 0
     if not args.no_shared:
-        print("\nShared checks (schema, DSGAI, CVE/CWE/ATLAS/OWASP/NIST IDs, CVSS, dates, licences, languages, anonymization, duplicates):")
+        print(
+            "\nShared checks (schema, DSGAI, CVE/CWE/ATLAS/OWASP/NIST IDs, CVSS, dates, licences, languages,"
+            " test records, anonymization, duplicates):"
+        )
         for dataset in datasets:
             n, findings = shared_checks(dataset, datasets_root)
             if not n:

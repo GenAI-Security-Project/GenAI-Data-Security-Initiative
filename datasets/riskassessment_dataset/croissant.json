@@ -89,7 +89,7 @@
       "description": "JSON Schema for the records",
       "contentUrl": "schema.json",
       "encodingFormat": "application/json",
-      "sha256": "75ae9981bc08d69ad0916706acf710946f1a892724d78ba8e0ed9f596305e79d"
+      "sha256": "c4ef74e00d8008b01cdf7f9297225562326c83db5aaaa3343928040181e88b89"
     },
     {
       "@type": "cr:FileSet",
