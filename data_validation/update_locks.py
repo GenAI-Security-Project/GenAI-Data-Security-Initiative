@@ -17,6 +17,7 @@ after editing an .in file, run this script and commit both files.
 """
 from __future__ import annotations
 
+import re
 import subprocess
 import sys
 import tempfile
@@ -41,6 +42,10 @@ def compile_lock(name: str, constraints: Path | None = None) -> None:
     subprocess.run(cmd, check=True, cwd=HERE)
     extra = ", constrained to requirements-ner.txt" if constraints else ""
     body = out.read_text(encoding="utf-8")
+    if constraints:
+        # uv annotates "-c <temp path>"; name the lock the pins come from instead,
+        # so no machine-local path is committed.
+        body = re.sub(r"-c \S*" + re.escape(constraints.name), "-c requirements-ner.txt", body)
     out.write_text(HEADER.format(src=src.name, py=PYTHON, extra=extra) + body, encoding="utf-8", newline="")
     print(f"wrote {out.name}")
 
