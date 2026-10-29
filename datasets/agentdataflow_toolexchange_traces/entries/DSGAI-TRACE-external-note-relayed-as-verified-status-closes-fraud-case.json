@@ -297,6 +297,10 @@
     "Test each outsider-writable field with status-shaped and instruction-shaped text, and check what the intake agent emits in its handoff."
   ],
 
+  "contributor": {
+    "name": "Divija Ganiga"
+  },
+
   "date_added": "2026-10-19",
 
   "tags": ["multi-agent", "delegation-chain", "inter-agent-context-smuggling", "trusted-metadata", "confused-deputy", "fraud-triage", "financial-services", "indirect-prompt-injection", "decision-integrity", "human-review-bypass"],
