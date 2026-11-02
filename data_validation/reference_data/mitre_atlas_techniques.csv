@@ -11,10 +11,10 @@ AML.T0002.001,Models,AML.T0002,Resource Development,current
 AML.T0002.002,AI Agent Configuration,AML.T0002,Resource Development,current
 AML.T0003,Search Victim-Owned Websites,,Reconnaissance,current
 AML.T0004,Search Application Repositories,,Reconnaissance,current
-AML.T0005,Create Proxy AI Model,,AI Attack Adaptation,current
-AML.T0005.000,Train Proxy via Gathered AI Artifacts,AML.T0005,AI Attack Adaptation,current
-AML.T0005.001,Train Proxy via Replication,AML.T0005,AI Attack Adaptation,current
-AML.T0005.002,Use Pre-Trained Model,AML.T0005,AI Attack Adaptation,current
+AML.T0005,Replicate AI Model Behavior,,AI Attack Adaptation; Resource Development,current
+AML.T0005.000,Replicate Behavior from Gathered AI Artifacts,AML.T0005,AI Attack Adaptation; Resource Development,current
+AML.T0005.001,Replicate Behavior from Model Outputs,AML.T0005,AI Attack Adaptation; Resource Development,current
+AML.T0005.002,Adapt Existing Model to Replicate Behavior,AML.T0005,AI Attack Adaptation; Resource Development,current
 AML.T0006,Active Scanning,,Reconnaissance,current
 AML.T0006.000,Enumerate Hosted AI Resources,AML.T0006,Reconnaissance,current
 AML.T0006.001,Query Platform Metadata APIs,AML.T0006,Reconnaissance,current
@@ -28,11 +28,11 @@ AML.T0008.002,Domains,AML.T0008,Resource Development,current
 AML.T0008.003,Physical Countermeasures,AML.T0008,Resource Development,current
 AML.T0008.004,Serverless,AML.T0008,Resource Development,current
 AML.T0008.005,AI Service Proxies,AML.T0008,Resource Development,current
-AML.T0010,AI Supply Chain Compromise,,Initial Access,current
+AML.T0010,Supply Chain Compromise,,Initial Access,current
 AML.T0010.000,Hardware,AML.T0010,Initial Access,current
-AML.T0010.001,AI Software,AML.T0010,Initial Access,current
-AML.T0010.002,Data,AML.T0010,Initial Access,current
-AML.T0010.003,Model,AML.T0010,Initial Access,current
+AML.T0010.001,Software,AML.T0010,Initial Access,current
+AML.T0010.002,Data Repository,AML.T0010,Initial Access,current
+AML.T0010.003,Model Repository,AML.T0010,Initial Access,current
 AML.T0010.004,Container Registry,AML.T0010,Initial Access,current
 AML.T0010.005,AI Agent Tool,AML.T0010,Initial Access,current
 AML.T0011,User Execution,,Execution,current
@@ -54,6 +54,7 @@ AML.T0017,Develop Capabilities,,Resource Development,current
 AML.T0017.000,Adversarial AI Attacks,AML.T0017,Resource Development,current
 AML.T0017.001,Autonomous Exploit Development,AML.T0017,Resource Development,current
 AML.T0017.002,AI Agent Tools,AML.T0017,Resource Development,current
+AML.T0017.003,Malware,AML.T0017,Resource Development,current
 AML.T0018,Manipulate AI Model,,AI Attack Adaptation; Persistence,current
 AML.T0018.000,Poison AI Model,AML.T0018,AI Attack Adaptation; Persistence,current
 AML.T0018.001,Modify AI Model Architecture,AML.T0018,AI Attack Adaptation; Persistence,current
@@ -63,9 +64,9 @@ AML.T0019,Publish Poisoned Datasets,,,retired
 AML.T0020,Training Data Poisoning,,Persistence,current
 AML.T0021,Establish Accounts,,Resource Development,current
 AML.T0024,Exfiltration via AI Inference API,,Exfiltration,current
-AML.T0024.000,Infer Training Data Membership,AML.T0024,Exfiltration,current
-AML.T0024.001,Invert AI Model,AML.T0024,Exfiltration,current
-AML.T0024.002,Extract AI Model,AML.T0024,Exfiltration,current
+AML.T0024.000,Infer Training Data Membership,AML.T0024,,retired
+AML.T0024.001,Invert AI Model,AML.T0024,,retired
+AML.T0024.002,Extract AI Model,AML.T0024,,retired
 AML.T0025,Exfiltration via Cyber Means,,Exfiltration,current
 AML.T0029,Denial of AI Service,,Impact,current
 AML.T0031,Erode AI Model Integrity,,Impact,current
@@ -106,8 +107,8 @@ AML.T0052.001,Deepfake-Assisted Phishing,AML.T0052,Initial Access; Lateral Movem
 AML.T0053,AI Agent Tool Invocation,,Execution; Privilege Escalation; Lateral Movement,current
 AML.T0054,LLM Jailbreak,,Defense Evasion; Privilege Escalation,current
 AML.T0055,Unsecured Credentials,,Credential Access,current
-AML.T0056,Extract LLM System Prompt,,Exfiltration,current
-AML.T0057,LLM Data Leakage,,Exfiltration,current
+AML.T0056,Extract LLM System Prompt,,,retired
+AML.T0057,LLM Data Leakage,,,retired
 AML.T0058,Publish Poisoned Models,,,retired
 AML.T0059,Erode Dataset Integrity,,Impact,current
 AML.T0060,Publish Hallucinated Entities,,Resource Development,current
@@ -148,6 +149,8 @@ AML.T0084.003,Call Chains,AML.T0084,Discovery,current
 AML.T0085,Data from AI Services,,Collection,current
 AML.T0085.000,RAG Databases,AML.T0085,Collection,current
 AML.T0085.001,AI Agent Tools,AML.T0085,Collection,current
+AML.T0085.002,Conversation Context and Memory,AML.T0085,Collection,current
+AML.T0085.003,System Instructions,AML.T0085,Collection,current
 AML.T0086,Exfiltration via AI Agent Tool Invocation,,Exfiltration,current
 AML.T0087,Gather Victim Identity Information,,Reconnaissance,current
 AML.T0088,Generate Deepfakes,,AI Attack Adaptation,current
@@ -210,3 +213,18 @@ AML.T0131,Crafted AI Assistant Links,,Initial Access,current
 AML.T0132,Misconfigured or Publicly Exposed AI Services,,Initial Access,current
 AML.T0133,Discover AI Agent Runtime Capabilities,,Discovery,current
 AML.T0134,AI Targeted Cloaking,,Defense Evasion,current
+AML.T0135,Outputs from AI Models,,Collection,current
+AML.T0136,Exfiltration via AI User Interface,,Exfiltration,current
+AML.T0137,Training Data Information from AI Models,,Collection,current
+AML.T0137.000,Infer Membership,AML.T0137,Collection,current
+AML.T0137.001,Infer Properties,AML.T0137,Collection,current
+AML.T0137.002,Invert AI Model,AML.T0137,Collection,current
+AML.T0137.003,Extract Memorized Data,AML.T0137,Collection,current
+AML.T0138,Indicator Removal,,Defense Evasion,current
+AML.T0139,Compromise Accounts,,Resource Development,current
+AML.T0140,Centralized AI Service Request Routing,,Defense Evasion,current
+AML.T0141,AI Service Request Metadata Sanitization,,Defense Evasion,current
+AML.T0142,Event Triggered Execution,,Persistence,current
+AML.T0143,LLM Prompt Propagation,,Lateral Movement,current
+AML.T0144,Recover AI Model Internals,,Discovery; Collection,current
+AML.T0145,Poison AI Agent Learning Environment,,Persistence,current
