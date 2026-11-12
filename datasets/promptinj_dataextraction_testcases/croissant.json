@@ -107,6 +107,14 @@
     },
     {
       "@type": "cr:FileSet",
+      "@id": "en_zh_starshield_financial_triage/cases/",
+      "name": "en_zh_starshield_financial_triage/cases/",
+      "description": "One JSON record per file",
+      "encodingFormat": "application/json",
+      "includes": "en_zh_starshield_financial_triage/cases/*.json"
+    },
+    {
+      "@type": "cr:FileSet",
       "@id": "tr_altayduel/cases/",
       "name": "tr_altayduel/cases/",
       "description": "One JSON record per file",
