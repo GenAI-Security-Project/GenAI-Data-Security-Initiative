@@ -48,6 +48,7 @@ Each test case should include:
 | [`tr_altayduel/`](tr_altayduel/) | 5 | Standalone Turkish cases with English glosses |
 | [`tr_altaysec_turkish_llm_injection/`](tr_altaysec_turkish_llm_injection/) | 300 | Standalone Turkish cases with manifest and source lineage |
 | [`tr_turkish_conversation_prompt_injection_pairs/`](tr_turkish_conversation_prompt_injection_pairs/) | 149 | Standalone Turkish-first attack cases with matched benign controls |
+| [`en_zh_starshield_financial_triage/`](en_zh_starshield_financial_triage/) | 12 | English (`en`) & Simplified Chinese (`zh-Hans`) indirect financial-triage & portal injection cases across 7 DSGAI categories |
 
 ## Important
 
