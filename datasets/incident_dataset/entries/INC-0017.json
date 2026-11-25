@@ -1,0 +1,28 @@
+{
+  "$schema": "../schema.json",
+  "incident_id": "INC-0017",
+  "title": "SQL injection in llmware's collection database bypasses document scoping (CVE-2026-85689)",
+  "disclosure": "public",
+  "date": "2026-09-04",
+  "summary": "CVE-2026-85689 reports that llmware 0.4.6 builds SQL WHERE clauses by inserting filter and lookup values directly into the query, in both its SQLite and PostgreSQL backends; the filter validator checks only the keys. Attacker-controlled filter values reaching the public lookup and query APIs can cancel the intended filter and return rows from documents or collections the caller was scoped out of, and on PostgreSQL allow boolean- and UNION-based injection.",
+  "dsgai_mapping": [
+    "DSGAI13",
+    "DSGAI01"
+  ],
+  "attack_vector": "SQL injection through filter values in the retrieval library's public API",
+  "data_types_affected": [
+    "other"
+  ],
+  "root_cause": "Unparameterized SQL built from caller-supplied filter values",
+  "impact": "Cross-document and cross-collection disclosure from the RAG document store; wider database access on PostgreSQL",
+  "source": "CVE record and coordinator advisory",
+  "source_urls": [
+    "https://www.cve.org/CVERecord?id=CVE-2026-85689",
+    "https://www.vulncheck.com/advisories/llmware-0.4.6-sql-injection-via-unescaped-filter-values"
+  ],
+  "affected_organizations": [
+    "llmware"
+  ],
+  "industry": "AI software",
+  "crosswalk_id": "INC-135"
+}

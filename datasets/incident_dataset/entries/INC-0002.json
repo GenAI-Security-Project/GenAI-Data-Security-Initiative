@@ -1,0 +1,29 @@
+{
+  "$schema": "../schema.json",
+  "incident_id": "INC-0002",
+  "title": "ChatGPT shows some users other users' chat titles and Plus subscribers' billing details",
+  "disclosure": "public",
+  "date": "2023-03-20",
+  "summary": "During an outage on 20 March 2023, a bug in the open-source Redis client used by ChatGPT let cached data reach the wrong user. Some users could see the titles of another active user's conversations, and for a nine-hour window some ChatGPT Plus subscribers could see another subscriber's billing details. The vendor took the service offline, patched the library and added extra checks that returned data belongs to the requesting user.",
+  "dsgai_mapping": [
+    "DSGAI11",
+    "DSGAI01"
+  ],
+  "attack_vector": "No attacker: a client-library defect returned one user's cached data in another user's session",
+  "data_types_affected": [
+    "pii",
+    "financial"
+  ],
+  "root_cause": "Cancelled requests left corrupted connections in a shared Redis connection pool, so a later request could receive a response meant for a different user; a server change that morning sharply increased cancellations",
+  "impact": "Conversation titles exposed across users; for about 1.2% of Plus subscribers active in the window, name, email, payment address, card type, last four card digits and expiry date could be visible to another user (full card numbers were not exposed)",
+  "mitigations_applied": "Library bug fixed upstream; redundant checks that cached data matches the requesting user; affected users notified",
+  "source": "Vendor post-mortem",
+  "source_urls": [
+    "https://openai.com/blog/march-20-chatgpt-outage"
+  ],
+  "affected_organizations": [
+    "OpenAI"
+  ],
+  "industry": "AI services",
+  "crosswalk_id": "INC-006"
+}

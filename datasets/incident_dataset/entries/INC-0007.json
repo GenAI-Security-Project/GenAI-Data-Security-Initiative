@@ -1,0 +1,25 @@
+{
+  "$schema": "../schema.json",
+  "incident_id": "INC-0007",
+  "title": "Tool-poisoning demonstration exfiltrates WhatsApp history through an MCP-connected agent",
+  "disclosure": "public",
+  "date": "2025-04-07",
+  "summary": "Researchers demonstrated that an AI agent connected to an open-source WhatsApp MCP server can be turned against its user. In one experiment a second, malicious MCP server changed its tool description after installation so the agent rerouted messages and sent the user's chat history to an attacker's number. In a second experiment, instructions hidden in an incoming WhatsApp message hijacked the agent when it listed chats. This is a research demonstration, not a reported compromise of real users.",
+  "dsgai_mapping": [
+    "DSGAI06",
+    "DSGAI01"
+  ],
+  "attack_vector": "MCP tool poisoning (a tool description changed after approval) and prompt injection through message content",
+  "data_types_affected": [
+    "pii",
+    "other"
+  ],
+  "root_cause": "Agents trust tool descriptions and tool output from every connected server in one shared context, with no isolation between servers",
+  "impact": "Showed that a user's whole message history and contact list can leave through the legitimate messaging channel, bypassing end-to-end encryption and traditional DLP",
+  "source": "Researchers' disclosure",
+  "source_urls": [
+    "https://invariantlabs.ai/blog/whatsapp-mcp-exploited"
+  ],
+  "industry": "Messaging",
+  "crosswalk_id": "INC-111"
+}

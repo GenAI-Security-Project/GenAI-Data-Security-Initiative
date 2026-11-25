@@ -1,0 +1,26 @@
+{
+  "$schema": "../schema.json",
+  "incident_id": "INC-0004",
+  "title": "Unauthorized access to Hugging Face Spaces secrets",
+  "disclosure": "public",
+  "date": "2024-05-31",
+  "summary": "Hugging Face disclosed that it had detected unauthorized access to its Spaces platform and that a subset of the secrets users store for their Spaces may have been accessed. It revoked the Hugging Face tokens found in those secrets and emailed affected users.",
+  "dsgai_mapping": [
+    "DSGAI02"
+  ],
+  "attack_vector": "Unauthorized access to the platform's store of user-supplied Space secrets (method not disclosed)",
+  "data_types_affected": [
+    "credentials"
+  ],
+  "impact": "A subset of Space secrets (API keys and tokens for users' applications) possibly exposed; affected tokens revoked",
+  "detection_method": "Detected by the platform operator",
+  "mitigations_applied": "Revoked exposed tokens, removed organization tokens, added a key management service for Spaces secrets, engaged outside forensic specialists, reported to law enforcement and data protection authorities, and advised users to refresh keys and move to fine-grained tokens",
+  "source": "Vendor security disclosure",
+  "source_urls": [
+    "https://huggingface.co/blog/space-secrets-disclosure"
+  ],
+  "affected_organizations": [
+    "Hugging Face"
+  ],
+  "industry": "AI services"
+}

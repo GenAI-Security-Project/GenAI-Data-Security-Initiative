@@ -1,0 +1,29 @@
+{
+  "$schema": "../schema.json",
+  "incident_id": "INC-0016",
+  "title": "Contentful MCP server sends its management token to an LLM-chosen host (CVE-2026-53957)",
+  "disclosure": "public",
+  "date": "2026-06-12",
+  "summary": "The maintainers of the Contentful MCP server disclosed that its space export and import tools accepted host and proxy arguments from the model and passed them to the Contentful Management API client. A direct tool call, or prompt injection through Contentful content the model reads, could send the server's personal access token, which has full read/write access to its spaces, to an attacker-controlled endpoint. Fixed in @contentful/mcp-server 1.7.19 and @contentful/mcp-tools 0.4.5.",
+  "dsgai_mapping": [
+    "DSGAI02",
+    "DSGAI06"
+  ],
+  "attack_vector": "Model-controlled tool arguments redirect an authenticated API client (server-side request forgery)",
+  "data_types_affected": [
+    "credentials"
+  ],
+  "root_cause": "Tool parameters chosen by the LLM were passed straight into network options of a client carrying the server's credential",
+  "impact": "Theft of a Management API token granting full read/write access to the configured content spaces",
+  "mitigations_applied": "Fixed releases: @contentful/mcp-server 1.7.19 and @contentful/mcp-tools 0.4.5",
+  "source": "Maintainers' security advisory and CVE record",
+  "source_urls": [
+    "https://github.com/contentful/contentful-mcp-server/security/advisories/GHSA-2xhg-73j7-rrgx",
+    "https://www.cve.org/CVERecord?id=CVE-2026-53957"
+  ],
+  "affected_organizations": [
+    "Contentful"
+  ],
+  "industry": "Content management",
+  "crosswalk_id": "INC-147"
+}

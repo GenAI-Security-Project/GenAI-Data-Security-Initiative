@@ -1,0 +1,31 @@
+{
+  "$schema": "../schema.json",
+  "incident_id": "INC-0005",
+  "title": "Slack AI prompt injection can leak data from private channels",
+  "disclosure": "public",
+  "date": "2024-08-20",
+  "summary": "Researchers showed that a message posted in a public Slack channel could carry instructions that Slack AI follows when another user later asks it a question. In the demonstration, Slack AI answered a user's request for a secret kept in a private channel with a fake re-authentication link that carried the secret to the attacker's server. A product change on 14 August 2024 also brought files from channels and DMs into Slack AI answers, widening the exposure. Slack initially described the behaviour as intended; Salesforce later said it had deployed a patch and had no evidence of unauthorized access to customer data. The researchers and the vendor disagree on whether the attacker needed an account in the same workspace.",
+  "dsgai_mapping": [
+    "DSGAI01",
+    "DSGAI15"
+  ],
+  "attack_vector": "Indirect prompt injection: attacker-written channel content retrieved into the assistant's context and followed as instructions, exfiltrating data through a rendered link",
+  "data_types_affected": [
+    "credentials",
+    "other"
+  ],
+  "root_cause": "The assistant combined content the user may not trust (public-channel messages) with private data in one context and rendered model-generated links",
+  "impact": "Secrets and other content from private channels could be exfiltrated without the attacker having access to those channels",
+  "mitigations_applied": "Vendor deployed a patch",
+  "source": "Researchers' disclosure and press coverage including the vendor's statement",
+  "source_urls": [
+    "https://promptarmor.substack.com/p/data-exfiltration-from-slack-ai-via",
+    "https://www.theregister.com/2024/08/21/slack_ai_prompt_injection/"
+  ],
+  "affected_organizations": [
+    "Slack",
+    "Salesforce"
+  ],
+  "industry": "Enterprise software",
+  "crosswalk_id": "INC-024"
+}

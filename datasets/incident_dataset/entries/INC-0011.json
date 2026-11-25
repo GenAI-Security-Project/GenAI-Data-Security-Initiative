@@ -1,0 +1,29 @@
+{
+  "$schema": "../schema.json",
+  "incident_id": "INC-0011",
+  "title": "ForcedLeak: prompt injection in Salesforce Agentforce exfiltrates CRM data",
+  "disclosure": "public",
+  "date": "2025-09-25",
+  "summary": "Researchers showed that instructions planted in the description field of a Salesforce Web-to-Lead form could be executed by Agentforce when the agent later processed the lead. The injected instructions made the agent load an image from a domain that was still on the content security allowlist but had expired, which the researchers bought, carrying CRM data out in the request. Reported on 28 July 2025, fixed on 8 September and disclosed on 25 September.",
+  "dsgai_mapping": [
+    "DSGAI01",
+    "DSGAI15"
+  ],
+  "attack_vector": "Indirect prompt injection via public web-form input, with exfiltration through an allowlisted but expired domain",
+  "data_types_affected": [
+    "pii",
+    "other"
+  ],
+  "root_cause": "Untrusted form input was treated as instructions in the agent's context, and the outbound allowlist contained a domain the vendor no longer controlled",
+  "impact": "Customer contact information, sales pipeline data and internal communications in the CRM could be exfiltrated",
+  "mitigations_applied": "Trusted URL enforcement for agent output (8 September 2025) and the expired domain re-secured",
+  "source": "Researchers' disclosure",
+  "source_urls": [
+    "https://noma.security/blog/forcedleak-agent-risks-exposed-in-salesforce-agentforce"
+  ],
+  "affected_organizations": [
+    "Salesforce"
+  ],
+  "industry": "Enterprise software",
+  "crosswalk_id": "INC-088"
+}
