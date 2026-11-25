@@ -213,8 +213,7 @@ DATASETS: dict[str, dict] = {
             "DSGAI mappings are expert judgments reviewed by peers.",
         ],
         "biases": [
-            "Skews toward incidents that security researchers publicise, especially prompt injection against "
-            "assistants and agents, and toward English-language sources.",
+            "Skews toward incidents that security researchers publicise, especially prompt injection against assistants and agents, and toward English-language sources.",
             "Organizations that disclose openly appear more often than those that do not.",
         ],
         "use_cases": [
