@@ -47,7 +47,7 @@ Canonical schema: [`schema.json`](./schema.json). Reference entry: [`example.jso
 | `risks_identified` | yes (≥5) | Per-DSGAI risk entries: `dsgai_id`, `inherent_rating`, `rationale`, optional `residual_rating` + `residual_rationale` |
 | `existing_controls` | no | Mitigations in place; each with optional tier and `addresses_dsgai[]` |
 | `control_gaps` | no | Missing/weak mitigations; each with `urgency` (Immediate/Near-term/Strategic) and optional `suggested_remediation` |
-| `framework_alignments` | yes (≥4) | Mappings to NIST CSF 2.0, NIST AI RMF, ISO/IEC 42001/27001, OWASP LLM/Agentic Top 10, MITRE ATLAS/ATT&CK, EU AI Act, GDPR, HIPAA, FERPA, PCI DSS 4.0, SOC 2, FedRAMP, Other |
+| `framework_alignments` | yes (≥4) | Mappings to NIST CSF 2.0, NIST AI RMF, ISO/IEC 42001/27001, OWASP LLM/Agentic/MCP Top 10, MITRE ATLAS/ATT&CK, EU AI Act, GDPR, HIPAA, FERPA, PCI DSS 4.0, SOC 2, FedRAMP, Other. A row may add `test_records` naming a published corpus of signed test records (see `data_validation/validators/evidence_mapping_check.py`), and `aibom_field` naming the OWASP AIBOM Generator field that evidences the control, or `aibom_field_none` giving the reason no field does (see `data_validation/validators/aibom_field_check.py`) |
 | `compliance_obligations` | no | Regimes the deployment likely operates under |
 | `maturity_overall` | no | CMMI-like: Initial/Developing/Defined/Managed/Optimizing |
 | `source_urls` | no | Optional inspirational references |

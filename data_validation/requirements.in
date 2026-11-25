@@ -5,3 +5,7 @@ jsonschema[format-nongpl]>=4.18.0
 pytest>=7.0.0
 # Only for reference_data/update_reference_data.py (refreshing the ATLAS table)
 pyyaml>=6.0
+# Signed conformance records and their reference verifier, replayed by
+# validators/evidence_mapping_check.py for mapping rows that cite test_records.
+# Exact pin: a new corpus release can change a verdict, so Dependabot proposes each bump.
+agent-evidence-vectors==0.24.0

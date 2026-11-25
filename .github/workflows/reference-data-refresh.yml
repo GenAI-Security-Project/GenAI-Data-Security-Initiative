@@ -28,7 +28,9 @@ jobs:
       - name: Install requirements
         run: python -m pip install --quiet -r data_validation/requirements.txt
 
-      - name: Regenerate ATLAS and CWE tables
+      - name: Regenerate the reference tables
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: python data_validation/reference_data/update_reference_data.py
 
       - name: Run the checks against the new tables
@@ -50,11 +52,11 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$branch"
           git add data_validation/reference_data
-          git commit -m "reference_data: refresh MITRE ATLAS and CWE tables"
+          git commit -m "reference_data: refresh the externally maintained tables"
           git push --force origin "$branch"
-          versions=$(grep -E '^\| (MITRE ATLAS|CWE) ' data_validation/reference_data/SOURCES.md | cut -d'|' -f2,4)
+          versions=$(grep -E '^\| (MITRE ATLAS|CWE|AIBOM Generator fields) ' data_validation/reference_data/SOURCES.md | cut -d'|' -f2,4)
           {
-            echo "The monthly refresh regenerated the MITRE ATLAS and CWE tables."
+            echo "The monthly refresh regenerated the MITRE ATLAS, CWE and AIBOM Generator field tables."
             echo
             echo "Versions: $versions"
             echo
