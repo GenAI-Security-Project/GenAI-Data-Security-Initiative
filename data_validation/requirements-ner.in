@@ -2,3 +2,7 @@
 presidio-analyzer>=2.2.360
 spacy>=3.8,<3.9
 en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
+# Security floors for transitive dependencies (Dependabot alerts):
+# certifi GHSA-6q48-6c7w-9gw2 (emSign roots); filelock GHSA-v4x8-3wr5-3wq8 and related.
+certifi>=2026.10.18
+filelock>=4.2.1
