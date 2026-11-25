@@ -5,8 +5,10 @@ named-entity recognition (Microsoft Presidio on a spaCy English model).
 WARN only: NER is probabilistic, and a reviewer decides. It runs on the
 datasets whose contribution rules require anonymization:
 
-  incident_dataset                   person and organisation names (its
-                                     README forbids both)
+  incident_dataset                   person names; organisation names too,
+                                     except in entries with
+                                     "disclosure": "public", which may name
+                                     the affected organisation (README)
   riskassessment_dataset,
   agentdataflow_toolexchange_traces,
   rag_dataset                        person names
@@ -62,6 +64,14 @@ SCOPE = {
 }
 
 
+def entities_for(dataset: str, data) -> list[str]:
+    """Entity types to scan one file for: a public incident may name organisations."""
+    entities = SCOPE.get(dataset, ["PERSON"])
+    if dataset == "incident_dataset" and isinstance(data, dict) and data.get("disclosure") == "public":
+        return [e for e in entities if e != "ORGANIZATION"]
+    return entities
+
+
 def load_allowlist() -> set[str]:
     """Reviewed false positives (reference_data/ner_allowlist.txt)."""
     lines = ALLOWLIST_PATH.read_text(encoding="utf-8").splitlines()
@@ -115,13 +125,12 @@ def main(argv: list[str] | None = None) -> int:
     findings: list[Finding] = []
     files = 0
     for dataset in targets:
-        entities = SCOPE.get(dataset.name, ["PERSON"])
         if not dataset.is_dir():
             continue
         for path in iter_data_files(dataset):
             data, err = load_json(path, CHECK)
             files += 1
-            findings += [err] if err else scan_data(path, data, entities, analyzer, allow)
+            findings += [err] if err else scan_data(path, data, entities_for(dataset.name, data), analyzer, allow)
     print(f"Checked {files} file(s)")
     print_findings(findings, DATASETS_ROOT.parent)
     return 0

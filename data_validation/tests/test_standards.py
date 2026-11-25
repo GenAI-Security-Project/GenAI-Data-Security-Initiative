@@ -94,7 +94,8 @@ def test_every_published_dataset_has_croissant_metadata():
     """A dataset folder with records needs a croissant.json (build_croissant.py makes it)."""
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "croissant"))
     from build_croissant import DATASETS
-    with_records = {p.parent.name for p in DATASETS_ROOT.glob("*/*.json")} | \
+    not_records = {"schema.json", "croissant.json"}
+    with_records = {p.parent.name for p in DATASETS_ROOT.glob("*/*.json") if p.name not in not_records} | \
                    {p.parents[1].name for p in DATASETS_ROOT.glob("*/entries/*.json")} | \
                    {p.parents[2].name for p in DATASETS_ROOT.glob("*/*/cases/*.json")}
     with_records -= {"_shared"}

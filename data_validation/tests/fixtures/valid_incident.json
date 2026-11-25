@@ -1,10 +1,18 @@
 {
   "incident_id": "INC-0001",
+  "title": "RAG support chatbot returns full account numbers from retrieved documents",
+  "disclosure": "anonymized",
   "date": "2025-03-10",
   "summary": "A customer-facing RAG chatbot deployed by a financial services company returned full account numbers from retrieved support documents when users asked about account details in a specific conversational pattern.",
-  "dsgai_mapping": ["DSGAI01", "DSGAI15"],
+  "dsgai_mapping": [
+    "DSGAI01",
+    "DSGAI15"
+  ],
   "attack_vector": "Conversational enumeration via high-recall prompts targeting RAG retrieval",
-  "data_types_affected": ["pii", "financial"],
+  "data_types_affected": [
+    "pii",
+    "financial"
+  ],
   "root_cause": "No retrieval-time redaction applied to PII fields in source documents",
   "impact": "Approximately 200 account numbers exposed over a 3-week period before detection",
   "detection_method": "Customer complaint triggered manual log review",

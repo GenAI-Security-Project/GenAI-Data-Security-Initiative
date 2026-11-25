@@ -28,7 +28,8 @@ def test_invalid_vulnerability():
     assert "not_a_valid_component" in messages
 
 
-def test_valid_incident_against_fallback_schema():
+def test_valid_incident_through_stub_schema():
+    # incident.schema.json is a stub whose $ref points at datasets/incident_dataset/schema.json.
     assert schema_validator.validate_file(FIXTURES / "valid_incident.json", SCHEMAS_DIR / "incident.schema.json") == []
 
 
