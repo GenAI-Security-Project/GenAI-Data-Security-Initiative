@@ -226,7 +226,7 @@ Open, community-contributed datasets for research, benchmarking, and security te
 | [Risk Assessment Dataset](datasets/riskassessment_dataset/) | Mapped risk assessments for LLM deployments | ✅ 23 entries |
 | [Prompt Injection & Data Extraction Test Cases](datasets/promptinj_dataextraction_testcases/) | Adversarial prompts and extraction techniques for red-teaming and regression testing | ✅ 300+ cases |
 | [RAG Poisoning & Retrieval Integrity](datasets/rag_dataset/) | Synthetic poisoning fixtures for testing vector store integrity and retrieval filtering | 🌱 growing — contribute |
-| [Incident Dataset](datasets/incident_dataset/) | Anonymized real-world GenAI data security incidents | 🙋 seeking contributors |
+| [Incident Dataset](datasets/incident_dataset/) | Real-world GenAI data security incidents — publicly disclosed (with sources) or anonymized — listed in the [incident index](datasets/incident_dataset/INDEX.md) | 🙋 seeking contributors |
 | [Agent Data Flow & Tool Exchange Traces](datasets/agentdataflow_toolexchange_traces/) | Sanitized traces of agent tool calls and plugin data exchanges (DSGAI06) | 🙋 seeking contributors |
 | [Cross-Framework Mapping Dataset](datasets/crossframework_mapping_dataset/) | Machine-readable DSGAI-to-framework control mappings | ↗ maintained in the [crosswalk repo](https://github.com/GenAI-Security-Project/crosswalk) |
 
@@ -264,7 +264,7 @@ Contributions to every dataset are validated by the schemas and checks in [`data
 | 3 | **Crosswalk** | Mapping OWASP GenAI risk lists to industry frameworks — see the [webapp](https://genai-security-project.github.io/crosswalk/) and [crosswalk repo](https://github.com/GenAI-Security-Project/crosswalk) |
 | 4 | **DSGAI Scanner** | Deterministic compliance scanner for GenAI and agentic codebases — see the [`dsgai` repo](https://github.com/GenAI-Security-Project/dsgai) |
 | 5 | **Community Datasets** | Building the [open datasets](#datasets) — schemas, curation, review, and [validation](data_validation/) |
-| 6 | **Incidents** | Collecting and analyzing real-world GenAI data security incidents — the [Incident Dataset](datasets/incident_dataset/) and the crosswalk [incident tracker](https://genai-security-project.github.io/crosswalk/#/incidents); submit via [Slack](https://owasp.slack.com) or a GitHub issue |
+| 6 | **Incidents** | Collecting and analyzing real-world GenAI data security incidents — the [Incident Dataset](datasets/incident_dataset/) ([index](datasets/incident_dataset/INDEX.md)) and the crosswalk [incident tracker](https://genai-security-project.github.io/crosswalk/#/incidents); submit via [Slack](https://owasp.slack.com) or a GitHub issue |
 | 7 | **Literature Review** | Categorized corpus of LLM and GenAI security research — see [`literature/`](literature/) |
 
 ---

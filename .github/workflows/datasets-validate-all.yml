@@ -44,6 +44,9 @@ jobs:
       - name: Cross-dataset consistency
         run: python data_validation/qc_tools/consistency_check.py
 
+      - name: Incident INDEX.md is up to date with entries/
+        run: python datasets/incident_dataset/build_index.py --check
+
       - name: Coverage report and anomalies (job summary)
         if: always()
         run: |

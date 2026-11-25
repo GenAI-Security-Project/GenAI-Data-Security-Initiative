@@ -31,7 +31,7 @@ This guide helps you find the right starting point regardless of your background
 
 ### "I'm a security practitioner / pen tester"
 
-Your real-world experience is the most valuable thing this initiative needs. You can contribute to the **incident dataset** (anonymized reports of GenAI data security failures you've observed), the **exploit dataset** (techniques you've used or encountered in assessments), or the **vulnerability dataset** (flaws found in LLM-based systems).
+Your real-world experience is the most valuable thing this initiative needs. You can contribute to the **incident dataset** (publicly disclosed GenAI data security failures with their sources, or anonymized reports of ones you've observed), the **exploit dataset** (techniques you've used or encountered in assessments), or the **vulnerability dataset** (flaws found in LLM-based systems).
 
 Start with: [`datasets/incident_dataset/README.md`](datasets/incident_dataset/README.md) or [`datasets/exploit_dataset/README.md`](datasets/exploit_dataset/README.md)
 
@@ -97,7 +97,7 @@ Same process as above, but no validation run needed. Documentation improvements 
 
 ## Contribution Guidelines
 
-**Anonymize everything.** Dataset contributions must not contain real PII, PHI, credentials, organization names, or internal system identifiers. Use synthetic equivalents. See individual dataset READMEs for specific anonymization requirements.
+**Anonymize everything.** Dataset contributions must not contain real PII, PHI, credentials, organization names, or internal system identifiers. Use synthetic equivalents. See individual dataset READMEs for specific anonymization requirements. The one exception is a **publicly disclosed incident** in the [incident dataset](datasets/incident_dataset/README.md#two-kinds-of-entry-public-and-anonymized) (`"disclosure": "public"`): it may name the affected organization as the cited public sources do, and must cite them. People's names are never allowed.
 
 **Map to DSGAI.** Every dataset entry should reference at least one DSGAI ID (DSGAI01–DSGAI21). If you're unsure which entry fits, describe the issue in your PR and reviewers will help with the mapping.
 

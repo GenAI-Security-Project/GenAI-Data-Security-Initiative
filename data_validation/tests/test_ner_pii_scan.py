@@ -54,3 +54,10 @@ def test_acronyms_single_words_and_allowlisted_text_are_ignored():
 def test_allowlist_file_parses():
     assert "Model Bulletin" in ner.load_allowlist()
     assert not any(line.startswith("#") for line in ner.load_allowlist())
+
+
+def test_public_incident_may_name_organisations_but_not_people():
+    assert ner.entities_for("incident_dataset", {"disclosure": "public"}) == ["PERSON"]
+    assert ner.entities_for("incident_dataset", {"disclosure": "anonymized"}) == ["PERSON", "ORGANIZATION"]
+    assert ner.entities_for("incident_dataset", {}) == ["PERSON", "ORGANIZATION"]
+    assert ner.entities_for("rag_dataset", {"disclosure": "public"}) == ["PERSON"]

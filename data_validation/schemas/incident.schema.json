@@ -1,20 +1,5 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Incident Dataset Entry",
-  "type": "object",
-  "required": ["incident_id", "date", "summary", "dsgai_mapping", "attack_vector", "data_types_affected", "impact"],
-  "properties": {
-    "incident_id": { "type": "string", "pattern": "^INC-\\d{4}$" },
-    "date": { "type": "string", "format": "date" },
-    "summary": { "type": "string", "minLength": 30 },
-    "dsgai_mapping": { "type": "array", "items": { "type": "string", "pattern": "^DSGAI(0[1-9]|1[0-9]|2[01])$" }, "minItems": 1 },
-    "attack_vector": { "type": "string" },
-    "data_types_affected": { "type": "array", "items": { "type": "string", "enum": ["pii", "phi", "credentials", "ip", "model_weights", "embeddings", "system_prompts", "financial", "other"] }, "minItems": 1 },
-    "root_cause": { "type": "string" },
-    "impact": { "type": "string", "minLength": 10 },
-    "detection_method": { "type": "string" },
-    "mitigations_applied": { "type": "string" },
-    "source": { "type": "string" },
-    "industry": { "type": "string" }
-  }
+  "$comment": "Historical stub, superseded. datasets/incident_dataset/schema.json is authoritative for this dataset: datasets/incident_dataset/validate.py validates entries against it. It extends the fields this file used to define with a required title and disclosure ('public' or 'anonymized'), source_urls (required for public entries), affected_organizations (public entries only), precision, crosswalk_id and contributor, and it rejects unknown fields. This file is kept only so a $ref into it does not break; edit the dataset-local schema instead.",
+  "$ref": "../../datasets/incident_dataset/schema.json"
 }

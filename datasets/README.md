@@ -5,7 +5,7 @@ Community-contributed datasets supporting research, benchmarking, and practical 
 | `vulnerability_dataset` | Real-world vulnerabilities affecting LLM applications | Active |
 | `exploit_dataset` | Documented exploits and attack techniques targeting LLMs | Active |
 | `riskassessment_dataset` | Mapped risk assessments for various LLM deployments | Active |
-| `incident_dataset` | Anonymized GenAI data security incidents (DSGAI01–DSGAI21) | Accepting contributions |
+| `incident_dataset` | GenAI data security incidents (DSGAI01–DSGAI21): publicly disclosed ones with sources, or anonymized self-reports — [index](incident_dataset/INDEX.md) | Accepting contributions |
 | `promptinj_dataextraction_testcases` | Adversarial prompts and extraction techniques for red-teaming | Accepting contributions |
 | `rag_dataset` | RAG poisoning and retrieval integrity test sets | Accepting contributions |
 | `crossframework_mapping_dataset` | Machine-readable DSGAI-to-framework control mappings | Superseded by the [GenAI Crosswalk](https://github.com/GenAI-Security-Project/crosswalk) |

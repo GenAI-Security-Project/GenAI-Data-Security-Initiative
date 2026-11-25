@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/GenAI-Security-Project/GenAI-Data-Security-Initiative/blob/main/datasets/incident_dataset/schema.json",
+  "title": "Incident Dataset Entry",
+  "description": "One GenAI data security incident. Authoritative schema for datasets/incident_dataset/ (data_validation/schemas/incident.schema.json is a stub that points here). Every entry is either 'public' (a publicly disclosed incident: the affected organization may be named, and public sources are required) or 'anonymized' (for example a self-report: no organization names). See the dataset README for the full disclosure rule.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["incident_id", "title", "disclosure", "date", "summary", "dsgai_mapping", "attack_vector", "data_types_affected", "impact"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "incident_id": {
+      "description": "INC- plus four digits; assigned on merge. Must match the file name.",
+      "type": "string",
+      "pattern": "^INC-\\d{4}$"
+    },
+    "title": {
+      "description": "One-line headline. For 'public' entries it may name the affected organization; for 'anonymized' entries it must not.",
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 160
+    },
+    "disclosure": {
+      "description": "'public': the incident was publicly disclosed (advisory, regulator filing, research paper, reputable news report) and the organization is named there. 'anonymized': self-reported or otherwise non-public; no organization, person, or system names.",
+      "type": "string",
+      "enum": ["public", "anonymized"]
+    },
+    "date": {
+      "description": "When the incident occurred or, if unknown, when it was first disclosed (ISO 8601 date). If only the month or year is known, use its first day and set 'precision'.",
+      "type": "string",
+      "format": "date"
+    },
+    "precision": {
+      "description": "How precise 'date' is. Omit when the exact day is known.",
+      "type": "string",
+      "enum": ["day", "month", "year"]
+    },
+    "summary": { "type": "string", "minLength": 30 },
+    "dsgai_mapping": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^DSGAI(0[1-9]|1[0-9]|2[01])$" },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "attack_vector": { "type": "string" },
+    "data_types_affected": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["pii", "phi", "credentials", "ip", "model_weights", "embeddings", "system_prompts", "financial", "other"] },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "root_cause": { "type": "string" },
+    "impact": { "type": "string", "minLength": 10 },
+    "detection_method": { "type": "string" },
+    "mitigations_applied": { "type": "string" },
+    "source": {
+      "description": "Free-text description of the source, e.g. 'Vendor security advisory' or 'Anonymized self-report'.",
+      "type": "string"
+    },
+    "source_urls": {
+      "description": "Public, citable sources for the incident: primary sources (vendor advisory, regulator notice, the researchers' paper or write-up) preferred, reputable news otherwise. Required for 'public' entries.",
+      "type": "array",
+      "items": { "type": "string", "format": "uri", "pattern": "^https?://" },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "affected_organizations": {
+      "description": "Organizations affected by or responsible for the incident, as named in source_urls. 'public' entries only. Never people, and never the contributor's own employer in any other role.",
+      "type": "array",
+      "items": { "type": "string", "minLength": 2 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "industry": { "type": "string" },
+    "crosswalk_id": {
+      "description": "ID of the same incident in the crosswalk incident list (GenAI-Security-Project/crosswalk, data/incidents.json), if it is there.",
+      "type": "string",
+      "pattern": "^INC-\\d{3,}$"
+    },
+    "contributor": {
+      "description": "Optional attribution. Per repository policy: the person's name plus, optionally, one ORCID iD; no affiliation, organization, or URL fields.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 2 },
+        "orcid": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$" }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "disclosure": { "const": "public" } }, "required": ["disclosure"] },
+      "then": { "required": ["source_urls"] }
+    },
+    {
+      "if": { "properties": { "disclosure": { "const": "anonymized" } }, "required": ["disclosure"] },
+      "then": { "not": { "required": ["affected_organizations"] } }
+    }
+  ]
+}

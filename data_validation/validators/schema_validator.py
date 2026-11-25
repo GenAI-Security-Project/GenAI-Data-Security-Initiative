@@ -9,8 +9,8 @@ The schema for a file is found in this order:
   2. the nearest schema.json in the file's folder or a parent folder,
      up to the dataset directory
   3. data_validation/schemas/ for datasets that have no schema.json of
-     their own (incident, rag, crossframework_mapping); the rag and
-     incident entries also name it in "$schema"
+     their own (rag, crossframework_mapping); the rag entries also
+     name it in "$schema"
 A file with no schema found is reported as a warning.
 
 Usage:
@@ -49,7 +49,6 @@ CHECK = "schema"
 
 # Datasets whose only schema lives in data_validation/schemas/.
 FALLBACK_SCHEMAS = {
-    "incident_dataset": "incident.schema.json",
     "rag_dataset": "rag.schema.json",
     "crossframework_mapping_dataset": "crossframework_mapping.schema.json",
 }
