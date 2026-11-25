@@ -9,6 +9,7 @@ Part of the [OWASP GenAI Security Project](https://genai.owasp.org/) · [Initiat
 [![OWASP](https://img.shields.io/badge/OWASP-GenAI%20Security%20Project-1a4b8c?logo=owasp&logoColor=white)](https://genai.owasp.org/)
 [![Crosswalk](https://img.shields.io/badge/Crosswalk-live%20webapp-2ea44f)](https://genai-security-project.github.io/crosswalk/)
 [![DSGAI](https://img.shields.io/badge/DSGAI%202026-21%20risks-6d28d9)](https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/)
+[![Best Practices v2](https://img.shields.io/badge/Best%20Practices%20v2-3%20of%2012%20parts-0e7490)](#best-practices-v2)
 [![Frameworks](https://img.shields.io/badge/frameworks-26-orange)](https://genai-security-project.github.io/crosswalk/#/frameworks)
 [![Scanner](https://img.shields.io/badge/DSGAI%20Scanner-v0.3.0-16a34a)](https://github.com/GenAI-Security-Project/dsgai)
 [![License](https://img.shields.io/badge/license-CC%20BY--SA%204.0-lightgrey)](https://creativecommons.org/licenses/by-sa/4.0/legalcode)
@@ -16,9 +17,9 @@ Part of the [OWASP GenAI Security Project](https://genai.owasp.org/) · [Initiat
 
 <a href="https://genai-security-project.github.io/crosswalk/"><img src="assets/readme/crosswalk-home.png" alt="The GenAI Crosswalk webapp: 26 frameworks, 3,771 mappings, 51 entries" width="820"></a>
 
-**[🌐 Open the Crosswalk webapp](https://genai-security-project.github.io/crosswalk/)** &nbsp;·&nbsp; **[🛡️ Get the DSGAI Scanner](https://github.com/GenAI-Security-Project/dsgai)** &nbsp;·&nbsp; **[📄 Read the 2026 risk taxonomy](https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/)**
+**[🌐 Open the Crosswalk webapp](https://genai-security-project.github.io/crosswalk/)** &nbsp;·&nbsp; **[🛡️ Get the DSGAI Scanner](https://github.com/GenAI-Security-Project/dsgai)** &nbsp;·&nbsp; **[📄 Read the 2026 risk taxonomy](https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/)** &nbsp;·&nbsp; **[📘 Best Practices v2](https://genai.owasp.org/resource/genai-data-security-best-practices-v2-part1/)**
 
-[White Papers](#deliverables) · [Crosswalk](#crosswalk) · [Scanner](#scanner) · [Datasets](#datasets) · [Contribute](#contribute)
+[White Papers](#deliverables) · [Best Practices v2](#best-practices-v2) · [Crosswalk](#crosswalk) · [Scanner](#scanner) · [Datasets](#datasets) · [Workstreams](#workstreams) · [Contribute](#contribute)
 
 </div>
 
@@ -70,7 +71,7 @@ This initiative produces community-developed, peer-reviewed guidance, interactiv
 | Deliverable | What it is | Where |
 | --- | --- | --- |
 | 📄 **DSGAI Risk Taxonomy 2026** | 21 GenAI data security risks with tiered mitigations | [White paper](https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/) |
-| 📄 **Data Security Best Practices** | Companion implementation guide | [White paper](https://genai.owasp.org/resource/llm-and-gen-ai-data-security-best-practices/) |
+| 📘 **Data Security Best Practices v2** | Twelve-part implementation playbook, companion to the 2026 risk taxonomy (Parts 1–3 published) | [Part 1](https://genai.owasp.org/resource/genai-data-security-best-practices-v2-part1/) · [Part 2](https://genai.owasp.org/resource/genai-data-security-best-practices-v2-part2/) · [Part 3](https://genai.owasp.org/resource/genai-data-security-best-practices-v2-part-3/) · [All parts](#best-practices-v2) |
 | 🌐 **Framework Crosswalk** | 51 risk entries × 26 frameworks, 3,700+ control mappings, interactive webapp | [Webapp](https://genai-security-project.github.io/crosswalk/) · [Repo](https://github.com/GenAI-Security-Project/crosswalk) |
 | 🛡️ **DSGAI Scanner** | Deterministic compliance scanner for AI codebases (SARIF, CI-ready) | [Repo](https://github.com/GenAI-Security-Project/dsgai) · [Quick start](https://github.com/GenAI-Security-Project/dsgai#quick-start) |
 | 📊 **Community Datasets** | Exploits, vulnerabilities, test cases, incidents, traces | [`datasets/`](datasets/) |
@@ -122,9 +123,32 @@ Each entry follows a consistent structure: attack scenario in GenAI-specific ter
 
 </details>
 
+<a id="best-practices-v2"></a>
+
+### GenAI Data Security Best Practices v2 (2026)
+
+📘 Twelve-part series · Publishing since November 2026
+
+The v2 Best Practices is a twelve-part implementation playbook and the companion to *GenAI Data Security Risks and Mitigations 2026*. Each part turns the DSGAI risks into architecture patterns, tiered controls, implementation guidance, and regulatory mappings. Parts are published one at a time; this table is updated as each part is released.
+
+| Part | Focus | Released | Link |
+| --- | --- | --- | --- |
+| 1 | Scope and conventions, GenAI data-security fundamentals, six core principles, and building an AI-DSPM program | November 2, 2026 | [Read Part 1](https://genai.owasp.org/resource/genai-data-security-best-practices-v2-part1/) |
+| 2 | Data classification, governance, and lifecycle management across GenAI pipelines | November 16, 2026 | [Read Part 2](https://genai.owasp.org/resource/genai-data-security-best-practices-v2-part2/) |
+| 3 | Securing training and fine-tuning pipelines, RAG, AI memory, vector stores, and embeddings | November 24, 2026 | [Read Part 3](https://genai.owasp.org/resource/genai-data-security-best-practices-v2-part-3/) |
+| 4 | *To be announced* | Coming soon | — |
+| 5 | *To be announced* | Coming soon | — |
+| 6 | *To be announced* | Coming soon | — |
+| 7 | *To be announced* | Coming soon | — |
+| 8 | *To be announced* | Coming soon | — |
+| 9 | *To be announced* | Coming soon | — |
+| 10 | *To be announced* | Coming soon | — |
+| 11 | *To be announced* | Coming soon | — |
+| 12 | *To be announced* | Coming soon | — |
+
 ### LLM and GenAI Data Security Best Practices 2025 (v1.0)
 
-📄 [Download PDF](https://genai.owasp.org/resource/llm-and-gen-ai-data-security-best-practices/) · Released February 2025
+📄 [Download PDF](https://genai.owasp.org/resource/llm-and-gen-ai-data-security-best-practices/) · Released February 2025 · *Previous edition, superseded by v2 as its parts are published*
 
 The companion implementation guide covering data security principles, secure deployment architectures, monitoring and auditing guidelines, governance models, and future trends. Topics include data minimization, encryption strategies, access control for LLM pipelines, securing data flows in LLM agents, and regulatory compliance alignment.
 
@@ -229,15 +253,19 @@ Contributions to every dataset are validated by the schemas and checks in [`data
 
 ---
 
+<a id="workstreams"></a>
+
 ## 🧭 Workstreams
 
 | # | Workstream | Focus |
 | --- | --- | --- |
-| 1 | **Data Collection** | Open call for real-world vulnerability data and incident reports — submit via [Slack](https://owasp.slack.com) or a GitHub issue |
-| 2 | **Framework Crosswalk** | Mapping OWASP GenAI risk lists to industry frameworks — see the [webapp](https://genai-security-project.github.io/crosswalk/) and [crosswalk repo](https://github.com/GenAI-Security-Project/crosswalk) |
-| 3 | **Risks & Best Practices** | Research, authoring, and maintenance of the initiative's white papers |
-| 4 | **Community Datasets** | Building the open datasets above — schemas, curation, review |
-| 5 | **Data Validation** | Automated and peer-reviewed validation of all contributed data |
+| 1 | **Risks & Mitigations** | The DSGAI risk taxonomy: research, authoring, and maintenance of [GenAI Data Security Risks and Mitigations 2026](https://genai.owasp.org/resource/owasp-genai-data-security-risks-mitigations-2026/) |
+| 2 | **Best Practices** | The twelve-part [Best Practices v2](#best-practices-v2) implementation playbook — [Part 1](https://genai.owasp.org/resource/genai-data-security-best-practices-v2-part1/) · [Part 2](https://genai.owasp.org/resource/genai-data-security-best-practices-v2-part2/) · [Part 3](https://genai.owasp.org/resource/genai-data-security-best-practices-v2-part-3/) |
+| 3 | **Crosswalk** | Mapping OWASP GenAI risk lists to industry frameworks — see the [webapp](https://genai-security-project.github.io/crosswalk/) and [crosswalk repo](https://github.com/GenAI-Security-Project/crosswalk) |
+| 4 | **DSGAI Scanner** | Deterministic compliance scanner for GenAI and agentic codebases — see the [`dsgai` repo](https://github.com/GenAI-Security-Project/dsgai) |
+| 5 | **Community Datasets** | Building the [open datasets](#datasets) — schemas, curation, review, and [validation](data_validation/) |
+| 6 | **Incidents** | Collecting and analyzing real-world GenAI data security incidents — the [Incident Dataset](datasets/incident_dataset/) and the crosswalk [incident tracker](https://genai-security-project.github.io/crosswalk/#/incidents); submit via [Slack](https://owasp.slack.com) or a GitHub issue |
+| 7 | **Literature Review** | Categorized corpus of LLM and GenAI security research — see [`literature/`](literature/) |
 
 ---
 
