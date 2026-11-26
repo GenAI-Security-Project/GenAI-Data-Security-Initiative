@@ -1,0 +1,29 @@
+{
+  "$schema": "../schema.json",
+  "incident_id": "INC-0009",
+  "title": "ShadowLeak: zero-click prompt injection makes ChatGPT Deep Research leak Gmail data",
+  "disclosure": "public",
+  "date": "2025-06-18",
+  "summary": "Researchers reported that hidden instructions in an email, for example white-on-white text, could make ChatGPT's Deep Research agent, when connected to the victim's Gmail, send personal and internal information to an attacker-controlled URL with no action by the user. Other connected services such as Google Drive, Dropbox and SharePoint were described as potentially exposed. The data left from the vendor's own infrastructure rather than the user's device. It was reported on 18 June 2025, fixed by early August and marked resolved on 3 September; the researchers saw no exploitation in the wild.",
+  "dsgai_mapping": [
+    "DSGAI01",
+    "DSGAI06"
+  ],
+  "attack_vector": "Zero-click indirect prompt injection through email content read by an agent with connector access",
+  "data_types_affected": [
+    "pii",
+    "other"
+  ],
+  "root_cause": "The agent followed instructions found in untrusted mailbox content and could make outbound requests carrying connected-service data",
+  "impact": "Names, addresses and other internal information from a connected mailbox could be exfiltrated server-side, invisible to enterprise network controls",
+  "mitigations_applied": "Fixed by the vendor",
+  "source": "Press coverage of the researchers' report",
+  "source_urls": [
+    "https://therecord.media/openai-fixes-zero-click-shadowleak-vulnerability"
+  ],
+  "affected_organizations": [
+    "OpenAI"
+  ],
+  "industry": "AI services",
+  "crosswalk_id": "INC-107"
+}

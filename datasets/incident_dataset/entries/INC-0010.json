@@ -1,0 +1,30 @@
+{
+  "$schema": "../schema.json",
+  "incident_id": "INC-0010",
+  "title": "Stolen Salesloft Drift OAuth tokens used to export data from customers' Salesforce instances",
+  "disclosure": "public",
+  "date": "2025-08-08",
+  "summary": "Between 8 and 18 August 2025, a threat actor used compromised OAuth tokens belonging to the Salesloft Drift AI chat integration to query and export data from many organizations' Salesforce instances, then searched the stolen records for credentials such as cloud access keys, passwords and data-warehouse tokens. A Drift email integration was also abused to read email from a very small number of Google Workspace accounts. The investigators state the issue was not a vulnerability in the core Salesforce platform.",
+  "dsgai_mapping": [
+    "DSGAI02",
+    "DSGAI06",
+    "DSGAI01"
+  ],
+  "attack_vector": "Abuse of stolen OAuth tokens held by a third-party AI chat integration",
+  "data_types_affected": [
+    "credentials",
+    "pii"
+  ],
+  "root_cause": "A third-party AI integration held long-lived OAuth tokens with broad access to customers' CRM data",
+  "impact": "Records exported from numerous corporate CRM instances (accounts, contacts, users, cases, opportunities); secrets in those records exposed and needed rotation",
+  "mitigations_applied": "Tokens revoked (20 August 2025), the app removed from the marketplace, the Workspace integration disabled; customers advised to rotate credentials",
+  "source": "Incident responders' threat intelligence report",
+  "source_urls": [
+    "https://cloud.google.com/blog/topics/threat-intelligence/data-theft-salesforce-instances-via-salesloft-drift"
+  ],
+  "affected_organizations": [
+    "Salesloft"
+  ],
+  "industry": "Sales software",
+  "crosswalk_id": "INC-109"
+}

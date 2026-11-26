@@ -1,0 +1,28 @@
+{
+  "$schema": "../schema.json",
+  "incident_id": "INC-0013",
+  "title": "GeminiJack: zero-click prompt injection in Gemini Enterprise exposes Workspace data",
+  "disclosure": "public",
+  "date": "2025-12-08",
+  "summary": "Researchers reported that a poisoned Google Doc, Calendar invite or email could carry instructions that Gemini Enterprise followed when its retrieval pulled that item into an ordinary employee search. The injected instructions had the assistant gather sensitive results and embed them in an image URL pointing to the attacker, sending them out with no click by the user. Disclosed in December 2025, after the vendor deployed updates and separated Vertex AI Search from Gemini Enterprise.",
+  "dsgai_mapping": [
+    "DSGAI01",
+    "DSGAI15"
+  ],
+  "attack_vector": "Zero-click indirect prompt injection through shared Workspace content retrieved by enterprise RAG, with image-URL exfiltration",
+  "data_types_affected": [
+    "other"
+  ],
+  "root_cause": "Retrieval placed attacker-controlled shared content in the same context as the user's private data, and the assistant could emit external resource URLs",
+  "impact": "Email correspondence, calendar histories and document repositories accessible to the assistant could be exfiltrated",
+  "mitigations_applied": "Vendor updates; Vertex AI Search separated from Gemini Enterprise's LLM and RAG workflows",
+  "source": "Researchers' disclosure",
+  "source_urls": [
+    "https://noma.security/blog/geminijack-google-gemini-zero-click-vulnerability/"
+  ],
+  "affected_organizations": [
+    "Google"
+  ],
+  "industry": "Enterprise software",
+  "crosswalk_id": "INC-101"
+}

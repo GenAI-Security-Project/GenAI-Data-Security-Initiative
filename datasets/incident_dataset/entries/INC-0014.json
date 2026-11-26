@@ -1,0 +1,31 @@
+{
+  "$schema": "../schema.json",
+  "incident_id": "INC-0014",
+  "title": "Moltbook's database exposes 1.5 million API tokens and users' emails and messages",
+  "disclosure": "public",
+  "date": "2026-01-31",
+  "summary": "Researchers found that Moltbook, an AI social network, shipped its Supabase API key in client-side JavaScript without row-level security, so anyone could read and write the production database. Exposed records included about 1.5 million agent API tokens, tens of thousands of email addresses and private messages between agents. The operator secured the database in several rounds between 31 January and 1 February 2026.",
+  "dsgai_mapping": [
+    "DSGAI02",
+    "DSGAI01"
+  ],
+  "attack_vector": "No attack needed: public database key with no row-level access control",
+  "data_types_affected": [
+    "credentials",
+    "pii",
+    "other"
+  ],
+  "root_cause": "Backend-as-a-service database deployed without row-level security, while its key was embedded in the public front end",
+  "impact": "Agent API tokens, owner email addresses and private messages readable, and the database writable, by anyone",
+  "detection_method": "External security researchers",
+  "mitigations_applied": "Database access locked down after disclosure",
+  "source": "Researchers' disclosure",
+  "source_urls": [
+    "https://www.wiz.io/blog/exposed-moltbook-database-reveals-millions-of-api-keys"
+  ],
+  "affected_organizations": [
+    "Moltbook"
+  ],
+  "industry": "Social media",
+  "crosswalk_id": "INC-099"
+}

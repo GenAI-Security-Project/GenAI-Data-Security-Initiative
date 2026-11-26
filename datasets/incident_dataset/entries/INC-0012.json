@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema.json",
+  "incident_id": "INC-0012",
+  "title": "BodySnatcher: unauthenticated user impersonation in the ServiceNow AI Platform (CVE-2025-12420)",
+  "disclosure": "public",
+  "date": "2025-10-23",
+  "summary": "Researchers reported to ServiceNow that a static authentication secret shared across instances, combined with account linking that needed only an email address, let an unauthenticated attacker impersonate any user. Chained with an AI agent that has the same identifier on every instance, an attacker could act through the Virtual Agent API, for example to create an administrator account, bypassing MFA and SSO. ServiceNow patched hosted instances in October 2025 and published CVE-2025-12420.",
+  "dsgai_mapping": [
+    "DSGAI02",
+    "DSGAI06"
+  ],
+  "attack_vector": "Authentication bypass in the agent integration API, then misuse of a privileged AI agent under an impersonated identity",
+  "data_types_affected": [
+    "pii",
+    "phi",
+    "financial",
+    "credentials"
+  ],
+  "root_cause": "Hard-coded secret identical across instances and weak account-linking logic for agent API callers",
+  "impact": "Full impersonation of any user, including administrators, giving access to whatever the instance holds; the researchers name Social Security numbers, health records and financial records as examples",
+  "mitigations_applied": "Security update for hosted instances (October 2025); fixed versions of Now Assist AI Agents and the Virtual Agent API for self-hosted customers",
+  "source": "Vendor CVE record and researchers' disclosure",
+  "source_urls": [
+    "https://www.cve.org/CVERecord?id=CVE-2025-12420",
+    "https://appomni.com/ao-labs/bodysnatcher-agentic-ai-security-vulnerability-in-servicenow/"
+  ],
+  "affected_organizations": [
+    "ServiceNow"
+  ],
+  "industry": "Enterprise software",
+  "crosswalk_id": "INC-104"
+}

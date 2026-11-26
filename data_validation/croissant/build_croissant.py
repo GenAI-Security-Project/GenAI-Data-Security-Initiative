@@ -191,6 +191,41 @@ DATASETS: dict[str, dict] = {
         "social_impact": ("Adversarial prompts are dual-use; they are published at the level already public in "
                           "their source corpora so defenders can test non-English guardrail gaps."),
     },
+    "incident_dataset": {
+        "title": "GenAI Data Security Incident Database",
+        "description": (
+            "Real-world data security incidents in GenAI systems, one per record, mapped to the DSGAI risk taxonomy. "
+            "Each record is either 'public' (a publicly disclosed incident that names the affected organization and "
+            "cites public sources) or 'anonymized' (a self-report with no organization names)."),
+        "index": None,
+        "published": "2026-11-24",
+        "license": [LICENSE_BY_SA],
+        "collection": ("Public entries are written by contributors from public sources: vendor advisories and "
+                       "post-mortems, CVE records, researchers' disclosures, regulator notices and reputable press. "
+                       "Summaries are in the contributors' own words and stay within what the cited sources state. "
+                       "Anonymized entries are contributor self-reports."),
+        "collection_type": ["Secondary Data analysis", "Manual Human Curator"],
+        "limitations": [
+            "Small and not exhaustive: a curated sample of disclosed incidents, not a census.",
+            "Public entries are only as complete as their sources; vendor-internal details are usually unknown.",
+            ("Research demonstrations and vulnerability disclosures are included alongside confirmed breaches; "
+             "the summary says which."),
+            "DSGAI mappings are expert judgments reviewed by peers.",
+        ],
+        "biases": [
+            ("Skews toward incidents that security researchers publicise, especially prompt injection against "
+             "assistants and agents, and toward English-language sources."),
+            "Organizations that disclose openly appear more often than those that do not.",
+        ],
+        "use_cases": [
+            "Grounding GenAI data-security threat models and training in real incidents mapped to DSGAI.",
+            "Linking incidents to the crosswalk incident list and to the vulnerability and exploit datasets.",
+        ],
+        "pii": ("No personal data about individuals: people's names are not allowed. Public entries name "
+                "organizations only as the affected or responsible party, as their cited sources do."),
+        "social_impact": ("All public incidents are already disclosed; the dataset aggregates them so defenders "
+                          "can learn from them. Naming organizations is limited to what public sources state."),
+    },
     "rag_dataset": {
         "title": "RAG Poisoning and Retrieval Integrity Dataset",
         "description": (

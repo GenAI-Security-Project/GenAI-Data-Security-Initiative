@@ -1,0 +1,26 @@
+{
+  "$schema": "../schema.json",
+  "incident_id": "INC-0003",
+  "title": "Divergence attack makes ChatGPT emit memorized training data",
+  "disclosure": "public",
+  "date": "2023-11-28",
+  "summary": "Published research showed that an adversary with only query access can extract gigabytes of training data from open and closed language models. For the aligned production chatbot ChatGPT, the authors introduced a 'divergence' attack that pushes the model out of its chat behaviour so it emits memorized training text at a rate about 150 times higher than normal use.",
+  "dsgai_mapping": [
+    "DSGAI18",
+    "DSGAI01"
+  ],
+  "attack_vector": "Crafted queries that make the model diverge from its chat persona and regurgitate memorized training data",
+  "data_types_affected": [
+    "other"
+  ],
+  "root_cause": "Models memorize parts of their training data, and alignment training did not stop that data from being extracted",
+  "impact": "Showed that training-data extraction works at scale against a production, aligned model, not only against open base models",
+  "source": "Research paper (arXiv preprint)",
+  "source_urls": [
+    "https://arxiv.org/abs/2311.17035"
+  ],
+  "affected_organizations": [
+    "OpenAI"
+  ],
+  "industry": "AI services"
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "../schema.json",
+  "incident_id": "INC-0015",
+  "title": "Chat & Ask AI app's misconfigured Firebase backend exposes users' chat histories",
+  "disclosure": "public",
+  "date": "2026-02-09",
+  "summary": "A researcher reported that the Chat & Ask AI app had Firebase security rules set to public, so anyone with the project URL could read, change or delete its data. The researcher said they could reach about 300 million messages from more than 25 million users, along with the models and settings users chose. The developer, Codeway, reportedly fixed the rules within hours of disclosure.",
+  "dsgai_mapping": [
+    "DSGAI01",
+    "DSGAI07"
+  ],
+  "attack_vector": "No attack needed: publicly readable mobile-app backend",
+  "data_types_affected": [
+    "pii",
+    "other"
+  ],
+  "root_cause": "Cloud database security rules left open to the public",
+  "impact": "Hundreds of millions of chatbot conversations tied to users exposed; data of the developer's other apps also reachable",
+  "mitigations_applied": "Security rules corrected after disclosure",
+  "source": "Press report of a researcher's disclosure",
+  "source_urls": [
+    "https://www.malwarebytes.com/blog/news/2026/02/ai-chat-app-leak-exposes-300-million-messages-tied-to-25-million-users"
+  ],
+  "affected_organizations": [
+    "Codeway"
+  ],
+  "industry": "Consumer apps",
+  "crosswalk_id": "INC-112"
+}

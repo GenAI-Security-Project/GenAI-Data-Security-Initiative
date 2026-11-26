@@ -1,0 +1,30 @@
+{
+  "$schema": "../schema.json",
+  "incident_id": "INC-0001",
+  "title": "Over-permissive SAS token in Microsoft AI research repo exposes 38 TB of internal data",
+  "disclosure": "public",
+  "date": "2020-07-20",
+  "summary": "A public GitHub repository published by Microsoft's AI research team linked to an Azure storage account through a shared access signature (SAS) token. The token covered the whole storage account rather than the intended files, granted full control, and later had its expiry pushed to 2051. The account held 38 TB of private data, including backups of two employees' workstations. The token was committed in July 2020; researchers reported it in June 2023 and it was revoked two days later.",
+  "dsgai_mapping": [
+    "DSGAI02",
+    "DSGAI01",
+    "DSGAI07"
+  ],
+  "attack_vector": "Misconfiguration: an account-wide, full-control, long-lived SAS token was published in a public repository's download link",
+  "data_types_affected": [
+    "credentials",
+    "other"
+  ],
+  "root_cause": "Storage access token scoped to an entire account with full permissions and no practical expiry, shared publicly to distribute model files",
+  "impact": "38 TB of private data reachable, including workstation backups, passwords to internal services, secret keys and more than 30,000 internal Teams messages; the token granted full control of the account",
+  "detection_method": "External security researchers scanning for exposed cloud storage",
+  "mitigations_applied": "Token invalidated (June 2023) and replaced in the repository; vendor investigation completed August 2023",
+  "source": "Researchers' disclosure",
+  "source_urls": [
+    "https://www.wiz.io/blog/38-terabytes-of-private-data-accidentally-exposed-by-microsoft-ai-researchers"
+  ],
+  "affected_organizations": [
+    "Microsoft"
+  ],
+  "industry": "Technology"
+}

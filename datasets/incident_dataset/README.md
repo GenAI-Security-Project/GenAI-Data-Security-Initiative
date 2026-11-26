@@ -2,7 +2,7 @@
 
 A structured catalog of real-world data security incidents in GenAI deployments, mapped to the DSGAI risk taxonomy.
 
-**Status:** Accepting contributions. **Browse:** [INDEX.md](INDEX.md) lists every incident.
+**Status:** 17 public incidents; accepting contributions. **Browse:** [INDEX.md](INDEX.md) lists every incident.
 
 ## Scope
 

@@ -1,0 +1,28 @@
+{
+  "$schema": "../schema.json",
+  "incident_id": "INC-0008",
+  "title": "AI command injection in Microsoft 365 Copilot discloses information (CVE-2025-32711)",
+  "disclosure": "public",
+  "date": "2025-06-11",
+  "summary": "Microsoft published CVE-2025-32711, an information disclosure vulnerability in Microsoft 365 Copilot in which AI command injection lets an unauthorized attacker disclose information over a network.",
+  "dsgai_mapping": [
+    "DSGAI01",
+    "DSGAI15"
+  ],
+  "attack_vector": "AI command (prompt) injection",
+  "data_types_affected": [
+    "other"
+  ],
+  "impact": "Disclosure of data reachable by the user's Copilot to an unauthorized attacker",
+  "mitigations_applied": "Vendor security update",
+  "source": "Vendor security advisory and CVE record",
+  "source_urls": [
+    "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-32711",
+    "https://www.cve.org/CVERecord?id=CVE-2025-32711"
+  ],
+  "affected_organizations": [
+    "Microsoft"
+  ],
+  "industry": "Enterprise software",
+  "crosswalk_id": "INC-089"
+}

@@ -226,7 +226,7 @@ Open, community-contributed datasets for research, benchmarking, and security te
 | [Risk Assessment Dataset](datasets/riskassessment_dataset/) | Mapped risk assessments for LLM deployments | ✅ 23 entries |
 | [Prompt Injection & Data Extraction Test Cases](datasets/promptinj_dataextraction_testcases/) | Adversarial prompts and extraction techniques for red-teaming and regression testing | ✅ 300+ cases |
 | [RAG Poisoning & Retrieval Integrity](datasets/rag_dataset/) | Synthetic poisoning fixtures for testing vector store integrity and retrieval filtering | 🌱 growing — contribute |
-| [Incident Dataset](datasets/incident_dataset/) | Real-world GenAI data security incidents — publicly disclosed (with sources) or anonymized — listed in the [incident index](datasets/incident_dataset/INDEX.md) | 🙋 seeking contributors |
+| [Incident Dataset](datasets/incident_dataset/) | Real-world GenAI data security incidents — publicly disclosed (with sources) or anonymized — listed in the [incident index](datasets/incident_dataset/INDEX.md) | ✅ 17 entries |
 | [Agent Data Flow & Tool Exchange Traces](datasets/agentdataflow_toolexchange_traces/) | Sanitized traces of agent tool calls and plugin data exchanges (DSGAI06) | 🙋 seeking contributors |
 | [Cross-Framework Mapping Dataset](datasets/crossframework_mapping_dataset/) | Machine-readable DSGAI-to-framework control mappings | ↗ maintained in the [crosswalk repo](https://github.com/GenAI-Security-Project/crosswalk) |
 

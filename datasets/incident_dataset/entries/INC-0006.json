@@ -1,0 +1,30 @@
+{
+  "$schema": "../schema.json",
+  "incident_id": "INC-0006",
+  "title": "DeepSeek leaves a ClickHouse database with chat history and secrets open to the internet",
+  "disclosure": "public",
+  "date": "2025-01-29",
+  "summary": "Researchers found a ClickHouse database belonging to DeepSeek reachable from the internet with no authentication. Its log tables held more than a million lines, including chat history, API secrets, backend details and operational metadata, and the database's web interface accepted arbitrary SQL queries. DeepSeek secured the exposure promptly after being notified.",
+  "dsgai_mapping": [
+    "DSGAI01",
+    "DSGAI14"
+  ],
+  "attack_vector": "No attack needed: production log database exposed publicly without authentication",
+  "data_types_affected": [
+    "credentials",
+    "other"
+  ],
+  "root_cause": "Database service exposed on public hosts with no access control; logs stored chat content and secrets",
+  "impact": "Over a million log lines with user chat history and API secrets readable by anyone; arbitrary queries could have allowed further access to the environment",
+  "detection_method": "External security researchers mapping the vendor's internet-facing assets",
+  "mitigations_applied": "Database secured after disclosure",
+  "source": "Researchers' disclosure",
+  "source_urls": [
+    "https://www.wiz.io/blog/wiz-research-uncovers-exposed-deepseek-database-leak"
+  ],
+  "affected_organizations": [
+    "DeepSeek"
+  ],
+  "industry": "AI services",
+  "crosswalk_id": "INC-032"
+}
