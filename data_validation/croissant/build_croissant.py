@@ -208,12 +208,13 @@ DATASETS: dict[str, dict] = {
         "limitations": [
             "Small and not exhaustive: a curated sample of disclosed incidents, not a census.",
             "Public entries are only as complete as their sources; vendor-internal details are usually unknown.",
-            "Research demonstrations and vulnerability disclosures are included alongside confirmed breaches; "
-            "the summary says which.",
+            ("Research demonstrations and vulnerability disclosures are included alongside confirmed breaches; "
+             "the summary says which."),
             "DSGAI mappings are expert judgments reviewed by peers.",
         ],
         "biases": [
-            "Skews toward incidents that security researchers publicise, especially prompt injection against assistants and agents, and toward English-language sources.",
+            ("Skews toward incidents that security researchers publicise, especially prompt injection against "
+             "assistants and agents, and toward English-language sources."),
             "Organizations that disclose openly appear more often than those that do not.",
         ],
         "use_cases": [
